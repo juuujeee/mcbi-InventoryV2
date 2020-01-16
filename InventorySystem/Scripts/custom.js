@@ -69,3 +69,56 @@ $('.save_btn').click(function (e) {
     //  console.log(findClosestForm);
 
 });
+
+
+//ROW ADD
+function RowAdd(event, targetsync = 'items-sync') {
+
+    var elem = $(event.target).parents('tr');
+    var table = $(elem).parents('table')[0];
+    var getclass = elem.attr('class');
+
+    console.log(getclass);
+
+    var elemIndex = $(elem).index();
+
+    //Get Clone FirstElement HTML from parent Table -> String
+    var htclone = String($('.' + getclass).html());
+
+    let doc = $('<tr class="' + getclass + '">' + htclone + '</tr>');// new DOMParser().parseFromString(htclone, 'text/html');
+    $(doc).find('.' + targetsync).siblings().remove();
+
+    doc.insertBefore(elem);
+
+    //doc.find('.' + targetsync).parents('td').removeAttr('data-select2-id');
+    //doc.find('.' + targetsync).removeAttr('data-select2-id');
+    //doc.find('.' + targetsync).removeClass('select2-hidden-accessible');
+    //doc.find('.' + targetsync).removeAttr('aria-hidden');
+    //doc.find('.' + targetsync + ' option').removeAttr('data-select2-id');
+    //doc.find('.' + targetsync + ' option').removeAttr('title');
+
+    //LoadSync();
+
+    var i = 1;
+    $('.' + getclass).each(function () {
+        $(this).find('td label[name = number]').html(i);
+        i++;
+    });
+
+    $('.datepicker').datepicker({
+        autoHide: true
+    });
+}
+
+// ROW REMOVE
+function RowRemove(event) {
+    var elem = $(event.target).parents('tr');
+    var getclass = elem.attr('class');
+    $(event.target).parents('tr').remove();
+
+    var i = 1;
+    $('.' + getclass).each(function () {
+        $(this).find('td label[name = number]').html(i);
+        i++;
+    });
+}

@@ -1,21 +1,38 @@
 ﻿@{
-    ViewBag.Title = "Inv";
+    ViewBag.Title = "Inv Page";
 }
 
 <div class="row">
-    <div class="col-md-10">
-        <p>Content Here!!</p>
-        <div class="form-group">
-            <input type="hidden" name="ID" id="tagID" value="" />
-            <input type="text" name="InventoryItem" class="form-control shadow-none" style="width: 50%" id="tags" value="" />
+    <div class="col-md-10 pt-5">
+        @*<p>Content Here!!</p>
+            <div class="form-group">
+                <input type="hidden" name="ID" id="tagID" value="" />
+                <input type="text" name="InventoryItem" class="form-control shadow-none" style="width: 50%" id="tags" value="" />
+            </div>*@
+
+        <ul class="nav nav-tabs">
+            <li class="active mr-4"><a data-toggle="tab" href="#tds">Tools Delivered on Site</a></li>
+            <li><a data-toggle="tab" href="#mds">Materials Delivered on Site</a></li>
+        </ul>
+
+        <div class="tab-content mt-3">
+
+            <div id="tds" class="tab-pane fade active">
+                @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "tools" })
+            </div>
+
+            <div id="mds" class="tab-pane fade">
+                @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "materials" })
+            </div>
+
         </div>
+
+
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 text-center" style="height: 100vh; border: 1px solid; padding-top: 20px">
         <small>Panel</small>
     </div>
 </div>
-
-
 
 
 @section Scripts{
@@ -23,9 +40,70 @@
     <script>
         $(function () {
 
-            var item = [];
+             $.ajaxSetup({
+                async: false
+            });
 
-            var url = 'http://192.168.1.100:89/api/values';
+            //FOR PROJECTS
+            var projects = [];
+
+            var projectURL = 'http://124.105.198.3:82/api/v1/dssprojects/1/1000/0';
+
+            $.getJSON(projectURL, function (data) {
+
+                var dat = data.Data;
+
+                for (var i = 0; i < dat.length; i++) {
+                    console.log(dat[i]);
+
+                    var newObj = {};
+
+                    newObj.id = dat[i].ID;
+                    newObj.value = dat[i].ProjectName;
+                    newObj.label = dat[i].ProjectNumber + ' - ' + dat[i].ProjectName;
+                    newObj.projectNo = dat[i].ProjectNumber;
+
+                    projects.push(newObj);
+                }
+
+            });
+
+            $(".projectName").autocomplete({
+                source: projects,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    //console.log(ui.item.id);
+                    $this.parents('td').find('input.projectID').val(ui.item.id);
+                    $this.parents('table').find('input.projectNumber').val(ui.item.projectNo);
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //FOR ITEMS
+            var items= [];
+
+            var itemURL = 'http://192.168.1.100:89/api/values';
             //var xhr = new XMLHttpRequest();
 
             //xhr.open('GET', url);
@@ -36,76 +114,70 @@
             //xhr.send(url);
             //return;
 
-            $.ajaxSetup({
-                async: false
-            });
+          
 
-            //$.getJSON(url, function (data) {
-
-            //    console.log(data);
-
-            //    for (var i = 0; i < data.length; i++) {
-            //        item.push(data[i].Name);
-
-            //    }
+            $.getJSON(itemURL, function (data) {
 
 
-            //});
+                for (var i = 0; i < data.length; i++) {
 
+                    var newObj = {};
 
-            $.ajaxSetup({
-                async: true
-            });
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].Name;
+                    newObj.label = data[i].Name;
 
-            console.log(item);
+                    items.push(newObj);
 
-            var availableTags = [
-                {
-                    "id": 1,
-                    "value": "ActionScript",
-                    "label": "ActionScript"
-                },
-                {
-                    "id": 2,
-                    "value": "AppleScript",
-                    "label": "AppleScript"
-                },
-                {
-                     "id": 3,
-                    "value": "Asp",
-                    "label": "Asp"
-                },
-                {
-                     "id": 4,
-                    "value": "BASIC",
-                    "label": "BASIC"
-                },
-                {
-                     "id": 5,
-                    "value": "C",
-                    "label": "C"
-                },
-                {
-                     "id": 6,
-                    "value": "C++",
-                    "label": "C++"
-                },
-                {
-                     "id": 7,
-                    "value": "Clojure",
-                    "label": "Clojure"
                 }
-            ];
 
-            $("#tags").autocomplete({
-                source: availableTags,
+
+            });
+
+            //console.log(items);
+
+            $(".items").autocomplete({
+                source: items,
                 select: function (event, ui) {
+
+                    var $this = $(this);
+
                     console.log(ui.item.id);
 
-                    $('#tagID').val(ui.item.id);
+                    $this.parents('td').find('input.ItemID').val(ui.item.id);
                 }
             });
+        });
+
+         $.ajaxSetup({
+            async: true
         });
     </script>
 
 }
+
+
+
+
+
+@*<div class="custom-table-container">
+        <table class="custom-table">
+
+            <colgroup>
+                <col width="1" />
+                <col width="6" />
+                <col width="1" />
+                <col width="1" />
+                <col width="3" />
+
+            </colgroup>
+
+            <tr>
+                <td class="custom-table-border-solid" height="15">no</td>
+                <td class="custom-table-border-solid">des</td>
+                <td class="custom-table-border-solid">qty</td>
+                <td class="custom-table-border-solid">units</td>
+                <td class="custom-table-border-solid">remarks</td>
+            </tr>
+        </table>
+    </div>*@

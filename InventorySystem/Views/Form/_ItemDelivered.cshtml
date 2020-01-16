@@ -1,11 +1,11 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <div class="custom-table-container">
+        <div class="custom-table-container" style="padding-left: 35px;">
             <form action="#" method="post" autocomplete="off" class="itemDelivered-form">
                 <input type="hidden" name="DraftID" value="" />
                 <input type="hidden" name="ItemTypeID" value="" />
                 <input type="hidden" name="ID" value="@ViewBag.ID" />
-                <table class="custom-table">
+                <table class="custom-table" id="table-@ViewBag.ItemType">
                     <colgroup>
                         <col width="90" />
                         <col width="113" />
@@ -46,11 +46,12 @@
                     <tr>
                         <td>Proj Name: </td>
                         <td colspan="5">
-                            <input type="text" name="ProjectName" value="" />
+                            <input type="hidden" name="ProjectID" value="" class="projectID"/>
+                            <input type="text" name="ProjectName" value="" class="projectName"/>
                         </td>
                         <td colspan="2" class="text-right">ProjNo:</td>
                         <td>
-                            <input type="text" name="ProjectNumber" value="" />
+                            <input type="text" name="ProjectNumber" value="" class="projectNumber"/>
                         </td>
                     </tr>
                     <tr>
@@ -83,15 +84,21 @@
 
                     @*BODY*@
 
+                    @{ var count = 1; }
+
                     @for (var i = 0; i < 10; i++)
                     {
-                        <tr class="itemDeliveredItems">
+                        <tr class="itemDeliveredItems_@ViewBag.ItemType">
                             <td class="custom-table-border-dotted" height="25">
-                                
-                                <label style="width: 100%" class="text-center" name="number"></label>
+                                <span style="position: absolute; margin-left: -35px">
+                                    <i class="fa fa-plus text-success" style="cursor: pointer; font-size: 13px" onclick="RowAdd(event)"></i>
+                                    <i class="fa fa-minus text-danger" style="cursor: pointer; font-size: 13px" onclick="RowRemove(event)"></i>
+                                </span>
+                                <label style="width: 100%" class="text-center" name="number">@count</label>
                             </td>
                             <td colspan="4" class="custom-table-border-dotted" height="25">
-                                <input type="text" name="Items" value="" class="text-center" style="border-bottom: none"/>
+                                <input type="hidden" name="ItemID" value="" class="ItemID"/>
+                                <input type="text" name="Items" value="" class="text-center items" style="border-bottom: none"/>
                             </td>
                             <td colspan="2" class="custom-table-border-dotted" height="25">
                                 <input type="text" class="text-center" name="Quantity" style="border-bottom: none" />
@@ -104,6 +111,7 @@
                             </td>
                         </tr>
 
+                        count++;
                     }
 
                     @*END BODY*@
