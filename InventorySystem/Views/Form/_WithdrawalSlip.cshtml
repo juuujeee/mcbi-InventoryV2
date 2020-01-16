@@ -1,0 +1,128 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container">
+            <form action="#" method="post" autocomplete="off" class="withdrawn-form">
+                <input type="hidden" name="DraftID" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="76" />
+                        <col width="134" />
+                        <col width="33" />
+                        <col width="237" />
+                        <col width="98" />
+                        <col width="92" />
+                        <col width="129" />
+                    </colgroup>
+                    <tr>
+                        <td colspan="3" rowspan="2">
+                            <div class="d-flex">
+                                <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Alternate Text" style="height:50px; margin-right: 10px" />
+                                <img src="@Url.Content("~/Content/Images/MCBI-TEXT.png")" alt="Alternate Text" style="height:50px" />
+                            </div>
+                        </td>
+                        <td colspan="2" rowspan="2" class="text-center font-weight-bold" style="font-size:25px">ITEMS WITHDRAWAL SLIP</td>
+                        <td colspan="2" class="bg-secondary text-center text-white font-weight-bold py-2">FM-FIN-INV-119</td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl No.: </td>
+                        <td>
+                            <input type="text" name="CtrlNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Name: </td>
+                        <td colspan="3">
+                            <input type="text" name="EmployeeName" value="" />
+                        </td>
+                        <td></td>
+                        <td>Emp ID:</td>
+                        <td>
+                            <input type="text" name="EmployeeIDNumber" value="" readonly />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Position: </td>
+                        <td colspan="3">
+                            <input type="text" name="PositionName" value="" readonly />
+                        </td>
+                        <td></td>
+                        <td>Date: </td>
+                        <td>
+                            <input type="text" name="Date" class="date-picker" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td class="custom-table-border-solid bg-secondary text-center py-2" style="font-weight:500">ITEM</td>
+                        <td colspan="3" class="custom-table-border-solid bg-secondary text-center py-2" style="font-weight:500">ITEM DESCRIPTION</td>
+                        <td class="custom-table-border-solid bg-secondary text-center py-2" style="font-weight: 500">QTY</td>
+                        <td colspan="2" class="custom-table-border-solid bg-secondary text-center py-2" style="font-weight: 500">REMARKS</td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="withdrawnItems">
+                            <td class="custom-table-border-solid" height="25">
+
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td colspan="3" class="custom-table-border-solid" height="25">
+                                <input type="text" name="Items" value="" style="border-bottom: none" class="text-center"/>
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="number" class="text-center quantity" name="Quantity" style="border-bottom: none" />
+                            </td>
+                            <td colspan="2" class="custom-table-border-solid" height="25">
+                                <input type="text" class="text-center remarks" name="Remarks" style="border-bottom: none" />
+                            </td>
+                        </tr>
+                    }
+
+                    @*END BODY*@
+                    <tr>
+                        <td colspan="7" height="15"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            REQUESTED BY: <br />
+                            <input type="text" name="RequestedBy" value="" />
+                        </td>
+                        <td></td>
+                        <td>
+                            APPROVED BY: <br />
+                            <input type="text" name="ApprovedBy" value="" />
+                        </td>
+                        <td></td>
+                        <td colspan="2">
+                            RECEIVED BY: <br />
+                            <input type="text" name="ReceivedBy" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><small>Notes:</small></td>
+                        <td class="text-right"><small>Date: </small></td>
+                        <td>
+                            <input type="text" name="ReceivedDate" class="date-picker" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            <small>
+                                1.) Present this approved issuance slip to warehouse in-charge for issuance of listed items. <br />
+                                2.) Items issued should be under the custody of employee or individual who received the items. <br />
+                                3.) Items loss are under the account of the responsible employee will be charged accordingly with corresponding value of the item. <br />
+                                4.) There is regular auditing off the issued items for each employee and items should be presented at the time of audit otherwise charges apply.
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

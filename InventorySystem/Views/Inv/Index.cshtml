@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Inv";
+}
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>Content Here!!</p>
+
+            <input type="text" name="InventoryItem" id="tags" value="" />
+        </div>
+    </div>
+
+
+
+
+@section Scripts{
+
+    <script>
+        $(function () {
+
+            var item = [];
+
+            var url = 'http://192.168.1.100:89/api/values';
+            //var xhr = new XMLHttpRequest();
+
+            //xhr.open('GET', url);
+            //console.log('testing');
+            //xhr.onreadystatechange = function (result) {
+            //    console.log(this.responseText);
+            //};
+            //xhr.send(url);
+            //return;
+
+            $.ajaxSetup({
+                async: false
+            });
+
+            //$.getJSON(url, function (data) {
+
+            //    console.log(data);
+
+            //    for (var i = 0; i < data.length; i++) {
+            //        item.push(data[i].Name);
+
+            //    }
+
+
+            //});
+
+
+            $.ajaxSetup({
+                async: true
+            });
+
+            console.log(item);
+
+            $("#tags").autocomplete({
+                source: item
+            });
+        });
+    </script>
+
+}

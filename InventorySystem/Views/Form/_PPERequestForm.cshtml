@@ -1,0 +1,155 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container">
+            <form action="#" method="post" autocomplete="off" class="ppeRequest-form">
+                <input type="hidden" name="DraftID" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="48" />
+                        <col width="34" />
+                        <col width="238" />
+                        <col width="87" />
+                        <col width="87" />
+                        <col width="80" />
+                        <col width="86" />
+                        <col width="139" />
+                    </colgroup>
+
+                    <tr>
+                        <td colspan="2" rowspan="3">
+                            <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Alternate Text" style="width:70px" />
+                        </td>
+                        <td colspan="3" class="text-center font-weight-bold" style="font-size:25px">
+                            MARINAS & CO. BUILDERS INC.
+                        </td>
+                        <td></td>
+                        <td colspan="2" class="bg-secondary text-center font-weight-bold py-2">
+                            FM-FIN-INV-124
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            2/F EPJ Bldg Basak Road Lapu Lapu City
+                        </td>
+                        <td></td>
+                        <td>Control No.: </td>
+                        <td>
+                            <input type="text" name="CtrlNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Project Site: </td>
+                        <td colspan="3">
+                            <input type="text" ame="ProjectSite" value="" />
+                        </td>
+                        <td></td>
+                        <td>Date: </td>
+                        <td>
+                            <input type="text" class="date-picker" name="Date" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Address</td>
+                        <td colspan="3">
+                            <input type="text" name="Address" />
+                        </td>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Attention</td>
+                        <td colspan="3">
+                            <input type="text" name="Attention" value="" />
+                        </td>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" height="25"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" class="text-center font-weight-bold" style="font-size:25px">EMPLOYEE PPE REQUEST FORM</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" height="25"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">NO</td>
+                        <td colspan="2" class="text-center py-1 custom-table-border-solid" style="font-weight: 500">NAME</td>
+                        <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">POSITION</td>
+                        <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">PPE</td>
+                        <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">QUANTITY</td>
+                        <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">SIZE</td>
+                        <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">SIGNATURE</td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="ppeRequestItems">
+                            <td class="custom-table-border-solid" height="25" style="text-align:center;">
+                              
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td colspan="2" class="custom-table-border-solid" height="25">
+                                <input type="text" name="Employees" value="" style="border-bottom: none" class="text-center"/>
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" name="Position" style="border-bottom: none" class="text-center" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" name="Items" value="" style="border-bottom: none" class="text-center"/>
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" name="Quantity" style="border-bottom: none" class="text-center" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" name="Size" style="border-bottom: none" class="text-center" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" name="Signature" style="border-bottom: none" class="text-center" />
+                            </td>
+                        </tr>
+
+                    }
+
+                    @*END BODY*@
+
+                    <tr>
+                        <td>
+                            <small>Note:</small>
+                        </td>
+                        <td colspan="7"><small>Complete this copy with an attach Incident Report and submit to Inventory Department</small></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            PREPARED BY: <br /> <br />
+                            <input type="text" name="PreparedBy" value="" style="width:70%" />
+
+                            <br />
+                            <small>Warehouseman</small>
+                        </td>
+                        <td colspan="3">
+                            RECEIVED/CHECKED BY: <br /> <br />
+                            <input type="text" name="ReceivedBy" style="width:75%" value="" />
+                            <br />
+                            <small>&nbsp</small>
+                        </td>
+                        <td colspan="2">
+                            APPROVED BY: <br /> <br />
+                            <input type="text" name="ApprovedBy" value="" />
+                            <br />
+                            <small>Project In-Charge</small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

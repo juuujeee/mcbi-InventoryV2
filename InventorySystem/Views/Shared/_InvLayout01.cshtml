@@ -1,0 +1,173 @@
+﻿
+@{
+    ViewBag.Title = "Inventory Layout";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>MCBI Inventory</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="navbar">
+        <div class="d-flex navbar-wrapper">
+            <div class="header-title">
+                <a class="navbar-brand" href="#">
+                    <span class="full-text">MCBI-Inventory</span>
+                    <span class="mini-text">MIMS</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="mr-auto">
+                    <button type="button" id="sidebarCollapse" class="btn btn-light">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <div class="ml-auto">
+                    <p class="text-white">MCBI-Inventory Series @DateTime.Now.Year</p>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            @*<div class="sidebar-header">
+                    <h3>Bootstrap Sidebar</h3>
+                    <strong>BS</strong>
+                </div>*@
+
+            <ul class="list-unstyled">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa fa-building"></i>
+                        Inventory
+                    </a>
+                    <ul class="collapse list-unstyled" id="inventorySubmenu">
+                        <li>
+                            <a href="#" class="sub-menu">Item Stock Entry</a>
+                        </li>
+                        <li>
+                            <a href="#" class="sub-menu">Item Stock Out</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            @RenderBody()
+
+        </div>
+    </div>
+
+    @*<div class="wrapper" id="">
+
+            <div id="header" class="header">
+
+                <h1 class="">MCBI-Inventory</h1>
+                <h3>MCBI-Inventory Series 2020</h3>
+            </div>
+            <div id="body" class="row">
+                <div class="col-lg-2">
+                    <ul>
+                        <li>
+                            <h4>Home</h4>
+                        </li>
+                        <li>
+                            <h4>Inventory</h4>
+                            <ul>
+                                <li>
+                                    <h5>Item Stock Entry</h5>
+                                </li>
+                                <li>
+                                    <h5>Item Stock Out</h5>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>Settings</h4>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-8">
+
+                    @RenderBody()
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div id="footer" class="footer">
+                <h6>Footer</h6>
+            </div>
+        </div>
+    *@
+
+
+    <!--Default Modal-->
+    <div class="modal fade" id="Default-Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:19px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success save_btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/datepicker.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(function () {
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#navbar').toggleClass('active');
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container"">
+            <form action="#" method="post" autocomplete="off" class="borrowed-form">
+                <input type="hidden" name="DraftID" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="10" />
+                        <col width="78" />
+                        <col width="200" />
+                        <col width="148" />
+                        <col width="68" />
+                        <col width="142" />
+                        <col width="152" />
+                    </colgroup>
+                    <tr>
+                        <td colspan="3" rowspan="3">
+                            <div class="d-flex">
+                                <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Alternate Text" style="height:50px; margin-right: 10px" />
+                                <img src="@Url.Content("~/Content/Images/MCBI-TEXT.png")" alt="Alternate Text" style="height:50px" />
+                            </div>
+                        </td>
+                        <td colspan="2" rowspan="3" class="text-center font-weight-bold" style="font-size:25px">BORROWER'S SLIP</td>
+                        <td colspan="2" class="bg-secondary text-center text-white font-weight-bold">FM-FIN-INV-118</td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl No.: </td>
+                        <td>
+                            <input type="text" name="CtrlNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date: </td>
+                        <td>
+                            <input type="text" class="date-picker" name="Date" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center bg-secondary custom-table-border-solid py-2" style="font-weight: 500">NO</td>
+                        <td colspan="3" class="text-center bg-secondary custom-table-border-solid py-2" style="font-weight: 500">DESCRIPTION</td>
+                        <td class="text-center bg-secondary custom-table-border-solid py-2" style="font-weight: 500">QUANTITY</td>
+                        <td class="text-center bg-secondary custom-table-border-solid py-2" style="font-weight: 500">UNITS</td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="borrowedItems">
+                            <td colspan="2" class="custom-table-border-solid" height="25">
+
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td colspan="3" class="custom-table-border-solid" height="25">
+                                <input type="text" name="Items" value=""  style="border-bottom: none"/>
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="number" class="text-center quantity" name="Quantity" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" class="text-center units" name="Units" style="border-bottom: none" />
+                            </td>
+                        </tr>
+
+                    }
+
+                    @*END BODY*@
+
+                    <tr>
+                        <td colspan="7" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            BORROWED BY: <br /> <br />
+                            <input type="text" name="BorrowedBy" value="" />
+
+                            <br />
+                            <small>SIGNATURE OVER PRINTED NAME</small>
+                        </td>
+                        <td colspan="2"></td>
+                        <td colspan="2">
+                            APPROVED BY: <br /> <br />
+                            <input type="text" name="ApprovedBy" value="" />
+
+                            <br />
+                            <small>SIGNATURE OVER PRINTED NAME</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="pt-3">
+                            <small>
+                                Note: <br />
+                                1.) Borrowed items must be properly, cleaned and in good condition. Otherwise damage item will be charge to borrowers. <br />
+                                2.) This forms must have a return stamp with signature of borrower including the date of return, otherwise the item are considered not returned.
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+﻿@{ 
+    ViewBag.Title = "Gate Pass";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container" style="">
+            <form action="#" method="post" autocomplete="off" class="gate-pass-form" >
+                <input type="hidden" name="DraftID" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="66" />
+                        <col width="118" />
+                        <col width="42" />
+                        <col width="211" />
+                        <col width="80" />
+                        <col width="82" />
+                        <col width="199" />
+                    </colgroup>
+
+                    <tr>
+                        <td colspan="3" rowspan="3">
+                            <div class="d-flex">
+                                <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Alternate Text" style="height:50px; margin-right: 10px" />
+                                <img src="@Url.Content("~/Content/Images/MCBI-TEXT.png")" alt="Alternate Text" style="height:50px" />
+                            </div>
+                        </td>
+                        <td colspan="2" rowspan="3" class="text-center font-weight-bold" style="font-size:25px">GATE PASS</td>
+                        <td></td>
+                        <td class="bg-secondary text-center text-white font-weight-bold">FM-FIN-INV-117</td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl No.: </td>
+                        <td>
+                            <input type="text" name="CtrlNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td class="bg-secondary text-center custom-table-border-solid py-2" style="font-weight: 500">ITEM NO.</td>
+                        <td colspan="3" class="bg-secondary text-center custom-table-border-solid" style="font-weight: 500">ITEM DESCRIPTION</td>
+                        <td class="bg-secondary text-center custom-table-border-solid" style="font-weight: 500">QTY</td>
+                        <td colspan="2" class="bg-secondary text-center custom-table-border-solid" style="font-weight: 500">PURPOSE</td>
+                    </tr>
+                    @*BODY*@
+                    <tbody class="gatePassItemsContainer">
+                        @for (var i = 0; i < 10; i++)
+                        {
+                            <tr class="gatePassItems">
+                                <td class="custom-table-border-solid" height="25">
+
+                                    <label style="width: 100%" class="text-center" name="number"></label>
+                                </td>
+                                <td colspan="3" class="custom-table-border-solid" height="25">
+                                    <input type="text" name="Items" value="" class="text-center" style="border-bottom: none" />
+                                </td>
+                                <td class="custom-table-border-solid" height="25">
+                                    <input type="number" class="text-center quantity" name="Quantity" style="border-bottom: none;text-align:center;" placeholder="0" />
+                                </td>
+                                <td colspan="2" class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center purpose" name="Purpose" style="border-bottom: none" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    @*END BODY*@
+                    <tr>
+                        <td colspan="7" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Requested By: <br />
+                            <input type="text" name="RequestedBy" value=" " />
+                        </td>
+                        <td></td>
+                        <td>
+                            Checked By: <br />
+                            <input type="text" name="CheckedBy" value="" />
+                        </td>
+                        <td></td>
+                        <td colspan="2">
+                            Approved By: <br />
+                            <input type="text" name="ApprovedBy" value="" />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="pt-3">
+                            <small>
+                                Notes: <br />
+                                1.) All items to pulled out or transferred from the premises must have an approved gate pass. <br />
+                                2.) Gate pass must be checked and approved by the authorized in-charge before leaving the premises. <br />
+                                3.) Gate pass must be in two copies, one for in-charge and the other for the person who requested the gate pass. <br />
+                                4.) Gate pass should be presented to the guard on duty or person in-charge of the premises. Any losses due to guard negligence should be charge accordingly.
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

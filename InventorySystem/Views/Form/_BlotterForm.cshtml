@@ -1,0 +1,154 @@
+﻿
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="custom-table-container" style="">
+                <form action="#" method="post" autocomplete="off" class="blotter-form" data-action="">
+                    <input type="hidden" name="DraftID" />
+                    <input type="hidden" name="ID" value="@ViewBag.ID" />
+                    <table class="custom-table">
+                        <colgroup>
+                            <col width="48" />
+                            <col width="34" />
+                            <col width="238" />
+                            <col width="87" />
+                            <col width="87" />
+                            <col width="80" />
+                            <col width="86" />
+                            <col width="139" />
+                        </colgroup>
+
+                        <tr>
+                            <td colspan="2" rowspan="3">
+                                <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Alternate Text" style="width:50px" />
+                            </td>
+                            <td colspan="3" class="text-center font-weight-bold" style="font-size:25px">
+                                MARINAS & CO. BUILDERS INC.
+                            </td>
+                            <td></td>
+                            <td colspan="2" class="bg-secondary text-center font-weight-bold py-2">
+                                FM-FIN-INV-123
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                2/F EPJ Bldg Basak Road Lapu Lapu City
+                            </td>
+                            <td></td>
+                            <td>Control No.: </td>
+                            <td>
+                                <input type="text" name="ControlNumber" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Project Site: </td>
+                            <td colspan="3">
+                                <input type="text" name="ProjectSite" value="" />
+                            </td>
+                            <td></td>
+                            <td>Date: </td>
+                            <td>
+                                <input type="text" name="Date" class="date-picker" value="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Address</td>
+                            <td colspan="3">
+                                <input type="text" name="Address" value="" />
+                            </td>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Attention</td>
+                            <td colspan="3">
+                                <input type="text" name="Attention" value="" />
+                            </td>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" height="25"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" class="text-center font-weight-bold" style="font-size:25px">BLOTTER FORM</td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" height="25"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">NO</td>
+                            <td colspan="2" class="text-center py-1 custom-table-border-solid" style="font-weight: 500">ITEM DESCRIPTION</td>
+                            <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">UNITS</td>
+                            <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">QTY</td>
+                            <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">UNIT PRICE</td>
+                            <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">TOTAL AMOUNT</td>
+                            <td class="text-center py-1 custom-table-border-solid" style="font-weight: 500">REMARKS</td>
+                        </tr>
+
+
+                        @*BODY*@
+
+                        @for (var i = 0; i < 10; i++)
+                        {
+                            <tr class="blotteredItems">
+                                <td class="custom-table-border-solid" height="25">
+                                    <label style="width: 100%" class="text-center" name="number"></label>
+                                </td>
+                                <td colspan="2" class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center itemDescription" value="" style="border-bottom: none" />
+                                </td>
+                                <td class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center Units units" value="" name="Units" style="border-bottom: none" />
+                                </td>
+                                <td class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center quantity" value="" name="Quantity" style="border-bottom: none" />
+                                </td>
+                                <td class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center Price" name="Price" style="border-bottom: none" />
+                                </td>
+                                <td class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center totalAmount" name="TotalAmount" style="border-bottom: none" />
+                                </td>
+                                <td class="custom-table-border-solid" height="25">
+                                    <input type="text" class="text-center remarks" value="" name="Remarks" style="border-bottom: none" />
+                                </td>
+                            </tr>
+                        }
+                        @*END BODY*@
+                        <tr>
+                            <td>
+                                <small>Note:</small>
+                            </td>
+                            <td colspan="7"><small>Complete this copy with an attach Incident Report and submit to Inventory Department</small></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8" height="15"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                PREPARED BY: <br /> <br />
+                                <input type="text" name="PreparedBy" style="width:70%" value="" />
+
+                                <br />
+                                <small>Warehouseman</small>
+                            </td>
+                            <td colspan="3">
+                                RECEIVED/CHECKED BY: <br /> <br />
+                                <input type="text" name="ReceivedBy" style="width:75%" value="" />
+                                <br />
+                                <small>&nbsp</small>
+                            </td>
+                            <td colspan="2">
+                                APPROVED BY: <br /> <br />
+                                <input type="text" name="ApprovedBy" value="" />
+                                <br />
+                                <small>Project In-Charge</small>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>

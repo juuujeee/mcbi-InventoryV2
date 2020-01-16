@@ -1,0 +1,150 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container">
+            <form action="#" method="post" autocomplete="off" class="itemDelivered-form">
+                <input type="hidden" name="DraftID" value="" />
+                <input type="hidden" name="ItemTypeID" value="" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="90" />
+                        <col width="113" />
+                        <col width="82" />
+                        <col width="52" />
+                        <col width="118" />
+                        <col width="84" />
+                        <col width="27" />
+                        <col width="90" />
+                        <col width="143" />
+                    </colgroup>
+
+                    <tr>
+                        <td colspan="2" rowspan="3">
+                            <div class="d-flex">
+                                <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Company Logo" style="width: 60px" class="mr-2" />
+                                <img src="@Url.Content("~/Content/Images/MCBI-TEXT.png")" alt="MCBI Text" style="width: 120px" />
+                            </div>
+                        </td>
+                        <td colspan="4" rowspan="3" class="font-weight-bold text-center" style="font-size:25px">
+                            <span style="text-transform: uppercase">@ViewBag.ItemType</span> DELIVERED <br /> ON SITE @(ViewBag.ItemType == "tools" ? "(TDS)" : "(MDS)")
+                        </td>
+                        <td colspan="2"></td>
+                        <td class="text-center bg-secondary font-weight-bold" style="font-size: 20px">M-1527</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right">Ctrl No.:</td>
+                        <td>
+                            <input type="text" name="CtrlNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right">Delivered Date:</td>
+                        <td>
+                            <input type="text" name="DeliveredDate" class="date-picker" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Proj Name: </td>
+                        <td colspan="5">
+                            <input type="text" name="ProjectName" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">ProjNo:</td>
+                        <td>
+                            <input type="text" name="ProjectNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Supplier Name: </td>
+                        <td colspan="5">
+                            <input type="text" name="SuppplierName" value="" />
+                        </td>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td>Delivery Method: </td>
+                        <td colspan="5">
+                            <input type="text" name="DeliveryMethod" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">Receipt No: </td>
+                        <td>
+                            <input type="text" name="DeliveryReceiptNumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center bg-secondary font-weight-bold custom-table-border-solid py-2" style="font-size: 20px">NO</td>
+                        <td colspan="4" class="text-center bg-secondary font-weight-bold custom-table-border-solid py-2" style="font-size: 20px">DESCRIPTION</td>
+                        <td colspan="2" class="text-center bg-secondary font-weight-bold custom-table-border-solid py-2" style="font-size: 20px">QTY</td>
+                        <td class="text-center bg-secondary font-weight-bold custom-table-border-solid py-2" style="font-size: 20px">UNITS</td>
+                        <td class="text-center bg-secondary font-weight-bold custom-table-border-solid py-2" style="font-size: 20px">REMARKS</td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="itemDeliveredItems">
+                            <td class="custom-table-border-dotted" height="25">
+                                
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td colspan="4" class="custom-table-border-dotted" height="25">
+                                <input type="text" name="Items" value="" class="text-center" style="border-bottom: none"/>
+                            </td>
+                            <td colspan="2" class="custom-table-border-dotted" height="25">
+                                <input type="text" class="text-center" name="Quantity" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-dotted" height="25">
+                                <input type="text" class="text-center" name="Units" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-dotted" height="25">
+                                <input type="text" class="text-center" name="Remarks" style="border-bottom: none" />
+                            </td>
+                        </tr>
+
+                    }
+
+                    @*END BODY*@
+
+                    <tr>
+                        <td colspan="9" height="15"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            CHECKED & RECEIVED BY: <br />
+                            <input type="text" name="CheckedBy" value="" />
+                            <br />
+                            <small>SIGNATURE OVER PRINTED NAME</small>
+                        </td>
+                        <td colspan="4"></td>
+                        <td colspan="3">
+                            APPROVED BY: <br />
+                            <input type="text" name="ApprovedBy" value="" />
+                            <br />
+                            <small>SIGNATURE OVER PRINTED NAME</small>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="9" style="border-bottom: 1px solid"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="9">
+                            <small>
+                                Note: <br />
+                                1.) Items delivered on site must be check properly by the QA/QC and ToolKeeper before receiving and signing on delivery receipt. <br />
+                                2.) Items must be checked properly base on specification, quantity and other agreed properties of the delivered items. <br />
+                                3.) Defective items are rejected and supplier should replace with right specification. <br />
+                                4.) If items are received inspite of defect and defeciencies on quantity, the incharge who received the items are charged accordingly base on calculated cost.
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

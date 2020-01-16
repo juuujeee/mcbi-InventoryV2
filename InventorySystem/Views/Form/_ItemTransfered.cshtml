@@ -1,0 +1,241 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container" style="@{if (ViewBag.Action != "view") { Write("padding-left: 35px"); } }">
+            <form action="#" method="post" autocomplete="off" class="itemTranfer-form">
+                <input type="hidden" name="DraftID" value="" />
+                <input type="hidden" name="ItemTypeID" value="@(ViewBag.ItemType == "tools" ? "2" : "1")" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="8" />
+                        <col width="41" />
+                        <col width="61" />
+                        <col width="19" />
+                        <col width="29" />
+                        <col width="46" />
+                        <col width="171" />
+                        <col width="70" />
+                        <col width="101" />
+                        <col width="111" />
+                        <col width="51" />
+                        <col width="84" />
+                    </colgroup>
+
+                    <tr>
+                        <td colspan="6" rowspan="3">
+                            <div class="d-flex">
+                                <img src="~/Content/Images/Logo.png" alt="Alternate Text" style="height:50px; margin-right: 10px" />
+                                <img src="~/Content/Images/MCBI-TEXT.png" alt="Alternate Text" style="height:50px" />
+                            </div>
+                        </td>
+                        <td colspan="3" rowspan="3" class="text-center font-weight-bold" style="font-size: 25px">
+                            <span style="text-transform: uppercase">@ViewBag.ItemType</span> TRANSFER FORM <br />
+                            @(ViewBag.ItemType == "tools" ? "(TTF)" : "(MTF)")
+                        </td>
+                        <td></td>
+                        <td colspan="2" class="bg-secondary text-center font-weight-bold py-2">FM-FIN-INV-122</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Ctrl No: </td>
+                        <td>
+                            <input type="text" name="CtrlNumber" value="@{if(ViewBag.Action == "view"){ Write(ViewBag.ReturnData.CtrlNumber); }}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="text-right">PROJECT NAME: </td>
+                        <td colspan="4">
+                            <input type="text" name="ProjectName" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">WAREHOUSE IN-CHARGE </td>
+                        <td colspan="3">
+                            <input type="text" name="WarehouseInCharge" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="text-right">PROJECT NO: </td>
+                        <td colspan="4">
+                            <input type="text" name="ProjectNumber" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">DATE PREPARED: </td>
+                        <td colspan="3">
+                            <input type="text" name="DatePrepared" class="date-picker" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="text-right">LOCATION: </td>
+                        <td colspan="4">
+                            <input type="text" name="Location" />
+                        </td>
+                        <td colspan="2" class="text-right">SIGNATURE: </td>
+                        <td colspan="3">
+                            <input type="text" name="Signature" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="custom-table-border-solid text-center py-2 bg-secondary" style="font-weight:500">NO.</td>
+                        <td colspan="3" class="custom-table-border-solid text-center py-2 bg-secondary" style="font-weight:500">ITEM CODE</td>
+                        <td colspan="3" class="custom-table-border-solid text-center py-2 bg-secondary" style="font-weight:500">ITEM DESCRIPTION</td>
+                        <td class="custom-table-border-solid text-center py-2 bg-secondary" style="font-weight:500">UNITS</td>
+                        <td class="custom-table-border-solid text-center py-2 bg-secondary" style="font-weight:500">QTY</td>
+                        <td colspan="2" class="custom-table-border-solid text-center py-2 bg-secondary" style="font-weight:500">ITEM CONDITION</td>
+                    </tr>
+
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="itemTransferItems">
+                            <td colspan="2" class="custom-table-border-dotted" height="25">
+                                
+                                <label style="width: 100%" class="text-center" name="number"> </label>
+                            </td>
+                            <td colspan="3" class="custom-table-border-dotted" height="25" style="text-align:center;">
+                                <input type="text" name="ItemCode" class="Code" style="border-bottom: none;text-align:center;" readonly />
+                            </td>
+                            <td colspan="3" class="custom-table-border-dotted" height="25">
+                                <input type="text" name="Items" value="" class="text-center" style="border-bottom: none"/>
+                            </td>
+                            <td class="custom-table-border-dotted" height="25">
+                                <input type="text" name="Units" class="Units text-center" style="border-bottom: none;" />
+                            </td>
+                            <td class="custom-table-border-dotted" height="25">
+                                <input type="text" class="text-center" name="Quantity" style="border-bottom: none"/>
+                            </td>
+                            <td colspan="2" class="custom-table-border-dotted" height="25">
+                                <input type="text" name="ItemCondition" style="border-bottom: none" class="text-center" />
+                            </td>
+                        </tr>
+
+                    }
+
+                    @*END BODY*@
+                    <tr>
+                        <td colspan="12" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="bg-secondary custom-table-border-solid pl-3">DELIVERY DETAILS</td>
+                        <td colspan="5" class="bg-secondary custom-table-border-solid pl-3">DESTINATION/RECEIVER</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>DELIVERY METHOD: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="DeliveryMethod" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>WAREHOUSE INCHARGE: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="WarehouseInCharge" style="border-bottom:1px dotted" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>DRIVER/DELIVERY: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="DriverOrDelivery" style="border-bottom:1px dotted" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>PROJECT NAME: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="ProjectName" style="border-bottom:1px dotted" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>SERVICE NAME: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="ServiceName" style="border-bottom:1px dotted" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>PROJECT CODE: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="ProjectCode" style="border-bottom:1px dotted" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>PLATE NO: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="PlateNumber" style="border-bottom:1px dotted" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>LOCATION: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="ReceiverLocation" style="border-bottom:1px dotted" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>BODY NUMBER: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="BodyNumber" style="border-bottom:1px dotted" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>DATE RECEIVED: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="DateReceived" class="date-picker" style="border-bottom:1px dotted" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>SIGNATURE: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="Signature" style="border-bottom:1px dotted" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>SIGNATURE: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="Signature" style="border-bottom:1px dotted" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3" class="text-right"><small>DATE OF DELIVERY: </small></td>
+                        <td colspan="3" style="border-right:1px solid">
+                            <input type="text" name="DeliveryDate" class="date-picker" style="border-bottom:1px dotted" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">
+                            <small>TDS NO: </small>
+                        </td>
+                        <td colspan="3">
+                            <input type="text" name="TDSNumber" style="border-bottom:1px dotted" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" style="border-bottom: 1px solid" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="12">
+                            <small>
+                                Note <br />
+                                1.) If items with accessories, please put it specifically like carrying case, handle, plug, screws and other accessories included tool package. <br />
+                                2.) Driver/ Delivery man must return back the original Tools Transfer Form (TTF) to Warehouse incharge of project origin. <br />
+                                3.) TTF (Tools Transfer Form) must be forwarded to Office Inventory Section for recording and inventory updates every period specified by the office. <br />
+                                4.) All field must be filled up properly and correctly and should not be accepted if not complete. <br />
+                                5.) This procedure must be followed unless otherwise change by the office through instruction or any form of official communication.
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
