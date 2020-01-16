@@ -2,13 +2,18 @@
     ViewBag.Title = "Inv";
 }
 
-    <div class="row">
-        <div class="col-md-12">
-            <p>Content Here!!</p>
-
-            <input type="text" name="InventoryItem" id="tags" value="" />
+<div class="row">
+    <div class="col-md-10">
+        <p>Content Here!!</p>
+        <div class="form-group">
+            <input type="hidden" name="ID" id="tagID" value="" />
+            <input type="text" name="InventoryItem" class="form-control shadow-none" style="width: 50%" id="tags" value="" />
         </div>
     </div>
+    <div class="col-md-2">
+        <small>Panel</small>
+    </div>
+</div>
 
 
 
@@ -54,8 +59,51 @@
 
             console.log(item);
 
+            var availableTags = [
+                {
+                    "id": 1,
+                    "value": "ActionScript",
+                    "label": "ActionScript"
+                },
+                {
+                    "id": 2,
+                    "value": "AppleScript",
+                    "label": "AppleScript"
+                },
+                {
+                     "id": 3,
+                    "value": "Asp",
+                    "label": "Asp"
+                },
+                {
+                     "id": 4,
+                    "value": "BASIC",
+                    "label": "BASIC"
+                },
+                {
+                     "id": 5,
+                    "value": "C",
+                    "label": "C"
+                },
+                {
+                     "id": 6,
+                    "value": "C++",
+                    "label": "C++"
+                },
+                {
+                     "id": 7,
+                    "value": "Clojure",
+                    "label": "Clojure"
+                }
+            ];
+
             $("#tags").autocomplete({
-                source: item
+                source: availableTags,
+                select: function (event, ui) {
+                    console.log(ui.item.id);
+
+                    $('#tagID').val(ui.item.id);
+                }
             });
         });
     </script>

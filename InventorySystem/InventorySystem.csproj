@@ -144,8 +144,10 @@
     <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\MCBI-TEXT.png" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\linear-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\Linearicons-Free.svg" />
     <Content Include="fonts\quicksand-v19-latin-300.svg" />
     <Content Include="fonts\quicksand-v19-latin-500.svg" />
     <Content Include="fonts\quicksand-v19-latin-600.svg" />
@@ -203,6 +205,10 @@
     <Content Include="fonts\quicksand-v19-latin-regular.ttf" />
     <Content Include="fonts\quicksand-v19-latin-regular.woff" />
     <Content Include="fonts\quicksand-v19-latin-regular.woff2" />
+    <Content Include="fonts\Linearicons-Free.eot" />
+    <Content Include="fonts\Linearicons-Free.ttf" />
+    <Content Include="fonts\Linearicons-Free.woff" />
+    <Content Include="fonts\Linearicons-Free.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
