@@ -17,62 +17,14 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="navbar">
-        <div class="d-flex navbar-wrapper">
-            <div class="header-title">
-                <a class="navbar-brand" href="#">
-                    <span class="full-text">MCBI-Inventory</span>
-                    <span class="mini-text">MIMS</span>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="mr-auto">
-                    <button type="button" id="sidebarCollapse" class="btn btn-light">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                </div>
-                <div class="ml-auto">
-                    <p class="text-white">MCBI-Inventory Series @DateTime.Now.Year</p>
-                </div>
-
-            </div>
-        </div>
-    </nav>
+   
+    @Html.Partial("_Header")
 
 
     <div class="wrapper">
         <!-- Sidebar  -->
-        <nav id="sidebar">
-            @*<div class="sidebar-header">
-                    <h3>Bootstrap Sidebar</h3>
-                    <strong>BS</strong>
-                </div>*@
-
-            <ul class="list-unstyled">
-                <li>
-                    <a href="#">
-                        <i class="fa fa-home"></i>
-                        Home
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fa fa-building"></i>
-                        Inventory
-                    </a>
-                    <ul class="collapse list-unstyled" id="inventorySubmenu">
-                        <li>
-                            <a href="#" class="sub-menu">Item Stock Entry</a>
-                        </li>
-                        <li>
-                            <a href="#" class="sub-menu">Item Stock Out</a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-
-        </nav>
+        
+        @Html.Partial("_Sidebar")
 
         <!-- Page Content  -->
         <div id="content">
@@ -162,7 +114,7 @@
 
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
-                $('#navbar').toggleClass('active');
+                $('#header').toggleClass('active');
             });
 
         });
