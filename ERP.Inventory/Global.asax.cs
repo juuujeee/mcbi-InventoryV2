@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace InventorySystem
+namespace ERP.Inventory
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -16,12 +16,6 @@ namespace InventorySystem
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
-
-        protected void Application_BeginRequest()
-        {
-            if (!Context.Request.IsSecureConnection)
-                Response.Redirect(Context.Request.Url.ToString().Replace("https:", "http:"));
         }
     }
 }

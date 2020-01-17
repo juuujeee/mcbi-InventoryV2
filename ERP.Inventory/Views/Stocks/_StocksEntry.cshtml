@@ -1,0 +1,128 @@
+﻿
+@{ 
+    ViewBag.Title = "Stocks Entry Page";
+}
+
+<div class="row">
+    <div class="col-md-10 pt-3">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tds-tab" data-toggle="tab" href="#tds" role="tab" aria-controls="tds" aria-selected="true">Tools Delivered On Site</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="mds-tab" data-toggle="tab" href="#mds" role="tab" aria-controls="mds" aria-selected="false">Materials Delivered On Site</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="tds" role="tabpanel" aria-labelledby="tds-tab">
+                @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "tools" })
+
+            </div>
+            <div class="tab-pane fade" id="mds" role="tabpanel" aria-labelledby="mds-tab">
+                @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "materials" })
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 text-center" style="height: 100vh; border: 1px solid; padding-top: 20px">
+        <small>Panel</small>
+    </div>
+
+</div>
+
+
+@section Scripts{
+
+    <script>
+        $(function () {
+
+            $.ajaxSetup({
+                async: false
+            });
+
+            //FOR PROJECTS
+            var projects = [];
+
+            var projectURL = 'http://124.105.198.3:82/api/v1/dssprojects/1/1000/0';
+
+            $.getJSON(projectURL, function (data) {
+
+                var dat = data.Data;
+
+                for (var i = 0; i < dat.length; i++) {
+                    //console.log(dat[i]);
+
+                    var newObj = {};
+
+                    newObj.id = dat[i].ID;
+                    newObj.value = dat[i].ProjectName;
+                    newObj.label = dat[i].ProjectNumber + ' - ' + dat[i].ProjectName;
+                    newObj.projectNo = dat[i].ProjectNumber;
+
+                    projects.push(newObj);
+                }
+
+            });
+
+            $(".projectName").autocomplete({
+                source: projects,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    //console.log(ui.item.id);
+                    $this.parents('td').find('input.projectID').val(ui.item.id);
+                    $this.parents('table').find('input.projectNumber').val(ui.item.projectNo);
+                }
+            });
+
+
+
+
+
+
+            //FOR ITEMS
+            var items = [];
+
+            var itemURL = 'http://192.168.1.100:89/api/values';
+           
+            $.getJSON(itemURL, function (data) {
+
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].Name;
+                    newObj.label = data[i].Name;
+
+                    items.push(newObj);
+
+                }
+
+
+            });
+
+            //console.log(items);
+
+            $(".items").autocomplete({
+                source: items,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                   // console.log(ui.item.id);
+
+                    $this.parents('td').find('input.ItemID').val(ui.item.id);
+                }
+            });
+        });
+
+        $.ajaxSetup({
+            async: true
+        });
+    </script>
+
+}

@@ -1,0 +1,124 @@
+﻿
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/linear-icons.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+    @Html.Partial("_Header")
+
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        @Html.Partial("_Sidebar")
+
+        
+        <!-- Page Content  -->
+        <div id="content" class="@{if (ViewBag.Title == "Stocks Entry Page") { Write("pt-0"); } }">
+
+            @RenderBody()
+
+        </div>
+    </div>
+
+    @*<div class="wrapper" id="">
+
+            <div id="header" class="header">
+
+                <h1 class="">MCBI-Inventory</h1>
+                <h3>MCBI-Inventory Series 2020</h3>
+            </div>
+            <div id="body" class="row">
+                <div class="col-lg-2">
+                    <ul>
+                        <li>
+                            <h4>Home</h4>
+                        </li>
+                        <li>
+                            <h4>Inventory</h4>
+                            <ul>
+                                <li>
+                                    <h5>Item Stock Entry</h5>
+                                </li>
+                                <li>
+                                    <h5>Item Stock Out</h5>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <h4>Settings</h4>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-8">
+
+                    @RenderBody()
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+            <div id="footer" class="footer">
+                <h6>Footer</h6>
+            </div>
+        </div>
+    *@
+
+
+    <!--Default Modal-->
+    <div class="modal fade" id="Default-Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:19px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success save_btn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/umd/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/datepicker.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(function () {
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#header').toggleClass('active');
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+

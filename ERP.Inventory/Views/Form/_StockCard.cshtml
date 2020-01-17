@@ -1,0 +1,145 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container">
+            <form action="#" method="post" autocomplete="off" class="stockCard-form">
+                <input type="hidden" name="DraftID" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="83" />
+                        <col width="42" />
+                        <col width="54" />
+                        <col width="106" />
+                        <col width="10" />
+                        <col width="83" />
+                        <col width="77" />
+                        <col width="132" />
+                        <col width="96" />
+                        <col width="115" />
+                    </colgroup>
+
+                    <tr>
+                        <td colspan="4" rowspan="2">
+                            <div class="d-flex" style="margin-left: 40px">
+                                <img src="~/Content/Images/Logo.png" alt="Company Logo" style="width:50px; margin-right: 10px" />
+                                <img src="~/Content/Images/MCBI-TEXT.png" alt="MCBI-Text" style="height:50px;" />
+                            </div>
+
+                        </td>
+                        <td colspan="4" rowspan="2" class="text-center" style="font-size:20px">
+                            STOCK CARD
+                        </td>
+                        <td colspan="2" class="bg-secondary text-center text-white font-weight-bold">
+                            FM-FIN-INV-112
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="custom-table-border-solid" colspan="2" height="25"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right">Proj Name: </td>
+                        <td colspan="4">
+                            <input type="text" name="ProjectName" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">Month: </td>
+                        <td colspan="2">
+                            <input type="text" name="Month" class="month-year" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right">Proj No.:</td>
+                        <td colspan="4">
+                            <input type="text" name="ProjectNumber" value="" />
+                        </td>
+                        <td colspan="2" class="text-right">Material Name: </td>
+                        <td colspan="2">
+                            <input type="text" name="MaterialName" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right">Address: </td>
+                        <td colspan="4">
+                            <input type="text" name="Address" />
+                        </td>
+                        <td colspan="2" class="text-right">Specification: </td>
+                        <td colspan="2">
+                            <input type="text" name="Specification" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-right">Unit of Measure: </td>
+                        <td colspan="4">
+                            <input type="text" name="UnitOfMeasure" value="" />
+                        </td>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="10" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" class="text-center bg-secondary text-white custom-table-border-solid" style="font-weight:500">DATE</td>
+                        <td rowspan="2" colspan="2" class="text-center bg-secondary text-white custom-table-border-solid" style="font-weight:500">BEGINNING <br /> INVENTORY</td>
+                        <td class="bg-secondary text-center text-white custom-table-border-solid" style="font-weight:500">RECEIPTS</td>
+                        <td></td>
+                        <td colspan="2" class="bg-secondary text-center text-white custom-table-border-solid" style="font-weight:500">WITHDRAWAL</td>
+                        <td rowspan="2" class="text-center bg-secondary text-white custom-table-border-solid" style="font-weight:500">ENDING <br /> INVENTORY</td>
+                        <td rowspan="2" class="text-center bg-secondary text-white custom-table-border-solid" style="font-weight:500">PREPARED BY</td>
+                        <td rowspan="2" class="text-center bg-secondary text-white custom-table-border-solid" style="font-weight:500">CHECKED BY</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-secondary text-white text-center custom-table-border-solid" style="font-weight: 500">QUANTITY</td>
+                        <td></td>
+                        <td class="bg-secondary text-white text-center custom-table-border-solid" style="font-weight: 500">QUANTITY</td>
+                        <td class="bg-secondary text-white text-center custom-table-border-solid" style="font-weight: 500">REF. NO.</td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="stockCardItems">
+                            <td height="25" class="custom-table-border-dotted">
+
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td colspan="2" height="25" class="custom-table-border-dotted">
+                                <input type="text" class="text-center date-picker beginningInventory" name="BeginningInventory" style="border-bottom: none"/>
+                            </td>
+                            <td height="25" class="custom-table-border-dotted">
+                                <input type="text" class="text-center receipts-quantity" name="ReceiptsQuantity" style="border-bottom: none" />
+                            </td>
+                            <td></td>
+                            <td height="25" class="custom-table-border-dotted">
+                                <input type="text" class="text-center withdrawal-quantity" name="WithdrawalQuantity" style="border-bottom: none" />
+                            </td>
+                            <td height="25" class="custom-table-border-dotted">
+                                <input type="text" class="text-center withdrawal-refNumber" name="WithdrawalRefNumber" style="border-bottom: none" />
+                            </td>
+                            <td height="25" class="custom-table-border-dotted">
+                                <input type="text" class="text-center date-picker endingInventory" name="EndingInventory" style="border-bottom: none" />
+                            </td>
+                            <td height="25" class="custom-table-border-dotted">
+                                <input type="text" name="PreparedBy" value="" class="text-center" style="border-bottom: none"/>
+                            </td>
+                            <td height="25" class="custom-table-border-dotted">
+                                <input type="text" name="CheckedBy" value="" class="text-center" style="border-bottom: none"/>
+                            </td>
+                        </tr>
+                    }
+
+                    @*END BODY*@
+
+                    <tr>
+                        <td colspan="10">
+                            <small>
+                                Note: <br />
+                                1.) Inventory must be updated immediately every after receipt and withdrawal of items. <br />
+                                2.) Inventory should be filled-up properly and accounted base on actual status and counts.
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

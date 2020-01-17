@@ -1,0 +1,26 @@
+﻿@{ 
+    ViewBag.Title = "Forms Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "BlotterForm" })" data-modal-size="true" id="Blotter Form" class="open-dialog btn btn-light">Blotter Form</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "BorrowersSlip" })" data-modal-size="true" id="Borrowers Slip" class="open-dialog btn btn-light">Borrowers Slip</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "GatePass" })" data-modal-size="false" id="Gate Pass" class="open-dialog btn btn-light">Gate Pass</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "IssuanceSlip" })" data-modal-size="true" id="Issuance Slip" class="open-dialog btn btn-light">Issuance Slip</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "PPERequestForm" })" data-modal-size="true" id="Employee PPE Request Form" class="open-dialog btn btn-light">Employee PPE Request Form</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "tools" })" data-modal-size="true" id="Tools Delivered on Site" class="open-dialog btn btn-light">Tools Delivered on Site</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "materials" })" data-modal-size="true" id="Materials Delivered on Site" class="open-dialog btn btn-light">Materials Delivered on Site</a>
+
+        <br />
+
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "WithdrawalSlip" })" data-modal-size="true" id="Withdrawal Slip" class="open-dialog btn btn-light">Withdrawal Slip</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "ReceivingReport" })" data-modal-size="true" id="Receiving Report" class="open-dialog btn btn-light">Receiving Report</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "StockCard" })" data-modal-size="true" id="Stock Card" class="open-dialog btn btn-light">Stock Card</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "ToolsInventoryRecord" })" data-modal-size="true" id="Tools Inventory Record" class="open-dialog btn btn-light">Tools Inventory Record</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "MaterialsInventoryRecord" })" data-modal-size="true" id="Materials Inventory Record" class="open-dialog btn btn-light">Materials Inventory Record</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "ItemTransfered", itemType = "tools" })" data-modal-size="true" id="Tools Transfer Form" class="open-dialog btn btn-light">Tools Transfer Form</a>
+        <a href="javascript:void(0)" data-href="@Url.Action("FormView", "Form", new { pageName = "ItemTransfered", itemType = "materials" })" data-modal-size="true" id="Materials Transfer Form" class="open-dialog btn btn-light">Materials Transfer Form</a>
+
+    </div>
+</div>

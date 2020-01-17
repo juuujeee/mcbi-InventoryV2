@@ -1,0 +1,155 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container">
+            <form action="#" method="post" autocomplete="off" class="materialsInventory-form">
+                <input type="hidden" name="DraftID" value="" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="48" />
+                        <col width="88" />
+                        <col width="154" />
+                        <col width="52" />
+                        <col width="66" />
+                        <col width="66" />
+                        <col width="66" />
+                        <col width="66" />
+                        <col width="66" />
+                        <col width="150" />
+                    </colgroup>
+
+                    <tr>
+                        <td rowspan="2" colspan="2">
+                            <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Alternate Text" style="width:60px;" />
+                        </td>
+                        <td colspan="4" class="text-center font-weight-bold" style="font-size: 20px">
+                            MARINAS & CO. BUILDERS INC.
+                        </td>
+                        <td colspan="3"></td>
+                        <td class="bg-secondary text-white text-center py-2 font-weight-bold">FM-FIN-INV-116</td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Proj Name: </td>
+                        <td colspan="3">
+                            <input type="text" name="ProjectName" value="" />
+                        </td>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Proj Location: </td>
+                        <td colspan="3">
+
+                            <input type="text" name="ProjectLocation" value="" />
+                        </td>
+                        <td colspan="2"></td>
+                        <td colspan="2">Last Inventory Date: </td>
+                        <td>
+                            <input type="text" class="date-picker" name="LastInventoryDate" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Proj No.: </td>
+                        <td colspan="3">
+                            <input type="text" name="ProjectNumber" value="" />
+                        </td>
+                        <td colspan="2"></td>
+                        <td colspan="2">Inventory Date: </td>
+                        <td>
+                            <input type="text" class="date-picker" name="InventoryDate" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="10" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="10" class="font-weight-bold text-center" style="font-size:20px">MATERIALS INVENTORY RECORDS @{Write("@");} SITE</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="2" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">NO</td>
+                        <td rowspan="2" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">ITEM CODE</td>
+                        <td rowspan="2" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">DESCRIPTION</td>
+                        <td rowspan="2" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">UNITS</td>
+                        <td colspan="2" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">MATERIALS ON SITE <br /> (PRESENT RECORDS)</td>
+                        <td colspan="3" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">MATERIALS OUT <br /> (LAST INVENTORY PERIOD)</td>
+                        <td rowspan="2" class="text-center custom-table-border-solid" style="font-weight: 500; background: #ddebf7">REMARKS</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center custom-table-border-solid" style="background: #ddebf7"><small>QTY</small></td>
+                        <td class="text-center custom-table-border-solid" style="background: #ddebf7"><small>STATUS</small></td>
+                        <td class="text-center custom-table-border-solid" style="background: #ddebf7"><small>WITHDRAWN</small></td>
+                        <td class="text-center custom-table-border-solid" style="background: #ddebf7"><small>TRANSFER</small></td>
+                        <td class="text-center custom-table-border-solid" style="background: #ddebf7"><small>DAMAGE LOSS</small></td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="materialsInventoryItems">
+                            <td class="custom-table-border-solid" height="25">
+
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="Items" value="" style="border-bottom: none" class="text-center"/>
+                            </td>
+                            <td class="custom-table-border-solid ">
+                                <input type="text" name="Description" class="text-center" value="" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="Units" value="" class="text-center" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="MaterialOnSiteQty" class="text-center" value="" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="MaterialOnSiteStatus" class="text-center" value="" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="MaterialOutWithdrawn" class="text-center" value="" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="MaterialOutTransfer" class="text-center" value="" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="MaterialOutDamageLoss" class="text-center" value="" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid">
+                                <input type="text" name="Remarks" value="" class="text-center" style="border-bottom: none" />
+                            </td>
+                        </tr>
+
+                    }
+
+                    @*END BODY*@
+                    <tr>
+                        <td colspan="10" height="25"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Prepared By: <br />
+                            <input type="text" name="PreparedBy" value="" />
+                            <br />
+                            <small>Warehouseman</small>
+                        </td>
+                        <td colspan="4"></td>
+                        <td colspan="3">
+                            Approved By: <br />
+                            <input type="text" name="ApprovedBy" value="" />
+                            <br />
+                            <small>Project-In-Charge</small>
+
+                            <input type="hidden" name="ReceivedDate" class="date-picker" />
+                        </td>
+
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+

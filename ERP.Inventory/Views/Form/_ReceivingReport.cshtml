@@ -1,0 +1,174 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="custom-table-container">
+            <form action="#" method="post" autocomplete="off" class="receivingReport-form">
+                <input type="hidden" name="DraftID" />
+                <input type="hidden" name="ID" value="@ViewBag.ID" />
+                <table class="custom-table">
+                    <colgroup>
+                        <col width="47" />
+                        <col width="47" />
+                        <col width="242" />
+                        <col width="80" />
+                        <col width="68" />
+                        <col width="69" />
+                        <col width="69" />
+                        <col width="53" />
+                        <col width="123" />
+                    </colgroup>
+
+                    <tr>
+                        <td colspan="2" rowspan="3">
+                            <img src="@Url.Content("~/Content/Images/Logo.png")" alt="Company-logo" style="width:100px" />
+                        </td>
+                        <td colspan="3" class="font-weight-bolder" style="font-size:20px">
+                            MARINAS & CO. BUILDERS INC.
+                        </td>
+                        <td colspan="2"></td>
+                        <td colspan="2" class="text-center bg-secondary text-white font-weight-bold">FM-FIN-INV-111</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            2/F EPJ Bldg Basak Road Lapu Lapu City, Cebu
+                        </td>
+                        <td colspan="2"></td>
+                        <td>RR No: </td>
+                        <td>
+                            <input type="text" name="RRnumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"></td>
+                        <td> PO#: </td>
+                        <td>
+                            <input type="text" name="POnumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Supplier Name: </td>
+                        <td>
+                            <input type="text" name="SupplierName" value="" />
+
+                        </td>
+                        <td colspan="4"></td>
+                        <td>SI/DR#: </td>
+                        <td>
+                            <input type="text" name="DRnumber" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Address: </td>
+                        <td>
+                            <input type="text" name="Address" />
+                        </td>
+                        <td colspan="4"></td>
+                        <td>Date: </td>
+                        <td>
+                            <input type="text" class="date-picker" name="Date" value="" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Proj Name: </td>
+                        <td>
+                            <input type="text" name="ProjectName" value="" />
+                        </td>
+                        <td>Proj No: </td>
+                        <td colspan="3">
+                            <input type="text" name="ProjectNumber" value="" />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" height="25"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="text-center font-weight-bolder" style="font-size:20px">RECEIVING REPORT</td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" height="15"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center custom-table-border-solid" style="font-weight:500">NO.</td>
+                        <td colspan="2" class="text-center custom-table-border-solid" style="font-weight:500">ITEM DESCRIPTION</td>
+                        <td class="text-center custom-table-border-solid" style="font-weight:500">UNITS</td>
+                        <td class="text-center custom-table-border-solid" style="font-weight:500">QTY</td>
+                        <td class="text-center custom-table-border-solid" style="font-weight:500">UNIT PRICE</td>
+                        <td class="text-center custom-table-border-solid" style="font-weight:500">TOTAL AMOUNT</td>
+                        <td colspan="2" class="text-center custom-table-border-solid" style="font-weight:500">REMARKS</td>
+                    </tr>
+
+                    @*BODY*@
+
+                    @for (var i = 0; i < 10; i++)
+                    {
+                        <tr class="receivingReportItems">
+                            <td class="custom-table-border-solid" height="25">
+                                
+                                <label style="width: 100%" class="text-center" name="number"></label>
+                            </td>
+                            <td colspan="2" class="custom-table-border-solid" height="25">
+                                <input type="text" name="Items" value="" class="text-center" style="border-bottom: none"/>
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" class="text-center unit" name="Units" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="number" class="text-center quantity" name="Quantity" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" class="text-center unitPrice" name="UnitPrice" style="border-bottom: none" />
+                            </td>
+                            <td class="custom-table-border-solid" height="25">
+                                <input type="text" class="text-center totalAmount" name="TotalAmount" style="border-bottom: none" />
+                            </td>
+                            <td colspan="2" class="custom-table-border-solid" height="25">
+                                <input type="text" class="text-center remarks" name="Remarks" style="border-bottom: none" />
+                            </td>
+                        </tr>
+                    }
+
+                    @*END BODY*@
+
+                    <tr>
+                        <td colspan="6" class="custom-table-border-solid">TOTAL =></td>
+                        <td class="custom-table-border-solid">
+                            <input type="text" class="text-center overallTotalAmount" style="border-bottom: none" />
+                        </td>
+                        <td colspan="2" class="custom-table-border-solid"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="9">
+                            <small>
+                                Note: <br />
+
+                                1.) Items delivered on site must be check properly by the QA/QC and Warehouseman before receiving and signing on delivery receipt. <br />
+                                2.) Items must be checked properly base on specification , quantity and other agreed properties of the delivered items. <br />
+                                3.) Defective items are rejected and supplier should replace with right specification. <br />
+                                4.) If items are received inspite of detect and deficiences on quantity, the incharge who received the items are charged accordingly base on calculated cost.
+                            </small>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="9" height="30"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            Delivered By: <br />
+                            <input type="text" name="DeliveredBy" style="width:75%" value="" />
+                        </td>
+                        <td colspan="3">
+                            Received/Checked By: <br />
+                            <input type="text" name="ReceivedBy" style="width:80%" value="" />
+                        </td>
+                        <td colspan="3">
+                            Noted By: <br />
+                            <input type="text" name="NotedBy" value="" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
