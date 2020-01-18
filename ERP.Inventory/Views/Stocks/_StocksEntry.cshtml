@@ -1,5 +1,5 @@
 ﻿
-@{ 
+@{
     ViewBag.Title = "Stocks Entry Page";
 }
 
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 text-center" style="height: 100vh; border: 1px solid; padding-top: 20px">
+    <div class="col-md-2 text-center" style="border: 1px solid; padding-top: 20px">
         <small>Panel</small>
     </div>
 
@@ -86,7 +86,7 @@
             var items = [];
 
             var itemURL = 'http://192.168.1.100:89/api/values';
-           
+
             $.getJSON(itemURL, function (data) {
 
 
@@ -107,17 +107,22 @@
 
             //console.log(items);
 
-            $(".items").autocomplete({
-                source: items,
-                select: function (event, ui) {
+            $('body').on('click', '.items', function () {
 
-                    var $this = $(this);
+                $(this).autocomplete({
+                    source: items,
+                    select: function (event, ui) {
 
-                   // console.log(ui.item.id);
+                        var $this = $(this);
 
-                    $this.parents('td').find('input.ItemID').val(ui.item.id);
-                }
+                        // console.log(ui.item.id);
+
+                        $this.parents('td').find('input.ItemID').val(ui.item.id);
+                    }
+                });
+
             });
+
         });
 
         $.ajaxSetup({
