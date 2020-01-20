@@ -88,7 +88,7 @@ function RowAdd(event, targetsync = 'items-sync') {
     let doc = $('<tr class="' + getclass + '">' + htclone + '</tr>');// new DOMParser().parseFromString(htclone, 'text/html');
     $(doc).find('.' + targetsync).siblings().remove();
 
-    doc.insertBefore(elem);
+    doc.insertAfter(elem);
 
     //doc.find('.' + targetsync).parents('td').removeAttr('data-select2-id');
     //doc.find('.' + targetsync).removeAttr('data-select2-id');
@@ -122,3 +122,13 @@ function RowRemove(event) {
         i++;
     });
 }
+
+
+//FIT THE CONTAINER OF JQUERY AUTOCOMPLETE IN THE ELEMENT
+$.extend($.ui.autocomplete.prototype.options, {
+    open: function (event, ui) {
+        $(this).autocomplete("widget").css({
+            "width": ($(this).width() + "px")
+        });
+    }
+})

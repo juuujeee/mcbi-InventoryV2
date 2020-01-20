@@ -1,7 +1,7 @@
 ﻿<div class="row">
     <div class="col-md-12">
         <div class="custom-table-container" style="padding-left: 35px;">
-            <form action="#" method="post" autocomplete="off" class="itemDelivered-form">
+            <form action="#" method="post" autocomplete="off" id="itemDelivered" class="itemDelivered_form_@ViewBag.ItemType">
                 <input type="hidden" name="DraftID" value="" />
                 <input type="hidden" name="ItemTypeID" value="" />
                 <input type="hidden" name="ID" value="@ViewBag.ID" />
@@ -47,7 +47,7 @@
                         <td>Proj Name: </td>
                         <td colspan="5">
                             <input type="hidden" name="ProjectID" value="" class="projectID"/>
-                            <input type="text" name="ProjectName" value="" class="projectName"/>
+                            <input type="text" name="ProjectName" value="" class="projectName" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap"/>
                         </td>
                         <td colspan="2" class="text-right">ProjNo:</td>
                         <td>
@@ -91,8 +91,8 @@
                         <tr class="itemDeliveredItems_@ViewBag.ItemType">
                             <td class="custom-table-border-dotted" height="25">
                                 <span style="position: absolute; margin-left: -35px">
-                                    <i class="fa fa-plus text-success" style="cursor: pointer; font-size: 13px" onclick="RowAdd(event)"></i>
-                                    <i class="fa fa-minus text-danger" style="cursor: pointer; font-size: 13px" onclick="RowRemove(event)"></i>
+                                    <i class="fa fa-plus text-success row-add" style="cursor: pointer; font-size: 13px" onclick="RowAdd(event)"></i>
+                                    <i class="fa fa-minus text-danger row-remove" style="cursor: pointer; font-size: 13px" onclick="RowRemove(event)"></i>
                                 </span>
                                 <label style="width: 100%" class="text-center" name="number">@count</label>
                             </td>
@@ -156,3 +156,8 @@
         </div>
     </div>
 </div>
+
+
+
+
+
