@@ -26,6 +26,10 @@ span {
     display: inline-block;
 }
 
+.mobile-view{
+    display:none;
+}
+
 
 /*------------------------------------------------------
   JQUERY UI AUTOCOMPLETE
@@ -239,6 +243,14 @@ ul ul a {
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
+
+    .mobile-view{
+        display: block;
+        width: 100%;
+    }
+    .desktop-view{
+        display:none;
+    }
 
     #header .header-title{
         width: 100%;
