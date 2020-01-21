@@ -26,10 +26,6 @@ span {
     display: inline-block;
 }
 
-.mobile-view{
-    display:none;
-}
-
 
 /*------------------------------------------------------
   JQUERY UI AUTOCOMPLETE
@@ -238,18 +234,27 @@ ul ul a {
     margin-left:250px;
 }
 
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
+
+.mobile-view {
+    display: none;
+    width: 100%;
+}
+
+.desktop-view {
+    display: block;
+}
 
 @media (max-width: 768px) {
 
     .mobile-view{
         display: block;
-        width: 100%;
     }
     .desktop-view{
-        display:none;
+        display:none !important;
     }
 
     #header .header-title{

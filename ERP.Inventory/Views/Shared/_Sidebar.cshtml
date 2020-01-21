@@ -9,17 +9,33 @@
             </a>
         </li>
         <li class="">
-            <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <a href="#inventorySubmenu" data-toggle="collapse" id="menu" aria-expanded="false" class="dropdown-toggle">
                 @*<i class="fa fa-building"></i>*@
                 <i class="lnr lnr-tag"></i> <!--Using -->
                 Inventory
             </a>
-            <ul class="collapse list-unstyled" id="inventorySubmenu">
+            <ul class="collapse list-unstyled sidebarCollapse" id="inventorySubmenu">
                 <li>
                     <a href="@Url.Action("StockEntry", "Stocks")" class="sub-menu">Item Stock Entry</a>
                 </li>
                 <li>
                     <a href="#" class="sub-menu">Item Stock Out</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#anotherSubMenu" data-toggle="collapse" id="anotherMenu" aria-expanded="false" class="dropdown-toggle">
+                @*<i class="fa fa-building"></i>*@
+                <i class="lnr lnr-bug"></i> <!--Using -->
+                Another Menu
+            </a>
+            <ul class="collapse list-unstyled sidebarCollapse" id="anotherSubMenu">
+                <li>
+                    <a href="#" class="sub-menu">SubMenu 1</a>
+                </li>
+                <li>
+                    <a href="#" class="sub-menu">SubMenu 2</a>
                 </li>
             </ul>
         </li>

@@ -131,4 +131,12 @@ $.extend($.ui.autocomplete.prototype.options, {
             "width": ($(this).width() + "px")
         });
     }
-})
+});
+
+
+//AUTO CLOSE THE SIDEBAR IF ANOTHER MENU IS OPEN
+$('.sidebarCollapse').on('show.bs.collapse', function () {
+
+    $('.sidebarCollapse').not(this).collapse('hide');
+
+});
