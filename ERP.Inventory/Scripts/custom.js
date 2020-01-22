@@ -3,7 +3,7 @@ $('.open-dialog').click(function (e) {
 
     e.preventDefault();
 
-    
+
     var $modalEl = $('#Default-Modal');
 
     var $this = $(this);
@@ -114,13 +114,37 @@ function RowAdd(event, targetsync = 'items-sync') {
 function RowRemove(event) {
     var elem = $(event.target).parents('tr');
     var getclass = elem.attr('class');
-    $(event.target).parents('tr').remove();
 
-    var i = 1;
-    $('.' + getclass).each(function () {
-        $(this).find('td label[name = number]').html(i);
-        i++;
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true
+    }).then((result) => {
+        if (result.value) {
+
+            elem.remove();
+            var i = 1;
+            $('.' + getclass).each(function () {
+                $(this).find('td label[name = number]').html(i);
+                i++;
+            });
+        }
     });
+
+   
+
+    //console.log($(event.target).parents('tr').children('td').length);
+
+    // var countTD = $(event.target).parents('tr').children('td').length;
+
+    //console.log($(event.target).parents('tr').children('td').eq(0).children('input').val());
+
+    //for (var z = 0; i > countTD; z++) {
+
+    //}
+
+    
 }
 
 
