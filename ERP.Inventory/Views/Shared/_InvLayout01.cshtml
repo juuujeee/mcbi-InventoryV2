@@ -1,4 +1,6 @@
 ﻿
+<!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
@@ -108,17 +110,6 @@
     <script src="~/Scripts/sweetalert2.all.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
-
-    <script>
-        $(function () {
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $('#header').toggleClass('active');
-            });
-
-        });
-    </script>
 
 </body>
 </html>

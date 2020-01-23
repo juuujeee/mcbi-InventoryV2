@@ -37,9 +37,9 @@
     <script>
         $(function () {
 
-            $.ajaxSetup({
-                async: false
-            });
+            //$.ajaxSetup({
+            //    async: false
+            //});
 
             //FOR PROJECTS
             var projects = [];
@@ -63,22 +63,19 @@
                     projects.push(newObj);
                 }
 
+                $(".projectName").autocomplete({
+                    source: projects,
+                    select: function (event, ui) {
+
+                        var $this = $(this);
+
+                        //console.log(ui.item.id);
+                        $this.parents('td').find('input.projectID').val(ui.item.id);
+                        $this.parents('table').find('input.projectNumber').val(ui.item.projectNo);
+                    }
+                });
+
             });
-
-            $(".projectName").autocomplete({
-                source: projects,
-                select: function (event, ui) {
-
-                    var $this = $(this);
-
-                    //console.log(ui.item.id);
-                    $this.parents('td').find('input.projectID').val(ui.item.id);
-                    $this.parents('table').find('input.projectNumber').val(ui.item.projectNo);
-                }
-            });
-
-
-
 
 
 
@@ -103,37 +100,79 @@
                 }
 
 
-            });
+                $('body').on('click', '.items', function () {
 
-            //console.log(items);
+                    $(this).autocomplete({
+                        source: items,
+                        select: function (event, ui) {
 
-            $('body').on('click', '.items', function () {
+                            var $this = $(this);
 
-                $(this).autocomplete({
-                    source: items,
-                    select: function (event, ui) {
+                            // console.log(ui.item.id);
 
-                        var $this = $(this);
+                            $this.parents('td').find('input.ItemID').val(ui.item.id);
+                        }
+                    });
 
-                        // console.log(ui.item.id);
 
-                        $this.parents('td').find('input.ItemID').val(ui.item.id);
-                    }
                 });
 
+                //console.log(items);
+
             });
 
         });
 
-        $.ajaxSetup({
-            async: true
+
+        //FOR SUPPLIER
+        var suppliers = [];
+
+        var supplierURL = 'http://mcbi-dev:69/vendor/0';
+
+        $.getJSON(supplierURL, function (data) {
+
+            //console.log(data);
+
+            for (var i = 0; i < data.length; i++) {
+
+                var newObj = {};
+
+                newObj.id = data[i].SupplierID;
+                newObj.value = data[i].SupplierName;
+                newObj.label = data[i].SupplierName;
+
+                suppliers.push(newObj);
+
+            }
+
+            $(".supplier").autocomplete({
+                source: suppliers,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+                    $this.parents('td').find('input.supplierID').val(ui.item.id);
+                }
+            });
+
         });
 
+
+        //$.ajaxSetup({
+        //    async: true
+        //});
 
 
         //SAVE DATA
         $('.save_ItemDelivered').click(function (e) {
-            console.log('save');
+
+            var itemType = $(this).attr('id');
+            
+            dat = SaveItemDelivered(itemType);
+
+            console.log(dat);
+            
+            //return;
+
         });
 
         //DISCARD DATA
@@ -142,6 +181,55 @@
             console.log('discard');
 
         });
+
+
+        function SaveItemDelivered(itemType) {
+
+            var dat = [];
+
+            var dataItems = [];
+            var formName = '.itemDelivered_form_' + itemType;
+
+            var itemEl = '.itemDeliveredItems_' + itemType;
+
+            $(itemEl).each(function () {
+
+                var item = {
+                    //ItemID: $(this).find('select.itemDelivered_items').val().toString(),
+                    //Qty: $(this).find('input[name=Quantity]').val(),
+                    //Units: $(this).find('input[name=Units]').val(),
+                    //Remarks: $(this).find('input[name=Remarks]').val(),
+                    //isDeleted: 0
+                };
+
+                //if (item.ItemID > 0) {
+                //  //  dataItems.push(item);
+                //}
+
+            });
+
+            //console.log(dataItems);
+
+            var item = {
+                "ID": $(formName + ' input[name=ID]').val() || 0,
+                //"ItemTypeID": $(formName + ' input[name=ItemTypeID]').val(),
+                //"CtrlNumber": $(formName + ' input[name=CtrlNumber]').val(),
+                //"Date": $(formName + ' input[name=DeliveredDate]').val().YMDFormat(),
+                //"ProjectID": $(formName + ' select#itemDelivered_projectSite').val().toString(),
+                //"SupplierID": $(formName + ' select#itemDelivered_supplier').val().toString(),
+                //"DeliveryMethod": $(formName + ' select#itemDelivered_DeliveryMethod').val().toString(),
+                //"DeliveryReceiptNumber": $(formName + ' input[name=DeliveryReceiptNumber]').val(),
+                //"CheckedBy": $(formName + ' select#itemDelivered_checkedBy').val().toString(),
+                //"ApprovedBy": $(formName + ' select#itemDelivered_approvedBy').val().toString(),
+                "Items": "testing"
+            };
+
+            dat.push(item);
+
+            return dat;
+
+        }
+
 
     </script>
 

@@ -1,10 +1,9 @@
 ﻿<div class="row">
     <div class="col-md-12">
         <div class="custom-table-container" style="padding-left: 35px;">
-            <form action="#" method="post" autocomplete="off" id="itemDelivered" class="itemDelivered_form_@ViewBag.ItemType">
-                <input type="hidden" name="DraftID" value="" />
-                <input type="hidden" name="ItemTypeID" value="" />
-                <input type="hidden" name="ID" value="@ViewBag.ID" />
+            <form action="#" method="post" autocomplete="off" id="" class="itemDelivered_form_@ViewBag.ItemType">
+               
+                <input type="hidden" name="ID" value="" />
                 <div class="table-responsive">
                     <table class="custom-table custom-table-fixed" id="table-@ViewBag.ItemType">
                         <colgroup>
@@ -58,7 +57,8 @@
                         <tr>
                             <td>Supplier Name: </td>
                             <td colspan="5">
-                                <input type="text" name="SuppplierName" value="" />
+                                <input type="hidden" name="SupplierID" class="supplierID" value="" />
+                                <input type="text" name="SuppplierName" class="supplier" value=""/>
                             </td>
                             <td colspan="3"></td>
                         </tr>

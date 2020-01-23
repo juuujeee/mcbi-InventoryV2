@@ -222,6 +222,10 @@ ul ul a {
     content: "";
 }
 
+#sidebar.active ul li a .sidebar-text{
+    display: none;
+}
+
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */

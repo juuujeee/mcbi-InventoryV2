@@ -1,4 +1,15 @@
-﻿//OPEN MODAL
+﻿//MINIMIZE OR MAXIMIZE SIDEBAR
+$(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $('#header').toggleClass('active');
+    });
+
+});
+
+
+//OPEN MODAL
 $('.open-dialog').click(function (e) {
 
     e.preventDefault();
