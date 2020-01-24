@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Item Masterlist Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="float-right">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control shadow-none search-input-item custom-search-box" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button class="mr-2 btn btn-sm btn-light shadow-none search-btn-item" id="table-header-searchBtn"><i class="fa fa-search"></i></button>
+                            <a href="javascript:void(0)" id="Add New Item" class="mr-2 shadow-none btn-sm btn-light open-dialog" data-modal-size="lg" data-href="@Url.Action("Create", "ItemMasterlist")">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm shadow-none btn-light export-btn-item">
+                                <i class="fa fa-share"></i> Export CSV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Tags</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 1; i <= 5; i++)
+                            {
+                                
+                                <tr>
+                                    <td>@{Write("code" + i);}</td>
+                                    <td>itemname</td>
+                                    <td>quantity</td>
+                                    <td><span class="badge badge-info">tag</span></td>
+                                    <td>
+                                        <div class="form-buttons-desktop">
+                                            <a href="#" class="btn btn-sm btn-light shadow-none"><i class="fa fa-search fa-fw"></i> View</a>
+                                            <button class="btn btn-sm btn-light form-delete shadow-none" id="" data-href="#"><i class="lnr lnr-trash"></i> Delete</button>
+                                            <button class="btn btn-sm btn-light form-edit shadow-none" id="edit_item" data-href=""><i class="lnr lnr-pencil"></i> Edit</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

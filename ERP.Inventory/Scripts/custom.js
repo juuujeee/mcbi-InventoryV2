@@ -14,17 +14,19 @@ $('.open-dialog').click(function (e) {
 
     e.preventDefault();
 
-
     var $modalEl = $('#Default-Modal');
 
     var $this = $(this);
 
     var dataURL = $this.attr('data-href');
 
-    var isLargeModal = $this.attr('data-modal-size');
+    var modalSize = $this.attr('data-modal-size');
 
-    if (isLargeModal) {
-        $modalEl.find('.modal-dialog').addClass('modal-xl');
+    var size = 'modal-' + modalSize;
+
+    if (modalSize !== '') {
+
+        $modalEl.find('.modal-dialog').addClass(size);
     }
 
     var id = $this.attr('id');
@@ -34,8 +36,9 @@ $('.open-dialog').click(function (e) {
         $modalEl.modal({ show: true });
     });
 
-    $modalEl.find('modal-dialog').removeClass('modal-xl');
+    $modalEl.find('modal-dialog').removeClass(size);
 });
+
 
 //INITIALIZE DATEPICKER
 $('body').on('focus', '.date-picker', function () {

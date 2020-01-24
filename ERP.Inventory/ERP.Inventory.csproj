@@ -123,6 +123,7 @@
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvController.cs" />
+    <Compile Include="Controllers\ItemMasterlistController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -329,6 +330,8 @@
     <Content Include="Views\Inv\Index.cshtml" />
     <Content Include="Views\Stocks\_StocksEntry.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ItemMasterlist\Index.cshtml" />
+    <Content Include="Views\ItemMasterlist\_Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
