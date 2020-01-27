@@ -1,11 +1,16 @@
 ﻿
 body {
-    font-family: 'Quicksand', sans-serif;
-    background: #fafafa;
+    /*font-family: 'Quicksand', sans-serif;*/
+    /*font-family: 'Montserrat', sans-serif;*/
+    /*font-family: 'Poppins', sans-serif;*/
+    font-family: Calibri, sans-serif;
+    background: #e1e2e2;
 }
 
 p {
-    font-family: 'Quicksand', sans-serif;
+    /*font-family: 'Quicksand', sans-serif;*/
+    /*font-family: 'Montserrat', sans-serif;*/
+    font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
@@ -42,6 +47,8 @@ span {
 #header {
     /*height: 70px;*/
     padding: 0px;
+    background: rgb(31, 42, 58) !important;
+    border-bottom: 2px solid white;
 }
 
 #header .navbar-wrapper .header-title a .mini-text,
@@ -78,10 +85,28 @@ span {
 
 
 
+/*RIGHT SIDEBAR*/
+.right-sidebar {
+    height: 100vh;
+    width: 20%;
+    border: 1px solid black;
+    position: fixed;
+    max-width: 250px;
+    max-width: 250px;
+    right: 0px;
+}
+
+.right-sidebar h6{
+    font-size: 1.5rem !important;
+}
+
+
+.custom-form-group{
+    margin-bottom: .6rem !important;
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-
 .wrapper {
     display: flex;
     align-items: stretch;
@@ -92,7 +117,8 @@ span {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #343a40;
+    /*background: #343a40;*/
+    background: rgb(31, 42, 58);
     color: #fff;
     transition: all 0.3s;
 }
@@ -163,12 +189,12 @@ span {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1em;
+    font-size: 1.2em;
     display: block;
 }
 
 #sidebar ul ul a{
-    font-size: .9em !important;
+    font-size: 1.2em !important;
 }
 
 #sidebar ul li a:hover {
@@ -352,6 +378,11 @@ ul ul a {
     outline: none;
     border-bottom: 1px solid black;
 }
+
+.custom-table input:focus {
+    border-bottom: 1px solid #80bdff61 !important;
+}
+
 .custom-table-fixed{
     table-layout: fixed;
 }
@@ -422,6 +453,14 @@ ul ul a {
 }
 
 
+
+
+
+
+/*-----------------NEW CSS----------------------*/
+.table-entry-header-container label{
+    width: 150px;
+}
 
 
 /*#header{

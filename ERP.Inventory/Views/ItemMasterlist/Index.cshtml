@@ -25,29 +25,43 @@
                 <div class="table-responsive">
                     <table class="table table-striped" style="width: 100%">
                         <thead>
-                            <tr>
-                                <th>Item Code</th>
+                            <tr style="background: rgb(78,203,74)" class="text-white">
+                                <th>No</th>
                                 <th>Item Name</th>
-                                <th>Tags</th>
-                                <th>Action</th>
+                                <th>Units</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Doc No.</th>
+                                <th>Status</th>
+                                @*<th>Action</th>*@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (var i = 1; i <= 5; i++)
+                            @for (var i = 1; i <= 10; i++)
                             {
-                                
+
                                 <tr>
-                                    <td>@{Write("code" + i);}</td>
-                                    <td>itemname</td>
-                                    <td><span class="badge badge-info">tag</span></td>
-                                    <td>
-                                        <div class="form-buttons-desktop">
-                                            <a href="#" class="btn btn-sm btn-light shadow-none"><i class="fa fa-search fa-fw"></i> View</a>
-                                            <button class="btn btn-sm btn-light form-delete shadow-none" id="" data-href="#"><i class="lnr lnr-trash"></i> Delete</button>
-                                            <button class="btn btn-sm btn-light form-edit shadow-none" id="edit_item" data-href=""><i class="lnr lnr-pencil"></i> Edit</button>
-                                        </div>
-                                    </td>
+                                    <td>@i</td>
+                                    <td>REBARS 10MM DIA X 6M - GRADE 40</td>
+                                    <td>PCS</td>
+                                    <td>12</td>
+                                    <td>145.00</td>
+                                    <td>2345</td>
+                                    <td>NEW</td>
                                 </tr>
+
+                                @*<tr>
+                                        <td>@{Write("code" + i);}</td>
+                                        <td>itemname</td>
+                                        <td><span class="badge badge-info">tag</span></td>
+                                        <td>
+                                            <div class="form-buttons-desktop">
+                                                <a href="#" class="btn btn-sm btn-light shadow-none"><i class="fa fa-search fa-fw"></i> View</a>
+                                                <button class="btn btn-sm btn-light form-delete shadow-none" id="" data-href="#"><i class="lnr lnr-trash"></i> Delete</button>
+                                                <button class="btn btn-sm btn-light form-edit shadow-none" id="edit_item" data-href=""><i class="lnr lnr-pencil"></i> Edit</button>
+                                            </div>
+                                        </td>
+                                    </tr>*@
                             }
 
                         </tbody>

@@ -8,6 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/linear-icons.css" rel="stylesheet" />
@@ -27,11 +30,16 @@
         @Html.Partial("_Sidebar")
 
         
+
         <!-- Page Content  -->
-        <div id="content" class="@{if (ViewBag.Title == "Stocks Entry Page") { Write("pt-0 pr-3"); } }">
+        <div id="content" class="pl-0" style="width: 80%; margin-right: 250px">
 
             @RenderBody()
 
+        </div>
+
+        <div class="right-sidebar p-3" style="">
+            <h6>Recent Transactions</h6>
         </div>
     </div>
 
