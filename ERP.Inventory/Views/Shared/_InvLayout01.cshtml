@@ -8,9 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/linear-icons.css" rel="stylesheet" />
+    @*<link href="~/Content/linear-icons.css" rel="stylesheet" />*@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/datepicker.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
@@ -26,59 +29,19 @@
         <!-- Sidebar  -->
         @Html.Partial("_Sidebar")
 
-        
+
+
         <!-- Page Content  -->
-        <div id="content" class="@{if (ViewBag.Title == "Stocks Entry Page") { Write("pt-0 pr-3"); } }">
+        <div id="content" class="pl-0">
 
             @RenderBody()
 
         </div>
-    </div>
 
-    @*<div class="wrapper" id="">
-
-            <div id="header" class="header">
-
-                <h1 class="">MCBI-Inventory</h1>
-                <h3>MCBI-Inventory Series 2020</h3>
-            </div>
-            <div id="body" class="row">
-                <div class="col-lg-2">
-                    <ul>
-                        <li>
-                            <h4>Home</h4>
-                        </li>
-                        <li>
-                            <h4>Inventory</h4>
-                            <ul>
-                                <li>
-                                    <h5>Item Stock Entry</h5>
-                                </li>
-                                <li>
-                                    <h5>Item Stock Out</h5>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <h4>Settings</h4>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-8">
-
-                    @RenderBody()
-                </div>
-                <div class="col-lg-2">
-
-                </div>
-            </div>
-            <div id="footer" class="footer">
-                <h6>Footer</h6>
-            </div>
+        <div class="right-sidebar p-3" style="">
+            <h6>Recent Transactions</h6>
         </div>
-    *@
-
+    </div>
 
     <!--Default Modal-->
     <div class="modal fade" id="Default-Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -96,7 +59,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-sm save_btn">Save</button>
+                    <button type="button" class="btn btn-success btn-sm save_btn">Save</button> 
                 </div>
             </div>
         </div>

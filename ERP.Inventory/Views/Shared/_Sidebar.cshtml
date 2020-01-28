@@ -1,48 +1,62 @@
 ﻿<nav id="sidebar">
 
+
+    <div class="col text-center" style="margin-top:40px; margin-bottom:35px">
+        <img src="~/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="width:150px" />
+    </div>
+
+    <hr class="bg-white" style="width:90%" />
+
     <ul class="list-unstyled">
         <li>
             <a href="#">
-                @*<i class="fa fa-home"></i>*@
-                <i class="lnr lnr-home"></i>
-                <span class="sidebar-text">Home</span>
+                <i class="fa fa-home fa-fw"></i>
+                @*<i class="lnr lnr-home"></i>*@
+                <span class="sidebar-text">HOME</span>
             </a>
         </li>
-        <li>
-            <a href="@Url.Action("Index", "ItemMasterlist")">
-                <i class="lnr lnr-store"></i>
-                <span class="sidebar-text">Item Masterlist</span>
-            </a>
-        </li>
+        @*<li>
+                <a href="@Url.Action("Index", "ItemMasterlist")">
+                    <i class="lnr lnr-store"></i>
+                    <span class="sidebar-text">Item Masterlist</span>
+                </a>
+            </li>*@
         <li class="">
             <a href="#inventorySubmenu" data-toggle="collapse" id="menu" aria-expanded="false" class="dropdown-toggle">
-                @*<i class="fa fa-building"></i>*@
-                <i class="lnr lnr-tag"></i> <!--Using -->
-                <span class="sidebar-text">Inventory</span>
+                <i class="fa fa-tag fa-fw"></i>
+                @*<i class="lnr lnr-tag"></i>*@
+
+                <span class="sidebar-text">INVENTORY</span>
             </a>
             <ul class="collapse list-unstyled sidebarCollapse" id="inventorySubmenu">
                 <li>
-                    <a href="@Url.Action("StockEntry", "Stocks")" class="sub-menu">Item Stock Entry</a>
+                    <a href="@Url.Action("StockEntry", "Stocks")" class="sub-menu" style="position:relative">
+                        <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                        Stock Entry
+                    </a>
                 </li>
                 <li>
-                    <a href="#" class="sub-menu">Item Stock Out</a>
+                    <a href="@Url.Action("StockMovement", "Stocks")" class="sub-menu" style="position:relative">
+                        <i class="fa fa-circle" style="font-size: 8px;position:absolute; top:20px; left:35px"></i>
+                        Stock Flow
+                    </a>
                 </li>
             </ul>
         </li>
 
         <li class="">
             <a href="#anotherSubMenu" data-toggle="collapse" id="anotherMenu" aria-expanded="false" class="dropdown-toggle">
-                @*<i class="fa fa-building"></i>*@
-                <i class="lnr lnr-bug"></i> <!--Using -->
-                <span class="sidebar-text">Settings</span>
+                <i class="fa fa-cog fa-fw"></i>
+                @*<i class="lnr lnr-bug"></i>*@ <!--Using -->
+                <span class="sidebar-text">SETTINGS</span>
             </a>
             <ul class="collapse list-unstyled sidebarCollapse" id="anotherSubMenu">
                 <li>
-                    <a href="#" class="sub-menu">SubMenu 1</a>
+                    <a href="#" class="sub-menu">ENTER ITEM</a>
                 </li>
-                <li>
-                    <a href="#" class="sub-menu">SubMenu 2</a>
-                </li>
+                @*<li>
+                        <a href="#" class="sub-menu">SubMenu 2</a>
+                    </li>*@
             </ul>
         </li>
 

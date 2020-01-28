@@ -3,43 +3,271 @@
     ViewBag.Title = "Stocks Entry Page";
 }
 
-<div class="row">
-    <div class="col-md-10 pt-3">
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="tds-tab" data-toggle="tab" href="#tds" role="tab" aria-controls="tds" aria-selected="true">Tools Delivered On Site</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="mds-tab" data-toggle="tab" href="#mds" role="tab" aria-controls="mds" aria-selected="false">Materials Delivered On Site</a>
-            </li>
-        </ul>
-        <div class="tab-content mt-3" id="myTabContent">
-            <div class="tab-pane fade show active" id="tds" role="tabpanel" aria-labelledby="tds-tab">
-                @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "tools" })
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" id="stock_entry">
+            <div class="card-header pb-0" style="background: #e1e2e2; padding-right:0px">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>SUPPLIER:</label>
+                                        <input type="hidden" name="SupplierID" class="supplierID" value="" />
+                                        <input type="text" name="Supplier" value="" class="form-control form-control-sm shadow-none supplier" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>SUP ID:</label>
+                                        <input type="text" name="SupplierID" value="" class="form-control form-control-sm shadow-none" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>DEL METHOD:</label>
+                                        <input type="hidden" name="DelMethodID" value="" class="delMethodID" />
+                                        <input type="text" name="DelMethod" value="" class="form-control form-control-sm shadow-none delMethod" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>PROJ NAME:</label>
+                                        <input type="hidden" name="ProjectID" value="" class="projectID" />
+                                        <input type="text" name="ProjectName" value="" class="form-control form-control-sm shadow-none projectName" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>PROJ NO:</label>
+                                        <input type="text" name="ProjectNo" value="" class="form-control form-control-sm shadow-none projectNumber" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label></label>
+                                        <input type="text" name="" value="" class="form-control form-control-sm shadow-none" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>PROJ LOCATION:</label>
+                                        <input type="text" name="ProjectLocation" value="" class="form-control form-control-sm shadow-none" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>DOC NO:</label>
+                                        <input type="text" name="DocNo" value="" class="form-control form-control-sm shadow-none" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label></label>
+                                        <input type="text" name="" value="" class="form-control form-control-sm shadow-none" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>RECEIVED BY:</label>
+                                        <input type="hidden" name="ReceivedByID" class="receivedByID" value="" />
+                                        <input type="text" name="ReceivedBy" value="" class="form-control form-control-sm shadow-none receivedBy" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label>DEL DATE:</label>
+                                        <input type="text" name="DeliveryDate" value="" class="form-control form-control-sm shadow-none date-picker" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="custom-form-group">
+                                    <div class="d-flex table-entry-header-container">
+                                        <label></label>
+                                        <input type="text" name="" value="" class="form-control form-control-sm shadow-none" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @*<div class="col-md-12">
+                                    <h6 style="text-decoration: underline">DELIVERY METHOD DETAILS: </h6>
+                                    <div class="row deliveryMethodDetailsContainer">
+
+                                    </div>
+                                </div>*@
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12 mt-3">
+                        <div class="float-left">
+                            <h1>Enter New Stocks</h1>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-            <div class="tab-pane fade" id="mds" role="tabpanel" aria-labelledby="mds-tab">
-                @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "materials" })
+            <div class="card-body px-0 pt-1" style="background: #e1e2e2;">
+                <div class="table-responsive">
+                    <table class="custom-table" style="width: 100%; border: 1px solid white" id="newStockEntry">
+                        <thead>
+                            <tr style="background: rgb(78,203,74); height: 50px; border: 1px solid white" class="text-white">
+                                <th class="text-center" style="font-size:23px">NO</th>
+                                <th class="text-center" style="font-size:23px">ITEM NAME</th>
+                                <th class="text-center" style="font-size:23px">UNITS</th>
+                                <th class="text-center" style="font-size:23px">QTY</th>
+                                <th class="text-center" style="font-size:23px">UNIT PRICE</th>
+                                <th class="text-center" style="font-size:23px">CONDITION</th>
+                                @*<th>Action</th>*@
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            @for (var i = 1; i <= 10; i++)
+                            {
 
+                                <tr class="stockEntryBody">
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center">@i</td>
+                                    <td style="width:500px; border-left:1px solid white; border-right: 1px solid white;" class="pl-lg-3">
+                                        <input type="hidden" name="ItemID" class="itemID" value="" />
+                                        <input type="text" name="name" value="" class="items" style="border:none" />
+                                        @*REBARS 10MM DIA X 6M - GRADE 40*@
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+                                        <input type="hidden" name="UnitID" class="unitID" value="" />
+                                        <input type="text" name="Units" value="" class="text-center units" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+                                        <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:200px">
+                                        <input type="text" name="UnitPrice" value="" class="text-center unitPrice" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white">
+                                        <input type="text" name="Condition" value="" class="text-center condition" style="border:none" />
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer" style="background: #e1e2e2; border: none">
+                <div class="float-right">
+                    <button class="btn btn-success shadow-none" type="button" onclick="fnSaveStockEntry(event)" style="padding:10px;">SAVE ENTRY</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-2 text-center" style="border: 1px solid; padding-top: 20px">
-        <small>Panel</small>
     </div>
 
 </div>
 
 
+
+@*<div class="row">
+        <div class="col-md-10 pt-3">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tds-tab" data-toggle="tab" href="#tds" role="tab" aria-controls="tds" aria-selected="true">Tools Delivered On Site</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="mds-tab" data-toggle="tab" href="#mds" role="tab" aria-controls="mds" aria-selected="false">Materials Delivered On Site</a>
+                </li>
+            </ul>
+            <div class="tab-content mt-3" id="myTabContent">
+                <div class="tab-pane fade show active" id="tds" role="tabpanel" aria-labelledby="tds-tab">
+                    @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "tools" })
+
+                </div>
+                <div class="tab-pane fade" id="mds" role="tabpanel" aria-labelledby="mds-tab">
+                    @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "materials" })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 text-center" style="border: 1px solid; padding-top: 20px">
+            <small>Panel</small>
+        </div>
+
+    </div>*@
+
+
 @section Scripts{
 
     <script>
-        $(function () {
 
-            //$.ajaxSetup({
-            //    async: false
-            //});
+        //SAVE DATA
+        function fnSaveStockEntry(event) {
+            //console.log("Testing only saving");
+
+            var stockEntryItem = [];
+
+            var item = [];
+            var $this = $(event.target);
+
+            $this.parents('div.card').find('.stockEntryBody').each(function () {
+
+                var obj = {};
+
+                obj.ItemID = $(this).find('input[name=ItemID]').val() || 0;
+                obj.Units = $(this).find('input[name=UnitID]').val() || 0;
+                obj.Qty = $(this).find('input[name=Qty]').val() || 0;
+                obj.UnitPrice = $(this).find('input[name=UnitPrice]').val() || 0;
+                obj.ItemCondition = $(this).find('input[name=ItemCondition]').val() || 0;
+
+                stockEntryItem.push(obj);
+
+            });
+
+
+            item.SupplierID = $this.parents('div.card').find('input[name=SupplierID]').val() || 0;
+            item.ProjectID = $this.parents('div.card').find('input[name=ProjectID]').val() || 0;
+            item.DocNo = $this.parents('div.card').find('input[name=DocNo]').val() || 0;
+            item.DeliveryDate = $this.parents('div.card').find('input[name=DeliveryDate]').val() || 0;
+            item.DeliveryMethodID = $this.parents('div.card').find('input[name=DelMethodID]').val() || 0;
+            item.ReceivedByID = $this.parents('div.card').find('input[name=ReceivedByID]').val() || 0;
+            item.StockEntry = stockEntryItem;
+
+            console.log(item);
+
+        }
+
+
+        $(function () {
 
             //FOR PROJECTS
             var projects = [];
@@ -51,7 +279,6 @@
                 var dat = data.Data;
 
                 for (var i = 0; i < dat.length; i++) {
-                    //console.log(dat[i]);
 
                     var newObj = {};
 
@@ -69,9 +296,8 @@
 
                         var $this = $(this);
 
-                        //console.log(ui.item.id);
-                        $this.parents('td').find('input.projectID').val(ui.item.id);
-                        $this.parents('table').find('input.projectNumber').val(ui.item.projectNo);
+                        $this.parents('.card-header').find('input.projectID').val(ui.item.id);
+                        $this.parents('.card-header').find('input.projectNumber').val(ui.item.projectNo);
                     }
                 });
 
@@ -108,127 +334,141 @@
 
                             var $this = $(this);
 
-                            // console.log(ui.item.id);
-
-                            $this.parents('td').find('input.ItemID').val(ui.item.id);
+                            $this.parents('td').find('input.itemID').val(ui.item.id);
                         }
                     });
 
 
                 });
 
-                //console.log(items);
-
             });
 
-        });
 
+            //FOR UNITS
+            var units = [];
 
-        //FOR SUPPLIER
-        var suppliers = [];
+            var unitsURL = 'http://124.105.198.3:90/api/units';
+            $.getJSON(unitsURL, function (data) {
 
-        var supplierURL = 'http://mcbi-dev:69/vendor/0';
+                console.log(data);
 
-        $.getJSON(supplierURL, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var obj = {};
 
-            //console.log(data);
+                    obj.id = data[i].ID;
+                    obj.value = data[i].ShortName;
+                    obj.label = data[i].ShortName;
 
-            for (var i = 0; i < data.length; i++) {
-
-                var newObj = {};
-
-                newObj.id = data[i].SupplierID;
-                newObj.value = data[i].SupplierName;
-                newObj.label = data[i].SupplierName;
-
-                suppliers.push(newObj);
-
-            }
-
-            $(".supplier").autocomplete({
-                source: suppliers,
-                select: function (event, ui) {
-
-                    var $this = $(this);
-                    $this.parents('td').find('input.supplierID').val(ui.item.id);
+                    units.push(obj);
                 }
+
+                $('body').on('click', '.units', function () {
+
+                    $(this).autocomplete({
+                        source: units,
+                        select: function (event, ui) {
+
+                            var $this = $(this);
+
+                            $this.parents('td').find('input.unitID').val(ui.item.id);
+                        }
+                    });
+
+                });
+            });
+
+
+            //FOR SUPPLIER
+            var suppliers = [];
+
+            var supplierURL = 'http://mcbi-dev:69/vendor/0';
+
+            $.getJSON(supplierURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    newObj.id = data[i].SupplierID;
+                    newObj.value = data[i].SupplierName;
+                    newObj.label = data[i].SupplierName;
+
+                    suppliers.push(newObj);
+
+                }
+
+                $(".supplier").autocomplete({
+                    source: suppliers,
+                    select: function (event, ui) {
+
+                        var $this = $(this);
+                        $this.parents('.card-header').find('input.supplierID').val(ui.item.id);
+                    }
+                })
+            });
+
+
+            //FOR DELIVERY METHOD
+            var deliveryMethod = [];
+
+            var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';
+
+            $.getJSON(deliveryMethodURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var obj = {};
+
+                    obj.id = data[i].ID;
+                    obj.value = data[i].Name;
+                    obj.label = data[i].Name;
+
+                    deliveryMethod.push(obj);
+                }
+
+
+                $(".delMethod").autocomplete({
+                    source: deliveryMethod,
+                    select: function (event, ui) {
+
+                        var $this = $(this);
+                        $this.parents('.card-header').find('input.delMethodID').val(ui.item.id);
+                    }
+                })
+
+            });
+
+
+            //FOR RECEIVED BY
+            var receivedBy = [];
+
+            var receivedByURL = 'http://mcbi-dev:91/api/PersonInformation';
+
+            $.getJSON(receivedByURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var obj = {};
+
+                    obj.id = data[i].ID;
+                    obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                    obj.label = data[i].FirstName + ' ' + data[i].LastName;
+
+                    receivedBy.push(obj);
+
+
+                    $(".receivedBy").autocomplete({
+                        source: receivedBy,
+                        select: function (event, ui) {
+
+                            var $this = $(this);
+                            $this.parents('.card-header').find('input.receivedByID').val(ui.item.id);
+                        }
+                    })
+
+                }
+
             });
 
         });
-
-
-        //$.ajaxSetup({
-        //    async: true
-        //});
-
-
-        //SAVE DATA
-        $('.save_ItemDelivered').click(function (e) {
-
-            var itemType = $(this).attr('id');
-            
-            dat = SaveItemDelivered(itemType);
-
-            console.log(dat);
-            
-            //return;
-
-        });
-
-        //DISCARD DATA
-        $('.discard_ItemDelivered').click(function (e) {
-
-            console.log('discard');
-
-        });
-
-
-        function SaveItemDelivered(itemType) {
-
-            var dat = [];
-
-            var dataItems = [];
-            var formName = '.itemDelivered_form_' + itemType;
-
-            var itemEl = '.itemDeliveredItems_' + itemType;
-
-            $(itemEl).each(function () {
-
-                var item = {
-                    //ItemID: $(this).find('select.itemDelivered_items').val().toString(),
-                    //Qty: $(this).find('input[name=Quantity]').val(),
-                    //Units: $(this).find('input[name=Units]').val(),
-                    //Remarks: $(this).find('input[name=Remarks]').val(),
-                    //isDeleted: 0
-                };
-
-                //if (item.ItemID > 0) {
-                //  //  dataItems.push(item);
-                //}
-
-            });
-
-            //console.log(dataItems);
-
-            var item = {
-                "ID": $(formName + ' input[name=ID]').val() || 0,
-                //"ItemTypeID": $(formName + ' input[name=ItemTypeID]').val(),
-                //"CtrlNumber": $(formName + ' input[name=CtrlNumber]').val(),
-                //"Date": $(formName + ' input[name=DeliveredDate]').val().YMDFormat(),
-                //"ProjectID": $(formName + ' select#itemDelivered_projectSite').val().toString(),
-                //"SupplierID": $(formName + ' select#itemDelivered_supplier').val().toString(),
-                //"DeliveryMethod": $(formName + ' select#itemDelivered_DeliveryMethod').val().toString(),
-                //"DeliveryReceiptNumber": $(formName + ' input[name=DeliveryReceiptNumber]').val(),
-                //"CheckedBy": $(formName + ' select#itemDelivered_checkedBy').val().toString(),
-                //"ApprovedBy": $(formName + ' select#itemDelivered_approvedBy').val().toString(),
-                "Items": "testing"
-            };
-
-            dat.push(item);
-
-            return dat;
-
-        }
 
 
     </script>
