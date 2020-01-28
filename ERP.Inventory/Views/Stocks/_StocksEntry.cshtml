@@ -176,7 +176,8 @@
                                         <input type="text" name="UnitPrice" value="" class="text-center unitPrice" style="border:none" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white">
-                                        <input type="text" name="Condition" value="" class="text-center condition" style="border:none" />
+                                        <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
                                     </td>
                                 </tr>
                             }
@@ -236,33 +237,66 @@
 
             var stockEntryItem = [];
 
-            var item = [];
+            var item = {};
             var $this = $(event.target);
 
             $this.parents('div.card').find('.stockEntryBody').each(function () {
 
-                var obj = {};
+                var obj = {
+                    ID: 0,
+                    DocEntryID_007: 0,
+                    ItemID_011: $(this).find('input[name=ItemID]').val() || 0,
+                    UnitID_009: $(this).find('input[name=UnitID]').val() || 0,
+                    Quantity: $(this).find('input[name=Qty]').val() || 0,
+                    UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0,
+                    ItemConditionID_018: $(this).find('input[name=ItemConditionID]').val() || 0,
+                };
 
-                obj.ItemID = $(this).find('input[name=ItemID]').val() || 0;
-                obj.Units = $(this).find('input[name=UnitID]').val() || 0;
-                obj.Qty = $(this).find('input[name=Qty]').val() || 0;
-                obj.UnitPrice = $(this).find('input[name=UnitPrice]').val() || 0;
-                obj.ItemCondition = $(this).find('input[name=ItemCondition]').val() || 0;
+                if (obj.ItemID_011 !== 0) {
+                    stockEntryItem.push(obj);
+                }
 
-                stockEntryItem.push(obj);
 
             });
 
+            let current_datetime = new Date()
+            let formatted_date = current_datetime.getFullYear() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate();
 
-            item.SupplierID = $this.parents('div.card').find('input[name=SupplierID]').val() || 0;
-            item.ProjectID = $this.parents('div.card').find('input[name=ProjectID]').val() || 0;
-            item.DocNo = $this.parents('div.card').find('input[name=DocNo]').val() || 0;
-            item.DeliveryDate = $this.parents('div.card').find('input[name=DeliveryDate]').val() || 0;
-            item.DeliveryMethodID = $this.parents('div.card').find('input[name=DelMethodID]').val() || 0;
-            item.ReceivedByID = $this.parents('div.card').find('input[name=ReceivedByID]').val() || 0;
-            item.StockEntry = stockEntryItem;
+
+            var DocEntry = {
+                ID: 0,
+                SupID_VendorDB: $this.parents('div.card').find('input[name=SupplierID]').val() || 0,
+                ProjectID_EnggDB: $this.parents('div.card').find('input[name=ProjectID]').val() || 0,
+                DocumentNumber: $this.parents('div.card').find('input[name=DocNo]').val() || 0,
+                DeliveryDate: $this.parents('div.card').find('input[name=DeliveryDate]').val() || 0,
+                EntryDate: formatted_date,
+                ReceiverID_HRDB: $this.parents('div.card').find('input[name=ReceivedByID]').val() || 0,
+            };
+
+            var DeliveryEntry = {
+                ID: 1,
+                DocEntryListID_007: 1,
+                DelMethodAttrID_008: 1,
+                AttributeValue: "AttrValue"
+            };
+
+            item.DocEntry = DocEntry;
+            item.ItemEntryList = stockEntryItem;
+            item.DeliveryEntry = DeliveryEntry;
 
             console.log(item);
+
+            return;
+
+            $.ajax({
+                type: 'post',
+                url: '',
+                dataType: 'json',
+                data: item,
+                success: function (response) {
+                    console.log(response);
+                }
+            });
 
         }
 
@@ -273,7 +307,6 @@
             var projects = [];
 
             var projectURL = 'http://124.105.198.3:82/api/v1/dssprojects/1/1000/0';
-
             $.getJSON(projectURL, function (data) {
 
                 var dat = data.Data;
@@ -309,9 +342,7 @@
             var items = [];
 
             var itemURL = 'http://192.168.1.100:89/api/values';
-
             $.getJSON(itemURL, function (data) {
-
 
                 for (var i = 0; i < data.length; i++) {
 
@@ -322,9 +353,7 @@
                     newObj.label = data[i].Name;
 
                     items.push(newObj);
-
                 }
-
 
                 $('body').on('click', '.items', function () {
 
@@ -337,8 +366,6 @@
                             $this.parents('td').find('input.itemID').val(ui.item.id);
                         }
                     });
-
-
                 });
 
             });
@@ -349,8 +376,6 @@
 
             var unitsURL = 'http://124.105.198.3:90/api/units';
             $.getJSON(unitsURL, function (data) {
-
-                console.log(data);
 
                 for (var i = 0; i < data.length; i++) {
                     var obj = {};
@@ -378,11 +403,43 @@
             });
 
 
+            // FOR ITEM CONDITION
+            var itemCondition = [];
+
+            var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
+
+            $.getJSON(itemConditionURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var obj = {};
+
+                    obj.id = data[i].ID;
+                    obj.value = data[i].StatusName;
+                    obj.label = data[i].StatusName;
+
+                    itemCondition.push(obj);
+                }
+
+                $('body').on('click', '.itemCondition', function () {
+
+                    $(this).autocomplete({
+                        source: itemCondition,
+                        //select: function (event, ui) {
+
+                        //    var $this = $(this);
+
+                        //    $this.parents('td').find('input.itemConditionID').val(ui.item.id);
+                        //}
+                    });
+
+                });
+            });
+
+
             //FOR SUPPLIER
             var suppliers = [];
 
             var supplierURL = 'http://mcbi-dev:69/vendor/0';
-
             $.getJSON(supplierURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -412,7 +469,6 @@
             var deliveryMethod = [];
 
             var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';
-
             $.getJSON(deliveryMethodURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -442,7 +498,6 @@
             var receivedBy = [];
 
             var receivedByURL = 'http://mcbi-dev:91/api/PersonInformation';
-
             $.getJSON(receivedByURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
