@@ -59,9 +59,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="custom-form-group">
-                                    <div class="d-flex table-entry-header-container">
+                                    <div class="d-flex table-entry-header-container delMethodAttribute">
                                         <label></label>
-                                        <input type="text" name="" value="" class="form-control form-control-sm shadow-none" disabled />
+                                        <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -85,9 +85,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="custom-form-group">
-                                    <div class="d-flex table-entry-header-container">
+                                    <div class="d-flex table-entry-header-container delMethodAttribute">
                                         <label></label>
-                                        <input type="text" name="" value="" class="form-control form-control-sm shadow-none" disabled />
+                                        <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -112,9 +112,9 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="custom-form-group">
-                                    <div class="d-flex table-entry-header-container">
+                                    <div class="d-flex table-entry-header-container delMethodAttribute">
                                         <label></label>
-                                        <input type="text" name="" value="" class="form-control form-control-sm shadow-none" disabled />
+                                        <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                     </div>
                                 </div>
                             </div>
@@ -231,6 +231,44 @@
 
     <script>
 
+        var delMethodAttribute = [
+            {
+                "ID": 1,
+                "DelMethodID_010": 1,
+                "MethodAttribute": "DriverName"
+            },
+            {
+                "ID": 2,
+                "DelMethodID_010": 1,
+                "MethodAttribute": "Plate No."
+            },
+            {
+                "ID": 3,
+                "DelMethodID_010": 1,
+                "MethodAttribute": "Vehicle Type"
+            },
+            {
+                "ID": 4,
+                "DelMethodID_010": 2,
+                "MethodAttribute": "Courier Name"
+            },
+            {
+                "ID": 5,
+                "DelMethodID_010": 2,
+                "MethodAttribute": "Tracking No."
+            },
+            {
+                "ID": 6,
+                "DelMethodID_010": 3,
+                "MethodAttribute": "Msgr Name"
+            },
+            {
+                "ID": 7,
+                "DelMethodID_010": 3,
+                "MethodAttribute": "Msgr ID No."
+            }
+        ]
+
         //SAVE DATA
         function fnSaveStockEntry(event) {
             //console.log("Testing only saving");
@@ -240,6 +278,7 @@
             var item = {};
             var $this = $(event.target);
 
+            //FOR STOCK ENTRY ITEM
             $this.parents('div.card').find('.stockEntryBody').each(function () {
 
                 var obj = {
@@ -260,9 +299,10 @@
             });
 
             let current_datetime = new Date()
-            let formatted_date = current_datetime.getFullYear() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate();
+            let formatted_date = (current_datetime.getMonth() + 1) + "/"  + current_datetime.getDate() + current_datetime.getFullYear();
 
 
+            //FOR STOCK ENTRY HEADER
             var DocEntry = {
                 ID: 0,
                 SupID_VendorDB: $this.parents('div.card').find('input[name=SupplierID]').val() || 0,
@@ -273,12 +313,25 @@
                 ReceiverID_HRDB: $this.parents('div.card').find('input[name=ReceivedByID]').val() || 0,
             };
 
-            var DeliveryEntry = {
-                ID: 1,
-                DocEntryListID_007: 1,
-                DelMethodAttrID_008: 1,
-                AttributeValue: "AttrValue"
-            };
+
+            //FOR DELIVERY ENTRY
+            
+            var DeliveryEntry = [];
+            $('input[name=DeliveryMethodAttr]').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    DocEntryListID_007: 0,
+                    DelMethodAttrID_008: $(this).attr('data-id'),
+                    AttributeValue: $(this).val()
+                };
+
+                if (obj.AttributeValue !== "") {
+                    DeliveryEntry.push(obj);
+                }
+
+            });
+
 
             item.DocEntry = DocEntry;
             item.ItemEntryList = stockEntryItem;
@@ -286,11 +339,9 @@
 
             console.log(item);
 
-            return;
-
             $.ajax({
                 type: 'post',
-                url: '',
+                url: 'http://124.105.198.3:90/api/StockEntry',
                 dataType: 'json',
                 data: item,
                 success: function (response) {
@@ -335,7 +386,6 @@
                 });
 
             });
-
 
 
             //FOR ITEMS
@@ -488,6 +538,25 @@
 
                         var $this = $(this);
                         $this.parents('.card-header').find('input.delMethodID').val(ui.item.id);
+
+                        var attrCounter = 0;
+
+                        $('.delMethodAttribute').find('label').text("");
+                        $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
+
+                        for (var z = 0; z < delMethodAttribute.length; z++) {
+
+                            //console.log(delMethodAttribute[z]);
+
+                            if (delMethodAttribute[z].DelMethodID_010 === ui.item.id) {
+
+                                $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
+                                $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+
+                                attrCounter++;
+                            }
+
+                        }
                     }
                 })
 
