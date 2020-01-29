@@ -299,7 +299,7 @@
             });
 
             let current_datetime = new Date()
-            let formatted_date = (current_datetime.getMonth() + 1) + "/"  + current_datetime.getDate() + current_datetime.getFullYear();
+            let formatted_date = (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate() + "/" + current_datetime.getFullYear();
 
 
             //FOR STOCK ENTRY HEADER
@@ -315,12 +315,13 @@
 
 
             //FOR DELIVERY ENTRY
-            
+
             var DeliveryEntry = [];
             $('input[name=DeliveryMethodAttr]').each(function () {
 
                 var obj = {
                     ID: 0,
+                    DocEntryListID_007: 0,
                     DelMethodAttrID_008: $(this).attr('data-id'),
                     AttributeValue: $(this).val()
                 };
@@ -339,10 +340,15 @@
             console.log(item);
 
             $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
                 type: 'post',
                 url: 'http://124.105.198.3:90/api/StockEntry',
                 dataType: 'json',
-                data: item,
+                data: JSON.stringify(item),
+                contentType: "application/json",
                 success: function (response) {
                     console.log(response);
                 }
@@ -488,7 +494,7 @@
             //FOR SUPPLIER
             var suppliers = [];
 
-            var supplierURL = 'http://mcbi-dev:69/vendor/0';
+            var supplierURL = 'http://124.105.198.3:93/vendor/0';
             $.getJSON(supplierURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -565,7 +571,7 @@
             //FOR RECEIVED BY
             var receivedBy = [];
 
-            var receivedByURL = 'http://mcbi-dev:91/api/PersonInformation';
+            var receivedByURL = 'http://124.105.198.3:91/api/PersonInformation';
             $.getJSON(receivedByURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
