@@ -33,8 +33,13 @@
                                 <div class="custom-form-group">
                                     <div class="d-flex table-entry-header-container">
                                         <label>DEL METHOD:</label>
-                                        <input type="hidden" name="DelMethodID" value="" class="delMethodID" />
-                                        <input type="text" name="DelMethod" value="" class="form-control form-control-sm shadow-none delMethod" />
+                                        @*<input type="hidden" name="DelMethodID" value="" class="delMethodID" />*@
+                                        @*<input type="text" name="DelMethod" value="" class="form-control form-control-sm shadow-none delMethod" />*@
+                                        <select class="form-control form-control-sm shadow-none delMethodID">
+                                            <option value="1">DELIVERY TRUCK</option>
+                                            <option value="2">COURIER</option>
+                                            <option value="3">MESSENGER</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +58,7 @@
                                 <div class="custom-form-group">
                                     <div class="d-flex table-entry-header-container">
                                         <label>PROJ NO:</label>
-                                        <input type="text" name="ProjectNo" value="" class="form-control form-control-sm shadow-none projectNumber" />
+                                        <input type="text" name="ProjectNo" value="" class="form-control form-control-sm shadow-none projectNumber" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -154,12 +159,12 @@
                                 @*<th>Action</th>*@
                             </tr>
                         </thead>
-                        <tbody class="">
+                        <tbody class="" id="newStockEntryTbody">
                             @for (var i = 1; i <= 10; i++)
                             {
 
                                 <tr class="stockEntryBody">
-                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center">@i</td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
                                     <td style="width:500px; border-left:1px solid white; border-right: 1px solid white;" class="pl-lg-3">
                                         <input type="hidden" name="ItemID" class="itemID" value="" />
                                         <input type="text" name="name" value="" class="items" style="border:none" />
@@ -185,6 +190,7 @@
                         </tbody>
                     </table>
                 </div>
+                <button class="btn btn-sm mt-2 btn-info" id="add_stockEntry_item"><i class="fa fa-plus"></i>Add</button>
             </div>
             <div class="card-footer" style="background: #e1e2e2; border: none">
                 <div class="float-right">
@@ -225,6 +231,30 @@
         </div>
 
     </div>*@
+
+<table style="display: none" id="newStockEntryTbodyClone">
+    <tr class="">
+        <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number"></td>
+        <td style="width:500px; border-left:1px solid white; border-right: 1px solid white;" class="pl-lg-3">
+            <input type="hidden" name="ItemID" class="itemID" value="" />
+            <input type="text" name="name" value="" class="items" style="border:none" />
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+            <input type="hidden" name="UnitID" class="unitID" value="" />
+            <input type="text" name="Units" value="" class="text-center units" style="border:none" />
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+            <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white;width:200px">
+            <input type="text" name="UnitPrice" value="" class="text-center unitPrice" style="border:none" />
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white">
+            <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
+            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+        </td>
+    </tr>
+</table>
 
 
 @section Scripts{
@@ -269,12 +299,12 @@
             }
         ]
 
+
         //SAVE DATA
         function fnSaveStockEntry(event) {
             //console.log("Testing only saving");
 
             var stockEntryItem = [];
-
             var item = {};
             var $this = $(event.target);
 
@@ -360,8 +390,7 @@
         $(function () {
 
             //FOR PROJECTS
-            var projects = [];
-
+            var project = [];
             var projectURL = 'http://124.105.198.3:82/api/v1/dssprojects/1/1000/0';
             $.getJSON(projectURL, function (data) {
 
@@ -370,17 +399,19 @@
                 for (var i = 0; i < dat.length; i++) {
 
                     var newObj = {};
+                    var newObj2 = {};
 
                     newObj.id = dat[i].ID;
                     newObj.value = dat[i].ProjectName;
-                    newObj.label = dat[i].ProjectNumber + ' - ' + dat[i].ProjectName;
+                    newObj.label = dat[i].ProjectNumber + '-' + dat[i].ProjectName;
                     newObj.projectNo = dat[i].ProjectNumber;
 
-                    projects.push(newObj);
+                    project.push(newObj);
+
                 }
 
                 $(".projectName").autocomplete({
-                    source: projects,
+                    source: project,
                     select: function (event, ui) {
 
                         var $this = $(this);
@@ -390,12 +421,12 @@
                     }
                 });
 
+
             });
 
 
             //FOR ITEMS
             var items = [];
-
             var itemURL = 'http://192.168.1.100:89/api/values';
             $.getJSON(itemURL, function (data) {
 
@@ -428,7 +459,6 @@
 
             //FOR UNITS
             var units = [];
-
             var unitsURL = 'http://124.105.198.3:90/api/units';
             $.getJSON(unitsURL, function (data) {
 
@@ -460,9 +490,7 @@
 
             // FOR ITEM CONDITION
             var itemCondition = [];
-
             var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
-
             $.getJSON(itemConditionURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -479,12 +507,12 @@
 
                     $(this).autocomplete({
                         source: itemCondition,
-                        //select: function (event, ui) {
+                        select: function (event, ui) {
 
-                        //    var $this = $(this);
+                            var $this = $(this);
 
-                        //    $this.parents('td').find('input.itemConditionID').val(ui.item.id);
-                        //}
+                            $this.parents('td').find('input.itemConditionID').val(ui.item.id);
+                        }
                     });
 
                 });
@@ -493,7 +521,6 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-
             var supplierURL = 'http://124.105.198.3:93/vendor/0';
             $.getJSON(supplierURL, function (data) {
 
@@ -521,51 +548,81 @@
 
 
             //FOR DELIVERY METHOD
-            var deliveryMethod = [];
 
-            var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';
-            $.getJSON(deliveryMethodURL, function (data) {
+            $(function () {
+                $('.delMethodID').trigger('change');
 
-                for (var i = 0; i < data.length; i++) {
-                    var obj = {};
+            })
 
-                    obj.id = data[i].ID;
-                    obj.value = data[i].Name;
-                    obj.label = data[i].Name;
+            $('.delMethodID').on('change', function (e) {
 
-                    deliveryMethod.push(obj);
-                }
+                var $this = $(this);
+
+                var attrCounter = 0;
 
 
-                $(".delMethod").autocomplete({
-                    source: deliveryMethod,
-                    select: function (event, ui) {
+                $('.delMethodAttribute').find('label').text("");
+                $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
 
-                        var $this = $(this);
-                        $this.parents('.card-header').find('input.delMethodID').val(ui.item.id);
+                for (var z = 0; z < delMethodAttribute.length; z++) {
 
-                        var attrCounter = 0;
+                    if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
-                        $('.delMethodAttribute').find('label').text("");
-                        $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
+                        //console.log("Testing only here!!!");
+                        $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
+                        $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
 
-                        for (var z = 0; z < delMethodAttribute.length; z++) {
-
-                            //console.log(delMethodAttribute[z]);
-
-                            if (delMethodAttribute[z].DelMethodID_010 === ui.item.id) {
-
-                                $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
-                                $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
-
-                                attrCounter++;
-                            }
-
-                        }
+                        attrCounter++;
                     }
-                })
-
+                }
             });
+
+
+            //var deliveryMethod = [];
+
+            //var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';
+            //$.getJSON(deliveryMethodURL, function (data) {
+
+            //    for (var i = 0; i < data.length; i++) {
+            //        var obj = {};
+
+            //        obj.id = data[i].ID;
+            //        obj.value = data[i].Name;
+            //        obj.label = data[i].Name;
+
+            //        deliveryMethod.push(obj);
+            //    }
+
+
+            //    $(".delMethod").autocomplete({
+            //        source: deliveryMethod,
+            //        select: function (event, ui) {
+
+            //            var $this = $(this);
+            //            $this.parents('.card-header').find('input.delMethodID').val(ui.item.id);
+
+            //            var attrCounter = 0;
+
+            //            $('.delMethodAttribute').find('label').text("");
+            //            $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
+
+            //            for (var z = 0; z < delMethodAttribute.length; z++) {
+
+            //                //console.log(delMethodAttribute[z]);
+
+            //                if (delMethodAttribute[z].DelMethodID_010 === ui.item.id) {
+
+            //                    $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
+            //                    $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+
+            //                    attrCounter++;
+            //                }
+
+            //            }
+            //        }
+            //    })
+
+            //});
 
 
             //FOR RECEIVED BY
@@ -596,6 +653,32 @@
                 }
 
             });
+
+        });
+
+
+        $('#add_stockEntry_item').on('click', function (e) {
+
+            console.log("Add");
+
+            var counter = $('.stockEntryBody').find('td.number').length;
+
+            console.log(counter);
+
+
+            $('#newStockEntryTbodyClone').find('tr').addClass('stockEntryBody');
+            $('#newStockEntryTbodyClone').find('td.number').html(counter + 1);
+
+
+            $('#newStockEntryTbody').append(
+
+                $('#newStockEntryTbodyClone tbody').html()
+            );
+
+
+            //remove class after insert in tbody
+            $('#newStockEntryTbodyClone').find('tr').removeClass('stockEntryBody');
+            $('#newStockEntryTbodyClone').find('td.number').html("");
 
         });
 
