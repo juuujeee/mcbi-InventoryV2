@@ -180,9 +180,11 @@
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:200px">
                                         <input type="text" name="UnitPrice" value="" class="text-center unitPrice" style="border:none" />
                                     </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white">
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;">
                                         <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
                                         <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+
+                                        <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveStockEntryItem(event)"></i>
                                     </td>
                                 </tr>
                             }
@@ -190,7 +192,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button class="btn btn-sm mt-2 btn-info" id="add_stockEntry_item"><i class="fa fa-plus"></i>Add</button>
+                <button class="btn btn-sm mt-2 btn-info" id="add_stockEntry_item"><i class="fa fa-plus"></i> Add</button>
             </div>
             <div class="card-footer" style="background: #e1e2e2; border: none">
                 <div class="float-right">
@@ -199,7 +201,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 
@@ -252,6 +253,7 @@
         <td style="border-left:1px solid white; border-right: 1px solid white">
             <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
             <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveStockEntryItem(event)"></i>
         </td>
     </tr>
 </table>
@@ -569,7 +571,7 @@
                     if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
                         //console.log("Testing only here!!!");
-                        $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
+                        $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
                         $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
 
                         attrCounter++;
@@ -657,9 +659,10 @@
         });
 
 
+        //ADD NEW FIELD FOR STOCK ENTRY ITEM
         $('#add_stockEntry_item').on('click', function (e) {
 
-            console.log("Add");
+            //console.log("Add");
 
             var counter = $('.stockEntryBody').find('td.number').length;
 
@@ -667,7 +670,7 @@
 
 
             $('#newStockEntryTbodyClone').find('tr').addClass('stockEntryBody');
-            $('#newStockEntryTbodyClone').find('td.number').html(counter + 1);
+            $('#newStockEntryTbodyClone').find('td.number').html((counter || 0) + 1);
 
 
             $('#newStockEntryTbody').append(
@@ -682,6 +685,26 @@
 
         });
 
+
+        //REMOVE FIELD FOR THE SELECTED STOCK ENTRY ITEM
+        function fnRemoveStockEntryItem(event) {
+
+            //console.log("Testing remove only");
+
+            var $this = $(event.target);
+
+            $($this).parents('tr').remove();
+
+            var counter = $('.stockEntryBody').find('td.number').length;
+
+
+            if (counter > 0) {
+                for (var i = 0; i < counter; i++) {
+                    $('.stockEntryBody').find('td.number').eq(i).html(i + 1);
+                }
+            }
+
+        }
 
     </script>
 
