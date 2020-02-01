@@ -337,7 +337,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\_Create.cshtml" />
-    <Content Include="Views\Stocks\_StocksMovement.cshtml" />
+    <Content Include="Views\Stocks\_ReleaseStock.cshtml" />
+    <Content Include="Views\Stocks\_TransferStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
