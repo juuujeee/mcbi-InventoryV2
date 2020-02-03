@@ -144,6 +144,8 @@
     <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\MCBI-TEXT.png" />
     <Content Include="Content\Images\MCBILogo_White.png" />
+    <Content Include="Content\Images\temp_logo.png" />
+    <Content Include="Content\Images\temp_logo_transparent.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\linear-icons.css" />
     <Content Include="favicon.ico" />

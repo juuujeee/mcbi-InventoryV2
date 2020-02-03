@@ -25,7 +25,7 @@
     @Html.Partial("_Header")
 
 
-    <div class="wrapper">
+    <div class="wrapper" id="wrapper">
         <!-- Sidebar  -->
         @Html.Partial("_Sidebar")
 
@@ -59,7 +59,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-sm save_btn">Save</button> 
+                    <button type="button" class="btn btn-success btn-sm save_btn">Save</button>
                 </div>
             </div>
         </div>
@@ -73,6 +73,15 @@
     <script src="~/Scripts/sweetalert2.all.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
+
+    <script>
+        $(function () {
+
+            var headerHeight = $('#header').height();
+
+            $('#wrapper').css({ "margin-top": headerHeight });
+        });
+    </script>
 
 </body>
 </html>

@@ -110,7 +110,7 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
-    margin-top: 70px;
+    /*margin-top: 70px;*/
     height: calc(100% - 70px);
 }
 
@@ -404,4 +404,18 @@ ul ul a {
 /*-----------------NEW CSS----------------------*/
 .table-entry-header-container label {
     width: 150px;
+}
+
+.custom-card .card-header, 
+.custom-card .card-body, 
+.custom-card .card-footer {
+    background: #e1e2e2;
+}
+
+.custom-card .card-header {
+    padding-right: 0px;
+}
+
+.custom-card .card-footer {
+    border: none;
 }

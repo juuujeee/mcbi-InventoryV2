@@ -1,1 +1,81 @@
-﻿
+﻿@{
+    ViewBag.Title = "Transfer Stocks Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <h1>Transfer Stocks</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pt-1">
+                <div class="table-responsive">
+                    <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
+                        <thead>
+                            <tr style="background: rgb(78,203,74); height: 50px; border: 1px solid white" class="text-white">
+                                <th class="text-center" style="font-size: 23px">NO</th>
+                                <th class="text-center" style="font-size: 23px">ITEM CODE</th>
+                                <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
+                                <th class="text-center" style="font-size: 23px">UNITS</th>
+                                <th class="text-center" style="font-size: 23px">QTY</th>
+                                <th class="text-center" style="font-size: 23px">CONDITION</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="" id="newTransferStockEntryTbody">
+                            @for (var i = 1; i <= 10; i++)
+                            {
+                                <tr class="transferStockEntryBody">
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
+                                    <td style="width:300px; border-left:1px solid white; border-right: 1px solid white;" class="pl-lg-3">
+                                        <input type="hidden" name="ItemID" class="itemID" value="" />
+                                        <input type="text" name="Items" value="" class="items" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
+                                        <input type="text" name="ItemDescription" value="" class="text-center itemDescription" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+                                        <input type="hidden" name="UnitID" class="unitID" value="" />
+                                        <input type="text" name="Units" value="" class="text-center units" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+                                        <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;">
+                                        <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+                                        @*<i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveStockEntryItem(event)"></i>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="float-right">
+                    <button class="btn btn-success shadow-none" type="button" onclick="" style="padding:10px;">TRANSFER STOCKS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    
+<script>
+
+
+</script>
+    
+}
