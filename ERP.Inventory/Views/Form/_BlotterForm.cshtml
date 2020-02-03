@@ -1,5 +1,18 @@
 ﻿
 
+@if (ViewBag.Report)
+{
+    Layout = null;
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+    <link href="~/Content/Site.css" rel="stylesheet"/>
+
+    <style>
+        body{
+            background: #fff;
+        }
+    </style>
+}
+
     <div class="row">
         <div class="col-md-12">
             <div class="custom-table-container" style="">
@@ -152,3 +165,10 @@
             </div>
         </div>
     </div>
+
+
+@if (ViewBag.Report)
+{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+}

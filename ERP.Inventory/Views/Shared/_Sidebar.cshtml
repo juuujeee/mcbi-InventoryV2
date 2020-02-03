@@ -42,12 +42,46 @@
                     </a>
                     <ul class="collapse list-unstyled" id="stockFlowSubMenu">
                         <li>
-                            <a href="@Url.Action("ReleaseStock", "Stocks")" class="" style="padding-left: 65px !important">Release</a>
+                            <a href="@Url.Action("TransferStock", "Stocks")" style="padding-left: 65px !important">Transfer Stocks</a>
                         </li>
                         <li>
-                            <a href="#" style="padding-left: 65px !important">Transfer</a>
+                            <a href="#" class="" style="padding-left: 65px !important">Withdraw Stocks</a>
+                        </li>
+                        <li>
+                            <a href="#" style="padding-left: 65px !important">Issue Stocks</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="#" class="sub-menu" style="position:relative">
+                        <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                        Stock Inquiry
+                    </a>
+                </li>
+                <li>
+                    @*<a href="#" class="sub-menu" style="position:relative">
+                <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                Stock Data
+            </a>*@
+                    <a href="#stockDataSubMenu" class="sub-menu dropdown-toggle" style="position:relative" data-toggle="collapse" aria-expanded="false">
+                        <i class="fa fa-circle" style="font-size: 8px;position:absolute; top:20px; left:35px"></i>
+                        Stock Data
+                    </a>
+                    <ul class="collapse list-unstyled" id="stockDataSubMenu">
+                        <li>
+                            <a href="#" style="padding-left: 65px !important">New Item Data</a>
+                        </li>
+                        <li>
+                            <a href="#" style="padding-left: 65px !important">Update Item Data</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sub-menu" style="position:relative">
+                        <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                        Reports
+                    </a>
                 </li>
             </ul>
         </li>

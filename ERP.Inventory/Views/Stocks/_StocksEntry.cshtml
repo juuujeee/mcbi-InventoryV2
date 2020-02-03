@@ -25,7 +25,7 @@
                                 <div class="custom-form-group">
                                     <div class="d-flex table-entry-header-container">
                                         <label>SUP ID:</label>
-                                        <input type="text" name="SupplierID" value="" class="form-control form-control-sm shadow-none" />
+                                        <input type="text" name="SupplierIDCode" value="" class="form-control form-control-sm shadow-none supplierIDCode" readonly/>
                                     </div>
                                 </div>
                             </div>
@@ -395,7 +395,11 @@
                 data: JSON.stringify(DocEntry),
                 contentType: "application/json",
                 success: function (response) {
-                    console.log(response);
+                    if (response.RetVal === 1) {
+                        swal('Success', response.Message, 'success');
+
+                        $('#newStockEntry').find('input').val("");
+                    }
                 }
             });
 
@@ -543,6 +547,8 @@
 
                 for (var i = 0; i < data.length; i++) {
 
+                    //console.log(data);
+
                     var newObj = {};
 
                     newObj.id = data[i].SupplierID;
@@ -559,6 +565,7 @@
 
                         var $this = $(this);
                         $this.parents('.card-header').find('input.supplierID').val(ui.item.id);
+                        $this.parents('.card-header').find('input.supplierIDCode').val(ui.item.id);
                     }
                 })
             });
@@ -681,8 +688,7 @@
 
             var counter = $('.stockEntryBody').find('td.number').length;
 
-            console.log(counter);
-
+            //console.log(counter);
 
             $('#newStockEntryTbodyClone').find('tr').addClass('stockEntryBody');
             $('#newStockEntryTbodyClone').find('td.number').html((counter || 0) + 1);
