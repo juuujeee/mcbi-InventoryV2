@@ -297,7 +297,6 @@
             //console.log("Testing only saving");
 
             var stockEntryItem = [];
-            var item = {};
             var $this = $(event.target);
 
             //FOR STOCK ENTRY ITEM
@@ -308,10 +307,21 @@
                     DocEntryID_007: 0,
                     ItemID_011: $(this).find('input[name=ItemID]').val() || 0,
                     UnitID_009: $(this).find('input[name=UnitID]').val() || 0,
-                    Quantity: $(this).find('input[name=Qty]').val() || 0,
-                    UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0,
                     ItemConditionID_018: $(this).find('input[name=ItemConditionID]').val() || 0,
+                    Quantity: $(this).find('input[name=Qty]').val() || 0,
+                    UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0
                 };
+
+                //obj.ItemConditionID_018 = {
+                //    ID: $(this).find('input[name=ItemConditionID]').val() || 0,
+                //    StatusName: $(this).find('input[name=ItemCondition]').val()
+                //}
+
+                //obj.UnitID_009 = {
+                //    ID: $(this).find('input[name=UnitID]').val() || 0,
+                //    ShortName: $(this).find('input[name=Units]').val(),
+                //    FullName: $(this).find('input[name=Units]').attr('data-fullname')
+                //};
 
                 if (obj.ItemID_011 !== 0) {
                     stockEntryItem.push(obj);
@@ -324,21 +334,10 @@
             let formatted_date = (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate() + "/" + current_datetime.getFullYear();
 
 
-            //FOR STOCK ENTRY HEADER
-            var DocEntry = {
-                ID: 0,
-                SupID_VendorDB: $this.parents('div.card').find('input[name=SupplierID]').val() || 0,
-                ProjectID_EnggDB: $this.parents('div.card').find('input[name=ProjectID]').val() || 0,
-                DocumentNumber: $this.parents('div.card').find('input[name=DocNo]').val() || 0,
-                DeliveryDate: $this.parents('div.card').find('input[name=DeliveryDate]').val() || 0,
-                EntryDate: formatted_date,
-                ReceiverID_HRDB: $this.parents('div.card').find('input[name=ReceivedByID]').val() || 0,
-            };
-
 
             //FOR DELIVERY ENTRY
 
-            var DeliveryEntry = [];
+            var DeliveryMethodEntryList = [];
             $('input[name=DeliveryMethodAttr]').each(function () {
 
                 var obj = {
@@ -349,17 +348,41 @@
                 };
 
                 if (obj.AttributeValue !== "") {
-                    DeliveryEntry.push(obj);
+                    DeliveryMethodEntryList.push(obj);
                 }
 
             });
 
+            var DeliveryMethod = {
 
-            item.DocEntry = DocEntry;
-            item.ItemEntryList = stockEntryItem;
-            item.DeliveryEntry = DeliveryEntry;
+                ID: $('.delMethodID').val(),
+                Name: $('.delMethodID').children('option:selected').text(),
+                DelMethodAttribute: [{
+                    ID: 0,
+                    DelMethodID_010: 0,
+                    MethodAttribute: 'test',
+                    DeliveryMethodEntryList: DeliveryMethodEntryList
+                }]
 
-            console.log(item);
+            };
+
+
+            //FOR STOCK ENTRY HEADER
+            var DocEntry = {
+                ID: 0,
+                SupID_VendorDB: $this.parents('div.card').find('input[name=SupplierID]').val() || 0,
+                ProjectID_EnggDB: $this.parents('div.card').find('input[name=ProjectID]').val() || 0,
+                DocumentNumber: $this.parents('div.card').find('input[name=DocNo]').val() || 0,
+                DeliveryDate: $this.parents('div.card').find('input[name=DeliveryDate]').val() || 0,
+                EntryDate: formatted_date,
+                ReceiverID_HRDB: $this.parents('div.card').find('input[name=ReceivedByID]').val() || 0,
+                ItemEntryList: stockEntryItem,
+                DeliveryMethod: DeliveryMethod
+            };
+
+            console.log(DocEntry);
+
+            //return;
 
             $.ajax({
                 headers: {
@@ -367,9 +390,9 @@
                     "Content-Type": "application/json"
                 },
                 type: 'post',
-                url: 'http://124.105.198.3:90/api/StockEntry',
+                url: 'http://124.105.198.3:90/api/DocEntryList',
                 dataType: 'json',
-                data: JSON.stringify(item),
+                data: JSON.stringify(DocEntry),
                 contentType: "application/json",
                 success: function (response) {
                     console.log(response);
@@ -460,6 +483,7 @@
                     obj.id = data[i].ID;
                     obj.value = data[i].ShortName;
                     obj.label = data[i].ShortName;
+                    obj.fullname = data[i].FullName;
 
                     units.push(obj);
                 }
@@ -472,6 +496,7 @@
 
                             var $this = $(this);
 
+                            $this.attr('data-fullname', ui.item.fullname); 
                             $this.parents('td').find('input.unitID').val(ui.item.id);
                         }
                     });
