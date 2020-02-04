@@ -351,7 +351,30 @@
                         $('#newStockEntry').find('input').val("");
 
                     }
-                }
+                    else {
+                        swal.fire('Error', response.Message, 'error');
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
             });
 
         }
@@ -361,19 +384,19 @@
 
             //FOR PROJECTS
             var project = [];
-            var projectURL = 'http://124.105.198.3:82/api/v1/dssprojects/1/1000/0';
+            var projectURL = 'http://192.168.1.100:94/api/Projects';
 
             $.getJSON(projectURL, function (data) {
-                var dat = data.Data;
+                //var dat = data.Data;
 
-                for (var i = 0; i < dat.length; i++) {
+                for (var i = 0; i < data.length; i++) {
 
                     var newObj = {};
-                   
-                    newObj.id = dat[i].ID;
-                    newObj.value = dat[i].ProjectName;
-                    newObj.label = dat[i].ProjectNumber + '-' + dat[i].ProjectName;
-                    newObj.projectNo = dat[i].ProjectNumber;
+
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].ProjectName;
+                    newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                    newObj.projectNo = data[i].ProjectNumber;
 
                     project.push(newObj);
 
@@ -392,8 +415,8 @@
             });
 
 
-           
-           
+
+
 
             //FOR SUPPLIER
             var suppliers = [];

@@ -65,6 +65,22 @@
         </div>
     </div>
 
+
+    @if (ViewBag.Title == "Stocks Entry Page" || ViewBag.Title == "Transfer Stocks Page")
+    {
+        <div class="dropdown float-icon-container" id="">
+            <button id="floatMenu" type="button" class="btn scroll-up-icon float-icon dropdown-toggle" data-toggle="dropdown" style="display: inline;">
+                <i class="fa fa-cogs text-black"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="floatMenu">
+                <li role="presentation"><a role="menuitem" href="javascript:void(0)">New Item</a></li>
+                <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
+            </ul>
+        </div>
+    }
+
+
+
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/umd/popper.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
