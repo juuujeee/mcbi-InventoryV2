@@ -24,9 +24,14 @@ namespace ERP.Inventory.Controllers
             return View("~/Views/Stocks/_TransferStock.cshtml");
         }
 
-        public ActionResult ReleaseStock()
+        public ActionResult WithdrawnStock()
         {
             return View("~/Views/Stocks/_ReleaseStock.cshtml");
+        }
+
+        public ActionResult IssuedStock()
+        {
+            return View("~/Views/Stocks/_IssuedStock.cshtml");
         }
     }
 }

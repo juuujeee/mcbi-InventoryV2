@@ -25,7 +25,7 @@
                                 <div class="custom-form-group">
                                     <div class="d-flex table-entry-header-container">
                                         <label>SUP ID:</label>
-                                        <input type="text" name="SupplierIDCode" value="" class="form-control form-control-sm shadow-none supplierIDCode" readonly/>
+                                        <input type="text" name="SupplierIDCode" value="" class="form-control form-control-sm shadow-none supplierIDCode" readonly />
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <div class="d-flex table-entry-header-container">
                                         <label>PROJ NAME:</label>
                                         <input type="hidden" name="ProjectID" value="" class="projectID" />
-                                        <input type="text" name="ProjectName" value="" class="form-control form-control-sm shadow-none projectName" />
+                                        <input type="text" name="ProjectName" value="" class="form-control form-control-sm shadow-none projectName text-ellipsis" />
                                     </div>
                                 </div>
                             </div>
@@ -156,12 +156,12 @@
                                 <tr class="stockEntryBody">
                                     <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
                                     <td style="width:500px; border-left:1px solid white; border-right: 1px solid white;" class="pl-lg-3">
-                                        <input type="hidden" name="ItemID" class="itemID" value="" />
-                                        <input type="text" name="name" value="" class="items" style="border:none" />
+                                        @*<input type="hidden" name="ItemID" class="itemID" value="" />*@
+                                        <input type="text" name="Items" value="" class="items" style="border:none" />
                                         @*REBARS 10MM DIA X 6M - GRADE 40*@
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-                                        <input type="hidden" name="UnitID" class="unitID" value="" />
+                                        @*<input type="hidden" name="UnitID" class="unitID" value="" />*@
                                         <input type="text" name="Units" value="" class="text-center units" style="border:none" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
@@ -171,7 +171,7 @@
                                         <input type="text" name="UnitPrice" value="" class="text-center unitPrice" style="border:none" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;">
-                                        <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
+                                        @*<input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />*@
                                         <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
 
                                         <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveStockEntryItem(event)"></i>
@@ -186,6 +186,7 @@
             </div>
             <div class="card-footer">
                 <div class="float-right">
+                    @*<button class="btn btn-light" id="clearAll">Clear All</button>*@
                     <button class="btn btn-success shadow-none" type="button" onclick="fnSaveStockEntry(event)" style="padding:10px;">SAVE ENTRY</button>
                 </div>
             </div>
@@ -193,35 +194,6 @@
     </div>
 </div>
 
-
-
-@*<div class="row">
-        <div class="col-md-10 pt-3">
-
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="tds-tab" data-toggle="tab" href="#tds" role="tab" aria-controls="tds" aria-selected="true">Tools Delivered On Site</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="mds-tab" data-toggle="tab" href="#mds" role="tab" aria-controls="mds" aria-selected="false">Materials Delivered On Site</a>
-                </li>
-            </ul>
-            <div class="tab-content mt-3" id="myTabContent">
-                <div class="tab-pane fade show active" id="tds" role="tabpanel" aria-labelledby="tds-tab">
-                    @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "tools" })
-
-                </div>
-                <div class="tab-pane fade" id="mds" role="tabpanel" aria-labelledby="mds-tab">
-                    @Html.Action("FormView", "Form", new { pageName = "ItemDelivered", itemType = "materials" })
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 text-center" style="border: 1px solid; padding-top: 20px">
-            <small>Panel</small>
-        </div>
-
-    </div>*@
 
 <table style="display: none" id="newStockEntryTbodyClone">
     <tr class="">
@@ -253,43 +225,17 @@
 
     <script>
 
-        var delMethodAttribute = [
-            {
-                "ID": 1,
-                "DelMethodID_010": 1,
-                "MethodAttribute": "DriverName"
-            },
-            {
-                "ID": 2,
-                "DelMethodID_010": 1,
-                "MethodAttribute": "Plate No."
-            },
-            {
-                "ID": 3,
-                "DelMethodID_010": 1,
-                "MethodAttribute": "Vehicle Type"
-            },
-            {
-                "ID": 4,
-                "DelMethodID_010": 2,
-                "MethodAttribute": "Courier Name"
-            },
-            {
-                "ID": 5,
-                "DelMethodID_010": 2,
-                "MethodAttribute": "Tracking No."
-            },
-            {
-                "ID": 6,
-                "DelMethodID_010": 3,
-                "MethodAttribute": "Msgr Name"
-            },
-            {
-                "ID": 7,
-                "DelMethodID_010": 3,
-                "MethodAttribute": "Msgr ID No."
-            }
-        ]
+        //testing purposes only
+        $('#clearAll').on('click', function (e) {
+
+            swal.fire(
+                'The Internet?',
+                'That thing is still around?',
+                'question'
+            );
+
+
+        });
 
 
         //SAVE DATA
@@ -305,9 +251,9 @@
                 var obj = {
                     ID: 0,
                     DocEntryID_007: 0,
-                    ItemID_011: $(this).find('input[name=ItemID]').val() || 0,
-                    UnitID_009: $(this).find('input[name=UnitID]').val() || 0,
-                    ItemConditionID_018: $(this).find('input[name=ItemConditionID]').val() || 0,
+                    ItemID_011: $(this).find('input[name=Items]').attr('data-val') || 0,
+                    UnitID_009: $(this).find('input[name=Units]').attr('data-val') || 0,
+                    ItemConditionID_018: $(this).find('input[name=ItemCondition]').attr('data-val') || 0,
                     Quantity: $(this).find('input[name=Qty]').val() || 0,
                     UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0
                 };
@@ -396,9 +342,14 @@
                 contentType: "application/json",
                 success: function (response) {
                     if (response.RetVal === 1) {
-                        swal('Success', response.Message, 'success');
+                        swal.fire('Success', response.Message, 'success');
 
+                        //Clear Stock Entry Header
+                        $('#stock_entry').find('.card-header').find('input').val("");
+
+                        //Clear Stock Entry Item
                         $('#newStockEntry').find('input').val("");
+
                     }
                 }
             });
@@ -411,15 +362,14 @@
             //FOR PROJECTS
             var project = [];
             var projectURL = 'http://124.105.198.3:82/api/v1/dssprojects/1/1000/0';
-            $.getJSON(projectURL, function (data) {
 
+            $.getJSON(projectURL, function (data) {
                 var dat = data.Data;
 
                 for (var i = 0; i < dat.length; i++) {
 
                     var newObj = {};
-                    var newObj2 = {};
-
+                   
                     newObj.id = dat[i].ID;
                     newObj.value = dat[i].ProjectName;
                     newObj.label = dat[i].ProjectNumber + '-' + dat[i].ProjectName;
@@ -439,115 +389,19 @@
                         $this.parents('.card-header').find('input.projectNumber').val(ui.item.projectNo);
                     }
                 });
-
-
             });
 
 
-            //FOR ITEMS
-            var items = [];
-            var itemURL = 'http://192.168.1.100:89/api/values';
-            $.getJSON(itemURL, function (data) {
-
-                for (var i = 0; i < data.length; i++) {
-
-                    var newObj = {};
-
-                    newObj.id = data[i].ID;
-                    newObj.value = data[i].Name;
-                    newObj.label = data[i].Name;
-
-                    items.push(newObj);
-                }
-
-                $('body').on('click', '.items', function () {
-
-                    $(this).autocomplete({
-                        source: items,
-                        select: function (event, ui) {
-
-                            var $this = $(this);
-
-                            $this.parents('td').find('input.itemID').val(ui.item.id);
-                        }
-                    });
-                });
-
-            });
-
-
-            //FOR UNITS
-            var units = [];
-            var unitsURL = 'http://124.105.198.3:90/api/units';
-            $.getJSON(unitsURL, function (data) {
-
-                for (var i = 0; i < data.length; i++) {
-                    var obj = {};
-
-                    obj.id = data[i].ID;
-                    obj.value = data[i].ShortName;
-                    obj.label = data[i].ShortName;
-                    obj.fullname = data[i].FullName;
-
-                    units.push(obj);
-                }
-
-                $('body').on('click', '.units', function () {
-
-                    $(this).autocomplete({
-                        source: units,
-                        select: function (event, ui) {
-
-                            var $this = $(this);
-
-                            $this.attr('data-fullname', ui.item.fullname); 
-                            $this.parents('td').find('input.unitID').val(ui.item.id);
-                        }
-                    });
-
-                });
-            });
-
-
-            // FOR ITEM CONDITION
-            var itemCondition = [];
-            var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
-            $.getJSON(itemConditionURL, function (data) {
-
-                for (var i = 0; i < data.length; i++) {
-                    var obj = {};
-
-                    obj.id = data[i].ID;
-                    obj.value = data[i].StatusName;
-                    obj.label = data[i].StatusName;
-
-                    itemCondition.push(obj);
-                }
-
-                $('body').on('click', '.itemCondition', function () {
-
-                    $(this).autocomplete({
-                        source: itemCondition,
-                        select: function (event, ui) {
-
-                            var $this = $(this);
-
-                            $this.parents('td').find('input.itemConditionID').val(ui.item.id);
-                        }
-                    });
-
-                });
-            });
-
+           
+           
 
             //FOR SUPPLIER
             var suppliers = [];
             var supplierURL = 'http://124.105.198.3:93/vendor/0';
+
             $.getJSON(supplierURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
-
-                    //console.log(data);
 
                     var newObj = {};
 
@@ -577,76 +431,6 @@
                 $('.delMethodID').trigger('change');
 
             })
-
-            $('.delMethodID').on('change', function (e) {
-
-                var $this = $(this);
-
-                var attrCounter = 0;
-
-
-                $('.delMethodAttribute').find('label').text("");
-                $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
-
-                for (var z = 0; z < delMethodAttribute.length; z++) {
-
-                    if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
-
-                        //console.log("Testing only here!!!");
-                        $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
-                        $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
-
-                        attrCounter++;
-                    }
-                }
-            });
-
-
-            //var deliveryMethod = [];
-
-            //var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';
-            //$.getJSON(deliveryMethodURL, function (data) {
-
-            //    for (var i = 0; i < data.length; i++) {
-            //        var obj = {};
-
-            //        obj.id = data[i].ID;
-            //        obj.value = data[i].Name;
-            //        obj.label = data[i].Name;
-
-            //        deliveryMethod.push(obj);
-            //    }
-
-
-            //    $(".delMethod").autocomplete({
-            //        source: deliveryMethod,
-            //        select: function (event, ui) {
-
-            //            var $this = $(this);
-            //            $this.parents('.card-header').find('input.delMethodID').val(ui.item.id);
-
-            //            var attrCounter = 0;
-
-            //            $('.delMethodAttribute').find('label').text("");
-            //            $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
-
-            //            for (var z = 0; z < delMethodAttribute.length; z++) {
-
-            //                //console.log(delMethodAttribute[z]);
-
-            //                if (delMethodAttribute[z].DelMethodID_010 === ui.item.id) {
-
-            //                    $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
-            //                    $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
-
-            //                    attrCounter++;
-            //                }
-
-            //            }
-            //        }
-            //    })
-
-            //});
 
 
             //FOR RECEIVED BY
