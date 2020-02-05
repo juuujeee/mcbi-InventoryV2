@@ -17,84 +17,76 @@
                         </div>
                     </div>
                     <div class="col-md-8"></div>
-                    @*<div class="col-md-4">
-                            <div class="form-group">
-                                <label>Enter Ref Number:</label>
-                                <input type="text" name="RefNumber" class="form-control shadow-none" value="" />
-                            </div>
-                        </div>*@
                     <div class="col-md-12">
                         <hr />
                     </div>
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-5">
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <div class="custom-form-group">
-                                            <div class="d-flex table-entry-header-container">
-                                                <label>PROJ NAME</label>:
-                                                <input type="hidden" name="OriginProjectID" class="projectID" value="" />
-                                                <input type="text" name="OriginProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="custom-form-group">
-                                            <div class="d-flex table-entry-header-container">
-                                                <label>PROJ NO</label>:
-                                                <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="custom-form-group">
-                                            <div class="d-flex table-entry-header-container">
-                                                <label>WH INCHARGE</label>:
-                                                <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
-                                                <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @*<div class="col-md-12">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">PROJECT DETAILS</legend>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
-                                                    <label style="font-size:14px">DATE PREPARED</label>:
-                                                    <input type="text" name="OriginDatePrepared" class="form-control form-control-sm date-picker" value="" />
+                                                    <label>PROJ NAME</label>:
+                                                    <input type="hidden" name="OriginProjectID" class="projectID" value="" />
+                                                    <input type="text" name="OriginProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
                                                 </div>
                                             </div>
-                                        </div>*@
-                                </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>PROJ NO</label>:
+                                                    <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>WH INCHARGE</label>:
+                                                    <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
+                                                    <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
                             </div>
                             <div class="col-md-2"></div>
                             
                             <div class="col-md-5">
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <div class="custom-form-group">
-                                            <div class="d-flex table-entry-header-container">
-                                                <label>REQUESTED BY</label>:
-                                                <input type="text" name="RequestedBy" class="form-control form-control-sm requestedBy text-ellipsis" value="" />
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">PEOPLE INVOLVE</legend>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>REQUESTED BY</label>:
+                                                    <input type="text" name="RequestedBy" class="form-control form-control-sm requestedBy text-ellipsis" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>PROJ INCHARGE</label>:
+                                                    <input type="text" name="ProjIncharge" class="form-control form-control-sm projIncharge" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label style="font-size:13px">REQUEST NUMBER</label>:
+                                                    <input type="text" name="RequestNumber" class="form-control form-control-sm requestNumber" value="" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="custom-form-group">
-                                            <div class="d-flex table-entry-header-container">
-                                                <label>PROJ INCHARGE</label>:
-                                                <input type="text" name="ProjIncharge" class="form-control form-control-sm projIncharge" value="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="custom-form-group">
-                                            <div class="d-flex table-entry-header-container">
-                                                <label style="font-size:13px">REQUEST NUMBER</label>:
-                                                <input type="text" name="RequestNumber" class="form-control form-control-sm requestNumber" value="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </fieldset>
                             </div>
                         </div>
                     </div>
