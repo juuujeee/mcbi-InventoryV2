@@ -13,6 +13,8 @@
                 </div>
             </fieldset>
         </div>
+
+        <!--ITEM PROPERTY-->
         <div class="col-md-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">PROPERTY</legend>
@@ -29,22 +31,30 @@
                                 <label>Value</label>
                                 <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
                             </div>
-                            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItemProperty(event)" style="right:-3px; top:38px"></i>
+                            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor: pointer"></i>
                         </div>
                     </div>
                 </div>
                 <button type="button" class="btn btn-info btn-sm" onclick="fnAddNewProperty(event)"><i class="fa fa-plus"></i>Add</button>
             </fieldset>
         </div>
+
+        <!--ITEM ATTRIBUTE-->
         <div class="col-md-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">ATTRIBUTE</legend>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="">
+                    <input type="checkbox" class="form-check-input" id="" onchange="fnCheckItemAttribute(event)">
                     <label class="form-check-label" for="">Has Attribute</label>
                 </div>
+                <div class="item_attribute_container">
+
+                </div>
+                <button type="button" class="btn btn-info btn-sm d-none" onclick="fnAddNewAttribute(event)"><i class="fa fa-plus"></i>Add</button>
             </fieldset>
         </div>
+
+        <!--ITEM OTHERS(TAGS/CODE)-->
         <div class="col-md-12">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">OTHERS</legend>
@@ -82,7 +92,25 @@
                 <label>Value</label>
                 <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
             </div>
-            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItemProperty(event)" style="right:-3px; top:38px"></i>
+            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor:pointer"></i>
+        </div>
+    </div>
+</div>
+
+<div style="display: none" id="item_attribute_clone">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="Attribute" value="" class="form-control form-control-sm shadow-none" />
+            </div>
+        </div>
+        <div class="col-md-6 position-relative">
+            <div class="form-group">
+                <label>Value</label>
+                <input type="text" name="AttributeValue" class="form-control form-control-sm shadow-none" value="" />
+            </div>
+            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor: pointer"></i>
         </div>
     </div>
 </div>
@@ -93,19 +121,49 @@
     function fnAddNewProperty(event) {
         console.log("add property");
 
+        $('#item_property_clone').find('row').addClass('item_property');
+
         $('#item_property_container').append(
             $('#item_property_clone').html()
         );
 
+        $('#item_property_clone').find('row').removeClass('item_property');
+
     }
 
-    function fnRemoveItemProperty(event) {
+    function fnRemoveItem(event) {
 
         var $this = $(event.target);
 
         $this.closest('.row').remove();
     }
 
+    function fnCheckItemAttribute(event) {
+
+        var $this = $(event.target);
+
+        if ($this.prop("checked") === true) {
+            $this.closest('fieldset').find('button').removeClass('d-none');
+        }
+        else {
+
+            $this.closest('fieldset').find('button').addClass('d-none');
+
+            $('.item_attribute_container').html('');
+        }
+    }
+
+    function fnAddNewAttribute(event) {
+
+        $('#item_attribute_clone').find('row').addClass('item_attribute');
+
+        $('.item_attribute_container').append(
+            $('#item_attribute_clone').html()
+        );
+
+        $('#item_attribute_clone').find('row').removeClass('item_attribute');
+
+    }
 
     function fnSaveItemMasterList(event) {
         event.preventDefault();
