@@ -419,6 +419,28 @@ function fnGetGenericName(event) {
 
 
 
+//RECENT TRANSACTIONS
+var recentURL = 'http://124.105.198.3:90/api/NewItemEntryList';
+$.getJSON(recentURL, function (data) {
+
+    console.log(data);
+
+    for (var i = 0; i < data.length; i++) {
+
+        console.log(data[i].ItemFullName.Name);
+
+        var el = '';
+        el += '<a href="#">';
+        el += '<span><strong>' + data[i].ItemFullName.Name + ' </strong><small>Qty: ' + data[i].Quantity + '</small></span>';
+        el += '<hr class="mb-0" style="margin-top: 8px" />';
+        el += '</a>';
+
+        $('#recent_transactions').append(el);
+    }
+
+
+});
+
 
 
 
