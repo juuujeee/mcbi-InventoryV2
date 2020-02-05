@@ -10,7 +10,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Select New or Post Transfer</label>
-                            <select class="form-control shadow-none">
+                            <select class="form-control shadow-none" id="transfer_stock_option">
                                 <option value="1">New Stock Transfer</option>
                                 <option value="2">Confirm Stock Transfer</option>
                             </select>
@@ -26,7 +26,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-4">
-                                <fieldset class="scheduler-border">
+                                <fieldset class="scheduler-border" id="origin">
                                     <legend class="scheduler-border">ORIGIN DETAILS</legend>
                                     <div class="row mt-3">
                                         <div class="col-md-12">
@@ -111,7 +111,7 @@
                                 </fieldset>
                             </div>
                             <div class="col-md-4">
-                                <fieldset class="scheduler-border">
+                                <fieldset class="scheduler-border" id="destination">
                                     <legend class="scheduler-border">DESTINATION</legend>
                                     <div class="row mt-3">
                                         <div class="col-md-12">
@@ -252,7 +252,10 @@
 
         //TRIGGER ONCHANGE DELIVERY METHOD
         $(function () {
+
             $('.delMethodID').trigger('change');
+            $('#transfer_stock_option').trigger('change');
+
         })
 
         //EMPLOYEE AUTOCOMPLETE
@@ -356,6 +359,19 @@
             }
         }
 
+
+        //FOR TRANSFER STOCK OPTION
+        $('#transfer_stock_option').on('change', function (e) {
+
+            if (parseInt($(this).val()) === 1) {
+                $('input[name=RefNumber]').attr('disabled', true);
+                $('fieldset#origin, fieldset#destination').find('input').removeAttr('disabled');
+            }
+            else {
+                $('input[name=RefNumber]').removeAttr('disabled');
+                $('fieldset#origin, fieldset#destination').find('input').attr('disabled', true);
+            }
+        });
 
     </script>
 

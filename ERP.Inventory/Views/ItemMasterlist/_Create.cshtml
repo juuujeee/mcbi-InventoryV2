@@ -44,7 +44,7 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">ATTRIBUTE</legend>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="" onchange="fnCheckItemAttribute(event)">
+                    <input type="checkbox" class="form-check-input" name="HasAttribute" id="" onchange="fnCheckItemAttribute(event)">
                     <label class="form-check-label" for="">Has Attribute</label>
                 </div>
                 <div class="item_attribute_container">
@@ -172,7 +172,8 @@
             ID: 0,
             Code: $(event.target).find('input[name=Code]').val(),
             Tag: $(event.target).find('input[name=Tag]').val(),
-        }
+            hasAttribute: $(event.target).find('input[name=HasAttribute]').is(":checked") ? true: false
+        };
 
         console.log(itemData);
     }
