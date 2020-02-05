@@ -3,6 +3,11 @@
 }
 
 <div class="row">
+    <div class="col-md-12 ml-3">
+        <h1>Transfer Stocks</h1>
+        <hr />
+    </div>
+   
     <div class="col-md-12">
         <div class="card custom-card">
             <div class="card-header">
@@ -11,15 +16,15 @@
                         <div class="form-group">
                             <label>Select New or Post Transfer</label>
                             <select class="form-control shadow-none" id="transfer_stock_option">
-                                <option value="1">New Stock Transfer</option>
-                                <option value="2">Confirm Stock Transfer</option>
+                                <option value="1">NEW STOCK TRANSFER</option>
+                                <option value="2">CONFIRM STOCK TRANSFER</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Enter Ref Number:</label>
+                            <label id="seriesNumber"></label>
                             <input type="text" name="RefNumber" class="form-control shadow-none" value="" />
                         </div>
                     </div>
@@ -155,7 +160,7 @@
                     </div>
                     <div class="col-md-12 mt-3">
                         <div class="float-left">
-                            <h1>Transfer Stocks</h1>
+                            <h3>Enter Items Here</h3>
                         </div>
                     </div>
                 </div>
@@ -364,11 +369,11 @@
         $('#transfer_stock_option').on('change', function (e) {
 
             if (parseInt($(this).val()) === 1) {
-                $('input[name=RefNumber]').attr('disabled', true);
+                $('#seriesNumber').text('Enter Form Series No:');
                 $('fieldset#origin, fieldset#destination').find('input').removeAttr('disabled');
             }
             else {
-                $('input[name=RefNumber]').removeAttr('disabled');
+                $('#seriesNumber').text('Enter Ref:');
                 $('fieldset#origin, fieldset#destination').find('input').attr('disabled', true);
             }
         });
