@@ -153,56 +153,57 @@
                             </div>
                         </div>
                     </div>
-                    @*<div class="col-md-12 mt-3">
-                            <div class="float-left">
-                                <h1>Transfer Stocks</h1>
-                            </div>
-                        </div>*@
+                    <div class="col-md-12 mt-3">
+                        <div class="float-left">
+                            <h1>Transfer Stocks</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-body px-0 pt-1">
-                <fieldset class="scheduler-border">
+                @*<fieldset class="scheduler-border">
                     <legend class="scheduler-border">TRANSFER STOCKS</legend>
-                    <div class="table-responsive">
-                        <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
-                            <thead>
-                                <tr style="background: rgb(78,203,74); height: 50px; border: 1px solid white" class="text-white">
-                                    <th class="text-center" style="font-size: 23px">NO.</th>
-                                    <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
-                                    <th class="text-center" style="font-size: 23px">UNITS</th>
-                                    <th class="text-center" style="font-size: 23px">QTY</th>
-                                    <th class="text-center" style="font-size: 23px">CONDITION</th>
-                                </tr>
-                            </thead>
+                </fieldset>*@
 
-                            <tbody class="" id="newTransferStockEntryTbody">
-                                @for (var i = 1; i <= 10; i++)
-                                {
-                                    <tr class="transferStockEntryBody">
-                                        <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
-                                        <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-                                            <input type="hidden" name="ItemID" class="itemID" value="" />
-                                            <input type="text" name="Items" value="" class="text-center items" style="border:none" />
-                                        </td>
-                                        <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-                                            <input type="hidden" name="UnitID" class="unitID" value="" />
-                                            <input type="text" name="Units" value="" class="text-center units" style="border:none" />
-                                        </td>
-                                        <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-                                            <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
-                                        </td>
-                                        <td style="border-left:1px solid white; border-right: 1px solid white;">
-                                            <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
-                                            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
-                                            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:4px;" onclick="fnRemoveTransferStockItem(event)"></i>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <button class="btn btn-sm mt-2 btn-info" id="add_transferStock_item"><i class="fa fa-plus"></i> Add</button>
-                </fieldset>
+                <div class="table-responsive">
+                    <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
+                        <thead>
+                            <tr style="background: #4ECB4A; height: 50px; border: 1px solid white" class="text-white">
+                                <th class="text-center" style="font-size: 23px">NO.</th>
+                                <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
+                                <th class="text-center" style="font-size: 23px">UNITS</th>
+                                <th class="text-center" style="font-size: 23px">QTY</th>
+                                <th class="text-center" style="font-size: 23px">CONDITION</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="" id="newTransferStockEntryTbody">
+                            @for (var i = 1; i <= 10; i++)
+                            {
+                                <tr class="transferStockEntryBody">
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
+                                        @*<input type="hidden" name="ItemID" class="itemID" value="" />*@
+                                        <input type="text" name="Items" value="" class="text-center items" onkeypress="fnGetItems(event)" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+                                        @*<input type="hidden" name="UnitID" class="unitID" value="" />*@
+                                        <input type="text" name="Units" value="" class="text-center units" onkeypress="fnGetUnits(event)" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+                                        <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white">
+                                        <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" style="border:none" />
+                                        <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-sm mt-2 btn-info" id="add_transferStock_item"><i class="fa fa-plus"></i> Add</button>
 
             </div>
             <div class="card-footer">
@@ -354,6 +355,7 @@
                 }
             }
         }
+
 
     </script>
 

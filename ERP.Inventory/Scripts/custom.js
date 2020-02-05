@@ -33,7 +33,8 @@ $('.open-dialog').click(function (e) {
 
     $modalEl.find('.modal-title').html(id);
     $modalEl.find('.modal-body').load(dataURL, function () {
-        $modalEl.modal({ show: true });
+        $modalEl.modal({ show: true, keyboard: false });
+        $modalEl.addClass('modal-static');
     });
 
     $modalEl.find('modal-dialog').removeClass(size);
@@ -245,100 +246,177 @@ $('.delMethodID').on('change', function (e) {
 
 
 //FOR ITEMS AUTOCOMPLETE
-var items = [];
-var itemURL = 'http://192.168.1.100:89/api/values';
-$.getJSON(itemURL, function (data) {
 
-    for (var i = 0; i < data.length; i++) {
+function fnGetItems(event) {
 
-        var newObj = {};
+    var $this = $(event.target);
+    var items = [];
+    var itemURL = 'http://192.168.1.100:89/api/values';
 
-        newObj.id = data[i].ID;
-        newObj.value = data[i].Name;
-        newObj.label = data[i].Name;
-
-        items.push(newObj);
-    }
-
-    $('body').on('click', '.items', function () {
-
-        $(this).autocomplete({
-            source: items,
-            select: function (event, ui) {
-
-                var $this = $(this);
-
-                $this.attr('data-val', ui.item.id);
-            }
-        });
+    $this.autocomplete({
+        source: items
     });
 
-});
+    $.getJSON(itemURL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+
+            var newObj = {};
+
+            newObj.id = data[i].ID;
+            newObj.value = data[i].Name;
+            newObj.label = data[i].Name;
+
+            items.push(newObj);
+        }
+
+        //console.log(items);
+
+        $('body').on('click', '.items', function () {
+
+            $(this).autocomplete({
+                source: items,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+        });
+
+    });
+}
+
+
 
 
 
 //FOR UNITS AUTOCOMPLETE
-var units = [];
-var unitsURL = 'http://124.105.198.3:90/api/units';
-$.getJSON(unitsURL, function (data) {
+function fnGetUnits(event) {
 
-    for (var i = 0; i < data.length; i++) {
-        var obj = {};
+    var $this = $(event.target);
+    var units = [];
+    var unitsURL = 'http://124.105.198.3:90/api/units';
 
-        obj.id = data[i].ID;
-        obj.value = data[i].ShortName;
-        obj.label = data[i].ShortName;
-        obj.fullname = data[i].FullName;
-
-        units.push(obj);
-    }
-
-    $('body').on('click', '.units', function () {
-
-        $(this).autocomplete({
-            source: units,
-            select: function (event, ui) {
-
-                var $this = $(this);
-
-                $this.attr('data-fullname', ui.item.fullname);
-                $this.attr('data-val', ui.item.id);
-            }
-        });
-
+    $this.autocomplete({
+        source: units
     });
-});
+
+    $.getJSON(unitsURL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].ShortName;
+            obj.label = data[i].ShortName;
+            obj.fullname = data[i].FullName;
+
+            units.push(obj);
+        }
+
+        $('body').on('click', '.units', function () {
+
+            $(this).autocomplete({
+                source: units,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-fullname', ui.item.fullname);
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+
+        });
+    });
+}
 
 
 // FOR ITEM CONDITION
-var itemCondition = [];
-var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
-$.getJSON(itemConditionURL, function (data) {
+function fnGetItemCondition(event) {
 
-    for (var i = 0; i < data.length; i++) {
-        var obj = {};
+    var $this = $(event.target);
+    var itemCondition = [];
+    var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
 
-        obj.id = data[i].ID;
-        obj.value = data[i].StatusName;
-        obj.label = data[i].StatusName;
+    $this.autocomplete({
+        source: itemCondition
+    });
 
-        itemCondition.push(obj);
-    }
+    $.getJSON(itemConditionURL, function (data) {
 
-    $('body').on('click', '.itemCondition', function () {
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
 
-        $(this).autocomplete({
-            source: itemCondition,
+            obj.id = data[i].ID;
+            obj.value = data[i].StatusName;
+            obj.label = data[i].StatusName;
+
+            itemCondition.push(obj);
+        }
+
+        $('body').on('click', '.itemCondition', function () {
+
+            $(this).autocomplete({
+                source: itemCondition,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+
+        });
+    });
+}
+
+
+
+//FOR GENERIC NAME (CATEGORY 3)
+
+function fnGetGenericName(event) {
+
+    var $this = $(event.target);
+
+    var $formEl = $this.closest('form');
+
+    var category3 = [];
+    var category3URL = 'http://124.105.198.3:90/api/category3';
+
+    $.getJSON(category3URL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].Name;
+            obj.label = data[i].Name;
+            obj.Cat2ID_002 = data[i].Cat2ID_002;
+
+            category3.push(obj);
+
+        }
+
+        console.log(category3);
+
+        $this.autocomplete({
+            source: category3,
             select: function (event, ui) {
 
                 var $this = $(this);
 
-                $this.attr('data-val',ui.item.id);
-            }
+                $this.attr({ 'data-val': ui.item.id, 'Cat2ID_002': ui.item.Cat2ID_002 });
+            },
+            minLength: 0,
+            appendTo: $formEl
         });
 
     });
-});
+}
+
 
 
 

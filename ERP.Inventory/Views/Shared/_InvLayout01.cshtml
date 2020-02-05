@@ -39,7 +39,17 @@
         </div>
 
         <div class="right-sidebar p-3" style="">
-            <h6>Recent Transactions</h6>
+            <h6 class="pb-3">Recent Transactions</h6>
+            @for (var i = 0; i < 5; i++)
+            {
+                <div class="">
+                    <a href="#">
+                        <span><strong>Test</strong> has been added</span>
+                        <small>2 mins ago</small> <hr class="mb-0" style="margin-top: 8px" />
+                    </a>
+                </div>
+            }
+
         </div>
     </div>
 
@@ -73,7 +83,7 @@
                 <i class="fa fa-cogs text-black"></i>
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="floatMenu">
-                <li role="presentation"><a role="menuitem" href="javascript:void(0)">New Item</a></li>
+                <li role="presentation"><a role="menuitem" href="javascript:void(0)" class="open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item</a></li>
                 <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
             </ul>
         </div>

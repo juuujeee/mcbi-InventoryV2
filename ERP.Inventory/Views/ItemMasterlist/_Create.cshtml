@@ -2,24 +2,124 @@
     ViewBag.Title = "Create Item Page";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <form action="/" method="post" autocomplete="off">
+<form action="#" method="post" enctype="multipart/form-data" onsubmit="fnSaveItemMasterList(event)">
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">GENERIC NAME</legend>
+                <div class="form-group">
+                    <label>Generic Name</label>
+                    <input type="text" name="GenericName" value="" class="form-control form-control-sm shadow-none genericName" onkeypress="fnGetGenericName(event)"/>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">PROPERTY</legend>
+                <div id="item_property_container">
+                    <div class="row item_property">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="Property" value="" class="form-control form-control-sm shadow-none" />
+                            </div>
+                        </div>
+                        <div class="col-md-6 position-relative">
+                            <div class="form-group">
+                                <label>Value</label>
+                                <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
+                            </div>
+                            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItemProperty(event)" style="right:-3px; top:38px"></i>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-info btn-sm" onclick="fnAddNewProperty(event)"><i class="fa fa-plus"></i>Add</button>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">ATTRIBUTE</legend>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="">
+                    <label class="form-check-label" for="">Has Attribute</label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">OTHERS</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tags</label>
+                            <input type="text" name="Tag" value="" class="form-control form-control-sm shadow-none" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Code</label>
+                            <input type="text" name="Code" value="" class="form-control form-control-sm shadow-none"/>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+
+
+<!--FOR CLONE PURPOSES HERE-->
+<div style="display: none" id="item_property_clone">
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label>Generic Name</label>
-                <input type="text" name="GenericName" value="" class="form-control form-control-sm shadow-none" />
-            </div>
-            <div class="form-group">
-                <label>Property</label>
+                <label>Name</label>
                 <input type="text" name="Property" value="" class="form-control form-control-sm shadow-none" />
             </div>
+        </div>
+        <div class="col-md-6 position-relative">
             <div class="form-group">
-                <label>Tags</label>
-                <input type="text" name="Tag" value="" class="form-control form-control-sm shadow-none" />
+                <label>Value</label>
+                <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
             </div>
-        </form>
+            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItemProperty(event)" style="right:-3px; top:38px"></i>
+        </div>
     </div>
 </div>
 
+<!--END CLONE PURPOSES-->
+<script>
 
-                                                                                                                  
+    function fnAddNewProperty(event) {
+        console.log("add property");
+
+        $('#item_property_container').append(
+            $('#item_property_clone').html()
+        );
+
+    }
+
+    function fnRemoveItemProperty(event) {
+
+        var $this = $(event.target);
+
+        $this.closest('.row').remove();
+    }
+
+
+    function fnSaveItemMasterList(event) {
+        event.preventDefault();
+
+        var itemData = {
+            ID: 0,
+            Code: $(event.target).find('input[name=Code]').val(),
+            Tag: $(event.target).find('input[name=Tag]').val(),
+        }
+
+        console.log(itemData);
+    }
+
+</script>
+
+
+
