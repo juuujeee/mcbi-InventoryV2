@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rotativa;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,5 +19,6 @@ namespace ERP.Inventory.Controllers
         {
             return PartialView("~/Views/ItemMasterlist/_Create.cshtml");
         }
+
     }
 }

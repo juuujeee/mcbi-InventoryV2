@@ -33,7 +33,8 @@ $('.open-dialog').click(function (e) {
 
     $modalEl.find('.modal-title').html(id);
     $modalEl.find('.modal-body').load(dataURL, function () {
-        $modalEl.modal({ show: true });
+        $modalEl.modal({ show: true, keyboard: false });
+        $modalEl.addClass('modal-static');
     });
 
     $modalEl.find('modal-dialog').removeClass(size);
@@ -146,7 +147,7 @@ function RowRemove(event) {
         }
     });
 
-   
+
 
     //console.log($(event.target).parents('tr').children('td').length);
 
@@ -158,7 +159,7 @@ function RowRemove(event) {
 
     //}
 
-    
+
 }
 
 
@@ -178,3 +179,341 @@ $('.sidebarCollapse').on('show.bs.collapse', function () {
     $('.sidebarCollapse').not(this).collapse('hide');
 
 });
+
+
+
+var delMethodAttribute = [
+    {
+        "ID": 1,
+        "DelMethodID_010": 1,
+        "MethodAttribute": "DriverName"
+    },
+    {
+        "ID": 2,
+        "DelMethodID_010": 1,
+        "MethodAttribute": "Plate No."
+    },
+    {
+        "ID": 3,
+        "DelMethodID_010": 1,
+        "MethodAttribute": "Vehicle Type"
+    },
+    {
+        "ID": 4,
+        "DelMethodID_010": 2,
+        "MethodAttribute": "Courier Name"
+    },
+    {
+        "ID": 5,
+        "DelMethodID_010": 2,
+        "MethodAttribute": "Tracking No."
+    },
+    {
+        "ID": 6,
+        "DelMethodID_010": 3,
+        "MethodAttribute": "Msgr Name"
+    },
+    {
+        "ID": 7,
+        "DelMethodID_010": 3,
+        "MethodAttribute": "Msgr ID No."
+    }
+];
+
+//FOR DELIVERY METHOD ONCHANGE
+$('.delMethodID').on('change', function (e) {
+
+    var $this = $(this);
+
+    var attrCounter = 0;
+
+
+    $('.delMethodAttribute').find('label').text("");
+    $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
+
+    for (var z = 0; z < delMethodAttribute.length; z++) {
+
+        if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
+
+            //console.log("Testing only here!!!");
+            $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
+            $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+
+            attrCounter++;
+        }
+    }
+});
+
+
+//FOR ITEMS AUTOCOMPLETE
+
+function fnGetItems(event) {
+
+    var $this = $(event.target);
+    var items = [];
+    var itemURL = 'http://124.105.198.3:90/api/ItemsMasterlist';
+
+    $this.autocomplete({
+        source: items
+    });
+
+    $.getJSON(itemURL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            
+            var newObj = {};
+
+            newObj.id = data[i].ID;
+            newObj.value = data[i].ItemFullNameInfo.Name;
+            newObj.label = data[i].ItemFullNameInfo.Name;
+
+            items.push(newObj);
+        }
+
+        //console.log(items);
+
+        $('body').on('click', '.items', function () {
+
+            $(this).autocomplete({
+                source: items,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+        });
+
+    });
+}
+
+
+function GetItemsByProj(event) {
+
+}
+
+
+
+
+
+//FOR UNITS AUTOCOMPLETE
+function fnGetUnits(event) {
+
+    var $this = $(event.target);
+    var units = [];
+    var unitsURL = 'http://124.105.198.3:90/api/units';
+
+    $this.autocomplete({
+        source: units
+    });
+
+    $.getJSON(unitsURL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].ShortName;
+            obj.label = data[i].ShortName;
+            obj.fullname = data[i].FullName;
+
+            units.push(obj);
+        }
+
+        $('body').on('click', '.units', function () {
+
+            $(this).autocomplete({
+                source: units,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-fullname', ui.item.fullname);
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+
+        });
+    });
+}
+
+
+// FOR ITEM CONDITION
+function fnGetItemCondition(event) {
+
+    var $this = $(event.target);
+    var itemCondition = [];
+    var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
+
+    $this.autocomplete({
+        source: itemCondition
+    });
+
+    $.getJSON(itemConditionURL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].StatusName;
+            obj.label = data[i].StatusName;
+
+            itemCondition.push(obj);
+        }
+
+        $('body').on('click', '.itemCondition', function () {
+
+            $(this).autocomplete({
+                source: itemCondition,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+
+        });
+    });
+}
+
+
+
+//FOR GENERIC NAME (CATEGORY 3)
+
+function fnGetGenericName(event) {
+
+    var $this = $(event.target);
+
+    var $formEl = $this.closest('form');
+
+    var category3 = [];
+    var category3URL = 'http://124.105.198.3:90/api/category3';
+
+    $.getJSON(category3URL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].Name;
+            obj.label = data[i].Name;
+            obj.Cat2ID_002 = data[i].Cat2ID_002;
+
+            category3.push(obj);
+
+        }
+
+        console.log(category3);
+
+        $this.autocomplete({
+            source: category3,
+            select: function (event, ui) {
+
+                var $this = $(this);
+
+                $this.attr({ 'data-val': ui.item.id, 'Cat2ID_002': ui.item.Cat2ID_002 });
+            },
+            minLength: 0,
+            appendTo: $formEl
+        });
+
+    });
+}
+
+
+
+//RECENT TRANSACTIONS
+var recentURL = 'http://124.105.198.3:90/api/NewItemEntryList';
+$.getJSON(recentURL, function (data) {
+
+    //console.log(data);
+
+    for (var i = 0; i < data.length; i++) {
+
+        //console.log(data[i].ItemFullName.Name);
+
+        var el = '';
+        el += '<a href="#">';
+        el += '<span><strong>' + data[i].ItemFullName.Name + ' </strong><small>Qty: ' + data[i].Quantity + '</small></span>';
+        el += '<hr class="mb-0" style="margin-top: 8px" />';
+        el += '</a>';
+
+        $('#recent_transactions').append(el);
+    }
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//var deliveryMethod = [];
+
+//var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';
+//$.getJSON(deliveryMethodURL, function (data) {
+
+//    for (var i = 0; i < data.length; i++) {
+//        var obj = {};
+
+//        obj.id = data[i].ID;
+//        obj.value = data[i].Name;
+//        obj.label = data[i].Name;
+
+//        deliveryMethod.push(obj);
+//    }
+
+
+//    $(".delMethod").autocomplete({
+//        source: deliveryMethod,
+//        select: function (event, ui) {
+
+//            var $this = $(this);
+//            $this.parents('.card-header').find('input.delMethodID').val(ui.item.id);
+
+//            var attrCounter = 0;
+
+//            $('.delMethodAttribute').find('label').text("");
+//            $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
+
+//            for (var z = 0; z < delMethodAttribute.length; z++) {
+
+//                //console.log(delMethodAttribute[z]);
+
+//                if (delMethodAttribute[z].DelMethodID_010 === ui.item.id) {
+
+//                    $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute);
+//                    $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+
+//                    attrCounter++;
+//                }
+
+//            }
+//        }
+//    })
+
+//});

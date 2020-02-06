@@ -5,13 +5,13 @@
         <img src="~/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="width:150px" />
     </div>
 
-    <hr class="bg-white" style="width:90%"/>
+    <hr class="bg-white" style="width:90%" />
 
     <ul class="list-unstyled">
         <li>
             <a href="#">
-                @*<i class="fa fa-home"></i>*@
-                <i class="lnr lnr-home"></i>
+                <i class="fa fa-home fa-fw"></i>
+                @*<i class="lnr lnr-home"></i>*@
                 <span class="sidebar-text">HOME</span>
             </a>
         </li>
@@ -23,8 +23,9 @@
             </li>*@
         <li class="">
             <a href="#inventorySubmenu" data-toggle="collapse" id="menu" aria-expanded="false" class="dropdown-toggle">
-                @*<i class="fa fa-building"></i>*@
-                <i class="lnr lnr-tag"></i> <!--Using -->
+                <i class="fa fa-tag fa-fw"></i>
+                @*<i class="lnr lnr-tag"></i>*@
+
                 <span class="sidebar-text">INVENTORY</span>
             </a>
             <ul class="collapse list-unstyled sidebarCollapse" id="inventorySubmenu">
@@ -35,9 +36,49 @@
                     </a>
                 </li>
                 <li>
-                    <a href="@Url.Action("StockMovement", "Stocks")" class="sub-menu" style="position:relative">
+                    <a href="#stockFlowSubMenu" class="sub-menu dropdown-toggle" style="position:relative" data-toggle="collapse" aria-expanded="false">
                         <i class="fa fa-circle" style="font-size: 8px;position:absolute; top:20px; left:35px"></i>
                         Stock Flow
+                    </a>
+                    <ul class="collapse list-unstyled" id="stockFlowSubMenu">
+                        <li>
+                            <a href="@Url.Action("TransferStock", "Stocks")" class="grandchild-submenu">Transfer Stocks</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("ReleaseStock", "Stocks")" class="grandchild-submenu">Release Stocks</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sub-menu" style="position:relative">
+                        <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                        Stock Inquiry
+                    </a>
+                </li>
+                <li>
+                    @*<a href="#" class="sub-menu" style="position:relative">
+                <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                Stock Data
+            </a>*@
+                    <a href="#stockDataSubMenu" class="sub-menu dropdown-toggle" style="position:relative" data-toggle="collapse" aria-expanded="false">
+                        <i class="fa fa-circle" style="font-size: 8px;position:absolute; top:20px; left:35px"></i>
+                        Stock Data
+                    </a>
+                    <ul class="collapse list-unstyled" id="stockDataSubMenu">
+                        <li>
+                            <a href="javascript:void(0)" class="grandchild-submenu open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item Data</a>
+                        </li>
+                        <li>
+                            <a href="#" class="grandchild-submenu">Update Item Data</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sub-menu" style="position:relative">
+                        <i class="fa fa-circle" style="font-size: 8px; position:absolute; top:20px; left:35px"></i>
+                        Reports
                     </a>
                 </li>
             </ul>
@@ -45,8 +86,8 @@
 
         <li class="">
             <a href="#anotherSubMenu" data-toggle="collapse" id="anotherMenu" aria-expanded="false" class="dropdown-toggle">
-                @*<i class="fa fa-building"></i>*@
-                <i class="lnr lnr-bug"></i> <!--Using -->
+                <i class="fa fa-cog fa-fw"></i>
+                @*<i class="lnr lnr-bug"></i>*@ <!--Using -->
                 <span class="sidebar-text">SETTINGS</span>
             </a>
             <ul class="collapse list-unstyled sidebarCollapse" id="anotherSubMenu">

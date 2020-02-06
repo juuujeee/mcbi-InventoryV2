@@ -13,7 +13,7 @@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/linear-icons.css" rel="stylesheet" />
+    @*<link href="~/Content/linear-icons.css" rel="stylesheet" />*@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/datepicker.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
@@ -25,68 +25,31 @@
     @Html.Partial("_Header")
 
 
-    <div class="wrapper">
+    <div class="wrapper" id="wrapper">
         <!-- Sidebar  -->
         @Html.Partial("_Sidebar")
 
-        
+
 
         <!-- Page Content  -->
-        <div id="content" class="pl-0" style="width: 80%; margin-right: 250px">
+        <div id="content" class="pl-0">
 
             @RenderBody()
 
         </div>
 
         <div class="right-sidebar p-3" style="">
-            <h6>Recent Transactions</h6>
+            <h6 class="pb-3">Recent Transactions</h6>
+           @if(ViewBag.Title == "Transfer Stocks Page")
+           {
+
+           }
+            <div class="" id="recent_transactions">
+               
+            </div>
+            
         </div>
     </div>
-
-    @*<div class="wrapper" id="">
-
-            <div id="header" class="header">
-
-                <h1 class="">MCBI-Inventory</h1>
-                <h3>MCBI-Inventory Series 2020</h3>
-            </div>
-            <div id="body" class="row">
-                <div class="col-lg-2">
-                    <ul>
-                        <li>
-                            <h4>Home</h4>
-                        </li>
-                        <li>
-                            <h4>Inventory</h4>
-                            <ul>
-                                <li>
-                                    <h5>Item Stock Entry</h5>
-                                </li>
-                                <li>
-                                    <h5>Item Stock Out</h5>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <h4>Settings</h4>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-8">
-
-                    @RenderBody()
-                </div>
-                <div class="col-lg-2">
-
-                </div>
-            </div>
-            <div id="footer" class="footer">
-                <h6>Footer</h6>
-            </div>
-        </div>
-    *@
-
 
     <!--Default Modal-->
     <div class="modal fade" id="Default-Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -110,6 +73,23 @@
         </div>
     </div>
 
+
+
+    @*@if (ViewBag.Title == "Stocks Entry Page" || ViewBag.Title == "Transfer Stocks Page" || ViewBag.Title == "Release Stocks Page")
+    {
+        <div class="dropdown float-icon-container" id="">
+            <button id="floatMenu" type="button" class="btn scroll-up-icon float-icon dropdown-toggle" data-toggle="dropdown" style="display: inline;">
+                <i class="fa fa-cogs text-black"></i>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="floatMenu">
+                <li role="presentation"><a role="menuitem" href="javascript:void(0)" class="open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item</a></li>
+                <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
+            </ul>
+        </div>
+    }*@
+
+
+
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/umd/popper.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
@@ -118,6 +98,15 @@
     <script src="~/Scripts/sweetalert2.all.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
+
+    <script>
+        $(function () {
+
+            var headerHeight = $('#header').height();
+
+            $('#wrapper').css({ "margin-top": headerHeight });
+        });
+    </script>
 
 </body>
 </html>

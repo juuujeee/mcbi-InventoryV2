@@ -1,0 +1,430 @@
+﻿@{
+    ViewBag.Title = "Transfer Stocks Page";
+}
+
+<div class="row">
+    <div class="col-md-12" id="title-header">
+        <div class="card custom-card border-0">
+            <div class="card-header" style="border-bottom: none">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <h1>Transfer Stocks</h1>
+                        </div>
+                        <div class="float-right">
+                            <button class="btn btn-light btn-sm" id="clear_fields">Clear</button>
+                            <button class="btn btn-success btn-sm" id="edit_transfer_stock">Edit</button>
+                            <a target="_blank" href="@Url.Action("Print", "Stocks", new { pageName = "PrintTransferStock", id = 0 })" class="btn btn-success btn-sm">Print</a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Select New or Post Transfer</label>
+                            <select class="form-control shadow-none" id="transfer_stock_option">
+                                <option value="1">NEW STOCK TRANSFER</option>
+                                <option value="2">CONFIRM STOCK TRANSFER</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label id="seriesNumber"></label>
+                            <input type="text" name="RefNumber" class="form-control shadow-none" value="" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <fieldset class="scheduler-border" id="origin">
+                                    <legend class="scheduler-border">ORIGIN DETAILS</legend>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>PROJ NAME</label>:
+                                                    <input type="hidden" name="OriginProjectID" class="projectID" value="" />
+                                                    <input type="text" name="OriginProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>PROJ NO</label>:
+                                                    <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>LOCATION</label>:
+                                                    <input type="text" name="OriginLocation" class="form-control form-control-sm" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>WH INCHARGE</label>:
+                                                    <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
+                                                    <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">DELIVERY</legend>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>DEL METHOD</label>:
+                                                    @*<input type="text" name="DeliveryMethod" value="" class="form-control form-control-sm" />*@
+                                                    <select class="form-control form-control-sm delMethodID">
+                                                        <option value="1">DELIVERY TRUCK</option>
+                                                        <option value="2">COURIER</option>
+                                                        <option value="3">MESSENGER</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container delMethodAttribute">
+                                                    <label></label>:
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container delMethodAttribute">
+                                                    <label></label>:
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container delMethodAttribute">
+                                                    <label></label>:
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4">
+                                <fieldset class="scheduler-border" id="destination">
+                                    <legend class="scheduler-border">DESTINATION</legend>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>PROJ NAME</label>:
+                                                    <input type="hidden" name="DestinationProjectID" class="projectID" value="" />
+                                                    <input type="text" name="DestinationProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>PROJ NO</label>:
+                                                    <input type="text" name="DestinationProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>LOCATION</label>:
+                                                    <input type="text" name="DestinationLocation" class="form-control form-control-sm" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="custom-form-group">
+                                                <div class="d-flex table-entry-header-container">
+                                                    <label>WH INCHARGE</label>:
+                                                    <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="" />
+                                                    <input type="text" name="DestinationWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="float-left">
+                            <h3>Enter Items Here</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body px-0 pt-1">
+                @*<fieldset class="scheduler-border">
+                        <legend class="scheduler-border">TRANSFER STOCKS</legend>
+                    </fieldset>*@
+
+                <div class="table-responsive">
+                    <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
+                        <thead>
+                            <tr style="background: #4ECB4A; height: 50px; border: 1px solid white" class="text-white">
+                                <th class="text-center" style="font-size: 23px">NO.</th>
+                                <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
+                                <th class="text-center" style="font-size: 23px">UNITS</th>
+                                <th class="text-center" style="font-size: 23px">QTY</th>
+                                <th class="text-center" style="font-size: 23px">CONDITION</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="" id="newTransferStockEntryTbody">
+                            @for (var i = 1; i <= 10; i++)
+                            {
+                                <tr class="transferStockEntryBody">
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
+                                        <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+                                        <input type="text" name="Units" value="" class="text-center units" onkeypress="fnGetUnits(event)" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+                                        <input type="text" name="Qty" value="" class="text-center qty" />
+                                    </td>
+                                    <td style="border-left:1px solid white; border-right: 1px solid white">
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
+                                        <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-sm mt-2 btn-info" id="add_transferStock_item"><i class="fa fa-plus"></i> Add</button>
+
+            </div>
+            <div class="card-footer">
+                <div class="float-left">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="input-group-text btn btn-sm" type="button">Upload</button>
+                        </div>
+                        <input type="file" class="form-control">
+                    </div>
+                </div>
+                <div class="float-right">
+                    <button class="btn btn-success shadow-none" id="save_transferStock" type="button" onclick="fnSaveTransferStock(event)" style="padding:10px;">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table style="display: none" id="newTransferStockEntryTbodyClone">
+    <tr class="">
+        <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number"></td>
+        <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
+            <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)"/>
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+            <input type="text" name="Units" value="" class="text-center units"  />
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+            <input type="text" name="Qty" value="" class="text-center qty"  />
+        </td>
+        <td style="border-left:1px solid white; border-right: 1px solid white;">
+            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
+        </td>
+    </tr>
+</table>
+
+
+
+@section Scripts{
+
+    <script>
+
+        //TRIGGER ONCHANGE DELIVERY METHOD
+        $(function () {
+
+            $('.delMethodID').trigger('change');
+            $('#transfer_stock_option').trigger('change');
+
+        })
+
+        //CLEAR FIELDS
+        $('#clear_fields').on('click', function (e) {
+
+            $(this).closest('#title-header').next().find('.card').find('input').val('');
+        });
+
+        //EDIT TRANSFER STOCK
+        $('#edit_transfer_stock').on('click', function (e) {
+
+            //make editable all inputs in the form
+            $(this).closest('#title-header').next().find('.card').find('input').removeAttr('disabled');
+
+            //remove the disabled property of save button
+            $(this).closest('#title-header').next().find('.card').find('#save_transferStock').removeAttr('disabled');
+
+            //remove the css inline in parent container
+            $(this).closest('#title-header').next().find('.card').removeAttr('style');
+
+        })
+
+        //SAVE TRANSFER STOCK
+        function fnSaveTransferStock(event) {
+
+            var $this = $(event.target);
+
+            console.log("Test");
+
+            $this.parents('.card').css({ "pointer-events": "none" });
+
+            $this.parents('.card').find('input').attr('disabled', true);
+
+            $this.attr('disabled', true)
+
+        }
+
+        //EMPLOYEE AUTOCOMPLETE
+        var emp = [];
+        var empURL = 'http://124.105.198.3:91/api/PersonInformation';
+
+        $.getJSON(empURL, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var obj = {};
+
+                obj.id = data[i].ID;
+                obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                obj.label = data[i].FirstName + ' ' + data[i].LastName;
+
+                emp.push(obj);
+
+
+                $(".employeeInfo").autocomplete({
+                    source: emp,
+                    select: function (event, ui) {
+
+                        var $this = $(this);
+                        $this.closest('.table-entry-header-container').find('input.employeeID').val(ui.item.id);
+                    }
+                })
+            }
+        });
+
+
+        //PROJECT AUTOCOMPLETE
+        var proj = [];
+        var projURL = 'http://192.168.1.100:94/api/Projects';
+
+        $.getJSON(projURL, function (data) {
+            //var dat = data.Data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var newObj = {};
+
+                newObj.id = data[i].ID;
+                newObj.value = data[i].ProjectName;
+                newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                newObj.projectNo = data[i].ProjectNumber;
+
+                proj.push(newObj);
+
+            }
+
+            $(".projects").autocomplete({
+                source: proj,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.closest('.table-entry-header-container').find('input.projectID').val(ui.item.id);
+
+                    $this.closest('.col-md-12').next().find('input.projectNumber').val(ui.item.projectNo);
+                }
+            });
+        });
+
+
+        //ADD NEW ROW IN STOCK TRANSFER ITEM
+        $('#add_transferStock_item').on('click', function (e) {
+            //console.log("Add");
+
+            var counter = $('.transferStockEntryBody').find('td.number').length;
+
+            //console.log(counter);
+
+            $('#newTransferStockEntryTbodyClone').find('tr').addClass('transferStockEntryBody');
+            $('#newTransferStockEntryTbodyClone').find('td.number').html((counter || 0) + 1);
+
+
+            $('#newTransferStockEntryTbody').append(
+
+                $('#newTransferStockEntryTbodyClone tbody').html()
+            );
+
+
+            //remove class after insert in tbody
+            $('#newTransferStockEntryTbodyClone').find('tr').removeClass('transferStockEntryBody');
+            $('#newTransferStockEntryTbodyClone').find('td.number').html("");
+        })
+
+        //REMOVE STOCK TRANSFER ITEM ROW
+        function fnRemoveTransferStockItem(event) {
+
+            var $this = $(event.target);
+
+            $($this).parents('tr').remove();
+
+            var counter = $('.transferStockEntryBody').find('td.number').length;
+
+
+            if (counter > 0) {
+                for (var i = 0; i < counter; i++) {
+                    $('.transferStockEntryBody').find('td.number').eq(i).html(i + 1);
+                }
+            }
+        }
+
+        //FOR TRANSFER STOCK OPTION
+        $('#transfer_stock_option').on('change', function (e) {
+
+            if (parseInt($(this).val()) === 1) {
+                $('#seriesNumber').text('Enter Form Series No:');
+                $('fieldset#origin, fieldset#destination').find('input').removeAttr('disabled');
+            }
+            else {
+                $('#seriesNumber').text('Enter Ref:');
+                $('fieldset#origin, fieldset#destination').find('input').attr('disabled', true);
+            }
+        });
+
+
+    </script>
+
+}
