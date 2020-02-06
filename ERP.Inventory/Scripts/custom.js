@@ -251,7 +251,7 @@ function fnGetItems(event) {
 
     var $this = $(event.target);
     var items = [];
-    var itemURL = 'http://192.168.1.100:89/api/values';
+    var itemURL = 'http://124.105.198.3:90/api/ItemsMasterlist';
 
     $this.autocomplete({
         source: items
@@ -260,12 +260,12 @@ function fnGetItems(event) {
     $.getJSON(itemURL, function (data) {
 
         for (var i = 0; i < data.length; i++) {
-
+            
             var newObj = {};
 
             newObj.id = data[i].ID;
-            newObj.value = data[i].Name;
-            newObj.label = data[i].Name;
+            newObj.value = data[i].ItemFullNameInfo.Name;
+            newObj.label = data[i].ItemFullNameInfo.Name;
 
             items.push(newObj);
         }
@@ -286,6 +286,11 @@ function fnGetItems(event) {
         });
 
     });
+}
+
+
+function GetItemsByProj(event) {
+
 }
 
 
@@ -440,6 +445,7 @@ $.getJSON(recentURL, function (data) {
 
 
 });
+
 
 
 

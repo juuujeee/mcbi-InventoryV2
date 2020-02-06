@@ -424,7 +424,9 @@ ul ul a {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
+.grandchild-submenu{
+    padding-left: 65px !important;
+}
 
 /*===========================================
     FLOATING ICON
@@ -497,3 +499,8 @@ legend.scheduler-border {
 /*========================================
         END FIELDSET
 ==========================================*/
+
+
+#transferStockEntry input{
+    border: none !important;
+}

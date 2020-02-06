@@ -40,12 +40,12 @@
 
         <div class="right-sidebar p-3" style="">
             <h6 class="pb-3">Recent Transactions</h6>
-           
+           @if(ViewBag.Title == "Transfer Stocks Page")
+           {
+
+           }
             <div class="" id="recent_transactions">
-                @*<a href="#">
-                    <span><strong>Test</strong> has been added</span>
-                    <small>2 mins ago</small> <hr class="mb-0" style="margin-top: 8px" />
-                </a>*@
+               
             </div>
             
         </div>
@@ -74,7 +74,8 @@
     </div>
 
 
-    @if (ViewBag.Title == "Stocks Entry Page" || ViewBag.Title == "Transfer Stocks Page" || ViewBag.Title == "Release Stocks Page")
+
+    @*@if (ViewBag.Title == "Stocks Entry Page" || ViewBag.Title == "Transfer Stocks Page" || ViewBag.Title == "Release Stocks Page")
     {
         <div class="dropdown float-icon-container" id="">
             <button id="floatMenu" type="button" class="btn scroll-up-icon float-icon dropdown-toggle" data-toggle="dropdown" style="display: inline;">
@@ -85,7 +86,7 @@
                 <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
             </ul>
         </div>
-    }
+    }*@
 
 
 

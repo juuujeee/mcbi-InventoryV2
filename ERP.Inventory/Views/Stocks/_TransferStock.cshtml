@@ -3,11 +3,26 @@
 }
 
 <div class="row">
-    <div class="col-md-12 ml-3">
-        <h1>Transfer Stocks</h1>
-        <hr />
+    <div class="col-md-12" id="title-header">
+        <div class="card custom-card border-0">
+            <div class="card-header" style="border-bottom: none">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <h1>Transfer Stocks</h1>
+                        </div>
+                        <div class="float-right">
+                            <button class="btn btn-light btn-sm" id="clear_fields">Clear</button>
+                            <button class="btn btn-success btn-sm" id="edit_transfer_stock">Edit</button>
+                            <a target="_blank" href="@Url.Action("Print", "Stocks", new { pageName = "PrintTransferStock", id = 0 })" class="btn btn-success btn-sm">Print</a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
     </div>
-   
+
     <div class="col-md-12">
         <div class="card custom-card">
             <div class="card-header">
@@ -167,8 +182,8 @@
             </div>
             <div class="card-body px-0 pt-1">
                 @*<fieldset class="scheduler-border">
-                    <legend class="scheduler-border">TRANSFER STOCKS</legend>
-                </fieldset>*@
+                        <legend class="scheduler-border">TRANSFER STOCKS</legend>
+                    </fieldset>*@
 
                 <div class="table-responsive">
                     <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
@@ -188,19 +203,16 @@
                                 <tr class="transferStockEntryBody">
                                     <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-                                        @*<input type="hidden" name="ItemID" class="itemID" value="" />*@
-                                        <input type="text" name="Items" value="" class="text-center items" onkeypress="fnGetItems(event)" style="border:none" />
+                                        <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-                                        @*<input type="hidden" name="UnitID" class="unitID" value="" />*@
-                                        <input type="text" name="Units" value="" class="text-center units" onkeypress="fnGetUnits(event)" style="border:none" />
+                                        <input type="text" name="Units" value="" class="text-center units" onkeypress="fnGetUnits(event)" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-                                        <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+                                        <input type="text" name="Qty" value="" class="text-center qty" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white">
-                                        <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
-                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" style="border:none" />
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
                                         <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
                                     </td>
                                 </tr>
@@ -213,13 +225,15 @@
             </div>
             <div class="card-footer">
                 <div class="float-left">
-                    <div class="d-flex">
-                        <button class="btn btn-light shadow-none mr-3" style="padding:10px;">UPLOAD</button>
-                        <input type="file" name="Upload" value="" />
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="input-group-text btn btn-sm" type="button">Upload</button>
+                        </div>
+                        <input type="file" class="form-control">
                     </div>
                 </div>
                 <div class="float-right">
-                    <button class="btn btn-success shadow-none" type="button" onclick="" style="padding:10px;">SAVE</button>
+                    <button class="btn btn-success shadow-none" id="save_transferStock" type="button" onclick="fnSaveTransferStock(event)" style="padding:10px;">SAVE</button>
                 </div>
             </div>
         </div>
@@ -232,17 +246,15 @@
     <tr class="">
         <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number"></td>
         <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-            <input type="text" name="ItemDescription" value="" class="text-center itemDescription" style="border:none" />
+            <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)"/>
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-            <input type="hidden" name="UnitID" class="unitID" value="" />
-            <input type="text" name="Units" value="" class="text-center units" style="border:none" />
+            <input type="text" name="Units" value="" class="text-center units"  />
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-            <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+            <input type="text" name="Qty" value="" class="text-center qty"  />
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white;">
-            <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
             <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
             <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
         </td>
@@ -262,6 +274,41 @@
             $('#transfer_stock_option').trigger('change');
 
         })
+
+        //CLEAR FIELDS
+        $('#clear_fields').on('click', function (e) {
+
+            $(this).closest('#title-header').next().find('.card').find('input').val('');
+        });
+
+        //EDIT TRANSFER STOCK
+        $('#edit_transfer_stock').on('click', function (e) {
+
+            //make editable all inputs in the form
+            $(this).closest('#title-header').next().find('.card').find('input').removeAttr('disabled');
+
+            //remove the disabled property of save button
+            $(this).closest('#title-header').next().find('.card').find('#save_transferStock').removeAttr('disabled');
+
+            //remove the css inline in parent container
+            $(this).closest('#title-header').next().find('.card').removeAttr('style');
+
+        })
+
+        //SAVE TRANSFER STOCK
+        function fnSaveTransferStock(event) {
+
+            var $this = $(event.target);
+
+            console.log("Test");
+
+            $this.parents('.card').css({ "pointer-events": "none" });
+
+            $this.parents('.card').find('input').attr('disabled', true);
+
+            $this.attr('disabled', true)
+
+        }
 
         //EMPLOYEE AUTOCOMPLETE
         var emp = [];
@@ -364,7 +411,6 @@
             }
         }
 
-
         //FOR TRANSFER STOCK OPTION
         $('#transfer_stock_option').on('change', function (e) {
 
@@ -377,6 +423,7 @@
                 $('fieldset#origin, fieldset#destination').find('input').attr('disabled', true);
             }
         });
+
 
     </script>
 

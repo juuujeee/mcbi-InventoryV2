@@ -42,10 +42,10 @@
                     </a>
                     <ul class="collapse list-unstyled" id="stockFlowSubMenu">
                         <li>
-                            <a href="@Url.Action("TransferStock", "Stocks")" style="padding-left: 65px !important">Transfer Stocks</a>
+                            <a href="@Url.Action("TransferStock", "Stocks")" class="grandchild-submenu">Transfer Stocks</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("ReleaseStock", "Stocks")" style="padding-left: 65px !important">Release Stocks</a>
+                            <a href="@Url.Action("ReleaseStock", "Stocks")" class="grandchild-submenu">Release Stocks</a>
                         </li>
 
                     </ul>
@@ -67,10 +67,10 @@
                     </a>
                     <ul class="collapse list-unstyled" id="stockDataSubMenu">
                         <li>
-                            <a href="#" style="padding-left: 65px !important">New Item Data</a>
+                            <a href="javascript:void(0)" class="grandchild-submenu open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item Data</a>
                         </li>
                         <li>
-                            <a href="#" style="padding-left: 65px !important">Update Item Data</a>
+                            <a href="#" class="grandchild-submenu">Update Item Data</a>
                         </li>
 
                     </ul>
