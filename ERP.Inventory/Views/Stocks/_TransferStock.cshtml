@@ -53,8 +53,8 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>PROJ NAME</label>:
-                                                    <input type="hidden" name="OriginProjectID" class="projectID" value="" />
-                                                    <input type="text" name="OriginProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
+                                                    <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
+                                                    <input type="text" name="OriginProjectName" id="origin" class="form-control form-control-sm projects text-ellipsis" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -77,7 +77,7 @@
                                         <div class="col-md-12">
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
-                                                    <label>WH INCHARGE</label>:
+                                                    <label style="font-size:.9vw">WH INCHARGE</label>:
                                                     <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
                                                     <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
                                                 </div>
@@ -138,8 +138,8 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>PROJ NAME</label>:
-                                                    <input type="hidden" name="DestinationProjectID" class="projectID" value="" />
-                                                    <input type="text" name="DestinationProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
+                                                    <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
+                                                    <input type="text" name="DestinationProjectName" id="destination" class="form-control form-control-sm projects text-ellipsis" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -162,7 +162,7 @@
                                         <div class="col-md-12">
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
-                                                    <label>WH INCHARGE</label>:
+                                                    <label style="font-size:.9vw">WH INCHARGE</label>:
                                                     <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="" />
                                                     <input type="text" name="DestinationWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
                                                 </div>
@@ -180,7 +180,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body px-0 pt-1">
+            <div class="card-body px-0 pt-1" style="pointer-events: none" id="transferStock_cardBody">
                 @*<fieldset class="scheduler-border">
                         <legend class="scheduler-border">TRANSFER STOCKS</legend>
                     </fieldset>*@
@@ -362,6 +362,12 @@
                 select: function (event, ui) {
 
                     var $this = $(this);
+
+                    console.log($this.attr('id'));
+
+                    if ($this.attr('id') === 'origin') {
+                        $('#transferStock_cardBody').removeAttr('style');
+                    }
 
                     $this.closest('.table-entry-header-container').find('input.projectID').val(ui.item.id);
 

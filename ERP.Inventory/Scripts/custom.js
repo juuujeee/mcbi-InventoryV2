@@ -260,7 +260,7 @@ function fnGetItems(event) {
     $.getJSON(itemURL, function (data) {
 
         for (var i = 0; i < data.length; i++) {
-            
+
             var newObj = {};
 
             newObj.id = data[i].ID;
@@ -291,6 +291,46 @@ function fnGetItems(event) {
 
 function GetItemsByProj(event) {
 
+
+    var $this = $(event.target);
+
+    var projectID = $this.parents('.card').find('input#originProjectID').val();
+    var items = [];
+    var itemURL = 'http://124.105.198.3:90/api/ItemsMasterList/ItemsbyProjects/' + projectID;
+
+    $this.autocomplete({
+        source: items
+    });
+
+    $.getJSON(itemURL, function (data) {
+
+        for (var i = 0; i < data.length; i++) {
+
+            var newObj = {};
+
+            newObj.id = data[i].ID;
+            newObj.value = data[i].ItemFullNameInfo.Name;
+            newObj.label = data[i].ItemFullNameInfo.Name;
+
+            items.push(newObj);
+        }
+
+        //console.log(items);
+
+        $('body').on('click', '.items', function () {
+
+            $(this).autocomplete({
+                source: items,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    $this.attr('data-val', ui.item.id);
+                }
+            });
+        });
+
+    });
 }
 
 
