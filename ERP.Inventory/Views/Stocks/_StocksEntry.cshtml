@@ -17,7 +17,7 @@
                                     <div class="d-flex table-entry-header-container">
                                         <label>SUPPLIER:</label>
                                         <input type="hidden" name="SupplierID" class="supplierID" value="" />
-                                        <input type="text" name="Supplier" value="" class="form-control form-control-sm shadow-none supplier"/>
+                                        <input type="text" name="Supplier" value="" class="form-control form-control-sm shadow-none supplier" />
                                     </div>
                                 </div>
                             </div>
@@ -258,17 +258,6 @@
                     UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0
                 };
 
-                //obj.ItemConditionID_018 = {
-                //    ID: $(this).find('input[name=ItemConditionID]').val() || 0,
-                //    StatusName: $(this).find('input[name=ItemCondition]').val()
-                //}
-
-                //obj.UnitID_009 = {
-                //    ID: $(this).find('input[name=UnitID]').val() || 0,
-                //    ShortName: $(this).find('input[name=Units]').val(),
-                //    FullName: $(this).find('input[name=Units]').attr('data-fullname')
-                //};
-
                 if (obj.ItemID_011 !== 0) {
                     stockEntryItem.push(obj);
                 }
@@ -301,11 +290,11 @@
 
             var DeliveryMethod = {
 
-                ID: $('.delMethodID').val(),
+               // ID: $('.delMethodID').val(),
                 Name: $('.delMethodID').children('option:selected').text(),
                 DelMethodAttribute: [{
                     ID: 0,
-                    DelMethodID_010: 0,
+                    DelMethodID_010:  $('.delMethodID').val(),
                     MethodAttribute: 'test',
                     DeliveryMethodEntryList: DeliveryMethodEntryList
                 }]
@@ -356,6 +345,7 @@
                     }
                 },
                 error: function (jqXHR, exception) {
+
                     var msg = '';
                     if (jqXHR.status === 0) {
                         msg = 'Not connect.\n Verify Network.';
@@ -417,7 +407,7 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = 'http://124.105.198.3:93/vendor/0';
+            var supplierURL = 'http://192.168.1.100:99/supplier/0';
 
             $.getJSON(supplierURL, function (data) {
 
@@ -456,7 +446,7 @@
             //FOR RECEIVED BY
             var receivedBy = [];
 
-            var receivedByURL = 'http://124.105.198.3:91/api/PersonInformation';
+            var receivedByURL = 'http://124.105.198.3:92/api/PersonInformation';
             $.getJSON(receivedByURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {

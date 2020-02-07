@@ -25,6 +25,7 @@
 
     <div class="col-md-12">
         <div class="card custom-card">
+            <input type="hidden" name="ID" value="" />
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-4">
@@ -40,7 +41,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label id="seriesNumber"></label>
-                            <input type="text" name="RefNumber" class="form-control shadow-none" value="" />
+                            <input type="text" name="RefNumber" class="form-control shadow-none" id="" value="" />
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -54,7 +55,7 @@
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>PROJ NAME</label>:
                                                     <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
-                                                    <input type="text" name="OriginProjectName" id="origin" class="form-control form-control-sm projects text-ellipsis" value="" />
+                                                    <input type="text" name="OriginProjectName" id="origin" class="form-control form-control-sm projects text-ellipsis shadow-none" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -62,7 +63,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>PROJ NO</label>:
-                                                    <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
+                                                    <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber shadow-none" value="" readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +71,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>LOCATION</label>:
-                                                    <input type="text" name="OriginLocation" class="form-control form-control-sm" value="" />
+                                                    <input type="text" name="OriginLocation" class="form-control form-control-sm shadow-none" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -79,7 +80,7 @@
                                                 <div class="d-flex table-entry-header-container">
                                                     <label style="font-size:.9vw">WH INCHARGE</label>:
                                                     <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
-                                                    <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
+                                                    <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo shadow-none" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -87,7 +88,7 @@
                                 </fieldset>
                             </div>
                             <div class="col-md-4">
-                                <fieldset class="scheduler-border">
+                                <fieldset class="scheduler-border" id="delivery_method">
                                     <legend class="scheduler-border">DELIVERY</legend>
                                     <div class="row mt-3">
                                         <div class="col-md-12">
@@ -107,7 +108,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm" disabled />
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -115,7 +116,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm" disabled />
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -123,7 +124,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm" disabled />
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -139,7 +140,7 @@
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>PROJ NAME</label>:
                                                     <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
-                                                    <input type="text" name="DestinationProjectName" id="destination" class="form-control form-control-sm projects text-ellipsis" value="" />
+                                                    <input type="text" name="DestinationProjectName" id="destination" class="form-control form-control-sm projects text-ellipsis shadow-none" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -147,7 +148,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>PROJ NO</label>:
-                                                    <input type="text" name="DestinationProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
+                                                    <input type="text" name="DestinationProjectNumber" class="form-control form-control-sm projectNumber shadow-none" value="" readonly />
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +156,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>LOCATION</label>:
-                                                    <input type="text" name="DestinationLocation" class="form-control form-control-sm" value="" />
+                                                    <input type="text" name="DestinationLocation" class="form-control form-control-sm shadow-none" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -164,7 +165,7 @@
                                                 <div class="d-flex table-entry-header-container">
                                                     <label style="font-size:.9vw">WH INCHARGE</label>:
                                                     <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="" />
-                                                    <input type="text" name="DestinationWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
+                                                    <input type="text" name="DestinationWHIncharge" class="form-control form-control-sm employeeInfo shadow-none" value="" />
                                                 </div>
                                             </div>
                                         </div>
@@ -180,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body px-0 pt-1" style="pointer-events: none" id="transferStock_cardBody">
+            <div class="card-body px-0 pt-1" id="transferStock_cardBody">
                 @*<fieldset class="scheduler-border">
                         <legend class="scheduler-border">TRANSFER STOCKS</legend>
                     </fieldset>*@
@@ -206,13 +207,13 @@
                                         <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-                                        <input type="text" name="Units" value="" class="text-center units" onkeypress="fnGetUnits(event)" />
+                                        <input type="text" name="Units" value="" class="text-center units" disabled />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-                                        <input type="text" name="Qty" value="" class="text-center qty" />
+                                        <input type="text" name="Qty" value="" class="text-center qty" disabled />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white">
-                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" disabled />
                                         <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
                                     </td>
                                 </tr>
@@ -246,16 +247,16 @@
     <tr class="">
         <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number"></td>
         <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-            <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)"/>
+            <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)" />
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-            <input type="text" name="Units" value="" class="text-center units"  />
+            <input type="text" name="Units" value="" class="text-center units" disabled />
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-            <input type="text" name="Qty" value="" class="text-center qty"  />
+            <input type="text" name="Qty" value="" class="text-center qty" disabled />
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white;">
-            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" disabled />
             <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
         </td>
     </tr>
@@ -267,19 +268,21 @@
 
     <script>
 
+
         //TRIGGER ONCHANGE DELIVERY METHOD
         $(function () {
 
             $('.delMethodID').trigger('change');
             $('#transfer_stock_option').trigger('change');
-
         })
+
 
         //CLEAR FIELDS
         $('#clear_fields').on('click', function (e) {
 
             $(this).closest('#title-header').next().find('.card').find('input').val('');
         });
+
 
         //EDIT TRANSFER STOCK
         $('#edit_transfer_stock').on('click', function (e) {
@@ -295,24 +298,139 @@
 
         })
 
+
         //SAVE TRANSFER STOCK
         function fnSaveTransferStock(event) {
 
             var $this = $(event.target);
 
-            console.log("Test");
+            //FOR TRANSFER DELIVERY METHOD
+            var transDelMethodList = [];
 
-            $this.parents('.card').css({ "pointer-events": "none" });
+            $this.parents('.card').find('input[name=DeliveryMethodAttr]').each(function () {
 
-            $this.parents('.card').find('input').attr('disabled', true);
+                var obj = {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    DeliveryAttrID_008: $this.parents('.card').find('.delMethodID').val(),
+                    AttributeValueID: $(this).attr('data-id'),
+                    AttributeValue: $(this).val(),
+                    isDestination: false
+                };
 
-            $this.attr('disabled', true)
+                if (obj.AttributeValue !== "") {
+                    transDelMethodList.push(obj);
+                }
+
+            });
+
+
+            //FOR TRANSFER ITEM ENTRY
+            var transItemEntry = [];
+
+            $this.parents('.card').find('.transferStockEntryBody').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    ItemID_011: $(this).find('input[name=Items]').attr('data-val') || 0,
+                    UnitID_009: $(this).find('input[name=Units]').attr('data-val') || 0,
+                    ItemConditionID_018: $(this).find('input[name=ItemCondition]').attr('data-val') || 0,
+                    Quantity: $(this).find('input[name=Qty]').val() || 0,
+                };
+
+                if (obj.ItemID_011 !== 0) {
+                    transItemEntry.push(obj);
+
+                }
+
+            });
+
+            //FORMATTING TRANSFER STOCKS DATA
+            var transferEntry = {
+                ID: $this.parents('.card').find('input[name=ID]').val() || 0,
+                ReferenceNumber: '',
+                HardSeriesNumber: $this.parents('.card').find('input[name=RefNumber]').val(),
+                TransInfoOrigin: {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    ProjectID_EnggDB: $this.parents('.card').find('input[name=OriginProjectID]').val() || 0,
+                    WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=OriginWHInchargeID]').val() || 0
+                },
+                TransInfoDestination: {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    ProjectID_EnggDB: $this.parents('.card').find('input[name=DestinationProjectID]').val() || 0,
+                    WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=DestinationWHInchargeID]').val() || 0
+                },
+                TransInfoDelMetAttrValue: transDelMethodList,
+                TransItemEntryList: transItemEntry
+            };
+
+            console.log(transferEntry);
+
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: 'http://124.105.198.3:90/api/TransMasterList',
+                dataType: 'json',
+                data: JSON.stringify(transferEntry),
+                contentType: "application/json",
+                success: function (response) {
+
+                    console.log(response);
+                    if (response.RetVal === 1) {
+
+                        var msg = JSON.parse(response.Message);
+
+                        console.log(msg);
+
+                        swal.fire('Success', msg.Info, 'success');
+
+                        $this.parents('.card').css({ "pointer-events": "none" });
+                        $this.parents('.card').find('input').attr('disabled', true);
+                        $this.attr('disabled', true)
+
+                        $this.parents('.card').find('#seriesNumber').text('Reference Number:');
+                        $this.parents('.card').find('input[name=RefNumber]').val(msg.ReferenceNumber);
+
+                    }
+                    else {
+                        swal.fire('Error', response.Message, 'error');
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            });
 
         }
 
+
         //EMPLOYEE AUTOCOMPLETE
         var emp = [];
-        var empURL = 'http://124.105.198.3:91/api/PersonInformation';
+        var empURL = 'http://124.105.198.3:92/api/PersonInformation';
 
         $.getJSON(empURL, function (data) {
             for (var i = 0; i < data.length; i++) {
@@ -363,11 +481,11 @@
 
                     var $this = $(this);
 
-                    console.log($this.attr('id'));
+                    //console.log($this.attr('id'));
 
-                    if ($this.attr('id') === 'origin') {
-                        $('#transferStock_cardBody').removeAttr('style');
-                    }
+                    //if ($this.attr('id') === 'origin') {
+                    //    $('#transferStock_cardBody').removeAttr('style');
+                    //}
 
                     $this.closest('.table-entry-header-container').find('input.projectID').val(ui.item.id);
 
@@ -420,16 +538,77 @@
         //FOR TRANSFER STOCK OPTION
         $('#transfer_stock_option').on('change', function (e) {
 
+            var $this = $(this);
+
             if (parseInt($(this).val()) === 1) {
+                $('input[name=RefNumber]').removeClass('refNumber');
+
                 $('#seriesNumber').text('Enter Form Series No:');
-                $('fieldset#origin, fieldset#destination').find('input').removeAttr('disabled');
+                $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').removeAttr('disabled');
+
+                //item entry
+                //$this.parents('.card').find('input.items').removeAttr('disabled');
             }
             else {
+
+                $('input[name=RefNumber]').addClass('refNumber');
+
                 $('#seriesNumber').text('Enter Ref:');
-                $('fieldset#origin, fieldset#destination').find('input').attr('disabled', true);
+                $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').attr('disabled', true);
+
+                //item entry
+               // $this.parents('.card').find('.items').attr('disabled');
             }
         });
 
+
+        //GET TRANSFER STOCKS BY REFNUMBER
+        $(document).on('keyup', '.refNumber', function (e) {
+
+            var $this = $(this);
+
+            if (e.keyCode === 13) {
+                // Do something
+
+                var link = 'http://192.168.1.100:90/api/TransMasterlist/SearchByReference?q=' + $(this).val();
+
+                //console.log(link);
+
+                $.getJSON(link, function (data) {
+
+                    if (data === null) {
+                        swal.fire('Warning', 'No found data', 'warning');
+                    }
+
+                    else {
+
+                        console.log(data);
+                        console.log(data.ID);
+
+                        $this.parents('.card').find('input[name=ID]').val(data.ID);
+
+                        //ORIGIN
+                        $this.parents('.card').find('input[name=OriginProjectID]').val(data.TransInfoOrigin.ProjectID_EnggDB);
+                        $this.parents('.card').find('input[name=OriginProjectName]').val(data.TransInfoOrigin)
+                        $this.parents('.card').find('input[name=OriginWHInchargeID]').val(data.TransInfoOrigin.WHInchargeID_HrmsDB);
+                        $this.parents('.card').find('input[name=OriginWHIncharge]').val(data.TransInfoOrigin);
+
+                        //DESTINATION
+                        $this.parents('.card').find('input[name=DestinationProjectID]').val(data.TransInfoDestination.ProjectID_EnggDB);
+                        $this.parents('.card').find('input[name=DestinationProjectName]').val(data.TransInfoDestination)
+                        $this.parents('.card').find('input[name=DestinationWHInchargeID]').val(data.TransInfoDestination.WHInchargeID_HrmsDB);
+                        $this.parents('.card').find('input[name=DestinationWHIncharge]').val(data.TransInfoDestination);
+
+                        //DELIVERY METHOD
+                        $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
+
+                    }
+                    
+                });
+            }
+
+
+        });
 
     </script>
 

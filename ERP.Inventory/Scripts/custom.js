@@ -1,4 +1,5 @@
-﻿//MINIMIZE OR MAXIMIZE SIDEBAR
+﻿
+//MINIMIZE OR MAXIMIZE SIDEBAR
 $(function () {
 
     $('#sidebarCollapse').on('click', function () {
@@ -245,6 +246,7 @@ $('.delMethodID').on('change', function (e) {
 });
 
 
+
 //FOR ITEMS AUTOCOMPLETE
 
 function fnGetItems(event) {
@@ -254,36 +256,51 @@ function fnGetItems(event) {
     var itemURL = 'http://124.105.198.3:90/api/ItemsMasterlist';
 
     $this.autocomplete({
-        source: items
+        source: items,
+        select: function (event, ui) {
+
+            $(this).attr('data-val', ui.item.id);
+        }
     });
 
     $.getJSON(itemURL, function (data) {
+
+        console.log(data);
 
         for (var i = 0; i < data.length; i++) {
 
             var newObj = {};
 
-            newObj.id = data[i].ID;
-            newObj.value = data[i].ItemFullNameInfo.Name;
-            newObj.label = data[i].ItemFullNameInfo.Name;
+            if (data[i].ItemFullNameInfo !== null || data[i].ItemFullNameInfo !== 'null') {
 
-            items.push(newObj);
+                console.log(data[i].ItemFullNameInfo);
+
+
+                //newObj.id = data[i].ID;
+                //newObj.value = data[i].ItemFullNameInfo.Name;
+                //newObj.label = data[i].ItemFullNameInfo.Name;
+
+                //items.push(newObj);
+            }
+            else {
+                console.log('Null');
+            }
+
         }
 
-        //console.log(items);
 
-        $('body').on('click', '.items', function () {
+        ////$('body').on('click', '.items', function () {
 
-            $(this).autocomplete({
-                source: items,
-                select: function (event, ui) {
+        ////    $(this).autocomplete({
+        ////        source: items,
+        ////        select: function (event, ui) {
 
-                    var $this = $(this);
+        ////            console.log(ui.item.id);
 
-                    $this.attr('data-val', ui.item.id);
-                }
-            });
-        });
+        ////            $(this).attr('data-val', ui.item.id);
+        ////        }
+        ////    });
+        //});
 
     });
 }
@@ -295,45 +312,62 @@ function GetItemsByProj(event) {
     var $this = $(event.target);
 
     var projectID = $this.parents('.card').find('input#originProjectID').val();
-    var items = [];
-    var itemURL = 'http://124.105.198.3:90/api/ItemsMasterList/ItemsbyProjects/' + projectID;
 
-    $this.autocomplete({
-        source: items
-    });
+    if (projectID === null || projectID === '') {
+        swal.fire('Warning', 'Select Origin Project', 'warning');
 
-    $.getJSON(itemURL, function (data) {
+    }
+    else {
 
-        for (var i = 0; i < data.length; i++) {
+        var items = [];
+        var itemURL = 'http://124.105.198.3:90/api/ItemsMasterList/ItemsbyProjects/' + projectID;
 
-            var newObj = {};
+        $this.autocomplete({
+            source: items,
+            select: function (event, ui) {
 
-            newObj.id = data[i].ID;
-            newObj.value = data[i].ItemFullNameInfo.Name;
-            newObj.label = data[i].ItemFullNameInfo.Name;
-
-            items.push(newObj);
-        }
-
-        //console.log(items);
-
-        $('body').on('click', '.items', function () {
-
-            $(this).autocomplete({
-                source: items,
-                select: function (event, ui) {
-
-                    var $this = $(this);
-
-                    $this.attr('data-val', ui.item.id);
-                }
-            });
+                $(this).attr('data-val', ui.item.id);
+            }
         });
 
-    });
+        $.getJSON(itemURL, function (data) {
+
+            if (data !== null) {
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].ItemFullNameInfo.Name;
+                    newObj.label = data[i].ItemFullNameInfo.Name;
+
+                    items.push(newObj);
+                }
+            }
+            else {
+                swal.fire('Warning', 'No Item', 'warning');
+            }
+
+            //console.log(items);
+
+            //$('body').on('click', '.items', function () {
+
+            //    $(this).autocomplete({
+            //        source: items,
+            //        select: function (event, ui) {
+
+            //            console.log($this);
+
+            //            $(this).attr('data-val', ui.item.id);
+            //        }
+            //    });
+            //});
+
+        });
+    }
+
 }
-
-
 
 
 
@@ -345,7 +379,14 @@ function fnGetUnits(event) {
     var unitsURL = 'http://124.105.198.3:90/api/units';
 
     $this.autocomplete({
-        source: units
+        source: units,
+        select: function (event, ui) {
+
+            var $this = $(this);
+
+            $this.attr('data-fullname', ui.item.fullname);
+            $this.attr('data-val', ui.item.id);
+        }
     });
 
     $.getJSON(unitsURL, function (data) {
@@ -361,20 +402,20 @@ function fnGetUnits(event) {
             units.push(obj);
         }
 
-        $('body').on('click', '.units', function () {
+        //$('body').on('click', '.units', function () {
 
-            $(this).autocomplete({
-                source: units,
-                select: function (event, ui) {
+        //    $(this).autocomplete({
+        //        source: units,
+        //        select: function (event, ui) {
 
-                    var $this = $(this);
+        //            var $this = $(this);
 
-                    $this.attr('data-fullname', ui.item.fullname);
-                    $this.attr('data-val', ui.item.id);
-                }
-            });
+        //            $this.attr('data-fullname', ui.item.fullname);
+        //            $this.attr('data-val', ui.item.id);
+        //        }
+        //    });
 
-        });
+        //});
     });
 }
 
@@ -387,7 +428,13 @@ function fnGetItemCondition(event) {
     var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
 
     $this.autocomplete({
-        source: itemCondition
+        source: itemCondition,
+        select: function (event, ui) {
+
+            var $this = $(this);
+
+            $this.attr('data-val', ui.item.id);
+        }
     });
 
     $.getJSON(itemConditionURL, function (data) {
@@ -402,19 +449,19 @@ function fnGetItemCondition(event) {
             itemCondition.push(obj);
         }
 
-        $('body').on('click', '.itemCondition', function () {
+        //$('body').on('click', '.itemCondition', function () {
 
-            $(this).autocomplete({
-                source: itemCondition,
-                select: function (event, ui) {
+        //    $(this).autocomplete({
+        //        source: itemCondition,
+        //        select: function (event, ui) {
 
-                    var $this = $(this);
+        //            var $this = $(this);
 
-                    $this.attr('data-val', ui.item.id);
-                }
-            });
+        //            $this.attr('data-val', ui.item.id);
+        //        }
+        //    });
 
-        });
+        //});
     });
 }
 
