@@ -107,6 +107,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
+                                                    <select class="form-control form-control-sm d-none" name="DeliveryMethodAttr" id="courierName"></select>
                                                     <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
                                                 </div>
                                             </div>
@@ -116,6 +117,7 @@
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
                                                     <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
+                                                    @*<select class="form-control form-control-sm shadow-none" id="courierName"></select>*@
                                                 </div>
                                             </div>
                                         </div>
@@ -124,6 +126,7 @@
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
                                                     <select class="form-control form-control-sm" name="DeliveryMethodAttr" id="vehicleType" disabled></select>
+                                                    @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
                                                 </div>
                                             </div>
                                         </div>
@@ -269,7 +272,7 @@
 
         //ON CHANGE ITEMS IN TRANSFER STOCKS
         $('.transferStock_items').on('change', function (e) {
-
+            console.log($this.val());
         });
 
         //TRIGGER ONCHANGE DELIVERY METHOD

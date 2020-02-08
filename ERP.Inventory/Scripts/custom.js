@@ -183,43 +183,43 @@ $('.sidebarCollapse').on('show.bs.collapse', function () {
 
 
 
-var delMethodAttribute = [
-    {
-        "ID": 1,
-        "DelMethodID_010": 1,
-        "MethodAttribute": "DriverName"
-    },
-    {
-        "ID": 2,
-        "DelMethodID_010": 1,
-        "MethodAttribute": "Plate No."
-    },
-    {
-        "ID": 3,
-        "DelMethodID_010": 1,
-        "MethodAttribute": "Vehicle Type"
-    },
-    {
-        "ID": 4,
-        "DelMethodID_010": 2,
-        "MethodAttribute": "Courier Name"
-    },
-    {
-        "ID": 5,
-        "DelMethodID_010": 2,
-        "MethodAttribute": "Tracking No."
-    },
-    {
-        "ID": 6,
-        "DelMethodID_010": 3,
-        "MethodAttribute": "Msgr Name"
-    },
-    {
-        "ID": 7,
-        "DelMethodID_010": 3,
-        "MethodAttribute": "Msgr ID No."
-    }
-];
+//var delMethodAttribute = [
+//    {
+//        "ID": 1,
+//        "DelMethodID_010": 1,
+//        "MethodAttribute": "DriverName"
+//    },
+//    {
+//        "ID": 2,
+//        "DelMethodID_010": 1,
+//        "MethodAttribute": "Plate No."
+//    },
+//    {
+//        "ID": 3,
+//        "DelMethodID_010": 1,
+//        "MethodAttribute": "Vehicle Type"
+//    },
+//    {
+//        "ID": 4,
+//        "DelMethodID_010": 2,
+//        "MethodAttribute": "Courier Name"
+//    },
+//    {
+//        "ID": 5,
+//        "DelMethodID_010": 2,
+//        "MethodAttribute": "Tracking No."
+//    },
+//    {
+//        "ID": 6,
+//        "DelMethodID_010": 3,
+//        "MethodAttribute": "Msgr Name"
+//    },
+//    {
+//        "ID": 7,
+//        "DelMethodID_010": 3,
+//        "MethodAttribute": "Msgr ID No."
+//    }
+//];
 
 //FOR DELIVERY METHOD ONCHANGE
 $('.delMethodID').on('change', function (e) {
@@ -232,42 +232,62 @@ $('.delMethodID').on('change', function (e) {
     $('.delMethodAttribute').find('label').text("");
     $('.delMethodAttribute').find('input, select').attr('disabled', true).removeAttr('data-id').val('');
 
+    var delMethodAttrURL = 'http://124.105.198.3:90/api/DelMethodAttribute';
 
-    for (var z = 0; z < delMethodAttribute.length; z++) {
+    $.ajaxSetup({
+        async: false
+    });
 
-        if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
+    $.getJSON(delMethodAttrURL, function (delMethodAttribute) {
 
-            //console.log("Testing only here!!!");
+        for (var z = 0; z < delMethodAttribute.length; z++) {
 
-            $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
+            if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
-            if (attrCounter === 2) {
+                $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
 
-                $('.delMethodAttribute').find('select').removeAttr('disabled').attr({ 'data-id': delMethodAttribute[z].ID });
+                if (attrCounter === 2) {
 
-                console.log(attrCounter);
+                    $('.delMethodAttribute').find('select').removeAttr('disabled').attr({ 'data-id': delMethodAttribute[z].ID });
 
-                var vehicleTypeURL = 'http://124.105.198.3:90/api/DelMethodAttrValue';
+                    //console.log(attrCounter);
 
-                $.getJSON(vehicleTypeURL, function (response) {
+                    var vehicleTypeURL = 'http://124.105.198.3:90/api/DelMethodAttrValue';
 
-                    console.log(response);
+                    $.getJSON(vehicleTypeURL, function (response) {
 
-                    for (var x = 0; x < response.length; x++) {
-                        $('#vehicleType').append(new Option(response[x].AttrValueName, response[x].ID));
-                    }
+                        for (var x = 0; x < response.length; x++) {
 
-                });
+                            if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
 
+                                $('#vehicleType').append(new Option(response[x].AttrValueName, response[x].ID));
+
+                            }
+
+                            //console.log(response[x].DelMethodAttrID_008);
+
+                            //console.log(delMethodAttribute[z].ID);
+
+                        }
+
+                    });
+
+                }
+
+
+                else {
+                    $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+                }
+
+                attrCounter++;
             }
-            else {
-
-                $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
-            }
-
-            attrCounter++;
         }
-    }
+    });
+
+    $.ajaxSetup({
+        async: true
+    });
+
 });
 
 
