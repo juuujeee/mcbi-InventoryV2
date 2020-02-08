@@ -327,6 +327,8 @@ function GetItemsByProj(event) {
             select: function (event, ui) {
 
                 $(this).attr('data-val', ui.item.id);
+                $(this).closest('tr').find('input[name=Units]').val(ui.item.units).attr('data-val', ui.item.unitID);
+                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).removeAttr('disabled');
             }
         });
 
@@ -338,9 +340,26 @@ function GetItemsByProj(event) {
 
                     var newObj = {};
 
+                    var qty = 0;
+
+                    for (var z = 0; z < data[i].ProjectQuantity.length; z++) {
+
+                        var proj = data[i].ProjectQuantity[z];
+
+                        //console.log(proj.ProjectID);
+
+                        if (proj.ProjectID === projectID) {
+                            
+                            qty += proj.Quantity;
+                        }
+                    }
+
                     newObj.id = data[i].ID;
                     newObj.value = data[i].ItemFullNameInfo.Name;
                     newObj.label = data[i].ItemFullNameInfo.Name;
+                    newObj.units = data[i].Units.ShortName;
+                    newObj.unitID = data[i].Units.ID;
+                    newObj.quantity = qty;
 
                     items.push(newObj);
                 }

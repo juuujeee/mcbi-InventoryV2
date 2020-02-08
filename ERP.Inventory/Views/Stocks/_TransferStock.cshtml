@@ -41,7 +41,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label id="seriesNumber"></label>
-                            <input type="text" name="RefNumber" class="form-control shadow-none" id="" value="" />
+                            <input type="text" name="RefNumber" class="form-control shadow-none" id="" value="" autocomplete="off" />
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -213,7 +213,7 @@
                                         <input type="text" name="Qty" value="" class="text-center qty" disabled />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white">
-                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" disabled />
+                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
                                         <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
                                     </td>
                                 </tr>
@@ -234,7 +234,7 @@
                     </div>
                 </div>
                 <div class="float-right">
-                    <button class="btn btn-success shadow-none" id="save_transferStock" type="button" onclick="fnSaveTransferStock(event)" style="padding:10px;">SAVE</button>
+                    <button class="btn btn-success shadow-none save_transferStock" id="" type="button" onclick="fnSaveTransferStock(event)" style="padding:10px;">SAVE</button>
                 </div>
             </div>
         </div>
@@ -256,7 +256,7 @@
             <input type="text" name="Qty" value="" class="text-center qty" disabled />
         </td>
         <td style="border-left:1px solid white; border-right: 1px solid white;">
-            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" disabled />
+            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
             <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
         </td>
     </tr>
@@ -291,7 +291,7 @@
             $(this).closest('#title-header').next().find('.card').find('input').removeAttr('disabled');
 
             //remove the disabled property of save button
-            $(this).closest('#title-header').next().find('.card').find('#save_transferStock').removeAttr('disabled');
+            $(this).closest('#title-header').next().find('.card').find('.save_transferStock').removeAttr('disabled');
 
             //remove the css inline in parent container
             $(this).closest('#title-header').next().find('.card').removeAttr('style');
@@ -483,9 +483,9 @@
 
                     //console.log($this.attr('id'));
 
-                    //if ($this.attr('id') === 'origin') {
-                    //    $('#transferStock_cardBody').removeAttr('style');
-                    //}
+                    if ($this.attr('id') === 'origin') {
+                        $(this).parents('.card').find('table').find('input').val('');
+                    }
 
                     $this.closest('.table-entry-header-container').find('input.projectID').val(ui.item.id);
 
@@ -547,7 +547,10 @@
                 $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').removeAttr('disabled');
 
                 //item entry
-                //$this.parents('.card').find('input.items').removeAttr('disabled');
+                $this.parents('.card').find('table.custom-table').find('input.items').removeAttr('disabled');
+
+                //change save button prop
+                $this.parents('.card').find('button.save_transferStock').attr('id', 'saveTransferStock');
             }
             else {
 
@@ -557,7 +560,10 @@
                 $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').attr('disabled', true);
 
                 //item entry
-               // $this.parents('.card').find('.items').attr('disabled');
+                $this.parents('.card').find('table.custom-table').find('input.items').attr('disabled', true);
+
+                //change save button prop
+                $this.parents('.card').find('button.save_transferStock').attr('id', 'confirmTransferStock');
             }
         });
 
@@ -583,27 +589,83 @@
                     else {
 
                         console.log(data);
-                        console.log(data.ID);
+
+                        $this.parents('.card').find('.card-body').find('input').val('');
 
                         $this.parents('.card').find('input[name=ID]').val(data.ID);
 
                         //ORIGIN
                         $this.parents('.card').find('input[name=OriginProjectID]').val(data.TransInfoOrigin.ProjectID_EnggDB);
-                        $this.parents('.card').find('input[name=OriginProjectName]').val(data.TransInfoOrigin)
+                        $this.parents('.card').find('input[name=OriginProjectName]').val(data.TransInfoOrigin.ProjectInfo.ProjectName)
+                        $this.parents('.card').find('input[name=OriginProjectNumber]').val(data.TransInfoOrigin.ProjectInfo.ProjectNumber)
                         $this.parents('.card').find('input[name=OriginWHInchargeID]').val(data.TransInfoOrigin.WHInchargeID_HrmsDB);
-                        $this.parents('.card').find('input[name=OriginWHIncharge]').val(data.TransInfoOrigin);
+                        $this.parents('.card').find('input[name=OriginWHIncharge]').val((data.TransInfoOrigin.WHInchargeInfo.FirstName + ' ' + data.TransInfoOrigin.WHInchargeInfo.LastName));
 
                         //DESTINATION
                         $this.parents('.card').find('input[name=DestinationProjectID]').val(data.TransInfoDestination.ProjectID_EnggDB);
-                        $this.parents('.card').find('input[name=DestinationProjectName]').val(data.TransInfoDestination)
+                        $this.parents('.card').find('input[name=DestinationProjectName]').val(data.TransInfoDestination.ProjectInfo.ProjectName)
+                        $this.parents('.card').find('input[name=DestinationProjectNumber]').val(data.TransInfoDestination.ProjectInfo.ProjectNumber)
                         $this.parents('.card').find('input[name=DestinationWHInchargeID]').val(data.TransInfoDestination.WHInchargeID_HrmsDB);
-                        $this.parents('.card').find('input[name=DestinationWHIncharge]').val(data.TransInfoDestination);
+                        $this.parents('.card').find('input[name=DestinationWHIncharge]').val((data.TransInfoDestination.WHInchargeInfo.FirstName + ' ' + data.TransInfoDestination.WHInchargeInfo.LastName));
 
                         //DELIVERY METHOD
                         $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
 
+                        for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
+                            console.log(data.TransInfoDelMetAttrValue[d]);
+                        }
+
+                        //$this.parents('.card').find('input[name=DeliveryMethodAttr]').each(function () {
+
+                        //    if ($(this).attr('data-id') === data.DeliveryMethod)
+                        //});
+
+
+                        //STOCK ENTRY
+                        $.ajaxSetup({
+                            async: false
+                        });
+                        for (var i = 0; i < data.TransItemEntryList.length; i++) {
+
+                            var entry = data.TransItemEntryList[i];
+
+                            //for item name
+                            var itemLink = 'http://124.105.198.3:90/api/ItemsMasterList/' + entry.ItemID_011;
+                            $.getJSON(itemLink, function (itemResponse) {
+                                if (itemResponse !== null) {
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name);
+                                }
+                            })
+
+
+                            // for units
+                            var unitLink = 'http://124.105.198.3:90/api/units/' + entry.UnitsID_009;
+                            $.getJSON(unitLink, function (unitResponse) {
+                                if (unitResponse !== null) {
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName);
+                                }
+                            });
+
+
+                            //for quantity
+                            $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').val(entry.Quantity);
+
+
+                            //for item condition
+                            var itemConditionLink = 'http://124.105.198.3:90/api/itemcondition/' + entry.ItemCondID_018;
+                            $.getJSON(itemConditionLink, function (itemConditionResponse) {
+                                if (itemConditionResponse !== null) {
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName);
+                                }
+                            });
+
+                        }
+                        $.ajaxSetup({
+                            async: true
+                        });
+
                     }
-                    
+
                 });
             }
 

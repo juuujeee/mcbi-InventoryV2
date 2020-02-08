@@ -40,14 +40,24 @@
 
         <div class="right-sidebar p-3" style="">
             <h6 class="pb-3">Recent Transactions</h6>
-           @if(ViewBag.Title == "Transfer Stocks Page")
-           {
+            @if (ViewBag.Title == "Transfer Stocks Page")
+            {
+                <div class="" id="transfer_transactions">
+                    <div class="transactions">
 
-           }
-            <div class="" id="recent_transactions">
-               
-            </div>
-            
+                    </div>
+                    <div class="pending_transactions">
+
+                    </div>
+                </div>
+            }
+            @if (ViewBag.Title == "Stocks Entry Page")
+            {
+                <div class="" id="recent_transactions">
+
+                </div>
+            }
+
         </div>
     </div>
 
@@ -76,17 +86,17 @@
 
 
     @*@if (ViewBag.Title == "Stocks Entry Page" || ViewBag.Title == "Transfer Stocks Page" || ViewBag.Title == "Release Stocks Page")
-    {
-        <div class="dropdown float-icon-container" id="">
-            <button id="floatMenu" type="button" class="btn scroll-up-icon float-icon dropdown-toggle" data-toggle="dropdown" style="display: inline;">
-                <i class="fa fa-cogs text-black"></i>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="floatMenu">
-                <li role="presentation"><a role="menuitem" href="javascript:void(0)" class="open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item</a></li>
-                <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
-            </ul>
-        </div>
-    }*@
+        {
+            <div class="dropdown float-icon-container" id="">
+                <button id="floatMenu" type="button" class="btn scroll-up-icon float-icon dropdown-toggle" data-toggle="dropdown" style="display: inline;">
+                    <i class="fa fa-cogs text-black"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="floatMenu">
+                    <li role="presentation"><a role="menuitem" href="javascript:void(0)" class="open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item</a></li>
+                    <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
+                </ul>
+            </div>
+        }*@
 
 
 
