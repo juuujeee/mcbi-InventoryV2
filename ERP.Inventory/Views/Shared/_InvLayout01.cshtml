@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>@ViewBag.Title</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    @*<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">*@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
@@ -42,12 +42,12 @@
             <h6 class="pb-3">Recent Transactions</h6>
             @if (ViewBag.Title == "Transfer Stocks Page")
             {
-                <div class="" id="transfer_transactions">
-                    <div class="transactions">
-
+                <div class="" id="transfer_transactions" style="min-height: 90vh; max-height: 90vh">
+                    <div class="transactions" style="height:30vw">
+                        test recent
                     </div>
-                    <div class="pending_transactions">
-
+                    <div class="pending_transactions" style="height: 30vw">
+                        test pending
                     </div>
                 </div>
             }

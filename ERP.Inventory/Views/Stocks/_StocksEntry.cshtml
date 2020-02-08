@@ -46,8 +46,6 @@
                                 <div class="custom-form-group">
                                     <div class="d-flex table-entry-header-container">
                                         <label>DEL METHOD:</label>
-                                        @*<input type="hidden" name="DelMethodID" value="" class="delMethodID" />*@
-                                        @*<input type="text" name="DelMethod" value="" class="form-control form-control-sm shadow-none delMethod" />*@
                                         <select class="form-control form-control-sm shadow-none delMethodID">
                                             <option value="1">DELIVERY TRUCK</option>
                                             <option value="2">COURIER</option>
@@ -132,7 +130,7 @@
                                 <div class="custom-form-group">
                                     <div class="d-flex table-entry-header-container delMethodAttribute">
                                         <label></label>
-                                        <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
+                                        <select class="form-control form-control-sm" id="vehicleType"></select>
                                     </div>
                                 </div>
                             </div>
@@ -420,7 +418,7 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = 'http://192.168.1.100:99/supplier/0';
+            var supplierURL = 'http://124.105.198.3:90/api/VendorList';
 
             $.getJSON(supplierURL, function (data) {
 

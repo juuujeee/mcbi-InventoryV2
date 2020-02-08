@@ -95,7 +95,6 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container">
                                                     <label>DEL METHOD</label>:
-                                                    @*<input type="text" name="DeliveryMethod" value="" class="form-control form-control-sm" />*@
                                                     <select class="form-control form-control-sm delMethodID">
                                                         <option value="1">DELIVERY TRUCK</option>
                                                         <option value="2">COURIER</option>
@@ -124,7 +123,7 @@
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     <label></label>:
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
+                                                    <select class="form-control form-control-sm" name="DeliveryMethodAttr" id="vehicleType" disabled></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +203,7 @@
                                 <tr class="transferStockEntryBody">
                                     <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-                                        <input type="text" name="Items" value="" class="text-center items" onkeypress="GetItemsByProj(event)" />
+                                        <input type="text" name="Items" value="" class="text-center items transferStock_items" onkeypress="GetItemsByProj(event)" />
                                     </td>
                                     <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
                                         <input type="text" name="Units" value="" class="text-center units" disabled />
@@ -268,6 +267,10 @@
 
     <script>
 
+        //ON CHANGE ITEMS IN TRANSFER STOCKS
+        $('.transferStock_items').on('change', function (e) {
+
+        });
 
         //TRIGGER ONCHANGE DELIVERY METHOD
         $(function () {
@@ -430,7 +433,7 @@
 
         //EMPLOYEE AUTOCOMPLETE
         var emp = [];
-        var empURL = 'http://124.105.198.3:92/api/PersonInformation';
+        var empURL = 'http://124.105.198.3:90/api/HRMSEmployeeList';
 
         $.getJSON(empURL, function (data) {
             for (var i = 0; i < data.length; i++) {
@@ -457,7 +460,7 @@
 
         //PROJECT AUTOCOMPLETE
         var proj = [];
-        var projURL = 'http://192.168.1.100:94/api/Projects';
+        var projURL = 'http://124.105.198.3:90/api/ENGProjectList';
 
         $.getJSON(projURL, function (data) {
             //var dat = data.Data;
@@ -556,7 +559,7 @@
 
                 $('input[name=RefNumber]').addClass('refNumber');
 
-                $('#seriesNumber').text('Enter Ref:');
+                $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
                 $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').attr('disabled', true);
 
                 //item entry
@@ -588,7 +591,7 @@
 
                     else {
 
-                        console.log(data);
+                        //console.log(data);
 
                         $this.parents('.card').find('.card-body').find('input').val('');
 
@@ -611,8 +614,17 @@
                         //DELIVERY METHOD
                         $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
 
+                        //console.log(data.DeliveryMethod.ID);
+
+                        console.log(data.DeliveryMethod);
+
                         for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
-                            console.log(data.TransInfoDelMetAttrValue[d]);
+
+                            var delMethodAttr = data.TransInfoDelMetAttrValue[d];
+
+                            //console.log(data.TransInfoDelMetAttrValue[d]);
+
+                            $this.parents('.card').find('input[name=DeliveryMethodAttr]').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
                         }
 
                         //$this.parents('.card').find('input[name=DeliveryMethodAttr]').each(function () {

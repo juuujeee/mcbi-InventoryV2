@@ -230,15 +230,40 @@ $('.delMethodID').on('change', function (e) {
 
 
     $('.delMethodAttribute').find('label').text("");
-    $('.delMethodAttribute').find('input').attr('disabled', true).removeAttr('data-id');
+    $('.delMethodAttribute').find('input, select').attr('disabled', true).removeAttr('data-id').val('');
+
 
     for (var z = 0; z < delMethodAttribute.length; z++) {
 
         if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
             //console.log("Testing only here!!!");
+
             $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
-            $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+
+            if (attrCounter === 2) {
+
+                $('.delMethodAttribute').find('select').removeAttr('disabled').attr({ 'data-id': delMethodAttribute[z].ID });
+
+                console.log(attrCounter);
+
+                var vehicleTypeURL = 'http://124.105.198.3:90/api/DelMethodAttrValue';
+
+                $.getJSON(vehicleTypeURL, function (response) {
+
+                    console.log(response);
+
+                    for (var x = 0; x < response.length; x++) {
+                        $('#vehicleType').append(new Option(response[x].AttrValueName, response[x].ID));
+                    }
+
+                });
+
+            }
+            else {
+
+                $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
+            }
 
             attrCounter++;
         }
@@ -326,9 +351,11 @@ function GetItemsByProj(event) {
             source: items,
             select: function (event, ui) {
 
+                console.log(ui.item.quantity);
+
                 $(this).attr('data-val', ui.item.id);
                 $(this).closest('tr').find('input[name=Units]').val(ui.item.units).attr('data-val', ui.item.unitID);
-                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).removeAttr('disabled');
+                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).attr('data-limit', ui.item.quantity).removeAttr('disabled');
             }
         });
 
@@ -346,11 +373,10 @@ function GetItemsByProj(event) {
 
                         var proj = data[i].ProjectQuantity[z];
 
-                        //console.log(proj.ProjectID);
+                        if (proj.ProjectID === parseInt(projectID)) {
 
-                        if (proj.ProjectID === projectID) {
-                            
                             qty += proj.Quantity;
+                            //console.log(proj.Quantity);
                         }
                     }
 
