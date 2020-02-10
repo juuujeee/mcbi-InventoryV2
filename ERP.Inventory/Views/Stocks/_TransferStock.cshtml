@@ -108,7 +108,7 @@
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
                                                     @*<label></label>*@:
                                                     @*<select class="form-control form-control-sm d-none" name="DeliveryMethodAttr" id="courierName"></select>
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
+                                                        <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
                                                 </div>
                                             </div>
                                         </div>
@@ -312,7 +312,6 @@
 
             //FOR TRANSFER DELIVERY METHOD
             var transDelMethodList = [];
-
             $this.parents('.card').find('.deliveryMethodAttr').each(function () {
 
                 var obj = {
@@ -327,13 +326,10 @@
                 if (obj.AttributeValue !== "") {
                     transDelMethodList.push(obj);
                 }
-
             });
-
 
             //FOR TRANSFER ITEM ENTRY
             var transItemEntry = [];
-
             $this.parents('.card').find('.transferStockEntryBody').each(function () {
 
                 var obj = {
@@ -348,34 +344,63 @@
                 if (obj.ItemID_011 !== 0) {
                     transItemEntry.push(obj);
                 }
-
             });
 
-            //FORMATTING TRANSFER STOCKS DATA
-            var transferEntry = {
-                ID: $this.parents('.card').find('input[name=ID]').val() || 0,
-                ReferenceNumber: '',
-                HardSeriesNumber: $this.parents('.card').find('input[name=RefNumber]').val(),
-                TransInfoOrigin: {
-                    ID: 0,
-                    TransMasterID_021: 0,
-                    ProjectID_EnggDB: $this.parents('.card').find('input[name=OriginProjectID]').val() || 0,
-                    WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=OriginWHInchargeID]').val() || 0
-                },
-                TransInfoDestination: {
-                    ID: 0,
-                    TransMasterID_021: 0,
-                    ProjectID_EnggDB: $this.parents('.card').find('input[name=DestinationProjectID]').val() || 0,
-                    WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=DestinationWHInchargeID]').val() || 0
-                },
-                TransInfoDelMetAttrValue: transDelMethodList,
-                TransItemEntryList: transItemEntry
-            };
 
-            console.log(transferEntry);
+            var entry = '';
+            var url = '';
 
+            if ($this.attr('id') === 'saveTransferStock') {
 
-           // return;
+                url = 'http://124.105.198.3:90/api/TransMasterList';
+
+                //SAVE TRANSFER STOCKS DATA
+                var saveTransferEntry = {
+                    ID: $this.parents('.card').find('input[name=ID]').val() || 0,
+                    ReferenceNumber: '',
+                    HardSeriesNumber: $this.parents('.card').find('input[name=RefNumber]').val(),
+                    TransInfoOrigin: {
+                        ID: 0,
+                        TransMasterID_021: 0,
+                        ProjectID_EnggDB: $this.parents('.card').find('input[name=OriginProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=OriginWHInchargeID]').val() || 0
+                    },
+                    TransInfoDestination: {
+                        ID: 0,
+                        TransMasterID_021: 0,
+                        ProjectID_EnggDB: $this.parents('.card').find('input[name=DestinationProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=DestinationWHInchargeID]').val() || 0
+                    },
+                    TransInfoDelMetAttrValue: transDelMethodList,
+                    TransItemEntryList: transItemEntry
+                };
+
+                entry = saveTransferEntry;
+            }
+            else {
+                url = 'http://124.105.198.3:90/api/TransMasterList/ConfirmReceive';
+
+                var confirmTransferEntry = {
+                    ID: $this.parents('.card').find('input[name=ID]').val() || 0,
+                    ReferenceNumber: 'N/A',
+                    HardSeriesNumber: 0,
+                    isCancelled: true,
+                    cancelReason: "N/A",
+                    TransInfoOrigin: {},
+                    TransInfoDestination: {},
+                    TransInfoDelMetAttrValue: [],
+                    TransItemEntryList: [],
+                    TransItemReceivedList: transItemEntry
+                };
+
+                entry = confirmTransferEntry;
+
+            }
+
+            //console.log(url);
+            console.log(entry);
+
+            //return;
 
             $.ajax({
                 headers: {
@@ -383,32 +408,49 @@
                     "Content-Type": "application/json"
                 },
                 type: 'post',
-                url: 'http://124.105.198.3:90/api/TransMasterList',
+                url: url,
                 dataType: 'json',
-                data: JSON.stringify(transferEntry),
+                data: JSON.stringify(entry),
                 contentType: "application/json",
                 success: function (response) {
 
-                    console.log(response);
-                    if (response.RetVal === 1) {
+                    if ($this.attr('id') === 'saveTransferStock') {
+                        console.log(response);
 
-                        var msg = JSON.parse(response.Message);
+                        if (response.RetVal === 1) {
 
-                        //console.log(msg);
+                            var msg = JSON.parse(response.Message);
 
-                        swal.fire('Success', msg.Info, 'success');
+                            //console.log(msg);
 
-                        $this.parents('.card').css({ "pointer-events": "none" });
-                        $this.parents('.card').find('input').attr('disabled', true);
-                        $this.attr('disabled', true)
+                            swal.fire('Success', msg.Info, 'success');
 
-                        $this.parents('.card').find('#seriesNumber').text('Reference Number:');
-                        $this.parents('.card').find('input[name=RefNumber]').val(msg.ReferenceNumber);
+                            $this.parents('.card').css({ "pointer-events": "none" });
+                            $this.parents('.card').find('input').attr('disabled', true);
+                            $this.attr('disabled', true)
 
+                            $this.parents('.card').find('#seriesNumber').text('Reference Number:');
+                            $this.parents('.card').find('input[name=RefNumber]').val(msg.ReferenceNumber);
+
+                        }
+                        else {
+                            swal.fire('Error', response.Message, 'error');
+                        }
                     }
+
                     else {
-                        swal.fire('Error', response.Message, 'error');
+                        console.log(response);
+                        if (response.RetVal === 1) {
+                            var msg = JSON.parse(response.Message);
+
+                            swal.fire('Success', msg.Info, 'success');
+                        }
+                        else {
+                            swal.fire('Error', response.Message, 'error');
+                        }
                     }
+
+
                 },
                 error: function (jqXHR, exception) {
                     var msg = '';
@@ -618,10 +660,6 @@
                         //DELIVERY METHOD
                         $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
 
-                        ////console.log(data.DeliveryMethod.ID);
-
-                        //console.log(data.DeliveryMethod);
-
                         for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
 
                             var delMethodAttr = data.TransInfoDelMetAttrValue[d];
@@ -631,7 +669,7 @@
                             $this.parents('.card').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
                         }
 
-                        
+
 
                         //STOCK ENTRY
                         $.ajaxSetup({
@@ -645,7 +683,7 @@
                             var itemLink = 'http://124.105.198.3:90/api/ItemsMasterList/' + entry.ItemID_011;
                             $.getJSON(itemLink, function (itemResponse) {
                                 if (itemResponse !== null) {
-                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name);
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
                                 }
                             })
 
@@ -654,20 +692,21 @@
                             var unitLink = 'http://124.105.198.3:90/api/units/' + entry.UnitsID_009;
                             $.getJSON(unitLink, function (unitResponse) {
                                 if (unitResponse !== null) {
-                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName);
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
                                 }
                             });
 
 
                             //for quantity
-                            $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').val(entry.Quantity);
+                            //$this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').val(entry.Quantity);
+                            $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').removeAttr('disabled');
 
 
                             //for item condition
                             var itemConditionLink = 'http://124.105.198.3:90/api/itemcondition/' + entry.ItemCondID_018;
                             $.getJSON(itemConditionLink, function (itemConditionResponse) {
                                 if (itemConditionResponse !== null) {
-                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName);
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
                                 }
                             });
 
@@ -680,7 +719,6 @@
 
                 });
             }
-
 
         });
 
