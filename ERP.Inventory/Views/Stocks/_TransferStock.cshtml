@@ -106,17 +106,17 @@
                                         <div class="col-md-12">
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
-                                                    <label></label>:
-                                                    <select class="form-control form-control-sm d-none" name="DeliveryMethodAttr" id="courierName"></select>
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
+                                                    @*<label></label>*@:
+                                                    @*<select class="form-control form-control-sm d-none" name="DeliveryMethodAttr" id="courierName"></select>
+                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
-                                                    <label></label>:
-                                                    <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />
+                                                    @*<label></label>*@:
+                                                    @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
                                                     @*<select class="form-control form-control-sm shadow-none" id="courierName"></select>*@
                                                 </div>
                                             </div>
@@ -124,8 +124,8 @@
                                         <div class="col-md-12">
                                             <div class="custom-form-group">
                                                 <div class="d-flex table-entry-header-container delMethodAttribute">
-                                                    <label></label>:
-                                                    <select class="form-control form-control-sm" name="DeliveryMethodAttr" id="vehicleType" disabled></select>
+                                                    @*<label></label>*@:
+                                                    @*<select class="form-control form-control-sm" name="DeliveryMethodAttr" id="vehicleType" disabled></select>*@
                                                     @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
                                                 </div>
                                             </div>
@@ -271,9 +271,9 @@
     <script>
 
         //ON CHANGE ITEMS IN TRANSFER STOCKS
-        $('.transferStock_items').on('change', function (e) {
-            console.log($this.val());
-        });
+        //$('.transferStock_items').on('change', function (e) {
+        //    console.log($this.val());
+        //});
 
         //TRIGGER ONCHANGE DELIVERY METHOD
         $(function () {
@@ -313,13 +313,13 @@
             //FOR TRANSFER DELIVERY METHOD
             var transDelMethodList = [];
 
-            $this.parents('.card').find('input[name=DeliveryMethodAttr]').each(function () {
+            $this.parents('.card').find('.deliveryMethodAttr').each(function () {
 
                 var obj = {
                     ID: 0,
                     TransMasterID_021: 0,
-                    DeliveryAttrID_008: $this.parents('.card').find('.delMethodID').val(),
-                    AttributeValueID: $(this).attr('data-id'),
+                    DeliveryAttrID_008: $(this).attr('data-id'),
+                    AttributeValueID: $this.parents('.card').find('.delMethodID').val(),
                     AttributeValue: $(this).val(),
                     isDestination: false
                 };
@@ -347,7 +347,6 @@
 
                 if (obj.ItemID_011 !== 0) {
                     transItemEntry.push(obj);
-
                 }
 
             });
@@ -376,6 +375,8 @@
             console.log(transferEntry);
 
 
+           // return;
+
             $.ajax({
                 headers: {
                     Accept: "application/json",
@@ -393,7 +394,7 @@
 
                         var msg = JSON.parse(response.Message);
 
-                        console.log(msg);
+                        //console.log(msg);
 
                         swal.fire('Success', msg.Info, 'success');
 
@@ -617,9 +618,9 @@
                         //DELIVERY METHOD
                         $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
 
-                        //console.log(data.DeliveryMethod.ID);
+                        ////console.log(data.DeliveryMethod.ID);
 
-                        console.log(data.DeliveryMethod);
+                        //console.log(data.DeliveryMethod);
 
                         for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
 
@@ -627,14 +628,10 @@
 
                             //console.log(data.TransInfoDelMetAttrValue[d]);
 
-                            $this.parents('.card').find('input[name=DeliveryMethodAttr]').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
+                            $this.parents('.card').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
                         }
 
-                        //$this.parents('.card').find('input[name=DeliveryMethodAttr]').each(function () {
-
-                        //    if ($(this).attr('data-id') === data.DeliveryMethod)
-                        //});
-
+                        
 
                         //STOCK ENTRY
                         $.ajaxSetup({

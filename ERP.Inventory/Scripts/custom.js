@@ -229,8 +229,8 @@ $('.delMethodID').on('change', function (e) {
     var attrCounter = 0;
 
 
-    $('.delMethodAttribute').find('label').text("");
-    $('.delMethodAttribute').find('input, select').attr('disabled', true).removeAttr('data-id').val('');
+    var $delMethodAttributeEl = $('.delMethodAttribute');
+    $delMethodAttributeEl.html('');
 
     var delMethodAttrURL = 'http://124.105.198.3:90/api/DelMethodAttribute';
 
@@ -242,45 +242,74 @@ $('.delMethodID').on('change', function (e) {
 
         for (var z = 0; z < delMethodAttribute.length; z++) {
 
+            var delAttrContent = '';
+
             if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
-                $('.delMethodAttribute').find('label').eq(attrCounter).text(delMethodAttribute[z].MethodAttribute).css({ "text-transform": "uppercase" });
+                delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute + '</label>:';
 
-                if (attrCounter === 2) {
+                if (parseInt($this.val()) === 1) {
+                    if (attrCounter === 2) {
 
-                    $('.delMethodAttribute').find('select').removeAttr('disabled').attr({ 'data-id': delMethodAttribute[z].ID });
+                        $.getJSON('http://124.105.198.3:90/api/DelMethodAttrValue', function (response) {
 
-                    //console.log(attrCounter);
+                            delAttrContent += '<select class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
-                    var vehicleTypeURL = 'http://124.105.198.3:90/api/DelMethodAttrValue';
+                            for (var x = 0; x < response.length; x++) {
 
-                    $.getJSON(vehicleTypeURL, function (response) {
+                                if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
 
-                        for (var x = 0; x < response.length; x++) {
+                                    delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
 
-                            if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
-
-                                $('#vehicleType').append(new Option(response[x].AttrValueName, response[x].ID));
+                                }
 
                             }
+                            delAttrContent += '</select>';
 
-                            //console.log(response[x].DelMethodAttrID_008);
+                        });
+                    }
 
-                            //console.log(delMethodAttribute[z].ID);
+                    else {
+                        delAttrContent += '<input type="text" class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                    }
+                }
 
-                        }
+                if (parseInt($this.val()) === 2) {
+                    if (attrCounter === 0) {
 
-                    });
+                        $.getJSON('http://124.105.198.3:90/api/DelMethodAttrValue', function (response) {
+
+                            delAttrContent += '<select class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+
+                            for (var x = 0; x < response.length; x++) {
+
+                                if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
+
+                                    delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
+
+                                }
+
+                            }
+                            delAttrContent += '</select>';
+
+                        });
+                    }
+                    else {
+                        delAttrContent += '<input type="text" value="" class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                    }
 
                 }
 
+                if (parseInt($this.val()) === 3) {
+                    delAttrContent += '<input type="text" value="" class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
-                else {
-                    $('.delMethodAttribute').find('input').eq(attrCounter).attr({ 'disabled': false, 'data-id': delMethodAttribute[z].ID });
                 }
+
+                $delMethodAttributeEl.eq(attrCounter).append(delAttrContent);
 
                 attrCounter++;
             }
+
         }
     });
 
@@ -293,7 +322,6 @@ $('.delMethodID').on('change', function (e) {
 
 
 //FOR ITEMS AUTOCOMPLETE
-
 function fnGetItems(event) {
 
     var $this = $(event.target);
@@ -321,11 +349,11 @@ function fnGetItems(event) {
                 console.log(data[i].ItemFullNameInfo);
 
 
-                //newObj.id = data[i].ID;
-                //newObj.value = data[i].ItemFullNameInfo.Name;
-                //newObj.label = data[i].ItemFullNameInfo.Name;
+                newObj.id = data[i].ID;
+                newObj.value = data[i].ItemFullNameInfo.Name;
+                newObj.label = data[i].ItemFullNameInfo.Name;
 
-                //items.push(newObj);
+                items.push(newObj);
             }
             else {
                 console.log('Null');
@@ -334,25 +362,11 @@ function fnGetItems(event) {
         }
 
 
-        ////$('body').on('click', '.items', function () {
-
-        ////    $(this).autocomplete({
-        ////        source: items,
-        ////        select: function (event, ui) {
-
-        ////            console.log(ui.item.id);
-
-        ////            $(this).attr('data-val', ui.item.id);
-        ////        }
-        ////    });
-        //});
-
     });
 }
 
 
 function GetItemsByProj(event) {
-
 
     var $this = $(event.target);
 
@@ -414,21 +428,6 @@ function GetItemsByProj(event) {
                 swal.fire('Warning', 'No Item', 'warning');
             }
 
-            //console.log(items);
-
-            //$('body').on('click', '.items', function () {
-
-            //    $(this).autocomplete({
-            //        source: items,
-            //        select: function (event, ui) {
-
-            //            console.log($this);
-
-            //            $(this).attr('data-val', ui.item.id);
-            //        }
-            //    });
-            //});
-
         });
     }
 
@@ -467,20 +466,6 @@ function fnGetUnits(event) {
             units.push(obj);
         }
 
-        //$('body').on('click', '.units', function () {
-
-        //    $(this).autocomplete({
-        //        source: units,
-        //        select: function (event, ui) {
-
-        //            var $this = $(this);
-
-        //            $this.attr('data-fullname', ui.item.fullname);
-        //            $this.attr('data-val', ui.item.id);
-        //        }
-        //    });
-
-        //});
     });
 }
 
@@ -513,27 +498,12 @@ function fnGetItemCondition(event) {
 
             itemCondition.push(obj);
         }
-
-        //$('body').on('click', '.itemCondition', function () {
-
-        //    $(this).autocomplete({
-        //        source: itemCondition,
-        //        select: function (event, ui) {
-
-        //            var $this = $(this);
-
-        //            $this.attr('data-val', ui.item.id);
-        //        }
-        //    });
-
-        //});
     });
 }
 
 
 
 //FOR GENERIC NAME (CATEGORY 3)
-
 function fnGetGenericName(event) {
 
     var $this = $(event.target);
@@ -594,7 +564,6 @@ $.getJSON(recentURL, function (data) {
 
         $('#recent_transactions').append(el);
     }
-
 
 });
 
