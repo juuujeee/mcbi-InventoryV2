@@ -8,14 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>@ViewBag.Title</title>
-    @*<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">*@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    @*<link href="~/Content/linear-icons.css" rel="stylesheet" />*@
     <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/overlayscrollbar.css"/>
     <link href="~/Content/Site.css" rel="stylesheet" />
 
 
@@ -38,8 +36,8 @@
 
         </div>
 
-        <div class="right-sidebar p-3" style="">
-            <h6 class="pb-3">Recent Transactions</h6>
+        <div class="right-sidebar" style="overflow-y:scroll">
+            <h6 class="p-3 position-fixed" style="background: #e1e2e2; margin-bottom: 0">Recent Transactions</h6>
             @if (ViewBag.Title == "Transfer Stocks Page")
             {
                 <div class="" id="transfer_transactions" style="min-height: 90vh; max-height: 90vh">
@@ -53,7 +51,7 @@
             }
             @if (ViewBag.Title == "Stocks Entry Page")
             {
-                <div class="" id="recent_transactions">
+                <div class="" id="recent_transactions" style="padding:1rem; padding-top:70px">
 
                 </div>
             }
@@ -107,6 +105,7 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/datepicker.js"></script>
     <script src="~/Scripts/sweetalert2.all.js"></script>
+    <script src="~/Scripts/overlayscrollbar.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
 

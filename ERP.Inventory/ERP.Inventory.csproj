@@ -150,15 +150,9 @@
     <Content Include="Content\Images\temp_logo.png" />
     <Content Include="Content\Images\temp_logo_transparent.png" />
     <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\linear-icons.css" />
+    <Content Include="Content\overlayscrollbar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\Linearicons-Free.svg" />
-    <Content Include="fonts\quicksand-v19-latin-300.svg" />
-    <Content Include="fonts\quicksand-v19-latin-500.svg" />
-    <Content Include="fonts\quicksand-v19-latin-600.svg" />
-    <Content Include="fonts\quicksand-v19-latin-700.svg" />
-    <Content Include="fonts\quicksand-v19-latin-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
@@ -195,30 +189,6 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\Linearicons-Free.eot" />
-    <Content Include="fonts\Linearicons-Free.ttf" />
-    <Content Include="fonts\Linearicons-Free.woff" />
-    <Content Include="fonts\Linearicons-Free.woff2" />
-    <Content Include="fonts\quicksand-v19-latin-300.eot" />
-    <Content Include="fonts\quicksand-v19-latin-300.ttf" />
-    <Content Include="fonts\quicksand-v19-latin-300.woff" />
-    <Content Include="fonts\quicksand-v19-latin-300.woff2" />
-    <Content Include="fonts\quicksand-v19-latin-500.eot" />
-    <Content Include="fonts\quicksand-v19-latin-500.ttf" />
-    <Content Include="fonts\quicksand-v19-latin-500.woff" />
-    <Content Include="fonts\quicksand-v19-latin-500.woff2" />
-    <Content Include="fonts\quicksand-v19-latin-600.eot" />
-    <Content Include="fonts\quicksand-v19-latin-600.ttf" />
-    <Content Include="fonts\quicksand-v19-latin-600.woff" />
-    <Content Include="fonts\quicksand-v19-latin-600.woff2" />
-    <Content Include="fonts\quicksand-v19-latin-700.eot" />
-    <Content Include="fonts\quicksand-v19-latin-700.ttf" />
-    <Content Include="fonts\quicksand-v19-latin-700.woff" />
-    <Content Include="fonts\quicksand-v19-latin-700.woff2" />
-    <Content Include="fonts\quicksand-v19-latin-regular.eot" />
-    <Content Include="fonts\quicksand-v19-latin-regular.ttf" />
-    <Content Include="fonts\quicksand-v19-latin-regular.woff" />
-    <Content Include="fonts\quicksand-v19-latin-regular.woff2" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -233,6 +203,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\overlayscrollbar.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -351,6 +322,7 @@
     <Content Include="Views\Stocks\_TransferStock.cshtml" />
     <Content Include="Views\Stocks\_IssuedStock.cshtml" />
     <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
+    <Content Include="Views\Stocks\_StockInquiry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
