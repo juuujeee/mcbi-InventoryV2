@@ -23,224 +23,227 @@
         </div>
     </div>
 
-    <div class="col-md-12">
-        <div class="card custom-card">
-            <input type="hidden" name="ID" value="" />
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Select New or Post Transfer</label>
-                            <select class="form-control shadow-none" id="transfer_stock_option">
-                                <option value="1">NEW STOCK TRANSFER</option>
-                                <option value="2">CONFIRM STOCK TRANSFER</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label id="seriesNumber"></label>
-                            <input type="text" name="RefNumber" class="form-control shadow-none" id="" value="" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <fieldset class="scheduler-border" id="origin">
-                                    <legend class="scheduler-border">ORIGIN DETAILS</legend>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ NAME</label>:
-                                                    <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
-                                                    <input type="text" name="OriginProjectName" id="origin" class="form-control form-control-sm projects text-ellipsis shadow-none" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ NO</label>:
-                                                    <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber shadow-none" value="" readonly />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>LOCATION</label>:
-                                                    <input type="text" name="OriginLocation" class="form-control form-control-sm shadow-none" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label style="font-size:.9vw">WH INCHARGE</label>:
-                                                    <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
-                                                    <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo shadow-none" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
+    <form method="post" onsubmit="fnSaveTransferStock(event)" autocomplete="off">
+        <div class="col-md-12">
+            <div class="card custom-card">
+                <input type="hidden" name="ID" value="" />
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Select New or Post Transfer</label>
+                                <select class="form-control shadow-none" id="transfer_stock_option">
+                                    <option value="1">NEW STOCK TRANSFER</option>
+                                    <option value="2">CONFIRM STOCK TRANSFER</option>
+                                </select>
                             </div>
-                            <div class="col-md-4">
-                                <fieldset class="scheduler-border" id="delivery_method">
-                                    <legend class="scheduler-border">DELIVERY</legend>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>DEL METHOD</label>:
-                                                    <select class="form-control form-control-sm delMethodID">
-                                                        <option value="1">DELIVERY TRUCK</option>
-                                                        <option value="2">COURIER</option>
-                                                        <option value="3">MESSENGER</option>
-                                                    </select>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label id="seriesNumber"></label>
+                                <input type="text" name="RefNumber" class="form-control shadow-none" id="" value="" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <fieldset class="scheduler-border" id="origin-fieldset">
+                                        <legend class="scheduler-border">ORIGIN DETAILS</legend>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>PROJ NAME</label>:
+                                                        <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
+                                                        <input type="text" name="OriginProjectName" id="origin" class="form-control form-control-sm projects text-ellipsis shadow-none" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>PROJ NO</label>:
+                                                        <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber shadow-none" value="" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>LOCATION</label>:
+                                                        <input type="text" name="OriginLocation" class="form-control form-control-sm shadow-none" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label style="font-size:.9vw">WH INCHARGE</label>:
+                                                        <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
+                                                        <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo shadow-none" value="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container delMethodAttribute">
-                                                    @*<label></label>*@:
-                                                    @*<select class="form-control form-control-sm d-none" name="DeliveryMethodAttr" id="courierName"></select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="scheduler-border" id="delivery_method">
+                                        <legend class="scheduler-border">DELIVERY</legend>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>DEL METHOD</label>:
+                                                        <select class="form-control form-control-sm delMethodID">
+                                                            <option value="1">DELIVERY TRUCK</option>
+                                                            <option value="2">COURIER</option>
+                                                            <option value="3">MESSENGER</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container delMethodAttribute">
+                                                        @*<label></label>*@:
+                                                        @*<select class="form-control form-control-sm d-none" name="DeliveryMethodAttr" id="courierName"></select>
                                                         <input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container delMethodAttribute">
+                                                        @*<label></label>*@:
+                                                        @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
+                                                        @*<select class="form-control form-control-sm shadow-none" id="courierName"></select>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container delMethodAttribute">
+                                                        @*<label></label>*@:
+                                                        @*<select class="form-control form-control-sm" name="DeliveryMethodAttr" id="vehicleType" disabled></select>*@
+                                                        @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container delMethodAttribute">
-                                                    @*<label></label>*@:
-                                                    @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
-                                                    @*<select class="form-control form-control-sm shadow-none" id="courierName"></select>*@
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="scheduler-border" id="destination-fieldset">
+                                        <legend class="scheduler-border">DESTINATION</legend>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>PROJ NAME</label>:
+                                                        <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
+                                                        <input type="text" name="DestinationProjectName" id="destination" class="form-control form-control-sm projects text-ellipsis shadow-none" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>PROJ NO</label>:
+                                                        <input type="text" name="DestinationProjectNumber" class="form-control form-control-sm projectNumber shadow-none" value="" readonly />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label>LOCATION</label>:
+                                                        <input type="text" name="DestinationLocation" class="form-control form-control-sm shadow-none" value="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="custom-form-group">
+                                                    <div class="d-flex table-entry-header-container">
+                                                        <label style="font-size:.9vw">WH INCHARGE</label>:
+                                                        <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="" />
+                                                        <input type="text" name="DestinationWHIncharge" class="form-control form-control-sm employeeInfo shadow-none" value="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container delMethodAttribute">
-                                                    @*<label></label>*@:
-                                                    @*<select class="form-control form-control-sm" name="DeliveryMethodAttr" id="vehicleType" disabled></select>*@
-                                                    @*<input type="text" name="DeliveryMethodAttr" value="" class="form-control form-control-sm shadow-none" disabled />*@
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col-md-4">
-                                <fieldset class="scheduler-border" id="destination">
-                                    <legend class="scheduler-border">DESTINATION</legend>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ NAME</label>:
-                                                    <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
-                                                    <input type="text" name="DestinationProjectName" id="destination" class="form-control form-control-sm projects text-ellipsis shadow-none" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ NO</label>:
-                                                    <input type="text" name="DestinationProjectNumber" class="form-control form-control-sm projectNumber shadow-none" value="" readonly />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>LOCATION</label>:
-                                                    <input type="text" name="DestinationLocation" class="form-control form-control-sm shadow-none" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label style="font-size:.9vw">WH INCHARGE</label>:
-                                                    <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="" />
-                                                    <input type="text" name="DestinationWHIncharge" class="form-control form-control-sm employeeInfo shadow-none" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div class="float-left">
-                            <h3>Enter Items Here</h3>
+                        <div class="col-md-12 mt-3">
+                            <div class="float-left">
+                                <h3>Enter Items Here</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body px-0 pt-1" id="transferStock_cardBody">
-                @*<fieldset class="scheduler-border">
+                <div class="card-body px-0 pt-1" id="transferStock_cardBody">
+                    @*<fieldset class="scheduler-border">
                         <legend class="scheduler-border">TRANSFER STOCKS</legend>
                     </fieldset>*@
 
-                <div class="table-responsive">
-                    <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
-                        <thead>
-                            <tr style="background: #4ECB4A; height: 50px; border: 1px solid white" class="text-white">
-                                <th class="text-center" style="font-size: 23px">NO.</th>
-                                <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
-                                <th class="text-center" style="font-size: 23px">UNITS</th>
-                                <th class="text-center" style="font-size: 23px">QTY</th>
-                                <th class="text-center" style="font-size: 23px">CONDITION</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="" id="newTransferStockEntryTbody">
-                            @for (var i = 1; i <= 10; i++)
-                            {
-                                <tr class="transferStockEntryBody">
-                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-                                        <input type="text" name="Items" value="" class="text-center items transferStock_items" onkeypress="GetItemsByProj(event)" />
-                                    </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-                                        <input type="text" name="Units" value="" class="text-center units" disabled />
-                                    </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-                                        <input type="text" name="Qty" value="" class="text-center qty" disabled />
-                                    </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white">
-                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
-                                        <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
-                                    </td>
+                    <div class="table-responsive">
+                        <table class="custom-table" style="width: 100%; border: 1px solid white" id="transferStockEntry">
+                            <thead>
+                                <tr style="background: #4ECB4A; height: 50px; border: 1px solid white" class="text-white">
+                                    <th class="text-center" style="font-size: 23px">NO.</th>
+                                    <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
+                                    <th class="text-center" style="font-size: 23px">UNITS</th>
+                                    <th class="text-center" style="font-size: 23px">QTY</th>
+                                    <th class="text-center" style="font-size: 23px">CONDITION</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <button class="btn btn-sm mt-2 btn-info" id="add_transferStock_item"><i class="fa fa-plus"></i> Add</button>
+                            </thead>
 
-            </div>
-            <div class="card-footer">
-                <div class="float-left">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button class="input-group-text btn btn-sm" type="button">Upload</button>
-                        </div>
-                        <input type="file" class="form-control">
+                            <tbody class="" id="newTransferStockEntryTbody">
+                                @for (var i = 1; i <= 10; i++)
+                                {
+                                    <tr class="transferStockEntryBody">
+                                        <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
+                                        <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
+                                            <input type="text" name="Items" value="" class="text-center items transferStock_items" onkeypress="GetItemsByProj(event)" />
+                                        </td>
+                                        <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
+                                            <input type="text" name="Units" value="" class="text-center units" disabled />
+                                        </td>
+                                        <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
+                                            <input type="text" name="Qty" value="" class="text-center qty" disabled />
+                                        </td>
+                                        <td style="border-left:1px solid white; border-right: 1px solid white">
+                                            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" />
+                                            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
+                    <button class="btn btn-sm mt-2 btn-info" id="add_transferStock_item"><i class="fa fa-plus"></i> Add</button>
+
                 </div>
-                <div class="float-right">
-                    <button class="btn btn-success shadow-none save_transferStock" id="" type="button" onclick="fnSaveTransferStock(event)" style="padding:10px;">SAVE</button>
+                <div class="card-footer">
+                    <div class="float-left">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text btn btn-sm" type="button">Upload</button>
+                            </div>
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+                    <div class="float-right">
+                        <button class="btn btn-success shadow-none save_transferStock" id="" type="submit" style="padding:10px;">SAVE</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+    
 </div>
 
 
@@ -308,6 +311,7 @@
         //SAVE TRANSFER STOCK
         function fnSaveTransferStock(event) {
 
+            event.preventDefault();
             var $this = $(event.target);
 
             //FOR TRANSFER DELIVERY METHOD
@@ -330,7 +334,7 @@
 
             //FOR TRANSFER ITEM ENTRY
             var transItemEntry = [];
-            $this.parents('.card').find('.transferStockEntryBody').each(function () {
+            $this.find('.transferStockEntryBody').each(function () {
 
                 var obj = {
                     ID: 0,
@@ -362,14 +366,14 @@
                     TransInfoOrigin: {
                         ID: 0,
                         TransMasterID_021: 0,
-                        ProjectID_EnggDB: $this.parents('.card').find('input[name=OriginProjectID]').val() || 0,
-                        WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=OriginWHInchargeID]').val() || 0
+                        ProjectID_EnggDB: $this.find('input[name=OriginProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.find('input[name=OriginWHInchargeID]').val() || 0
                     },
                     TransInfoDestination: {
                         ID: 0,
                         TransMasterID_021: 0,
-                        ProjectID_EnggDB: $this.parents('.card').find('input[name=DestinationProjectID]').val() || 0,
-                        WHInchargeID_HrmsDB: $this.parents('.card').find('input[name=DestinationWHInchargeID]').val() || 0
+                        ProjectID_EnggDB: $this.find('input[name=DestinationProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.find('input[name=DestinationWHInchargeID]').val() || 0
                     },
                     TransInfoDelMetAttrValue: transDelMethodList,
                     TransItemEntryList: transItemEntry
@@ -381,7 +385,7 @@
                 url = 'http://124.105.198.3:90/api/TransMasterList/ConfirmReceive';
 
                 var confirmTransferEntry = {
-                    ID: $this.parents('.card').find('input[name=ID]').val() || 0,
+                    ID: $this.find('input[name=ID]').val() || 0,
                     ReferenceNumber: 'N/A',
                     HardSeriesNumber: 0,
                     isCancelled: true,
@@ -589,7 +593,7 @@
                 $('input[name=RefNumber]').removeClass('refNumber');
 
                 $('#seriesNumber').text('Enter Form Series No:');
-                $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').removeAttr('disabled');
+                $this.parents('.card').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#delivery_method').find('input, select').removeAttr('disabled');
 
                 //item entry
                 $this.parents('.card').find('table.custom-table').find('input.items').removeAttr('disabled');
@@ -602,7 +606,7 @@
                 $('input[name=RefNumber]').addClass('refNumber');
 
                 $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
-                $this.parents('.card').find('fieldset#origin, fieldset#destination, fieldset#delivery_method').find('input, select').attr('disabled', true);
+                $this.parents('.card').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#delivery_method').find('input, select').attr('disabled', true);
 
                 //item entry
                 $this.parents('.card').find('table.custom-table').find('input.items').attr('disabled', true);

@@ -338,25 +338,21 @@ function fnGetItems(event) {
 
     $.getJSON(itemURL, function (data) {
 
-        console.log(data);
+        //console.log(data);
 
         for (var i = 0; i < data.length; i++) {
 
             var newObj = {};
 
-            if (data[i].ItemFullNameInfo !== null || data[i].ItemFullNameInfo !== 'null') {
+            if (data[i].ItemFullNameInfo !== null) {
 
-                console.log(data[i].ItemFullNameInfo);
-
+                //console.log(data[i].ItemFullNameInfo);
 
                 newObj.id = data[i].ID;
                 newObj.value = data[i].ItemFullNameInfo.Name;
                 newObj.label = data[i].ItemFullNameInfo.Name;
 
                 items.push(newObj);
-            }
-            else {
-                console.log('Null');
             }
 
         }
