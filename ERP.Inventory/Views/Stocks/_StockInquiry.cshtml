@@ -1,12 +1,32 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Stock Inquiry Page";
 }
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-
+        <div class="card custom-card border-0">
+            <div class="card-header" style="border-bottom: none">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="float-left">
+                            <h1>Stock Inquiry</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card custom-card" id="stock_inquiry">
+            <div class="card-header pb-0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Search Item <small></small></label>
+                            <input type="text" name="Search" id="" value="" class="form-control form-control-sm shadow-none search_item_masterlist" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
 
@@ -17,3 +37,55 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+
+    <script>
+
+
+        $(document).on('keyup', '.search_item_masterlist', function (e) {
+
+            var $this = $(this);
+
+            var searchVal = $this.val();
+
+            if (searchVal !== '') {
+                var searchURL = 'http://124.105.198.3:90/api/ItemsMasterList/Search?q=' + searchVal;
+
+                var items = [];
+
+                $this.autocomplete({
+                    source: items,
+                    select: function (event, ui) {
+
+                        console.log(ui.item.id);
+                    }
+                });
+
+                $.getJSON(searchURL, function (response) {
+
+                    //console.log(response);
+
+                    for (var i = 0; i < response.length; i++) {
+                        var obj = {};
+
+                        if (response[i].ItemFullNameInfo !== null) {
+                            obj.id = response[i].ID;
+                            obj.label = response[i].ItemFullNameInfo.Name;
+                            obj.value = response[i].ItemFullNameInfo.Name;
+
+                            items.push(obj);
+                        }
+                    }
+
+                });
+            }
+
+        });
+
+
+
+    </script>
+
+
+}

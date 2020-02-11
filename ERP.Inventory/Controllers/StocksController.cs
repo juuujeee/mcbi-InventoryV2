@@ -48,6 +48,11 @@ namespace ERP.Inventory.Controllers
             return data;
         }
 
+        public ActionResult StockInquiry()
+        {
+            return View("~/Views/Stocks/_StockInquiry.cshtml");
+        }
+
         //public ActionResult WithdrawnStock()
         //{
         //    return View("~/Views/Stocks/_ReleaseStock.cshtml");
