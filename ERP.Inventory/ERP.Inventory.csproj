@@ -125,7 +125,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InvController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemMasterlistController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Global.asax.cs">
@@ -310,10 +310,6 @@
     <Content Include="Views\Form\_StockCard.cshtml" />
     <Content Include="Views\Form\_ToolsInventoryRecord.cshtml" />
     <Content Include="Views\Form\_WithdrawalSlip.cshtml" />
-    <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\Shared\_InvLayout01.cshtml" />
-    <Content Include="Views\Shared\_Sidebar.cshtml" />
-    <Content Include="Views\Inv\Index.cshtml" />
     <Content Include="Views\Stocks\_StocksEntry.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\Index.cshtml" />
@@ -325,6 +321,7 @@
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />
     <Content Include="Views\Stocks\_NewStockEntry.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

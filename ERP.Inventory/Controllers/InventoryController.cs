@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace ERP.Inventory.Controllers
 {
-    public class InvController : Controller
+    public class InventoryController : Controller
     {
-        // GET: Inv
+        // GET: Inventory
         public ActionResult Index()
         {
             return View();
