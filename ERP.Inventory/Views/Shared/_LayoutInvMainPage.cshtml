@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "_LayoutInvMainPage";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="header" style="background: rgb(31, 42, 58);">HEADER</div>
+        <div class="left-sidebar" style="background: rgb(31, 42, 58);">LEFT SIDEBAR</div>
+        <div class="content" style="background: rgb(225, 226, 226)">@RenderBody()</div>
+        <div class="right-sidebar" style="background: rgb(225, 226, 226)">RIGHT SIDEBAR</div>
+        <div class="footer" style="background: rgb(225, 226, 226)">FOOTER</div>
+    </div>
+
+
+</body>
+</html>
+
+

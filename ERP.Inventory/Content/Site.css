@@ -1,77 +1,47 @@
 ﻿body {
-    /*margin: 40px;*/
     margin: 0px;
     font-family: Calibri, sans-serif;
 }
 
-.sidebar {
-    grid-area: sidebar;
-}
-
-.sidebar2 {
-    grid-area: sidebar2;
-}
-
-.content {
-    grid-area: content;
+.wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 17% auto 17%;
+    grid-template-rows: 10vh 80vh 10vh;
+    grid-template-areas: "header header header" "sideL main sideR" "footer footer footer"
 }
 
 .header {
     grid-area: header;
 }
 
-.footer {
-    grid-area: footer;
+.left-sidebar {
+    grid-area: sideL;
 }
 
-
-.wrapper {
-    display: grid;
-    /*grid-gap: 5px;*/
-    grid-template-columns: 13% 74% 13%;
-    grid-template-areas: "header header header" "sidebar content sidebar2" "footer footer footer";
-    background-color: #fff;
-    color: #444;
-}
-
-
-.box {
-    background-color: #444;
-    color: #fff;
-    /*border-radius: 5px;*/
-    padding: 10px;
-    /*font-size: 150%;*/
-}
-
-
-.header {
-    min-height: 10vh;
-    max-height: 10vh;
-    border-bottom: 1px solid #fff;
-    position:sticky;
-    top:0;
-}
-
-.sidebar,
-.header {
-    background: #1F2A3A;
-}
 .content {
-    background: #e1e2e2;
-    color: black;
+    grid-area: main
 }
 
-.sidebar,
-.sidebar2,
-.content{
-    min-height:80vh;
-    max-height: 80vh;
-}
-.footer{
-    min-height: 5vh;
-    max-height: 5vh;
+.right-sidebar {
+    grid-area: sideR
 }
 
+.footer {
+    grid-area: footer
+}
+
+
+
+@media only screen and (max-width: 500px) {
+    .wrapper {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 10vh 80vh 10vh;
+        grid-template-areas: "header" "main" "footer"
+    }
+}
 
 /*------------------------------------------------------
   JQUERY UI AUTOCOMPLETE
@@ -81,21 +51,3 @@
     font-size: 13px;
 }
 
-
-
-.content-wrapper {
-    display: grid;
-    grid-template-areas: 'col col col col col col col col col col col col';
-    grid-gap: 10px;
-    background-color: #2196F3;
-    grid-template-columns: 8.33% 8.33% 8.33% 8.33% 8.33% 8.33% 8.33% 8.33% 8.33% 8.33% 8.33% 8.33%;
-    padding: 10px;
-    width:100%;
-}
-
-.content-wrapper > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
-}
