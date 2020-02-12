@@ -1,10 +1,140 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Stock Entry Page";
 }
 
-    <div class="content-wrapper">
-        @for (var i = 1; i <= 12; i++)
-        {
-            <div class="col">@i</div>
-        }
+<div class="content-header">
+    <div style="display:flex">
+        <div style="width:50%; text-align:left">
+            <h1>Entry Stocks</h1>
+        </div>
+
     </div>
+</div>
+
+<div class="content-body">
+   
+    <div style="display:flex; margin-top:30px">
+        <div style="width:33.33%; max-width:33.33%; padding:15px">
+            <div class="custom-form-group">
+                <label style="width:150px">SUPPLIER</label>
+                <input type="text" name="SupplierName" value="" />
+            </div>
+            <div class="custom-form-group">
+                <label style="width:150px">PROJ NAME</label>
+                <input type="text" name="ProjectName" value="" />
+            </div>
+            <div class="custom-form-group">
+                <label style="width:150px">LOCATION</label>
+                <input type="text" name="ProjectLocation" value="" />
+            </div>
+            <div class="custom-form-group">
+                <label style="width:150px">RECEIVED BY</label>
+                <input type="text" name="ReceivedBy" value="" />
+            </div>
+        </div>
+        <div style="width: 33.33%; max-width:33.33%; padding:15px">
+            <div class="custom-form-group">
+                <label style="width:150px">SUP ID</label>
+                <input type="text" name="SupplierID" value="" disabled/>
+            </div>
+            <div class="custom-form-group">
+                <label style="width:150px">PROJ NO</label>
+                <input type="text" name="ProjectNumber" value="" disabled/>
+            </div>
+            <div class="custom-form-group">
+                <label style="width:150px">DOC NO</label>
+                <input type="text" name="DocNumber" value="" />
+            </div>
+            <div class="custom-form-group">
+                <label style="width:150px">DEL DATE</label>
+                <input type="text" name="DeliveryDate" value="" />
+            </div>
+        </div>
+        <div style="width:33.33%; max-width:33.33%; padding:15px">
+            <div class="custom-form-group">
+                <label style="width:150px">DEL METHOD</label>
+                <select style="width:100%" class="delMethodID">
+                    <option value="1">DELIVERY TRUCK</option>
+                    <option value="2">COURIER</option>
+                    <option value="3">MESSENGER</option>
+                </select>
+            </div>
+            <div class="custom-form-group delMethodAttribute">
+
+            </div>
+            <div class="custom-form-group delMethodAttribute">
+
+            </div>
+            <div class="custom-form-group delMethodAttribute">
+
+            </div>
+        </div>
+    </div>
+    <div style="display:flex; width: 100%; padding-left:15px;">
+        <h3>Enter Items Here</h3>
+    </div>
+    <div style="display: flex; width:100%">
+        <table class="custom-table" cellspacing="0" cellpadding="0" id="newStockEntryTable">
+            <thead>
+                <tr>
+                    <td>NO</td>
+                    <td>ITEM DESCRIPTION</td>
+                    <td>UNITS</td>
+                    <td>QTY</td>
+                    <td>UNIT PRICE</td>
+                    <td>CONDITION</td>
+                </tr>
+            </thead>
+            <tbody id="newStockEntryTbody">
+                @for (var i = 1; i <= 10; i++)
+                {
+                    <tr class="stockEntryBody">
+                        <td style="text-align:center; width:80px;" class="number">@i</td>
+                        <td style="width: 500px;">
+                            <input type="text" name="Items" class="items" value="" onkeypress="GetItemsByProj(event)" />
+                        </td>
+                        <td style="width: 130px;">
+                            <input type="text" name="Units" class="units" onkeypress="fnGetUnits(event)" />
+                        </td>
+                        <td style="width: 130px;">
+                            <input type="text" name="Qty" class="qty" />
+                        </td>
+                        <td style="width: 130px">
+                            <input type="text" name="UnitPrice" value="" />
+                        </td>
+                        <td style="position:relative;">
+                            <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
+                            <i class="fa fa-remove" style="position:absolute; cursor:pointer;right:-15px; color:#dc3545;" onclick="fnRemoveTransferStockItem(event)"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:15px">
+        <button class="custom-btn custom-info-btn" id="add_transferStock_item">
+            <i class="fa fa-plus fa-fw"></i> Add
+        </button>
+    </div>
+</div>
+
+<div class="content-footer">
+    <div style="width: 100%; text-align:right">
+        <button type="button" class="custom-btn custom-save-btn">
+            <i class="fa fa-save"></i> Save
+        </button>
+    </div>
+</div>
+
+
+@section Scripts{
+
+<script>
+
+    $(function () {
+        $('.delMethodID').trigger('change');
+    });
+
+</script>    
+    
+}

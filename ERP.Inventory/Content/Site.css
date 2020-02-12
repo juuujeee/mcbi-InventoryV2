@@ -175,21 +175,24 @@ legend.scheduler-border {
     text-align: center;
 
 }
-#transferStockTable{
+#transferStockTable,
+#newStockEntryTable {
     border: 1px solid #fff;
 }
-#transferStockTable tr input {
+#transferStockTable tr input,
+#newStockEntryTable tr input{
     width: 100%;
     text-align: center;
     border: none;
     background: none;
 }
-
-#transferStockTable tr input:focus {
+#transferStockTable tr input:focus,
+#newStockEntryTable tr input:focus {
     outline: none;
     border-bottom: 1px solid #a6e3e9;
 }
-#transferStockTable tbody td{
+#transferStockTable tbody td,
+#newStockEntryTable tbody td{
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
 }
