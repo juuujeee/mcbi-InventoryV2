@@ -7,13 +7,37 @@ body {
     font-family: Calibri, sans-serif;
 }
 
+/*--------------------------------------------
+        LAYOUT CSS
+---------------------------------------------*/
 .wrapper {
     height: 100%;
     display: grid;
     grid-template-columns: 17% auto 17%;
-    grid-template-rows: 10vh 80vh 10vh;
-    grid-template-areas: "header header header" "sideL main sideR" "footer footer footer"
+    /*grid-template-rows: 10% 80% 10%;*/
+    grid-auto-rows: minmax(70px, max-content);
+    grid-template-areas: "header header header" "sideL main sideR" "footer footer footer";
 }
+
+.header {
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid #fff;
+    z-index:9999;
+}
+
+.header,
+.left-sidebar {
+    background: #222831;
+    color: #fff;
+}
+
+.content,
+.right-sidebar {
+    background: #eeeeee;
+    color: #393e46;
+}
+
 
 .header {
     grid-area: header;
@@ -36,7 +60,9 @@ body {
 }
 
 
-
+/*------------------------------------------------
+        MEDIA QUERIES
+------------------------------------------------*/
 @media only screen and (max-width: 500px) {
     .wrapper {
         height: 100%;
@@ -58,3 +84,146 @@ body {
     font-size: 13px;
 }
 
+
+/*-------------------------------------------------
+        CONTENT CSS
+-------------------------------------------------*/
+.content {
+    height: 100%;
+    display: grid;
+    /*grid-template-rows: 20% 70% 10%;*/
+    grid-template-areas: "content-header" "content-body" "content-footer";
+    grid-auto-rows: minmax(50px, max-content);
+    /*padding: 10px;*/
+    border-right: 1px solid black;
+}
+.content-header{
+    grid-area: content-header;
+    padding: 15px;
+}
+.content-body{
+    grid-area: content-body;
+    padding: 15px 15px 15px 0;
+}
+.content-footer{
+    grid-area: content-footer;
+    padding: 15px;
+}
+
+
+/*------------------------------------------------
+        FOOTER CSS
+-------------------------------------------------*/
+.footer {
+    background: #eeeeee;
+    color: #393e46;
+    border-top: 1px solid #fff;
+}
+
+
+/*------------------------------------------------
+        FIELDSET CSS
+-------------------------------------------------*/
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow: 0px 0px 0px 0px #000;
+    box-shadow: 0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width: auto;
+    padding: 0 10px;
+    border-bottom: none;
+}
+
+
+/*-------------------------------------------------
+        FORM CSS
+--------------------------------------------------*/
+.custom-form-group{
+    margin:.6rem 0;
+}
+.custom-form-group > input,
+.custom-form-group select {
+    width: 100%;
+    border: 1px solid #c9d6df;
+    height: 30px;
+    padding: 0.375rem 0.75rem
+}
+
+
+/*-------------------------------------------------
+        TABLE CSS
+-------------------------------------------------*/
+.custom-table{
+    width: 100%;
+}
+.custom-table thead tr {
+    background: #4ecb4a;
+    height: 50px;
+    border: 1px solid #fff;
+    color: #fff;
+}
+.custom-table thead tr td{
+    font-size: 23px;
+    text-align: center;
+
+}
+#transferStockTable{
+    border: 1px solid #fff;
+}
+#transferStockTable tr input {
+    width: 100%;
+    text-align: center;
+    border: none;
+    background: none;
+}
+
+#transferStockTable tr input:focus {
+    outline: none;
+    border-bottom: 1px solid #a6e3e9;
+}
+#transferStockTable tbody td{
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+
+
+.custom-btn {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: #303841;
+    background: #f8f9fa;
+    border-color: #f8f9fa;
+    border-radius: 5px;
+}
+.custom-btn:hover {
+    background: #dde1e5;
+    border-color: #dde1e5;
+}
+
+.custom-save-btn {
+    background: #28a745;
+    border-color: #28a745;
+    color: #fff;
+}
+.custom-save-btn:hover {
+    background: #1f8236;
+    border-color: #1f8236;
+}
+.custom-info-btn {
+    background: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+.custom-info-btn:hover {
+    background: #137a8a;
+    border-color: #137a8a;
+}

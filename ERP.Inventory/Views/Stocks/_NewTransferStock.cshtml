@@ -1,0 +1,226 @@
+﻿@{
+    ViewBag.Title = "Transfer Stock Page";
+}
+
+<div class="content-header">
+    <div style="display:flex">
+        <div style="width:50%; text-align:left">
+            <h1>Transfer Stocks</h1>
+        </div>
+        <div style="width:50%; text-align:right">
+            <button type="button" class="custom-btn">Clear</button>
+            <button type="button" class="custom-btn">Edit</button>
+            <button type="button" class="custom-btn">Print</button>
+        </div>
+    </div>
+</div>
+<div class="content-body">
+    <div style="display:flex; padding-left:15px;">
+        <div style="width:33.33%; text-align:left">
+            <div class="custom-form-group">
+                <label>Select New or Post Transfer</label>
+                <select>
+                    <option value="1">NEW STOCK TRANSFER</option>
+                    <option value="2">CONFIRM STOCK TRANSFER</option>
+                </select>
+            </div>
+        </div>
+        <div style="width:33.33%"></div>
+        <div style="width:33.33%;">
+            <div class="custom-form-group">
+                <label>Enter Form Series No:</label>
+                <input type="text" name="RefNumber" value="" />
+            </div>
+        </div>
+    </div>
+    <div style="display:flex; margin-top:30px">
+        <div style="width:33.33%; max-width:33.33%; padding:15px">
+            <fieldset class="scheduler-border" id="origin">
+                <legend class="scheduler-border">ORIGIN DETAILS</legend>
+                <div class="custom-form-group">
+                    <label style="width:150px">PROJ NAME</label>
+                    <input type="text" name="OriginProjectName" value=""/>
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">PROJ NO</label>
+                    <input type="text" name="OriginProjectNumber" value=""/>
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">LOCATION</label>
+                    <input type="text" name="OriginProjectLocation" value=""/>
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">WH INCHARGE</label>
+                    <input type="text" name="OriginWHIncharge" value=""/>
+                </div>
+            </fieldset>
+        </div>
+        <div style="width:33.33%; max-width:33.33%; padding:15px">
+            <fieldset class="scheduler-border" id="delivery_method">
+                <legend class="scheduler-border">DELIVERY</legend>
+                <div class="custom-form-group">
+                    <label style="width:150px">DEL METHOD</label>
+                    <select style="width:100%" class="delMethodID">
+                        <option value="1">DELIVERY TRUCK</option>
+                        <option value="2">COURIER</option>
+                        <option value="3">MESSENGER</option>
+                    </select>
+                </div>
+                <div class="custom-form-group delMethodAttribute">
+
+                </div>
+                <div class="custom-form-group delMethodAttribute">
+
+                </div>
+                <div class="custom-form-group delMethodAttribute">
+
+                </div>
+            </fieldset>
+        </div>
+        <div style="width: 33.33%; max-width:33.33%; padding:15px">
+            <fieldset class="scheduler-border" id="destination">
+                <legend class="scheduler-border">DESTINATION</legend>
+                <div class="custom-form-group">
+                    <label style="width:150px">PROJ NAME</label>
+                    <input type="text" name="DestinationProjectName" value="" />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">PROJ NO</label>
+                    <input type="text" name="DestinationProjectNumber" value=""/>
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">LOCATION</label>
+                    <input type="text" name="DestinationProjectLocation" value=""/>
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">WH INCHARGE</label>
+                    <input type="text" name="DestinationWHIncharge" value=""/>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div style="display:flex; width: 100%; padding-left:15px;">
+        <h3>Enter Items Here</h3>
+    </div>
+    <div style="display: flex; width:100%">
+        <table class="custom-table" cellspacing="0" cellpadding="0" id="transferStockTable">
+            <thead>
+                <tr>
+                    <td>NO</td>
+                    <td>ITEM DESCRIPTION</td>
+                    <td>UNITS</td>
+                    <td>QTY</td>
+                    <td>CONDITION</td>
+                </tr>
+            </thead>
+            <tbody id="newTransferStockEntryTbody">
+                @for (var i = 1; i <= 10; i++)
+                {
+                    <tr class="transferStockEntryBody">
+                        <td style="text-align:center; width:80px;" class="number">@i</td>
+                        <td style="width: 500px;">
+                            <input type="text" name="Items" class="items" value="" onkeypress="GetItemsByProj(event)" />
+                        </td>
+                        <td style="width: 130px;">
+                            <input type="text" name="Units" class="units" disabled />
+                        </td>
+                        <td style="width: 130px;">
+                            <input type="text" name="Qty" class="qty" disabled />
+                        </td>
+                        <td style="position:relative;">
+                            <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
+                            <i class="fa fa-remove" style="position:absolute; cursor:pointer;right:-15px; color:#dc3545;" onclick="fnRemoveTransferStockItem(event)"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:15px">
+        <button class="custom-btn custom-info-btn" id="add_transferStock_item">
+        <i class="fa fa-plus fa-fw"></i> Add
+        </button>
+    </div>
+</div>
+
+<div class="content-footer">
+    <div style="width: 100%; text-align:right">
+        <button type="button" class="custom-btn custom-save-btn">
+            <i class="fa fa-save"></i> Save
+        </button>
+    </div>
+</div>
+
+
+
+<table style="display: none" id="newTransferStockEntryTbodyClone">
+    <tr class="">
+        <td style="text-align: center; width:80px" class="number"></td>
+        <td style="width:500px">
+            <input type="text" name="Items" value="" class="items" onkeypress="GetItemsByProj(event)" />
+        </td>
+        <td style="width:130px">
+            <input type="text" name="Units" value="" class="units" disabled />
+        </td>
+        <td style="width:130px">
+            <input type="text" name="Qty" value="" class="qty" disabled />
+        </td>
+        <td style="position: relative">
+            <input type="text" name="ItemCondition" value="" class="itemCondition" onkeypress="fnGetItemCondition(event)" />
+            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px; color: #dc3545" onclick="fnRemoveTransferStockItem(event)"></i>
+        </td>
+    </tr>
+</table>
+
+@section Scripts{
+
+    <script>
+
+        $(function () {
+            $('.delMethodID').trigger('change');
+        });
+
+
+        $('#add_transferStock_item').on('click', function (e) {
+            //console.log("Add");
+
+            //return;
+            var counter = $('.transferStockEntryBody').find('td.number').length;
+
+            //console.log(counter);
+
+            $('#newTransferStockEntryTbodyClone').find('tr').addClass('transferStockEntryBody');
+            $('#newTransferStockEntryTbodyClone').find('td.number').html((counter || 0) + 1);
+
+
+            $('#newTransferStockEntryTbody').append(
+
+                $('#newTransferStockEntryTbodyClone tbody').html()
+            );
+
+
+            //remove class after insert in tbody
+            $('#newTransferStockEntryTbodyClone').find('tr').removeClass('transferStockEntryBody');
+            $('#newTransferStockEntryTbodyClone').find('td.number').html("");
+        })
+
+        //REMOVE STOCK TRANSFER ITEM ROW
+        function fnRemoveTransferStockItem(event) {
+
+            var $this = $(event.target);
+
+            $($this).parents('tr').remove();
+
+            var counter = $('.transferStockEntryBody').find('td.number').length;
+
+
+            if (counter > 0) {
+                for (var i = 0; i < counter; i++) {
+                    $('.transferStockEntryBody').find('td.number').eq(i).html(i + 1);
+                }
+            }
+        }
+
+    </script>
+
+}

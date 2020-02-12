@@ -322,6 +322,7 @@
     <Content Include="Views\Stocks\_NewStockEntry.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
+    <Content Include="Views\Stocks\_NewTransferStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

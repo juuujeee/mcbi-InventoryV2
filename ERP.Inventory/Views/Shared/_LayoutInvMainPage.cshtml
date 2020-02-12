@@ -1,26 +1,35 @@
-﻿
-@{
-    ViewBag.Title = "_LayoutInvMainPage";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/jquery-ui.css"/>
+    <link rel="stylesheet" href="~/Content/datepicker.css"/>
+    <link rel="stylesheet" href="~/Content/font-awesome.css"/>
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
 
     <div class="wrapper">
-        <div class="header" style="background: #1F2A3A;">HEADER</div>
-        <div class="left-sidebar" style="background: #1F2A3A;">LEFT SIDEBAR</div>
-        <div class="content" style="background: #E1E2E2">@RenderBody()</div>
-        <div class="right-sidebar" style="background: #E1E2E2">RIGHT SIDEBAR</div>
-        <div class="footer" style="background: #E1E2E2">FOOTER</div>
+        <div class="header">
+            <div style="width:100%; text-align:right">
+                MCBI - Inventory Series @DateTime.Today.Year
+            </div>
+            <div style="width: 100%">
+                <a href="#" style="color:white; text-decoration: none">INVENTORY MANAGEMENT SYSTEM</a>
+            </div>
+        </div>
+        <div class="left-sidebar">LEFT SIDEBAR</div>
+        <div class="content">@RenderBody()</div>
+        <div class="right-sidebar">RIGHT SIDEBAR</div>
+        <div class="footer">FOOTER</div>
     </div>
 
-
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/datepicker.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 

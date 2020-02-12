@@ -22,7 +22,7 @@ namespace ERP.Inventory.Controllers
 
         public ActionResult TransferStock()
         {
-            return View("~/Views/Stocks/_TransferStock.cshtml");
+            return View("~/Views/Stocks/_NewTransferStock.cshtml");
         }
 
 

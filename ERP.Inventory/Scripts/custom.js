@@ -253,7 +253,7 @@ $('.delMethodID').on('change', function (e) {
 
                         $.getJSON('http://124.105.198.3:90/api/DelMethodAttrValue', function (response) {
 
-                            delAttrContent += '<select class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                            delAttrContent += '<select style="width:100%" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                             for (var x = 0; x < response.length; x++) {
 
@@ -270,7 +270,7 @@ $('.delMethodID').on('change', function (e) {
                     }
 
                     else {
-                        delAttrContent += '<input type="text" class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '<input type="text" style="width:100%" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
                     }
                 }
 
@@ -279,7 +279,7 @@ $('.delMethodID').on('change', function (e) {
 
                         $.getJSON('http://124.105.198.3:90/api/DelMethodAttrValue', function (response) {
 
-                            delAttrContent += '<select class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                            delAttrContent += '<select style="width:100%" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                             for (var x = 0; x < response.length; x++) {
 
@@ -295,13 +295,13 @@ $('.delMethodID').on('change', function (e) {
                         });
                     }
                     else {
-                        delAttrContent += '<input type="text" value="" class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '<input type="text" style="width:100%" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
                     }
 
                 }
 
                 if (parseInt($this.val()) === 3) {
-                    delAttrContent += '<input type="text" value="" class="form-control form-control-sm shadow-none deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                    delAttrContent += '<input type="text" style="width:100%" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                 }
 
