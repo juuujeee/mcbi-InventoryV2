@@ -323,6 +323,7 @@
     <Content Include="Views\Stocks\_IssuedStock.cshtml" />
     <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />
+    <Content Include="Views\Stocks\_NewStockEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

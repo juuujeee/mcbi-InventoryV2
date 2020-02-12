@@ -9,115 +9,33 @@
 
     <title>@ViewBag.Title</title>
 
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/datepicker.css" rel="stylesheet" />
-    <link href="~/Content/overlayscrollbar.css"/>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet"/>
+    <link href="~/Content/datepicker.css" rel="stylesheet"/>
     <link href="~/Content/Site.css" rel="stylesheet" />
 
 
 </head>
 <body>
 
-    @Html.Partial("_Header")
-
-
-    <div class="wrapper" id="wrapper">
-        <!-- Sidebar  -->
-        @Html.Partial("_Sidebar")
-
-
-
-        <!-- Page Content  -->
-        <div id="content" class="pl-0">
-
+    <div class="wrapper">
+        <div class="box header">Header</div>
+        <div class="box sidebar">
+            <ul style="list-style:none">
+                <li><a href="#">HOME</a></li>
+            </ul>
+        </div>
+        <div class="box content">
             @RenderBody()
-
         </div>
-
-        <div class="right-sidebar" style="overflow-y:scroll">
-            <h6 class="p-3 position-fixed" style="background: #e1e2e2; margin-bottom: 0">Recent Transactions</h6>
-            @if (ViewBag.Title == "Transfer Stocks Page")
-            {
-                <div class="" id="transfer_transactions" style="min-height: 90vh; max-height: 90vh">
-                    <div class="transactions" style="height:30vw">
-                        test recent
-                    </div>
-                    <div class="pending_transactions" style="height: 30vw">
-                        test pending
-                    </div>
-                </div>
-            }
-            @if (ViewBag.Title == "Stocks Entry Page")
-            {
-                <div class="" id="recent_transactions" style="padding:1rem; padding-top:70px">
-
-                </div>
-            }
-
-        </div>
+        <div class="box sidebar2">Sidebar2</div>
+        <div class="box footer">Footer</div>
     </div>
-
-    <!--Default Modal-->
-    <div class="modal fade" id="Default-Modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:19px;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success btn-sm save_btn">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    @*@if (ViewBag.Title == "Stocks Entry Page" || ViewBag.Title == "Transfer Stocks Page" || ViewBag.Title == "Release Stocks Page")
-        {
-            <div class="dropdown float-icon-container" id="">
-                <button id="floatMenu" type="button" class="btn scroll-up-icon float-icon dropdown-toggle" data-toggle="dropdown" style="display: inline;">
-                    <i class="fa fa-cogs text-black"></i>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="floatMenu">
-                    <li role="presentation"><a role="menuitem" href="javascript:void(0)" class="open-dialog" id="Add New Item" data-href="@Url.Action("Create", "ItemMasterList")" data-modal-size="lg">New Item</a></li>
-                    <li role="presentation"><a role="menuitem" href="javascript:void(0)">Update Item</a></li>
-                </ul>
-            </div>
-        }*@
-
-
 
     <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/umd/popper.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/jquery-ui.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/datepicker.js"></script>
-    <script src="~/Scripts/sweetalert2.all.js"></script>
-    <script src="~/Scripts/overlayscrollbar.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
-
-    <script>
-        $(function () {
-
-            var headerHeight = $('#header').height();
-
-            $('#wrapper').css({ "margin-top": headerHeight });
-        });
-    </script>
-
 </body>
 </html>
 

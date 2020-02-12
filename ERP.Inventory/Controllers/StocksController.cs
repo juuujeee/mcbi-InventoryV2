@@ -17,7 +17,7 @@ namespace ERP.Inventory.Controllers
 
         public ActionResult StockEntry()
         {
-            return View("~/Views/Stocks/_StocksEntry.cshtml");
+            return View("~/Views/Stocks/_NewStockEntry.cshtml");
         }
 
         public ActionResult TransferStock()
