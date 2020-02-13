@@ -100,7 +100,7 @@
                             </td>
                             <td style="position:relative;">
                                 <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
-                                <i class="fa fa-remove remove-btn" onclick="fnRemoveStockEntryItem(event)"></i>
+                                <i class="fa fa-remove remove-btn" onclick="fnRemoveItem(event)"></i>
                             </td>
                         </tr>
                     }
@@ -108,7 +108,7 @@
             </table>
         </div>
         <div style="margin-top:15px">
-            <button class="custom-btn custom-info-btn" id="add_stockEntry_item">
+            <button class="custom-btn custom-info-btn" type="button" id="add_stockEntry_item">
                 <i class="fa fa-plus fa-fw"></i> Add
             </button>
         </div>
@@ -144,7 +144,7 @@
         </td>
         <td style="position:relative">
             <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
-            <i class="fa fa-remove text-danger remove-btn" onclick="fnRemoveStockEntryItem(event)"></i>
+            <i class="fa fa-remove text-danger remove-btn" onclick="fnRemoveItem(event)"></i>
         </td>
     </tr>
 </table>
@@ -181,26 +181,6 @@
             $('#newStockEntryTbodyClone').find('td.number').html("");
 
         });
-
-        //REMOVE FIELD FOR THE SELECTED STOCK ENTRY ITEM
-        function fnRemoveStockEntryItem(event) {
-
-            //console.log("Testing remove only");
-
-            var $this = $(event.target);
-
-            $($this).parents('tr').remove();
-
-            var counter = $('.stockEntryBody').find('td.number').length;
-
-
-            if (counter > 0) {
-                for (var i = 0; i < counter; i++) {
-                    $('.stockEntryBody').find('td.number').eq(i).html(i + 1);
-                }
-            }
-
-        }
 
 
         $(function () {

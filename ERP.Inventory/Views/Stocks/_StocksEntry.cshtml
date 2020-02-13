@@ -531,25 +531,7 @@
         });
 
 
-        //REMOVE FIELD FOR THE SELECTED STOCK ENTRY ITEM
-        function fnRemoveStockEntryItem(event) {
-
-            //console.log("Testing remove only");
-
-            var $this = $(event.target);
-
-            $($this).parents('tr').remove();
-
-            var counter = $('.stockEntryBody').find('td.number').length;
-
-
-            if (counter > 0) {
-                for (var i = 0; i < counter; i++) {
-                    $('.stockEntryBody').find('td.number').eq(i).html(i + 1);
-                }
-            }
-
-        }
+       
 
     </script>
 
