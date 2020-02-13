@@ -7,134 +7,465 @@
         <div style="width:50%; text-align:left">
             <h1>Entry Stocks</h1>
         </div>
-
     </div>
 </div>
+<form action="#" method="post" name="StockEntryForm" autocomplete="off" ">
 
-<div class="content-body">
-   
-    <div style="display:flex; margin-top:30px">
-        <div style="width:33.33%; max-width:33.33%; padding:15px">
-            <div class="custom-form-group">
-                <label style="width:150px">SUPPLIER</label>
-                <input type="text" name="SupplierName" value="" />
+    <div class="content-body">
+        <div style="display:flex; margin-top:30px">
+            <div style="width:33.33%; max-width:33.33%; padding:15px">
+                <div class="custom-form-group">
+                    <label style="width:150px">SUPPLIER</label>
+                    <input type="text" name="SupplierName" class="supplier" value="" />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">PROJ NAME</label>
+                    <input type="text" class="projectName" name="ProjectName" value="" />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">LOCATION</label>
+                    <input type="text" name="ProjectLocation" value="" disabled />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">RECEIVED BY</label>
+                    <input type="text" name="ReceivedBy" class="receivedBy" value="" />
+                </div>
             </div>
-            <div class="custom-form-group">
-                <label style="width:150px">PROJ NAME</label>
-                <input type="text" name="ProjectName" value="" />
+
+            <div style="width: 33.33%; max-width:33.33%; padding:15px">
+                <div class="custom-form-group">
+                    <label style="width:150px">SUP ID</label>
+                    <input type="text" name="SupplierIDCode" class="supplierIDCode" value="" disabled />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">PROJ NO</label>
+                    <input type="text" name="ProjectNumber" class="projectNumber" value="" disabled />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">DOC NO</label>
+                    <input type="text" name="DocNumber" value="" />
+                </div>
+                <div class="custom-form-group">
+                    <label style="width:150px">DEL DATE</label>
+                    <input type="text" name="DeliveryDate" class="date-picker" value="" readonly/>
+                </div>
             </div>
-            <div class="custom-form-group">
-                <label style="width:150px">LOCATION</label>
-                <input type="text" name="ProjectLocation" value="" />
+
+            <div style="width:33.33%; max-width:33.33%; padding:15px">
+                <div class="custom-form-group">
+                    <label style="width:150px">DEL METHOD</label>
+                    <select style="width:100%" class="delMethodID">
+                        <option value="1">DELIVERY TRUCK</option>
+                        <option value="2">COURIER</option>
+                        <option value="3">MESSENGER</option>
+                    </select>
+                </div>
+                <div class="custom-form-group delMethodAttribute"></div>
+                <div class="custom-form-group delMethodAttribute"></div>
+                <div class="custom-form-group delMethodAttribute"></div>
             </div>
-            <div class="custom-form-group">
-                <label style="width:150px">RECEIVED BY</label>
-                <input type="text" name="ReceivedBy" value="" />
-            </div>
+
         </div>
-        <div style="width: 33.33%; max-width:33.33%; padding:15px">
-            <div class="custom-form-group">
-                <label style="width:150px">SUP ID</label>
-                <input type="text" name="SupplierID" value="" disabled/>
-            </div>
-            <div class="custom-form-group">
-                <label style="width:150px">PROJ NO</label>
-                <input type="text" name="ProjectNumber" value="" disabled/>
-            </div>
-            <div class="custom-form-group">
-                <label style="width:150px">DOC NO</label>
-                <input type="text" name="DocNumber" value="" />
-            </div>
-            <div class="custom-form-group">
-                <label style="width:150px">DEL DATE</label>
-                <input type="text" name="DeliveryDate" value="" />
-            </div>
+        <div style="display:flex; width: 100%; padding-left:15px;">
+            <h2>Enter Items Here</h2>
         </div>
-        <div style="width:33.33%; max-width:33.33%; padding:15px">
-            <div class="custom-form-group">
-                <label style="width:150px">DEL METHOD</label>
-                <select style="width:100%" class="delMethodID">
-                    <option value="1">DELIVERY TRUCK</option>
-                    <option value="2">COURIER</option>
-                    <option value="3">MESSENGER</option>
-                </select>
-            </div>
-            <div class="custom-form-group delMethodAttribute">
-
-            </div>
-            <div class="custom-form-group delMethodAttribute">
-
-            </div>
-            <div class="custom-form-group delMethodAttribute">
-
-            </div>
-        </div>
-    </div>
-    <div style="display:flex; width: 100%; padding-left:15px;">
-        <h3>Enter Items Here</h3>
-    </div>
-    <div style="display: flex; width:100%">
-        <table class="custom-table" cellspacing="0" cellpadding="0" id="newStockEntryTable">
-            <thead>
-                <tr>
-                    <td>NO</td>
-                    <td>ITEM DESCRIPTION</td>
-                    <td>UNITS</td>
-                    <td>QTY</td>
-                    <td>UNIT PRICE</td>
-                    <td>CONDITION</td>
-                </tr>
-            </thead>
-            <tbody id="newStockEntryTbody">
-                @for (var i = 1; i <= 10; i++)
-                {
-                    <tr class="stockEntryBody">
-                        <td style="text-align:center; width:80px;" class="number">@i</td>
-                        <td style="width: 500px;">
-                            <input type="text" name="Items" class="items" value="" onkeypress="GetItemsByProj(event)" />
-                        </td>
-                        <td style="width: 130px;">
-                            <input type="text" name="Units" class="units" onkeypress="fnGetUnits(event)" />
-                        </td>
-                        <td style="width: 130px;">
-                            <input type="text" name="Qty" class="qty" />
-                        </td>
-                        <td style="width: 130px">
-                            <input type="text" name="UnitPrice" value="" />
-                        </td>
-                        <td style="position:relative;">
-                            <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
-                            <i class="fa fa-remove" style="position:absolute; cursor:pointer;right:-15px; color:#dc3545;" onclick="fnRemoveTransferStockItem(event)"></i>
-                        </td>
+        <div style="display: flex; width:100%">
+            <table class="custom-table" cellspacing="0" cellpadding="0" id="newStockEntryTable">
+                <thead>
+                    <tr>
+                        <td>NO</td>
+                        <td>ITEM DESCRIPTION</td>
+                        <td>UNITS</td>
+                        <td>QTY</td>
+                        <td>UNIT PRICE</td>
+                        <td>CONDITION</td>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div style="margin-top:15px">
-        <button class="custom-btn custom-info-btn" id="add_transferStock_item">
-            <i class="fa fa-plus fa-fw"></i> Add
-        </button>
-    </div>
-</div>
+                </thead>
+                <tbody id="newStockEntryTbody">
+                    @for (var i = 1; i <= 10; i++)
+                    {
+                        <tr class="stockEntryBody">
+                            <td style="text-align:center; width:80px;" class="number">@i</td>
+                            <td style="width: 500px;">
+                                <input type="text" name="Items" class="items" value="" onkeypress="fnGetItems(event)" />
+                            </td>
+                            <td style="width: 130px;">
+                                <input type="text" name="Units" class="units" onkeypress="fnGetUnits(event)" />
+                            </td>
+                            <td style="width: 130px;">
+                                <input type="text" name="Qty" class="qty" />
+                            </td>
+                            <td style="width: 200px">
+                                <input type="text" name="UnitPrice" value="" />
+                            </td>
+                            <td style="position:relative;">
+                                <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
+                                <i class="fa fa-remove remove-btn" onclick="fnRemoveStockEntryItem(event)"></i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top:15px">
+            <button class="custom-btn custom-info-btn" id="add_stockEntry_item">
+                <i class="fa fa-plus fa-fw"></i> Add
+            </button>
+        </div>
 
-<div class="content-footer">
-    <div style="width: 100%; text-align:right">
-        <button type="button" class="custom-btn custom-save-btn">
-            <i class="fa fa-save"></i> Save
-        </button>
     </div>
-</div>
 
+    <div class="content-footer">
+        <div style="width: 100%; text-align:right">
+            <button type="submit" class="custom-btn custom-save-btn">
+                <i class="fa fa-save"></i> Save
+            </button>
+        </div>
+
+    </div>
+</form>
+
+
+
+<table style="display: none" id="newStockEntryTbodyClone">
+    <tr class="">
+        <td style="width:80px; text-align: center" class="number"></td>
+        <td style="width:500px;">
+            <input type="text" name="name" value="" class="items" style="border:none" />
+        </td>
+        <td style="width:130px">
+            <input type="text" name="Units" value="" class="units" />
+        </td>
+        <td style="width:130px">
+            <input type="text" name="Qty" value="" class="qty" />
+        </td>
+        <td style="width:200px">
+            <input type="text" name="UnitPrice" value="" class="text-center unitPrice" style="border:none" />
+        </td>
+        <td style="position:relative">
+            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
+            <i class="fa fa-remove text-danger remove-btn" onclick="fnRemoveStockEntryItem(event)"></i>
+        </td>
+    </tr>
+</table>
 
 @section Scripts{
 
-<script>
+    <script>
 
-    $(function () {
-        $('.delMethodID').trigger('change');
-    });
+        $(function () {
+            $('.delMethodID').trigger('change');
+        });
 
-</script>    
-    
+        //ADD NEW FIELD FOR STOCK ENTRY ITEM
+        $('#add_stockEntry_item').on('click', function (e) {
+
+            //console.log("Add");
+
+            var counter = $('.stockEntryBody').find('td.number').length;
+
+            //console.log(counter);
+
+            $('#newStockEntryTbodyClone').find('tr').addClass('stockEntryBody');
+            $('#newStockEntryTbodyClone').find('td.number').html((counter || 0) + 1);
+
+
+            $('#newStockEntryTbody').append(
+
+                $('#newStockEntryTbodyClone tbody').html()
+            );
+
+
+            //remove class after insert in tbody
+            $('#newStockEntryTbodyClone').find('tr').removeClass('stockEntryBody');
+            $('#newStockEntryTbodyClone').find('td.number').html("");
+
+        });
+
+        //REMOVE FIELD FOR THE SELECTED STOCK ENTRY ITEM
+        function fnRemoveStockEntryItem(event) {
+
+            //console.log("Testing remove only");
+
+            var $this = $(event.target);
+
+            $($this).parents('tr').remove();
+
+            var counter = $('.stockEntryBody').find('td.number').length;
+
+
+            if (counter > 0) {
+                for (var i = 0; i < counter; i++) {
+                    $('.stockEntryBody').find('td.number').eq(i).html(i + 1);
+                }
+            }
+
+        }
+
+
+        $(function () {
+
+            //FOR PROJECTS
+            var project = [];
+            var projectURL = 'http://192.168.1.100:94/api/Projects';
+
+            $.getJSON(projectURL, function (data) {
+                //var dat = data.Data;
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].ProjectName;
+                    newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                    newObj.projectNo = data[i].ProjectNumber;
+
+                    project.push(newObj);
+
+                }
+
+                $(".projectName").autocomplete({
+                    source: project,
+                    select: function (event, ui) {
+
+                        $(this).attr('data-val', ui.item.id);
+                        $(this).parents('.content-body').find('input.projectNumber').val(ui.item.projectNo);
+                    }
+                });
+            });
+
+
+            //FOR SUPPLIER
+            var suppliers = [];
+            var supplierURL = 'http://124.105.198.3:90/api/VendorList';
+
+            $.getJSON(supplierURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    newObj.id = data[i].SupplierID;
+                    newObj.value = data[i].SupplierName;
+                    newObj.label = data[i].SupplierName;
+
+                    suppliers.push(newObj);
+
+                }
+
+                $(".supplier").autocomplete({
+                    source: suppliers,
+                    select: function (event, ui) {
+
+                        $(this).attr('data-val', ui.item.id);
+                        $(this).parents('.content-body').find('input.supplierIDCode').val(ui.item.id);
+                    }
+                })
+            });
+
+            //FOR RECEIVED BY
+            var receivedBy = [];
+
+            var receivedByURL = 'http://124.105.198.3:92/api/PersonInformation';
+            $.getJSON(receivedByURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var obj = {};
+
+                    obj.id = data[i].ID;
+                    obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                    obj.label = data[i].FirstName + ' ' + data[i].LastName;
+
+                    receivedBy.push(obj);
+
+
+                    $(".receivedBy").autocomplete({
+                        source: receivedBy,
+                        select: function (event, ui) {
+
+                            var $this = $(this);
+                            $this.parents('.card-header').find('input.receivedByID').val(ui.item.id);
+                        }
+                    })
+
+                }
+
+            });
+
+        });
+
+        $(function () {
+            $('form[name=StockEntryForm]').validate({
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    SupplierName: "required",
+                    ProjectName: "required",
+                    ReceivedBy: "required",
+                    DocNumber: "required",
+                    DeliveryDate: "required"
+
+                },
+                // Specify validation error messages
+                //messages: {
+                //    Supplier: "Select a Supplier",
+                //    ProjectName: "Select a Project",
+                //    ReceivedBy: "Select a Receiver",
+                //    DocNumber: "This Field can't be empty",
+                //    DeliveryDate: "This Field can't be empty",
+                //    DeliveryMethodAttr: "This Field can't be empty"
+                //},
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function (form, event) {
+                    event.preventDefault();
+                    //fnSaveStockEntry(form);
+
+                    fnSaveStockEntry(form);
+                }
+            });
+
+            $("[name^=DeliveryMethodAttr]").each(function () {
+                $(this).rules("add", {
+                    required: true
+                });
+            });
+        })
+
+
+        //SAVE DATA
+        function fnSaveStockEntry(form) {
+
+            var stockEntryItem = [];
+            var $this = $(form);
+
+
+            //FOR STOCK ENTRY ITEM
+            $this.find('.stockEntryBody').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    DocEntryID_007: 0,
+                    ItemID_011: $(this).find('input[name=Items]').attr('data-val') || 0,
+                    UnitID_009: $(this).find('input[name=Units]').attr('data-val') || 0,
+                    ItemConditionID_018: $(this).find('input[name=ItemCondition]').attr('data-val') || 0,
+                    Quantity: $(this).find('input[name=Qty]').val() || 0,
+                    UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0
+                };
+
+                if (obj.ItemID_011 !== 0) {
+                    stockEntryItem.push(obj);
+                }
+
+            });
+
+            let current_datetime = new Date();
+            let formatted_date = (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate() + "/" + current_datetime.getFullYear();
+
+
+
+            //FOR DELIVERY ENTRY
+
+            var DeliveryMethodEntryList = [];
+            $('.deliveryMethodAttr').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    DocEntryListID_007: 0,
+                    DelMethodAttrID_008: $(this).attr('data-id'),
+                    AttributeValueID_008a: 0,
+                    AttributeValue: $(this).val()
+                };
+
+                if (obj.AttributeValue !== "") {
+                    DeliveryMethodEntryList.push(obj);
+                }
+
+            });
+
+            var DeliveryMethod = {
+
+                // ID: $('.delMethodID').val(),
+                Name: $('.delMethodID').children('option:selected').text(),
+                DelMethodAttribute: [{
+                    ID: 0,
+                    DelMethodID_010: $('.delMethodID').val(),
+                    MethodAttribute: 'test',
+                    DeliveryMethodEntryList: DeliveryMethodEntryList
+                }]
+
+            };
+
+
+            //FOR STOCK ENTRY HEADER
+            var DocEntry = {
+                ID: 0,
+                SupID_VendorDB: $this.find('input[name=SupplierName]').attr('data-val') || 0,
+                ProjectID_EnggDB: $this.find('input[name=ProjectName]').attr('data-val') || 0,
+                DocumentNumber: $this.find('input[name=DocNo]').val() || 0,
+                DeliveryDate: $this.find('input[name=DeliveryDate]').val() || 0,
+                EntryDate: formatted_date,
+                ReceiverID_HRDB: $this.find('input[name=ReceivedBy]').attr('data-val') || 0,
+                ItemEntryList: stockEntryItem,
+                DeliveryMethod: DeliveryMethod
+            };
+
+            console.log(DocEntry);
+
+            return;
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: 'http://124.105.198.3:90/api/NewItemHeaderList',
+                dataType: 'json',
+                data: JSON.stringify(DocEntry),
+                contentType: "application/json",
+                success: function (response) {
+                    if (response.RetVal === 1) {
+                        swal.fire('Success', response.Message, 'success');
+
+                        //Clear Stock Entry Header
+                        $('#stock_entry').find('.card-header').find('input').val("");
+
+                        //Clear Stock Entry Item
+                        $('#newStockEntry').find('input').val("");
+
+                    }
+                    else {
+                        swal.fire('Error', response.Message, 'error');
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            });
+
+        }
+
+    </script>
+
 }

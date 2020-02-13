@@ -21,13 +21,26 @@
         </div>
         <div class="left-sidebar">LEFT SIDEBAR</div>
         <div class="content">@RenderBody()</div>
-        <div class="right-sidebar">RIGHT SIDEBAR</div>
-        <div class="footer">FOOTER</div>
+
+        <div class="right-sidebar">
+            <div style="text-align:center">
+                <h3>RECENT TRANSACTIONS</h3>
+            </div>
+            @if (ViewBag.Title == "Stock Entry Page")
+            {
+                <div class="stockEntry_transactions">
+
+                </div>
+            }
+        </div>
+        @*<div class="footer">FOOTER</div>*@
     </div>
 
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/datepicker.js"></script>
+    <script src="~/Scripts/sweetalert2.all.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
 </body>

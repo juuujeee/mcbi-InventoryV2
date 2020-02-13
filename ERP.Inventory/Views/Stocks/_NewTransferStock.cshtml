@@ -19,7 +19,7 @@
         <div style="width:33.33%; text-align:left">
             <div class="custom-form-group">
                 <label>Select New or Post Transfer</label>
-                <select>
+                <select id="transfer_stock_option">
                     <option value="1">NEW STOCK TRANSFER</option>
                     <option value="2">CONFIRM STOCK TRANSFER</option>
                 </select>
@@ -28,8 +28,8 @@
         <div style="width:33.33%"></div>
         <div style="width:33.33%;">
             <div class="custom-form-group">
-                <label>Enter Form Series No:</label>
-                <input type="text" name="RefNumber" value="" />
+                <label id="seriesNumber"></label>
+                <input type="text" name="RefNumber" value="" autocomplete="off"/>
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
                     <tr class="transferStockEntryBody">
                         <td style="text-align:center; width:80px;" class="number">@i</td>
                         <td style="width: 500px;">
-                            <input type="text" name="Items" class="items" value="" onkeypress="GetItemsByProj(event)" />
+                            <input type="text" name="Items" class="items" value="" onkeypress="fnGetItemsByProj(event)" />
                         </td>
                         <td style="width: 130px;">
                             <input type="text" name="Units" class="units" disabled />
@@ -129,7 +129,7 @@
                         </td>
                         <td style="position:relative;">
                             <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
-                            <i class="fa fa-remove" style="position:absolute; cursor:pointer;right:-15px; color:#dc3545;" onclick="fnRemoveTransferStockItem(event)"></i>
+                            <i class="fa fa-remove remove-btn" onclick="fnRemoveTransferStockItem(event)"></i>
                         </td>
                     </tr>
                 }
@@ -157,7 +157,7 @@
     <tr class="">
         <td style="text-align: center; width:80px" class="number"></td>
         <td style="width:500px">
-            <input type="text" name="Items" value="" class="items" onkeypress="GetItemsByProj(event)" />
+            <input type="text" name="Items" value="" class="items" onkeypress="fnGetItemsByProj(event)" />
         </td>
         <td style="width:130px">
             <input type="text" name="Units" value="" class="units" disabled />
@@ -167,7 +167,7 @@
         </td>
         <td style="position: relative">
             <input type="text" name="ItemCondition" value="" class="itemCondition" onkeypress="fnGetItemCondition(event)" />
-            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px; color: #dc3545" onclick="fnRemoveTransferStockItem(event)"></i>
+            <i class="fa fa-remove remove-btn" onclick="fnRemoveTransferStockItem(event)"></i>
         </td>
     </tr>
 </table>
@@ -178,6 +178,7 @@
 
         $(function () {
             $('.delMethodID').trigger('change');
+            $('#transfer_stock_option').trigger('change');
         });
 
 
@@ -220,6 +221,143 @@
                 }
             }
         }
+
+         //FOR TRANSFER STOCK OPTION
+        $('#transfer_stock_option').on('change', function (e) {
+
+            var $this = $(this);
+
+            if (parseInt($(this).val()) === 1) {
+                $('input[name=RefNumber]').removeClass('refNumber');
+
+                $('#seriesNumber').text('Enter Form Series No:');
+                $this.parents('.card').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#delivery_method').find('input, select').removeAttr('disabled');
+
+                //item entry
+                $this.parents('.card').find('table.custom-table').find('input.items').removeAttr('disabled');
+
+                //change save button prop
+                $this.parents('.card').find('button.save_transferStock').attr('id', 'saveTransferStock');
+            }
+            else {
+
+                $('input[name=RefNumber]').addClass('refNumber');
+
+                $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
+                $this.parents('.card').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#delivery_method').find('input, select').attr('disabled', true);
+
+                //item entry
+                $this.parents('.card').find('table.custom-table').find('input.items').attr('disabled', true);
+
+                //change save button prop
+                $this.parents('.card').find('button.save_transferStock').attr('id', 'confirmTransferStock');
+            }
+        });
+
+        //GET TRANSFER STOCKS BY REFNUMBER
+        $(document).on('keyup', '.refNumber', function (e) {
+
+            var $this = $(this);
+
+            if (e.keyCode === 13) {
+                // Do something
+
+                var link = 'http://192.168.1.100:90/api/TransMasterlist/SearchByReference?q=' + $(this).val();
+
+                //console.log(link);
+
+                $.getJSON(link, function (data) {
+
+                    if (data === null) {
+                        swal.fire('Warning', 'No found data', 'warning');
+                    }
+
+                    else {
+
+                        //console.log(data);
+
+                        $this.parents('.card').find('.card-body').find('input').val('');
+
+                        $this.parents('.card').find('input[name=ID]').val(data.ID);
+
+                        //ORIGIN
+                        $this.parents('.card').find('input[name=OriginProjectID]').val(data.TransInfoOrigin.ProjectID_EnggDB);
+                        $this.parents('.card').find('input[name=OriginProjectName]').val(data.TransInfoOrigin.ProjectInfo.ProjectName)
+                        $this.parents('.card').find('input[name=OriginProjectNumber]').val(data.TransInfoOrigin.ProjectInfo.ProjectNumber)
+                        $this.parents('.card').find('input[name=OriginWHInchargeID]').val(data.TransInfoOrigin.WHInchargeID_HrmsDB);
+                        $this.parents('.card').find('input[name=OriginWHIncharge]').val((data.TransInfoOrigin.WHInchargeInfo.FirstName + ' ' + data.TransInfoOrigin.WHInchargeInfo.LastName));
+
+                        //DESTINATION
+                        $this.parents('.card').find('input[name=DestinationProjectID]').val(data.TransInfoDestination.ProjectID_EnggDB);
+                        $this.parents('.card').find('input[name=DestinationProjectName]').val(data.TransInfoDestination.ProjectInfo.ProjectName)
+                        $this.parents('.card').find('input[name=DestinationProjectNumber]').val(data.TransInfoDestination.ProjectInfo.ProjectNumber)
+                        $this.parents('.card').find('input[name=DestinationWHInchargeID]').val(data.TransInfoDestination.WHInchargeID_HrmsDB);
+                        $this.parents('.card').find('input[name=DestinationWHIncharge]').val((data.TransInfoDestination.WHInchargeInfo.FirstName + ' ' + data.TransInfoDestination.WHInchargeInfo.LastName));
+
+                        //DELIVERY METHOD
+                        $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
+
+                        for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
+
+                            var delMethodAttr = data.TransInfoDelMetAttrValue[d];
+
+                            //console.log(data.TransInfoDelMetAttrValue[d]);
+
+                            $this.parents('.card').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
+                        }
+
+
+
+                        //STOCK ENTRY
+                        $.ajaxSetup({
+                            async: false
+                        });
+                        for (var i = 0; i < data.TransItemEntryList.length; i++) {
+
+                            var entry = data.TransItemEntryList[i];
+
+                            //for item name
+                            var itemLink = 'http://124.105.198.3:90/api/ItemsMasterList/' + entry.ItemID_011;
+                            $.getJSON(itemLink, function (itemResponse) {
+                                if (itemResponse !== null) {
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
+                                }
+                            })
+
+
+                            // for units
+                            var unitLink = 'http://124.105.198.3:90/api/units/' + entry.UnitsID_009;
+                            $.getJSON(unitLink, function (unitResponse) {
+                                if (unitResponse !== null) {
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
+                                }
+                            });
+
+
+                            //for quantity
+                            //$this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').val(entry.Quantity);
+                            $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').removeAttr('disabled');
+
+
+                            //for item condition
+                            var itemConditionLink = 'http://124.105.198.3:90/api/itemcondition/' + entry.ItemCondID_018;
+                            $.getJSON(itemConditionLink, function (itemConditionResponse) {
+                                if (itemConditionResponse !== null) {
+                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
+                                }
+                            });
+
+                        }
+                        $.ajaxSetup({
+                            async: true
+                        });
+
+                    }
+
+                });
+            }
+
+        });
 
     </script>
 

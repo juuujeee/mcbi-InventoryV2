@@ -270,7 +270,7 @@ $('.delMethodID').on('change', function (e) {
                     }
 
                     else {
-                        delAttrContent += '<input type="text" style="width:100%" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '<input type="text" style="width:100%" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
                     }
                 }
 
@@ -295,13 +295,13 @@ $('.delMethodID').on('change', function (e) {
                         });
                     }
                     else {
-                        delAttrContent += '<input type="text" style="width:100%" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '<input type="text" style="width:100%" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
                     }
 
                 }
 
                 if (parseInt($this.val()) === 3) {
-                    delAttrContent += '<input type="text" style="width:100%" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                    delAttrContent += '<input type="text" style="width:100%" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                 }
 
@@ -362,7 +362,7 @@ function fnGetItems(event) {
 }
 
 
-function GetItemsByProj(event) {
+function fnGetItemsByProj(event) {
 
     var $this = $(event.target);
 
@@ -554,7 +554,7 @@ $.getJSON(recentURL, function (data) {
         el += '<hr class="mb-0" style="margin-top: 8px" />';
         el += '</a>';
 
-        $('#recent_transactions').append(el);
+        $('.stockEntry_transactions').append(el);
     }
 
 });
