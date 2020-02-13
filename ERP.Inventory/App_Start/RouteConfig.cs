@@ -18,6 +18,14 @@ namespace ERP.Inventory
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Inventory", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               "DataApiSpecific",
+               "Data/{action}/{name}/{id}",
+               defaults: new { controller = "InventoryApi", action = "Get" }
+                );
+
+
         }
     }
 }
