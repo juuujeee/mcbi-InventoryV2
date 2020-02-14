@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -54,6 +55,34 @@ namespace ERP.Inventory.Controllers
             */
         }
 
+
+        [HttpPost]
+        [Route("Data/{name}")]
+        [Helper.ProducesJson]
+        public ActionResult Post(string name)
+        {
+            // + Request.RequestContext.RouteData.Values["directives"].ToString();
+            Stream req = Request.InputStream;
+            req.Seek(0, System.IO.SeekOrigin.Begin);
+            string json = new StreamReader(req).ReadToEnd();
+
+            req.Dispose();
+            try
+            {
+                //assuming JSON.net/Newtonsoft library from http://json.codeplex.com/
+                //input = JsonConvert.DeserializeObject<InputClass>(json)
+                return Ok(
+                    SyncRequest.HttpRequest(name, 
+                    "POST", 
+                    new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json")));
+
+            }
+
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
 
 
 
