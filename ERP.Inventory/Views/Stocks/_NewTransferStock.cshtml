@@ -8,13 +8,14 @@
             <h1>Transfer Stocks</h1>
         </div>
         <div style="width:50%; text-align:right">
-            <button type="button" class="custom-btn">Clear</button>
-            <button type="button" class="custom-btn">Edit</button>
+            <button type="button" class="custom-btn" id="clear_fields">Clear</button>
+            <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
             <button type="button" class="custom-btn">Print</button>
         </div>
     </div>
 </div>
 <div class="content-body">
+    <input type="hidden" name="ID" class="id" value="" />
     <div style="display:flex; padding-left:15px;">
         <div style="width:33.33%; text-align:left">
             <div class="custom-form-group">
@@ -29,34 +30,36 @@
         <div style="width:33.33%;">
             <div class="custom-form-group">
                 <label id="seriesNumber"></label>
-                <input type="text" name="RefNumber" value="" autocomplete="off"/>
+                <input type="text" name="RefNumber" value="" autocomplete="off" />
             </div>
         </div>
     </div>
     <div style="display:flex; margin-top:30px">
         <div style="width:33.33%; max-width:33.33%; padding:15px">
-            <fieldset class="scheduler-border" id="origin">
+            <fieldset class="scheduler-border" id="origin-fieldset">
                 <legend class="scheduler-border">ORIGIN DETAILS</legend>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NAME</label>
-                    <input type="text" name="OriginProjectName" value=""/>
+                    <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
+                    <input type="text" name="OriginProjectName" id="origin" class="projects text-ellipsis" value="" />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="OriginProjectNumber" value=""/>
+                    <input type="text" name="OriginProjectNumber" value="" />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
-                    <input type="text" name="OriginProjectLocation" value=""/>
+                    <input type="text" name="OriginProjectLocation" value="" />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
-                    <input type="text" name="OriginWHIncharge" value=""/>
+                    <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
+                    <input type="text" name="OriginWHIncharge" value="" />
                 </div>
             </fieldset>
         </div>
         <div style="width:33.33%; max-width:33.33%; padding:15px">
-            <fieldset class="scheduler-border" id="delivery_method">
+            <fieldset class="scheduler-border" id="deliveryMethod-fieldset">
                 <legend class="scheduler-border">DELIVERY</legend>
                 <div class="custom-form-group">
                     <label style="width:150px">DEL METHOD</label>
@@ -78,23 +81,24 @@
             </fieldset>
         </div>
         <div style="width: 33.33%; max-width:33.33%; padding:15px">
-            <fieldset class="scheduler-border" id="destination">
+            <fieldset class="scheduler-border" id="destination-fieldset">
                 <legend class="scheduler-border">DESTINATION</legend>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NAME</label>
-                    <input type="text" name="DestinationProjectName" value="" />
+                    <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
+                    <input type="text" name="DestinationProjectName" id="destination" class="projects text-ellipsis" value="" />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="DestinationProjectNumber" value=""/>
+                    <input type="text" name="DestinationProjectNumber" value="" />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
-                    <input type="text" name="DestinationProjectLocation" value=""/>
+                    <input type="text" name="DestinationProjectLocation" value="" />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
-                    <input type="text" name="DestinationWHIncharge" value=""/>
+                    <input type="text" name="DestinationWHIncharge" value="" />
                 </div>
             </fieldset>
         </div>
@@ -128,8 +132,8 @@
                             <input type="text" name="Qty" class="qty" disabled />
                         </td>
                         <td style="position:relative;">
-                            <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
-                            <i class="fa fa-remove remove-btn" onclick="fnRemoveTransferStockItem(event)"></i>
+                            <input disabled type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
+                            <i class="fa fa-remove remove-btn" onclick="fnRemoveItem(event)"></i>
                         </td>
                     </tr>
                 }
@@ -138,14 +142,14 @@
     </div>
     <div style="margin-top:15px">
         <button class="custom-btn custom-info-btn" id="add_transferStock_item">
-        <i class="fa fa-plus fa-fw"></i> Add
+            <i class="fa fa-plus fa-fw"></i> Add
         </button>
     </div>
 </div>
 
 <div class="content-footer">
     <div style="width: 100%; text-align:right">
-        <button type="button" class="custom-btn custom-save-btn">
+        <button type="button" class="custom-btn custom-save-btn save_transferStock" onclick="fnSaveTransferStock(event)">
             <i class="fa fa-save"></i> Save
         </button>
     </div>
@@ -166,8 +170,8 @@
             <input type="text" name="Qty" value="" class="qty" disabled />
         </td>
         <td style="position: relative">
-            <input type="text" name="ItemCondition" value="" class="itemCondition" onkeypress="fnGetItemCondition(event)" />
-            <i class="fa fa-remove remove-btn" onclick="fnRemoveTransferStockItem(event)"></i>
+            <input type="text" name="ItemCondition" value="" class="itemCondition" onkeypress="fnGetItemCondition(event)" disabled />
+            <i class="fa fa-remove remove-btn" onclick="fnRemoveItem(event)"></i>
         </td>
     </tr>
 </table>
@@ -179,6 +183,27 @@
         $(function () {
             $('.delMethodID').trigger('change');
             $('#transfer_stock_option').trigger('change');
+
+            //CLEAR FIELDS
+            $('#clear_fields').on('click', function (e) {
+
+                $(this).closest('.content-header').next().find('input').val('');
+            });
+
+
+            //EDIT TRANSFER STOCK
+            $('#edit_transfer_stock').on('click', function (e) {
+
+                //make editable all inputs in the form
+                $(this).closest('.content-header').next().find('.card').find('input').removeAttr('disabled');
+
+                //remove the disabled property of save button
+                $(this).closest('.content-header').next().find('.card').find('.save_transferStock').removeAttr('disabled');
+
+                //remove the css inline in parent container
+                $(this).closest('.content-header').next().find('.card').removeAttr('style');
+
+            })
         });
 
 
@@ -205,24 +230,8 @@
             $('#newTransferStockEntryTbodyClone').find('td.number').html("");
         })
 
-        //REMOVE STOCK TRANSFER ITEM ROW
-        function fnRemoveTransferStockItem(event) {
 
-            var $this = $(event.target);
-
-            $($this).parents('tr').remove();
-
-            var counter = $('.transferStockEntryBody').find('td.number').length;
-
-
-            if (counter > 0) {
-                for (var i = 0; i < counter; i++) {
-                    $('.transferStockEntryBody').find('td.number').eq(i).html(i + 1);
-                }
-            }
-        }
-
-         //FOR TRANSFER STOCK OPTION
+        //FOR TRANSFER STOCK OPTION
         $('#transfer_stock_option').on('change', function (e) {
 
             var $this = $(this);
@@ -231,26 +240,26 @@
                 $('input[name=RefNumber]').removeClass('refNumber');
 
                 $('#seriesNumber').text('Enter Form Series No:');
-                $this.parents('.card').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#delivery_method').find('input, select').removeAttr('disabled');
+                $this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').removeAttr('disabled');
 
                 //item entry
-                $this.parents('.card').find('table.custom-table').find('input.items').removeAttr('disabled');
+                $this.parents('.content-body').find('table.custom-table').find('input.items').removeAttr('disabled');
 
                 //change save button prop
-                $this.parents('.card').find('button.save_transferStock').attr('id', 'saveTransferStock');
+                $this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'saveTransferStock');
             }
             else {
 
                 $('input[name=RefNumber]').addClass('refNumber');
 
                 $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
-                $this.parents('.card').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#delivery_method').find('input, select').attr('disabled', true);
+                $this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').attr('disabled', true);
 
                 //item entry
-                $this.parents('.card').find('table.custom-table').find('input.items').attr('disabled', true);
+                $this.parents('.content-body').next('div').find('table.custom-table').find('input.items').attr('disabled', true);
 
                 //change save button prop
-                $this.parents('.card').find('button.save_transferStock').attr('id', 'confirmTransferStock');
+                $this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'confirmTransferStock');
             }
         });
 
@@ -276,26 +285,26 @@
 
                         //console.log(data);
 
-                        $this.parents('.card').find('.card-body').find('input').val('');
-
-                        $this.parents('.card').find('input[name=ID]').val(data.ID);
+                        $this.parents('.content-body').find('.card-body').find('input').val('');
+                        $this.parents('.content-body').find('input[name=ID]').val(data.ID);
 
                         //ORIGIN
-                        $this.parents('.card').find('input[name=OriginProjectID]').val(data.TransInfoOrigin.ProjectID_EnggDB);
-                        $this.parents('.card').find('input[name=OriginProjectName]').val(data.TransInfoOrigin.ProjectInfo.ProjectName)
-                        $this.parents('.card').find('input[name=OriginProjectNumber]').val(data.TransInfoOrigin.ProjectInfo.ProjectNumber)
-                        $this.parents('.card').find('input[name=OriginWHInchargeID]').val(data.TransInfoOrigin.WHInchargeID_HrmsDB);
-                        $this.parents('.card').find('input[name=OriginWHIncharge]').val((data.TransInfoOrigin.WHInchargeInfo.FirstName + ' ' + data.TransInfoOrigin.WHInchargeInfo.LastName));
+                        $this.parents('.content-body').find('input[name=OriginProjectID]').val(data.TransInfoOrigin.ProjectID_EnggDB);
+                        $this.parents('.content-body').find('input[name=OriginProjectName]').val(data.TransInfoOrigin.ProjectInfo.ProjectName)
+                        $this.parents('.content-body').find('input[name=OriginProjectNumber]').val(data.TransInfoOrigin.ProjectInfo.ProjectNumber)
+                        $this.parents('.content-body').find('input[name=OriginWHInchargeID]').val(data.TransInfoOrigin.WHInchargeID_HrmsDB);
+                        $this.parents('.content-body').find('input[name=OriginWHIncharge]').val((data.TransInfoOrigin.WHInchargeInfo.FirstName + ' ' + data.TransInfoOrigin.WHInchargeInfo.LastName));
+
 
                         //DESTINATION
-                        $this.parents('.card').find('input[name=DestinationProjectID]').val(data.TransInfoDestination.ProjectID_EnggDB);
-                        $this.parents('.card').find('input[name=DestinationProjectName]').val(data.TransInfoDestination.ProjectInfo.ProjectName)
-                        $this.parents('.card').find('input[name=DestinationProjectNumber]').val(data.TransInfoDestination.ProjectInfo.ProjectNumber)
-                        $this.parents('.card').find('input[name=DestinationWHInchargeID]').val(data.TransInfoDestination.WHInchargeID_HrmsDB);
-                        $this.parents('.card').find('input[name=DestinationWHIncharge]').val((data.TransInfoDestination.WHInchargeInfo.FirstName + ' ' + data.TransInfoDestination.WHInchargeInfo.LastName));
+                        $this.parents('.content-body').find('input[name=DestinationProjectID]').val(data.TransInfoDestination.ProjectID_EnggDB);
+                        $this.parents('.content-body').find('input[name=DestinationProjectName]').val(data.TransInfoDestination.ProjectInfo.ProjectName)
+                        $this.parents('.content-body').find('input[name=DestinationProjectNumber]').val(data.TransInfoDestination.ProjectInfo.ProjectNumber)
+                        $this.parents('.content-body').find('input[name=DestinationWHInchargeID]').val(data.TransInfoDestination.WHInchargeID_HrmsDB);
+                        $this.parents('.content-body').find('input[name=DestinationWHIncharge]').val((data.TransInfoDestination.WHInchargeInfo.FirstName + ' ' + data.TransInfoDestination.WHInchargeInfo.LastName));
 
                         //DELIVERY METHOD
-                        $this.parents('.card').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
+                        $this.parents('.content-body').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
 
                         for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
 
@@ -303,7 +312,7 @@
 
                             //console.log(data.TransInfoDelMetAttrValue[d]);
 
-                            $this.parents('.card').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
+                            $this.parents('.content-body').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
                         }
 
 
@@ -320,7 +329,7 @@
                             var itemLink = 'http://124.105.198.3:90/api/ItemsMasterList/' + entry.ItemID_011;
                             $.getJSON(itemLink, function (itemResponse) {
                                 if (itemResponse !== null) {
-                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
+                                    $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
                                 }
                             })
 
@@ -329,21 +338,21 @@
                             var unitLink = 'http://124.105.198.3:90/api/units/' + entry.UnitsID_009;
                             $.getJSON(unitLink, function (unitResponse) {
                                 if (unitResponse !== null) {
-                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
+                                    $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
                                 }
                             });
 
 
                             //for quantity
                             //$this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').val(entry.Quantity);
-                            $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').removeAttr('disabled');
+                            $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').removeAttr('disabled');
 
-
+                            8
                             //for item condition
                             var itemConditionLink = 'http://124.105.198.3:90/api/itemcondition/' + entry.ItemCondID_018;
                             $.getJSON(itemConditionLink, function (itemConditionResponse) {
                                 if (itemConditionResponse !== null) {
-                                    $this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
+                                    $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
                                 }
                             });
 
@@ -358,6 +367,175 @@
             }
 
         });
+
+
+        //SAVE TRANSFER STOCK
+        function fnSaveTransferStock(event) {
+
+            event.preventDefault();
+            var $this = $(event.target);
+
+            //FOR TRANSFER DELIVERY METHOD
+            var transDelMethodList = [];
+            $this.parents('.content-footer').prev().find('.deliveryMethodAttr').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    DeliveryAttrID_008: $(this).attr('data-id'),
+                    AttributeValueID: $this.parents('.card').find('.delMethodID').val(),
+                    AttributeValue: $(this).val(),
+                    isDestination: false
+                };
+
+                if (obj.AttributeValue !== "") {
+                    transDelMethodList.push(obj);
+                }
+            });
+
+            //FOR TRANSFER ITEM ENTRY
+            var transItemEntry = [];
+            $this.parents('.content-footer').prev().find('.transferStockEntryBody').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    ItemID_011: $(this).find('input[name=Items]').attr('data-val') || 0,
+                    UnitID_009: $(this).find('input[name=Units]').attr('data-val') || 0,
+                    ItemConditionID_018: $(this).find('input[name=ItemCondition]').attr('data-val') || 0,
+                    Quantity: $(this).find('input[name=Qty]').val() || 0,
+                };
+
+                if (obj.ItemID_011 !== 0) {
+                    transItemEntry.push(obj);
+                }
+            });
+
+
+            var entry = '';
+            var url = '';
+
+            if ($this.attr('id') === 'saveTransferStock') {
+
+                url = 'http://124.105.198.3:90/api/TransMasterList';
+
+                //SAVE TRANSFER STOCKS DATA
+                var saveTransferEntry = {
+                    ID: $this.parents('.content-footer').prev().find('input[name=ID]').val() || 0,
+                    ReferenceNumber: '',
+                    HardSeriesNumber: $this.parents('.content-footer').prev().find('input[name=RefNumber]').val(),
+                    TransInfoOrigin: {
+                        ID: 0,
+                        TransMasterID_021: 0,
+                        ProjectID_EnggDB: $this.parents('.content-footer').prev().find('input[name=OriginProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.parents('.content-footer').prev().find('input[name=OriginWHInchargeID]').val() || 0
+                    },
+                    TransInfoDestination: {
+                        ID: 0,
+                        TransMasterID_021: 0,
+                        ProjectID_EnggDB: $this.parents('.content-footer').prev().find('input[name=DestinationProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.parents('.content-footer').prev().find('input[name=DestinationWHInchargeID]').val() || 0
+                    },
+                    TransInfoDelMetAttrValue: transDelMethodList,
+                    TransItemEntryList: transItemEntry
+                };
+
+                entry = saveTransferEntry;
+            }
+            else {
+                url = 'http://124.105.198.3:90/api/TransMasterList/ConfirmReceive';
+
+                var confirmTransferEntry = {
+                    ID: $this.parents('.content-footer').prev().find('input[name=ID]').val() || 0,
+                    ReferenceNumber: 'N/A',
+                    HardSeriesNumber: 0,
+                    isCancelled: true,
+                    cancelReason: "N/A",
+                    TransItemReceivedList: transItemEntry
+                };
+
+                entry = confirmTransferEntry;
+
+            }
+
+            //console.log(url);
+            console.log(entry);
+
+            return;
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                data: JSON.stringify(entry),
+                contentType: "application/json",
+                success: function (response) {
+
+                    if ($this.attr('id') === 'saveTransferStock') {
+                        console.log(response);
+
+                        if (response.RetVal === 1) {
+
+                            var msg = JSON.parse(response.Message);
+
+                            //console.log(msg);
+
+                            swal.fire('Success', msg.Info, 'success');
+
+                            $this.parents('.card').css({ "pointer-events": "none" });
+                            $this.parents('.card').find('input').attr('disabled', true);
+                            $this.attr('disabled', true)
+
+                            $this.parents('.card').find('#seriesNumber').text('Reference Number:');
+                            $this.parents('.card').find('input[name=RefNumber]').val(msg.ReferenceNumber);
+
+                        }
+                        else {
+                            swal.fire('Error', response.Message, 'error');
+                        }
+                    }
+
+                    else {
+                        console.log(response);
+                        if (response.RetVal === 1) {
+                            var msg = JSON.parse(response.Message);
+
+                            swal.fire('Success', msg.Info, 'success');
+                        }
+                        else {
+                            swal.fire('Error', response.Message, 'error');
+                        }
+                    }
+
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            });
+
+        }
 
     </script>
 

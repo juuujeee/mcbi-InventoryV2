@@ -560,6 +560,26 @@ $.getJSON(recentURL, function (data) {
 });
 
 
+//REMOVE TR FIELD
+function fnRemoveItem(event) {
+
+    //console.log("Testing remove only");
+
+    var $this = $(event.target);
+
+    $($this).parents('tr').remove();
+
+    var counter = $('.custom-table').find('td.number').length;
+
+
+    if (counter > 0) {
+        for (var i = 0; i < counter; i++) {
+            $('.custom-table').find('td.number').eq(i).html(i + 1);
+        }
+    }
+
+}
+
 
 //var deliveryMethod = [];
 
