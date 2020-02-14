@@ -311,18 +311,18 @@
     <Content Include="Views\Form\_StockCard.cshtml" />
     <Content Include="Views\Form\_ToolsInventoryRecord.cshtml" />
     <Content Include="Views\Form\_WithdrawalSlip.cshtml" />
-    <Content Include="Views\Stocks\_StocksEntry.cshtml" />
+    <Content Include="Views\Stocks\_StocksEntry - X.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\_Create.cshtml" />
     <Content Include="Views\Stocks\_ReleaseStock.cshtml" />
-    <Content Include="Views\Stocks\_TransferStock.cshtml" />
+    <Content Include="Views\Stocks\_TransferStock - X.cshtml" />
     <Content Include="Views\Stocks\_IssuedStock.cshtml" />
     <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />
-    <Content Include="Views\Stocks\_NewStockEntry.cshtml" />
+    <Content Include="Views\Stocks\_StockEntry.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
-    <Content Include="Views\Stocks\_NewTransferStock.cshtml" />
+    <Content Include="Views\Stocks\_TransferStock.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -342,13 +342,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Desktop\inventories\InventoryAPI4\Helper\Helper.csproj">
+    <ProjectReference Include="..\..\ApiCommon\Helper\Helper.csproj">
       <Project>{36ea3f0d-4906-4eda-ae1e-1abcc0791879}</Project>
       <Name>Helper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Desktop\inventories\InventoryAPI4\Inventory Domain Layer\Inventory.Domain.csproj">
-      <Project>{b4fd9a3c-dff1-42e3-af45-7f914929e280}</Project>
-      <Name>Inventory.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

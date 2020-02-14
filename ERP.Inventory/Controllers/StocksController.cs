@@ -17,12 +17,12 @@ namespace ERP.Inventory.Controllers
 
         public ActionResult StockEntry()
         {
-            return View("~/Views/Stocks/_NewStockEntry.cshtml");
+            return View("~/Views/Stocks/_StockEntry.cshtml");
         }
 
         public ActionResult TransferStock()
         {
-            return View("~/Views/Stocks/_NewTransferStock.cshtml");
+            return View("~/Views/Stocks/_TransferStock.cshtml");
         }
 
 
