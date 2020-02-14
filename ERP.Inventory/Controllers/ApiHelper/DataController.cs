@@ -8,11 +8,11 @@ using Newtonsoft.Json.Linq;
 
 namespace ERP.Inventory.Controllers
 {
-    public class InventoryApiController : Helper.ExtController
+    public class DataController : Helper.ExtController
     {
         public override object TempObject { get; set; }
 
-        public InventoryApiController() : base("http://192.168.1.100:90/api/") { }
+        public DataController() : base("http://192.168.1.100:90/api/") { }
 
 
         // GET: Inventory
@@ -23,6 +23,7 @@ namespace ERP.Inventory.Controllers
 
         [HttpGet]
         [Helper.ProducesJson]
+        [Route("Data/{name}/{id}")]
         public ActionResult Get(string name, int id)
         {
             
@@ -37,7 +38,22 @@ namespace ERP.Inventory.Controllers
             return Ok(JsonConvert.DeserializeObject<Inventory_Domain_Layer._001_invRefCategory1Domain>(SyncRequest.HttpRequest(name + "/" + id)));
             */
         }
-        
+        [HttpGet]
+        [Helper.ProducesJson]
+        [Route("Data/{name}")]
+        public ActionResult Get2(string name)
+        {
+            
+                return Ok(SyncRequest.HttpRequest(name));
+            /*
+
+            if (id == 0)
+                return Ok(JsonConvert.DeserializeObject<List<Inventory_Domain_Layer._001_invRefCategory1Domain>>(SyncRequest.HttpRequest(name)));
+
+            return Ok(JsonConvert.DeserializeObject<Inventory_Domain_Layer._001_invRefCategory1Domain>(SyncRequest.HttpRequest(name + "/" + id)));
+            */
+        }
+
 
 
 

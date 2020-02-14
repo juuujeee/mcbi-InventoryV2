@@ -123,7 +123,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ApiHelper\InventoryApiController.cs" />
+    <Compile Include="Controllers\ApiHelper\DataController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
@@ -322,8 +322,8 @@
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />
     <Content Include="Views\Stocks\_NewStockEntry.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
-    <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Stocks\_NewTransferStock.cshtml" />
+    <Content Include="Views\Inventory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
