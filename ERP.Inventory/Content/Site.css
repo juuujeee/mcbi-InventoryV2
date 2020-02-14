@@ -307,3 +307,40 @@ form .error {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+
+/*SIDEBAR CSS*/
+.sidebar {
+    height: 100%;
+    padding-top: 16px;
+    padding-left: 0;
+}
+
+.sidebar a {
+    padding: 10px;
+    text-decoration: none;
+    font-size: 1.2em;
+    /*color: #818181;*/
+    display: block;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, .1);
+}
+
+.d-none {
+    display: none;
+    transition: all 0.3s;
+}
+.sub-menu{
+    padding-left: 60px !important;
+}
+.child-sub-menu{
+    padding-left: 85px !important;
+}
+.sub-menu i.fa-circle {
+    font-size: 8px;
+    position: absolute;
+    top: 18px;
+    left: 43px
+}

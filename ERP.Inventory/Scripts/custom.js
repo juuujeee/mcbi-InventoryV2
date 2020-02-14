@@ -581,6 +581,23 @@ function fnRemoveItem(event) {
 }
 
 
+/*------------------------------------
+    CUSTOM MENU
+ ------------------------------------*/
+$('.sidebar-menu').on('click', function (e) {
+
+    var attr = $(this).attr('data-target');
+
+    // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
+    if (typeof attr !== typeof undefined && attr !== false) {
+        e.preventDefault();
+
+        $(attr).toggleClass('d-none');
+    }
+    
+});
+
+
 //var deliveryMethod = [];
 
 //var deliveryMethodURL = 'http://192.168.1.100:90/api/DeliveryMethod';

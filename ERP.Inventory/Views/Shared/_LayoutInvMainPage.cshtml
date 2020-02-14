@@ -20,40 +20,67 @@
             </div>
         </div>
         <div class="left-sidebar">
-            <ul>
+            
+            <ul class="sidebar">
                 <li>
-                    <a href="#">HOME</a>
+                    <a href="#" class="sidebar-menu">
+                        <i class="fa fa-home fa-fw"></i>
+                        HOME
+                    </a>
                 </li>
-                <li>
-                    <a href="#">INVENTORY</a>
-                    <ul>
-                        <li>
-                            <a href="#">Stock Entry</a>
+                <li  style="position:relative">
+                    <i class="fa fa-angle-right" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
+                    <a href="javascript:void(0)" class="sidebar-menu has-menu" data-target="#inventorySubMenu">
+                        <i class="fa fa-tag fa-fw"></i>
+                        INVENTORY
+                    </a>
+                    <ul id="inventorySubMenu" class="d-none" style="padding-left: 0">
+                        <li class="">
+                            <a href="@Url.Action("StockEntry", "Stocks")" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Entry
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Stock Flow</a>
-                            <ul>
-                                <li>
-                                    <a href="#">Transfer Stocks</a>
+                        <li class="" style="position:relative">
+                            <i class="fa fa-angle-right" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
+                            <a href="javascript:void(0)" data-target="#stockFlowSubMenu" class="sidebar-menu sub-menu has-menu" style="position:relative">
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Flow
+                            </a>
+                            <ul id="stockFlowSubMenu" class="d-none" style="padding-left: 0">
+                                <li class="">
+                                    <a href="@Url.Action("TransferStock", "Stocks")" class="sidebar-menu child-sub-menu">Transfer Stocks</a>
                                 </li>
-                                <li>
-                                    <a href="#">Release Stocks</a>
+                                <li class="">
+                                    <a href="#" class="sidebar-menu child-sub-menu">Release Stocks</a>
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">Stock Inquiry</a>
+                        <li class="">
+                            <a href="#" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Inquiry
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Stock Data</a>
+                        <li class="">
+                            <a href="#" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle"></i>
+                                Stock Data
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Reports</a>
+                        <li class="">
+                            <a href="#" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle"></i>
+                                Reports
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="#">
+                        <i class="fa fa-cog fa-fw"></i>
+                        SETTINGS
+                    </a>
                 </li>
             </ul>
         </div>
