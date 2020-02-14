@@ -45,7 +45,7 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="OriginProjectNumber" value="" />
+                    <input type="text" name="OriginProjectNumber" class="projectNumber" value="" readonly/>
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
@@ -54,7 +54,7 @@
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
                     <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
-                    <input type="text" name="OriginWHIncharge" value="" />
+                    <input type="text" name="OriginWHIncharge" class="employeeInfo" value="" />
                 </div>
             </fieldset>
         </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="DestinationProjectNumber" value="" />
+                    <input type="text" name="DestinationProjectNumber" class="projectNumber" value="" readonly/>
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
@@ -98,7 +98,8 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
-                    <input type="text" name="DestinationWHIncharge" value="" />
+                    <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="">
+                    <input type="text" name="DestinationWHIncharge" class="employeeInfo" value="" />
                 </div>
             </fieldset>
         </div>
@@ -537,6 +538,72 @@
 
         }
 
+        //EMPLOYEE AUTOCOMPLETE
+        var emp = [];
+        var empURL = 'http://localhost:63666/Data/HRMSEmployeeList';
+
+        $.getJSON(empURL, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var obj = {};
+
+                obj.id = data[i].ID;
+                obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                obj.label = data[i].FirstName + ' ' + data[i].LastName;
+
+                emp.push(obj);
+
+
+                $(".employeeInfo").autocomplete({
+                    source: emp,
+                    select: function (event, ui) {
+
+                        var $this = $(this);
+                        $this.closest('.custom-form-group').find('input.employeeID').val(ui.item.id);
+                    }
+                })
+            }
+        });
+
+
+        //PROJECT AUTOCOMPLETE
+        var proj = [];
+        var projURL = 'http://localhost:63666/Data/ENGProjectList';
+
+        $.getJSON(projURL, function (data) {
+
+            //var dat = data.Data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var newObj = {};
+
+                newObj.id = data[i].ID;
+                newObj.value = data[i].ProjectName;
+                newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                newObj.projectNo = data[i].ProjectNumber;
+
+                proj.push(newObj);
+
+            }
+
+            $(".projects").autocomplete({
+                source: proj,
+                select: function (event, ui) {
+
+                    var $this = $(this);
+
+                    //console.log($this.attr('id'));
+
+                    //if ($this.attr('id') === 'origin') {
+                    //    $(this).parents('.card').find('table').find('input').val('');
+                    //}
+
+                    $this.closest('.custom-form-group').find('input.projectID').val(ui.item.id);
+
+                    $this.closest('.fieldset').find('input.projectNumber').val(ui.item.projectNo);
+                }
+            });
+        });
     </script>
 
 }
