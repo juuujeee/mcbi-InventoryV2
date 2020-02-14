@@ -25,11 +25,16 @@ namespace ERP.Inventory.Controllers
         [HttpGet]
         [Helper.ProducesJson]
         [Route("Data/{name}/{id}")]
-        public ActionResult Get(string name, int id)
+        public ActionResult Get(string name, int? id)
         {
-            
+
             if (id == 0)
                 return Ok(SyncRequest.HttpRequest(name));
+            else if (id == null)
+            {
+                string ss = Request.RawUrl.Replace("/Data/","").ToString();// RouteData.Route.ToString();
+                return Ok(SyncRequest.HttpRequest(ss));
+            }
             return Ok(SyncRequest.HttpRequest(name + "/" + id));
             /*
 
@@ -54,8 +59,12 @@ namespace ERP.Inventory.Controllers
             return Ok(JsonConvert.DeserializeObject<Inventory_Domain_Layer._001_invRefCategory1Domain>(SyncRequest.HttpRequest(name + "/" + id)));
             */
         }
+        
 
 
+
+
+        [HttpPut]
         [HttpPost]
         [Route("Data/{name}")]
         [Helper.ProducesJson]
@@ -83,6 +92,8 @@ namespace ERP.Inventory.Controllers
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
         }
+
+
 
 
 
