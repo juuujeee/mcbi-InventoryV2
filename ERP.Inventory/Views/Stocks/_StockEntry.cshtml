@@ -187,7 +187,7 @@
 
             //FOR PROJECTS
             var project = [];
-            var projectURL = 'http://192.168.1.100:94/api/Projects';
+            var projectURL = 'http://localhost:63666/Data/ENGProjectList';
 
             $.getJSON(projectURL, function (data) {
                 //var dat = data.Data;
@@ -218,7 +218,7 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = 'http://124.105.198.3:90/api/VendorList';
+            var supplierURL = 'http://localhost:63666/Data/VendorList';
 
             $.getJSON(supplierURL, function (data) {
 
@@ -247,7 +247,7 @@
             //FOR RECEIVED BY
             var receivedBy = [];
 
-            var receivedByURL = 'http://124.105.198.3:92/api/PersonInformation';
+            var receivedByURL = 'http://localhost:63666/Data/HRMSEmployeeList/';
             $.getJSON(receivedByURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -362,7 +362,6 @@
                 if (obj.AttributeValue !== "") {
                     DeliveryMethodEntryList.push(obj);
                 }
-
             });
 
             var DeliveryMethod = {
@@ -394,7 +393,7 @@
 
             console.log(DocEntry);
 
-            return;
+            //return;
 
             $.ajax({
                 headers: {
@@ -402,7 +401,7 @@
                     "Content-Type": "application/json"
                 },
                 type: 'post',
-                url: 'http://124.105.198.3:90/api/NewItemHeaderList',
+                url: 'http://localhost:63666/Data/NewItemHeaderList',
                 dataType: 'json',
                 data: JSON.stringify(DocEntry),
                 contentType: "application/json",
@@ -411,10 +410,7 @@
                         swal.fire('Success', response.Message, 'success');
 
                         //Clear Stock Entry Header
-                        $('#stock_entry').find('.card-header').find('input').val("");
-
-                        //Clear Stock Entry Item
-                        $('#newStockEntry').find('input').val("");
+                        $('form[name=StockEntryForm]').find('input').val("");
 
                     }
                     else {

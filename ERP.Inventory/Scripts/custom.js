@@ -232,7 +232,7 @@ $('.delMethodID').on('change', function (e) {
     var $delMethodAttributeEl = $('.delMethodAttribute');
     $delMethodAttributeEl.html('');
 
-    var delMethodAttrURL = 'http://124.105.198.3:90/api/DelMethodAttribute';
+    var delMethodAttrURL = 'http://localhost:63666/Data/DelMethodAttribute';
 
     $.ajaxSetup({
         async: false
@@ -251,7 +251,7 @@ $('.delMethodID').on('change', function (e) {
                 if (parseInt($this.val()) === 1) {
                     if (attrCounter === 2) {
 
-                        $.getJSON('http://124.105.198.3:90/api/DelMethodAttrValue', function (response) {
+                        $.getJSON('http://localhost:63666/Data/DelMethodAttrValue', function (response) {
 
                             delAttrContent += '<select style="width:100%" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
@@ -277,7 +277,7 @@ $('.delMethodID').on('change', function (e) {
                 if (parseInt($this.val()) === 2) {
                     if (attrCounter === 0) {
 
-                        $.getJSON('http://124.105.198.3:90/api/DelMethodAttrValue', function (response) {
+                        $.getJSON('http://localhost:63666/Data/DelMethodAttrValue', function (response) {
 
                             delAttrContent += '<select style="width:100%" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
@@ -326,7 +326,7 @@ function fnGetItems(event) {
 
     var $this = $(event.target);
     var items = [];
-    var itemURL = 'http://124.105.198.3:90/api/ItemsMasterlist';
+    var itemURL = 'http://localhost:63666/Data/ItemsMasterlist';
 
     $this.autocomplete({
         source: items,
@@ -375,7 +375,7 @@ function fnGetItemsByProj(event) {
     else {
 
         var items = [];
-        var itemURL = 'http://124.105.198.3:90/api/ItemsMasterList/ItemsbyProjects/' + projectID;
+        var itemURL = 'http://localhost:63666/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
 
         $this.autocomplete({
             source: items,
@@ -436,7 +436,7 @@ function fnGetUnits(event) {
 
     var $this = $(event.target);
     var units = [];
-    var unitsURL = 'http://124.105.198.3:90/api/units';
+    var unitsURL = 'http://localhost:63666/Data/units';
 
     $this.autocomplete({
         source: units,
@@ -471,7 +471,7 @@ function fnGetItemCondition(event) {
 
     var $this = $(event.target);
     var itemCondition = [];
-    var itemConditionURL = 'http://124.105.198.3:90/api/ItemCondition';
+    var itemConditionURL = 'http://localhost:63666/Data/ItemCondition';
 
     $this.autocomplete({
         source: itemCondition,
@@ -507,7 +507,7 @@ function fnGetGenericName(event) {
     var $formEl = $this.closest('form');
 
     var category3 = [];
-    var category3URL = 'http://124.105.198.3:90/api/category3';
+    var category3URL = 'http://localhost:63666/Data/category3';
 
     $.getJSON(category3URL, function (data) {
 
@@ -543,7 +543,7 @@ function fnGetGenericName(event) {
 
 
 //RECENT TRANSACTIONS
-var recentURL = 'http://124.105.198.3:90/api/NewItemEntryList';
+var recentURL = 'http://localhost:63666/Data/NewItemEntryList/';
 $.getJSON(recentURL, function (data) {
 
     for (var i = 0; i < data.length; i++) {
@@ -579,6 +579,23 @@ function fnRemoveItem(event) {
     }
 
 }
+
+
+/*------------------------------------
+    CUSTOM MENU
+ ------------------------------------*/
+$('.sidebar-menu').on('click', function (e) {
+
+    var attr = $(this).attr('data-target');
+
+    // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
+    if (typeof attr !== typeof undefined && attr !== false) {
+        e.preventDefault();
+
+        $(attr).toggleClass('d-none');
+    }
+    
+});
 
 
 //var deliveryMethod = [];
