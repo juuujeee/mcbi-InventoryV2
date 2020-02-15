@@ -47,7 +47,7 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">DEL DATE</label>
-                    <input type="text" name="DeliveryDate" class="date-picker" value=""/>
+                    <input type="text" name="DeliveryDate" class="date-picker" value="" />
                 </div>
             </div>
 
@@ -441,6 +441,25 @@
             });
 
         }
+
+
+        //RECENT STOCK ENTRY TRANSACTIONS
+        var recentURL = 'http://localhost:63666/Data/NewItemEntryList/';
+        $.getJSON(recentURL, function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+
+                var el = '';
+                el += '<a href="#">';
+                el += '<span><strong>' + data[i].ItemFullName.Name + ' </strong><small>Qty: ' + data[i].Quantity + '</small></span>';
+                el += '<hr class="mb-0" style="margin-top: 8px" />';
+                el += '</a>';
+
+                $('.stockEntry_transactions').append(el);
+            }
+
+        });
+
 
     </script>
 

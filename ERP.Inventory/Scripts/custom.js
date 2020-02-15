@@ -542,24 +542,6 @@ function fnGetGenericName(event) {
 
 
 
-//RECENT TRANSACTIONS
-var recentURL = 'http://localhost:63666/Data/NewItemEntryList/';
-$.getJSON(recentURL, function (data) {
-
-    for (var i = 0; i < data.length; i++) {
-
-        var el = '';
-        el += '<a href="#">';
-        el += '<span><strong>' + data[i].ItemFullName.Name + ' </strong><small>Qty: ' + data[i].Quantity + '</small></span>';
-        el += '<hr class="mb-0" style="margin-top: 8px" />';
-        el += '</a>';
-
-        $('.stockEntry_transactions').append(el);
-    }
-
-});
-
-
 //REMOVE TR FIELD
 function fnRemoveItem(event) {
 

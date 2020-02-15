@@ -45,11 +45,11 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="OriginProjectNumber" class="projectNumber" value="" readonly/>
+                    <input type="text" name="OriginProjectNumber" class="projectNumber" value="" readonly />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
-                    <input type="text" name="OriginProjectLocation" value="" readonly/>
+                    <input type="text" name="OriginProjectLocation" value="" readonly />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
@@ -90,11 +90,11 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="DestinationProjectNumber" class="projectNumber" value="" readonly/>
+                    <input type="text" name="DestinationProjectNumber" class="projectNumber" value="" readonly />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
-                    <input type="text" name="DestinationProjectLocation" value="" readonly/>
+                    <input type="text" name="DestinationProjectLocation" value="" readonly />
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
@@ -598,6 +598,21 @@
                 }
             });
         });
+
+        //RECENT TRANSFER STOCK ENTRY TRANSACTIONS
+        var tranferStockURL = 'http://localhost:63666/Data/TransMasterlist';
+        $.getJSON(tranferStockURL, function (data) {
+
+            var confirmStock = [];
+            var pendingStock = [];
+
+            for (var i = 0; i < data.length; i++) {
+                 console.log(data[i]);
+            }
+
+           
+        });
+
     </script>
 
 }
