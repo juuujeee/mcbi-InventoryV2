@@ -67,9 +67,9 @@ namespace ERP.Inventory.Controllers
 
        // [HttpPut]
         [HttpPost]
-        [Route("Data/{name}")]
+        [Route("Data/{name}/{*samples}")]
         [Helper.ProducesJson]
-        public ActionResult Post(string name)
+        public ActionResult Post(string name, string samples)
         {
             // + Request.RequestContext.RouteData.Values["directives"].ToString();
             Stream req = Request.InputStream;
@@ -81,11 +81,15 @@ namespace ERP.Inventory.Controllers
             {
                 //assuming JSON.net/Newtonsoft library from http://json.codeplex.com/
                 //input = JsonConvert.DeserializeObject<InputClass>(json)
-                return Ok(
-                    SyncRequest.HttpRequest(name, 
-                    "POST", 
-                    new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json")));
-
+                return Ok
+                    (
+                        SyncRequest.HttpRequest
+                        (
+                            samples != null ? Request.RawUrl.Replace("/Data/", "").ToString() : name,
+                            "POST",
+                            new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json")
+                        )
+                    );
             }
 
             catch (Exception ex)
