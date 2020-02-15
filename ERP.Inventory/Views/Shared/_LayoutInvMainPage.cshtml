@@ -15,12 +15,20 @@
             <div style="width:100%; text-align:right">
                 MCBI - Inventory Series @DateTime.Today.Year
             </div>
-            <div style="width: 100%">
-                <a href="#" style="color:white; text-decoration: none">INVENTORY MANAGEMENT SYSTEM</a>
+            <div style="width: 100%; display:flex; padding:0 15px;">
+                @*<a href="#" style="color:white; text-decoration: none">
+                    <img src="/Content/Images/temp_logo_transparent.png" alt="Alternate Text" style="width:35%; margin-right:5px">
+
+                </a>*@
+                <span style="font-size:20px">INVENTORY MANAGEMENT SYSTEM</span>
             </div>
         </div>
         <div class="left-sidebar">
-            
+
+            <div class="" style="margin-top:40px; margin-bottom:35px; text-align:center">
+                <img src="/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="width:150px">
+            </div>
+            <hr class="" style="width:90%; background: #fff !important">
             <ul class="sidebar">
                 <li>
                     <a href="#" class="sidebar-menu">
@@ -28,9 +36,9 @@
                         HOME
                     </a>
                 </li>
-                <li  style="position:relative">
-                    <i class="fa fa-angle-right" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
-                    <a href="javascript:void(0)" class="sidebar-menu has-menu" data-target="#inventorySubMenu">
+                <li style="position:relative">
+                    <a href="javascript:void(0)" class="sidebar-menu" data-target="#inventorySubMenu">
+                        <i class="fa fa-angle-right caret" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
                         <i class="fa fa-tag fa-fw"></i>
                         INVENTORY
                     </a>
@@ -42,8 +50,8 @@
                             </a>
                         </li>
                         <li class="" style="position:relative">
-                            <i class="fa fa-angle-right" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
-                            <a href="javascript:void(0)" data-target="#stockFlowSubMenu" class="sidebar-menu sub-menu has-menu" style="position:relative">
+                            <a href="javascript:void(0)" data-target="#stockFlowSubMenu" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-angle-right caret" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
                                 <i class="fa fa-circle fa-fw"></i>
                                 Stock Flow
                             </a>
@@ -87,13 +95,24 @@
         <div class="content">@RenderBody()</div>
 
         <div class="right-sidebar">
-            <div style="text-align:center">
+            <div class="title" style="text-align:center">
                 <h3>RECENT TRANSACTIONS</h3>
             </div>
             @if (ViewBag.Title == "Stock Entry Page")
             {
                 <div class="stockEntry_transactions">
 
+                </div>
+            }
+            @if(ViewBag.Title == "Transfer Stock Page")
+            {
+                <div class="transferEntry_transactions">
+                    <div style="min-height:40vh; max-height:40vh; padding: 5px 15px">
+                        <small>Transactions</small>
+                    </div>
+                    <div style="min-height:40vh; max-height:40vh; padding: 5px 15px">
+                        <small>Pending Transactions</small>
+                    </div>
                 </div>
             }
         </div>

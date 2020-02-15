@@ -344,3 +344,13 @@ form .error {
     top: 18px;
     left: 43px
 }
+button:disabled{
+    pointer-events: none;
+    opacity: .8;
+}
+i.caret {
+    transition: all .2s ease;
+}
+.open-menu i.caret{
+    transform:rotate(90deg);
+}

@@ -595,14 +595,24 @@ $('.sidebar-menu').on('click', function (e) {
         $(attr).toggleClass('d-none');
 
         if ($(attr).hasClass('d-none')) {
-            $(this).addClass('open-menu');
-        }
-        else {
             $(this).removeClass('open-menu');
         }
+        else {
+            $(this).addClass('open-menu');
+        }
 
 
-        
+        //$(attr).toggleClass('open');
+
+        //if ($(attr).hasClass('open')) {
+        //    $(attr).slideDown();
+        //    $(this).addClass('open-menu');
+        //}
+        //else {
+        //    $(attr).slideUp();
+        //    $(this).removeClass('open-menu');
+        //}
+
     }
     
 });
