@@ -65,7 +65,7 @@ namespace ERP.Inventory.Controllers
 
 
 
-        [HttpPut]
+       // [HttpPut]
         [HttpPost]
         [Route("Data/{name}")]
         [Helper.ProducesJson]
