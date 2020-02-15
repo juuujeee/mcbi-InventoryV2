@@ -196,13 +196,13 @@
             $('#edit_transfer_stock').on('click', function (e) {
 
                 //make editable all inputs in the form
-                $(this).closest('.content-header').next().find('.card').find('input').removeAttr('disabled');
+                $(this).closest('.content-header').next().find('input, select').removeAttr('disabled');
 
                 //remove the disabled property of save button
-                $(this).closest('.content-header').next().find('.card').find('.save_transferStock').removeAttr('disabled');
+                $(this).closest('.content-header').nextAll().find('.save_transferStock').removeAttr('disabled');
 
                 //remove the css inline in parent container
-                $(this).closest('.content-header').next().find('.card').removeAttr('style');
+                $(this).closest('.content-header').next().removeAttr('style');
 
             })
         });
@@ -487,7 +487,7 @@
                             swal.fire('Success', msg.Info, 'success');
 
                             $this.parents('.content-footer').prev().css({ "pointer-events": "none" });
-                            $this.parents('.content-footer').prev().find('input').attr('disabled', true);
+                            $this.parents('.content-footer').prev().find('input, select').attr('disabled', true);
                             $this.attr('disabled', true)
 
                             $this.parents('.content-footer').prev().find('#seriesNumber').text('Reference Number:');

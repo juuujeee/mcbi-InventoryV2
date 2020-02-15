@@ -595,17 +595,24 @@ $('.sidebar-menu').on('click', function (e) {
         $(attr).toggleClass('d-none');
 
         if ($(attr).hasClass('d-none')) {
-            //console.log("True");
             $(this).removeClass('open-menu');
         }
         else {
-            //console.log('False');
-            
             $(this).addClass('open-menu');
         }
 
 
-        
+        //$(attr).toggleClass('open');
+
+        //if ($(attr).hasClass('open')) {
+        //    $(attr).slideDown();
+        //    $(this).addClass('open-menu');
+        //}
+        //else {
+        //    $(attr).slideUp();
+        //    $(this).removeClass('open-menu');
+        //}
+
     }
     
 });
