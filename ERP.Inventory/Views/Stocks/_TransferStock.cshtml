@@ -133,7 +133,7 @@
                             <input type="text" name="Qty" class="qty" disabled />
                         </td>
                         <td style="position:relative;">
-                            <input disabled type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
+                            <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
                             <i class="fa fa-remove remove-btn" onclick="fnRemoveItem(event)"></i>
                         </td>
                     </tr>
@@ -384,7 +384,7 @@
                     ID: 0,
                     TransMasterID_021: 0,
                     DeliveryAttrID_008: $(this).attr('data-id'),
-                    AttributeValueID: $this.parents('.card').find('.delMethodID').val(),
+                    AttributeValueID: $this.parents('.content-body').find('.delMethodID').val(),
                     AttributeValue: $(this).val(),
                     isDestination: false
                 };
@@ -459,10 +459,9 @@
 
             }
 
-            //console.log(url);
             console.log(entry);
 
-            return;
+            //return;
 
             $.ajax({
                 headers: {
@@ -487,12 +486,12 @@
 
                             swal.fire('Success', msg.Info, 'success');
 
-                            $this.parents('.card').css({ "pointer-events": "none" });
-                            $this.parents('.card').find('input').attr('disabled', true);
+                            $this.parents('.content-footer').prev().css({ "pointer-events": "none" });
+                            $this.parents('.content-footer').prev().find('input').attr('disabled', true);
                             $this.attr('disabled', true)
 
-                            $this.parents('.card').find('#seriesNumber').text('Reference Number:');
-                            $this.parents('.card').find('input[name=RefNumber]').val(msg.ReferenceNumber);
+                            $this.parents('.content-footer').prev().find('#seriesNumber').text('Reference Number:');
+                            $this.parents('.content-footer').prev().find('input[name=RefNumber]').val(msg.ReferenceNumber);
 
                         }
                         else {

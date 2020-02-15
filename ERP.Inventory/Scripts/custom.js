@@ -595,10 +595,13 @@ $('.sidebar-menu').on('click', function (e) {
         $(attr).toggleClass('d-none');
 
         if ($(attr).hasClass('d-none')) {
-            $(this).addClass('open-menu');
+            //console.log("True");
+            $(this).removeClass('open-menu');
         }
         else {
-            $(this).removeClass('open-menu');
+            //console.log('False');
+            
+            $(this).addClass('open-menu');
         }
 
 
