@@ -95,13 +95,24 @@
         <div class="content">@RenderBody()</div>
 
         <div class="right-sidebar">
-            <div style="text-align:center">
+            <div class="title" style="text-align:center">
                 <h3>RECENT TRANSACTIONS</h3>
             </div>
             @if (ViewBag.Title == "Stock Entry Page")
             {
                 <div class="stockEntry_transactions">
 
+                </div>
+            }
+            @if(ViewBag.Title == "Transfer Stock Page")
+            {
+                <div class="transferEntry_transactions">
+                    <div style="min-height:40vh; max-height:40vh; padding: 5px 15px">
+                        <small>Transactions</small>
+                    </div>
+                    <div style="min-height:40vh; max-height:40vh; padding: 5px 15px">
+                        <small>Pending Transactions</small>
+                    </div>
                 </div>
             }
         </div>
