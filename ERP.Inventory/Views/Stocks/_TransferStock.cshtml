@@ -49,7 +49,7 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
-                    <input type="text" name="OriginProjectLocation" value="" />
+                    <input type="text" name="OriginProjectLocation" value="" readonly/>
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">LOCATION</label>
-                    <input type="text" name="DestinationProjectLocation" value="" />
+                    <input type="text" name="DestinationProjectLocation" value="" readonly/>
                 </div>
                 <div class="custom-form-group">
                     <label style="width:150px">WH INCHARGE</label>
@@ -557,8 +557,7 @@
                     source: emp,
                     select: function (event, ui) {
 
-                        var $this = $(this);
-                        $this.closest('.custom-form-group').find('input.employeeID').val(ui.item.id);
+                        $(this).closest('.custom-form-group').find('input.employeeID').val(ui.item.id);
                     }
                 })
             }
@@ -590,17 +589,13 @@
                 source: proj,
                 select: function (event, ui) {
 
-                    var $this = $(this);
-
-                    //console.log($this.attr('id'));
-
                     //if ($this.attr('id') === 'origin') {
                     //    $(this).parents('.card').find('table').find('input').val('');
                     //}
 
-                    $this.closest('.custom-form-group').find('input.projectID').val(ui.item.id);
+                    $(this).closest('.custom-form-group').find('input.projectID').val(ui.item.id);
 
-                    $this.closest('.fieldset').find('input.projectNumber').val(ui.item.projectNo);
+                    $(this).closest('fieldset').find('input.projectNumber').val(ui.item.projectNo);
                 }
             });
         });
