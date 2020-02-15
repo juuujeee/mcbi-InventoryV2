@@ -25,8 +25,8 @@ namespace ERP.Inventory.Controllers
         [HttpGet]
         [Helper.ProducesJson]
         [Route("Data/{name}/{id}")]
-        [Route("Data/{name}/{id}/{sample}")]
-        public ActionResult Get(string name, int? id, string[] sample)
+        [Route("Data/{name}/{id}/{*sample}")]
+        public ActionResult Get(string name, int? id, string sample)
         {
 
             if (id == 0)
