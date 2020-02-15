@@ -366,7 +366,7 @@ function fnGetItemsByProj(event) {
 
     var $this = $(event.target);
 
-    var projectID = $this.parents('.card').find('input#originProjectID').val();
+    var projectID = $this.parents('.content-body').find('input#originProjectID').val();
 
     if (projectID === null || projectID === '') {
         swal.fire('Warning', 'Select Origin Project', 'warning');
@@ -592,11 +592,17 @@ $('.sidebar-menu').on('click', function (e) {
     if (typeof attr !== typeof undefined && attr !== false) {
         e.preventDefault();
 
-        if (!$(this).hasClass('open-menu')) {
+        $(attr).toggleClass('d-none');
+
+        if ($(attr).hasClass('d-none')) {
             $(this).addClass('open-menu');
         }
+        else {
+            $(this).removeClass('open-menu');
+        }
 
-        $(attr).toggleClass('d-none');
+
+        
     }
     
 });
