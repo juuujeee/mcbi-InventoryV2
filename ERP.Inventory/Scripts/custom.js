@@ -592,6 +592,10 @@ $('.sidebar-menu').on('click', function (e) {
     if (typeof attr !== typeof undefined && attr !== false) {
         e.preventDefault();
 
+        if (!$(this).hasClass('open-menu')) {
+            $(this).addClass('open-menu');
+        }
+
         $(attr).toggleClass('d-none');
     }
     
