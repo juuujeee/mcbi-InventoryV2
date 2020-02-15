@@ -430,7 +430,6 @@ function fnGetItemsByProj(event) {
 }
 
 
-
 //FOR UNITS AUTOCOMPLETE
 function fnGetUnits(event) {
 
@@ -498,7 +497,6 @@ function fnGetItemCondition(event) {
 }
 
 
-
 //FOR GENERIC NAME (CATEGORY 3)
 function fnGetGenericName(event) {
 
@@ -541,11 +539,8 @@ function fnGetGenericName(event) {
 }
 
 
-
 //REMOVE TR FIELD
 function fnRemoveItem(event) {
-
-    //console.log("Testing remove only");
 
     var $this = $(event.target);
 
@@ -559,7 +554,6 @@ function fnRemoveItem(event) {
             $('.custom-table').find('td.number').eq(i).html(i + 1);
         }
     }
-
 }
 
 
