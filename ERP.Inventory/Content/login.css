@@ -12,6 +12,7 @@ body {
     margin: 0;
     font-family: Calibri, sans-serif;
     height: 100%;
+    background: #bdc8c8;
 }
 
 .login-wrapper {
@@ -29,8 +30,7 @@ body {
 
 .content {
     grid-area: content;
-    padding: 20px 455px;
-    background: #bdc8c8;
+    /*background: #bdc8c8;*/
 }
 
 
@@ -143,23 +143,39 @@ legend.scheduler-border {
     object-fit: contain;
 }
 
+.content {
+    display: grid;
+    grid-template-columns: auto 33% auto;
+    grid-template-areas: "first-col second-col third-col";
+    /*grid-template-rows: 100%;*/
+    padding: 20px;
+}
+.content .first-col{
+    grid-area: first-col;
+}
+.content .second-col{
+    grid-area: second-col;
+}
+.content .third-col{
+    grid-area: third-col;
+}
+
 input:disabled {
     background-color: #e9ecef;
     opacity: .8;
 }
 
 @media only screen and (max-width: 600px) {
-
     .login-wrapper {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 40vh auto;
+        grid-template-rows: 30vh auto;
         grid-template-areas: "header" "content";
     }
 
     .header {
         display: grid;
-        grid-template-rows: 80% auto;
+        grid-template-rows:80% auto;
         grid-template-columns: 100%;
         grid-template-areas: "logo" "text";
         background: #222831;
@@ -168,12 +184,21 @@ input:disabled {
 
     .content {
         padding: 0;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas: "second-col";
     }
-
+    .content .first-col,
+    .content .third-col{
+        display:none
+    }
+    
     .content fieldset {
         width: 100%;
     }
-
+    .header .text h1{
+        font-size: 20px;
+    }
     .login-action-container {
         text-align: center;
     }
