@@ -247,7 +247,7 @@ $('.delMethodID').on('change', function (e) {
             if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
                 delAttrContent += '<div style="display:flex">';
-                delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute + '</label>:';
+                delAttrContent += '<label style="width:150px">' + delMethodAttribute[z].MethodAttribute + '</label>';
 
                 if (parseInt($this.val()) === 1) {
                     if (attrCounter === 2) {
