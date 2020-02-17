@@ -58,22 +58,6 @@ body {
 }
 
 
-/*------------------------------------------------
-        MEDIA QUERIES
-------------------------------------------------*/
-@media only screen and (max-width: 500px) {
-    .wrapper {
-        height: 100%;
-        display: grid;
-        grid-template-columns: 100%;
-        grid-template-areas: "header" "main"
-    }
-    .right-sidebar,
-    .left-sidebar {
-        display: none;
-    }
-}
-
 /*------------------------------------------------------
   JQUERY UI AUTOCOMPLETE
 --------------------------------------------------------*/
@@ -312,13 +296,28 @@ form .error {
     text-overflow: ellipsis;
 }
 
-
-/*SIDEBAR CSS*/
-.sidebar {
-    height: 100%;
-    padding-top: 16px;
-    padding-left: 0;
+.content-body .row-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 30px;
+    padding-left: 15px;
 }
+.content-body .row-container .col {
+    flex: auto;
+}
+.content-body .stockEntryHeader #col-1,
+.content-body .stockEntryHeader #col-2{
+    padding-right: 15px;
+}
+
+
+    /*SIDEBAR CSS*/
+    .sidebar {
+        height: 100%;
+        padding-top: 16px;
+        padding-left: 0;
+    }
 
 .sidebar a {
     padding: 10px;
@@ -359,8 +358,49 @@ i.caret {
     transform:rotate(90deg);
 }
 
- td, th {
+#userRoleTable td, #userRoleTable th {
     border: 1px solid #999;
     padding: 0.5rem;
     text-align: center;
+}
+.table-container {
+    display: flex;
+    width: 100%;
+}
+
+/*------------------------------------------------
+        MEDIA QUERIES
+------------------------------------------------*/
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas: "header" "main"
+    }
+
+    .right-sidebar,
+    .left-sidebar {
+        display: none;
+    }
+
+    .wrapper .content-body .row-container {
+        flex-direction:column;
+    }
+    .content-body{
+        width: 100vw;
+    }
+    .content-body .row-container .col {
+        width: 100%;
+    }
+    .content-body .stockEntryHeader #col-1, .content-body .stockEntryHeader #col-2{
+        padding-right: 0;
+    }
+    .custom-table thead tr td{
+        font-size: 15px;
+    }
+    .table-container {
+        padding-left: 15px;
+        overflow-x: auto;
+    }
 }

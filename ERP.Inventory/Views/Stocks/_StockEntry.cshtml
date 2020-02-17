@@ -12,8 +12,8 @@
 <form action="#" method="post" name="StockEntryForm" autocomplete="off" ">
 
     <div class="content-body">
-        <div style="display:flex; margin-top:30px">
-            <div style="width:33.33%; max-width:33.33%; padding:15px">
+        <div class="row-container">
+            <div class="col" id="col-1">
                 <div class="custom-form-group">
                     <label style="width:150px">SUPPLIER</label>
                     <input type="text" name="SupplierName" class="supplier" value="" />
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div style="width: 33.33%; max-width:33.33%; padding:15px">
+            <div class="col" id="col-2">
                 <div class="custom-form-group">
                     <label style="width:150px">SUP ID</label>
                     <input type="text" name="SupplierIDCode" class="supplierIDCode" value="" disabled />
@@ -51,10 +51,10 @@
                 </div>
             </div>
 
-            <div style="width:33.33%; max-width:33.33%; padding:15px">
+            <div class="col" id="col-3">
                 <div class="custom-form-group">
                     <label style="width:150px">DEL METHOD</label>
-                    <select style="width:100%" class="delMethodID">
+                    <select class="delMethodID">
                         <option value="1">DELIVERY TRUCK</option>
                         <option value="2">COURIER</option>
                         <option value="3">MESSENGER</option>
@@ -64,12 +64,12 @@
                 <div class="custom-form-group delMethodAttribute"></div>
                 <div class="custom-form-group delMethodAttribute"></div>
             </div>
-
         </div>
-        <div style="display:flex; width: 100%; padding-left:15px;">
+
+        <div class="row-container">
             <h2>Enter Items Here</h2>
         </div>
-        <div style="display: flex; width:100%">
+        <div class="table-container">
             <table class="custom-table" cellspacing="0" cellpadding="0" id="newStockEntryTable">
                 <thead>
                     <tr>
