@@ -189,10 +189,14 @@ legend.scheduler-border {
 /*-------------------------------------------------
         FORM CSS
 --------------------------------------------------*/
+.text-center{
+    text-align:center;
+}
 .custom-form-group{
     margin:.6rem 0;
 }
-.custom-form-group > input,
+.custom-form-group input[type=text],
+.custom-form-group input[type=password],
 .custom-form-group select {
     width: 100%;
     border: 1px solid #c9d6df;
@@ -353,4 +357,10 @@ i.caret {
 }
 .open-menu i.caret{
     transform:rotate(90deg);
+}
+
+ td, th {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    text-align: center;
 }

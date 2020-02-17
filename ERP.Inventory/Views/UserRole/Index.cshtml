@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "User Role Page";
+}
+
+<div class="content-header">
+    <div style="display:flex">
+        <div style="width: 100%; text-align:left">
+            <h1>User Role</h1>
+        </div>
+    </div>
+</div>
+<div class="content-body" style="padding-left: 15px">
+    <div style="display:flex">
+        <div style="width:33%">
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label style="width: 150px">Select User: </label>
+                    <select>
+                        <option value="1">User 1</option>
+                        <option value="2">User 2</option>
+                        <option value="3">User 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="width:33%; margin-left:15px">
+            <button class="custom-btn custom-save-btn">GO</button>
+        </div>
+        <div style="width:33%"></div>
+    </div>
+
+    <div style="display:flex">
+        <div style="width:33%; padding: 0 15px">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">User Info</legend>
+                <div class="custom-form-group">
+                    <div style="display:flex">
+                        <label style="width:100px">ID:</label>
+                        <input type="text" name="ID" value="" />
+                    </div>
+                </div>
+                <div class="custom-form-group">
+                    <div style="display:flex">
+                        <label style="width:100px">Firstname:</label>
+                        <input type="text" name="Firstname" style="width:100%" value="" />
+                    </div>
+                </div>
+                <div class="custom-form-group">
+                    <div style="display:flex">
+                        <label style="width:100px">Lastname:</label>
+                        <input type="text" name="Lastname" style="width:100%" value="" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div style="width:33%; padding: 0 15px">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">User Actions</legend>
+                <div class="custom-form-group text-center">
+                    <button class="custom-btn" style="width: 100%">INSERT</button>
+                </div>
+                <div class="custom-form-group text-center">
+                    <button class="custom-btn" style="width: 100%">UPDATE</button>
+                </div>
+                <div class="custom-form-group text-center">
+                    <button class="custom-btn" style="width: 100%">DELETE</button>
+                </div>
+                <div class="custom-form-group text-center">
+                    <button class="custom-btn" style="width: 100%">SELECT</button>
+                </div>
+            </fieldset>
+        </div>
+        <div style="width:33%; padding: 0 15px">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Message</legend>
+                <p>Sample Message Here !!!!</p>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div style="display:flex;  margin-top: 30px">
+        <div style="width: 100%">
+            <h4>Admin Settings</h4>
+        </div>
+    </div>
+    <div style="display:flex">
+        <div style="width: 33%">
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label style="width:100px">User:</label>
+                    <select>
+                        <option value="1">User 1</option>
+                        <option value="2">User 2</option>
+                        <option value="3">User 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label style="width:100px">Level:</label>
+                    <select>
+                        <option value="1">Level 1</option>
+                        <option value="2">Level 2</option>
+                        <option value="3">Level 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label style="width:100px">Role:</label>
+                    <select>
+                        <option value="1">Role 1</option>
+                        <option value="2">Role 2</option>
+                        <option value="3">Role 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label style="width:100px">Customize:</label>
+                    <div style="display:flex; width: 30%">
+                        <div style="width: 50%">
+                            <input type="checkbox" name="Yes" class="customize-checkBox" value="" /> Yes
+                        </div>
+                        <div style="width: 50%">
+                            <input type="checkbox" name="Yes" class="customize-checkBox" value="" /> No
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%">
+        <table id="userRoleTable" style="border-collapse: collapse; width: 100%; border: 1px solid" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>NameInfo</th>
+                    <th>View</th>
+                    <th>Add</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td><small>nameinfo</small></td>
+                    <td class="text-center"><input type="checkbox" name="View" value="" /></td>
+                    <td class="text-center"><input type="checkbox" name="Add" value="" /></td>
+                    <td class="text-center"><input type="checkbox" name="Edit" value="" /></td>
+                    <td class="text-center"><input type="checkbox" name="Delete" value="" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="custom-btn custom-save-btn" style="float:right; margin-top: 10px">SAVE</button>
+    </div>
+</div>
+<div class="content-footer">
+
+</div>
+
+@section Scripts{
+
+    <script>
+
+        $(".customize-checkBox").change(function () {
+            $(".customize-checkBox").prop('checked', false);
+            $(this).prop('checked', true);
+        });
+
+    </script>
+
+}
