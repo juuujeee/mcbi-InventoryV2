@@ -246,6 +246,7 @@ $('.delMethodID').on('change', function (e) {
 
             if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
+                delAttrContent += '<div style="display:flex">';
                 delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute + '</label>:';
 
                 if (parseInt($this.val()) === 1) {
@@ -269,9 +270,11 @@ $('.delMethodID').on('change', function (e) {
                         });
                     }
 
+
                     else {
                         delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
                     }
+
                 }
 
                 if (parseInt($this.val()) === 2) {
@@ -304,6 +307,7 @@ $('.delMethodID').on('change', function (e) {
                     delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                 }
+                delAttrContent += '</div>';
 
                 $delMethodAttributeEl.eq(attrCounter).append(delAttrContent);
 

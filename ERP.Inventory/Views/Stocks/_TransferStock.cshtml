@@ -3,11 +3,11 @@
 }
 
 <div class="content-header">
-    <div style="display:flex">
-        <div style="width:50%; text-align:left">
+    <div class="row-container">
+        <div class="col">
             <h1>Transfer Stocks</h1>
         </div>
-        <div style="width:50%; text-align:right">
+        <div class="col">
             <button type="button" class="custom-btn" id="clear_fields">Clear</button>
             <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
             <button type="button" class="custom-btn">Print</button>
@@ -16,21 +16,24 @@
 </div>
 <div class="content-body">
     <input type="hidden" name="ID" class="id" value="" />
-    <div style="display:flex; padding-left:15px;">
-        <div style="width:33.33%; text-align:left">
+    <div class="row-container">
+        <div class="col" id="col-1">
             <div class="custom-form-group">
-                <label>Select New or Post Transfer</label>
-                <select id="transfer_stock_option">
-                    <option value="1">NEW STOCK TRANSFER</option>
-                    <option value="2">CONFIRM STOCK TRANSFER</option>
-                </select>
+                <div style="display:flex">
+                    <label>Select New or Post Transfer</label>
+                    <select id="transfer_stock_option">
+                        <option value="1">NEW STOCK TRANSFER</option>
+                        <option value="2">CONFIRM STOCK TRANSFER</option>
+                    </select>
+                </div>
             </div>
         </div>
-        <div style="width:33.33%"></div>
-        <div style="width:33.33%;">
+        <div class="col">
             <div class="custom-form-group">
-                <label id="seriesNumber"></label>
-                <input type="text" name="RefNumber" value="" autocomplete="off" />
+                <div style="display:flex">
+                    <label id="seriesNumber"></label>
+                    <input type="text" name="RefNumber" value="" autocomplete="off" />
+                </div>
             </div>
         </div>
     </div>
@@ -39,22 +42,30 @@
             <fieldset class="scheduler-border" id="origin-fieldset">
                 <legend class="scheduler-border">ORIGIN DETAILS</legend>
                 <div class="custom-form-group">
-                    <label style="width:150px">PROJ NAME</label>
-                    <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
-                    <input type="text" name="OriginProjectName" id="origin" class="projects text-ellipsis" value="" />
+                    <div style="display:flex">
+                        <label style="width:150px">PROJ NAME</label>
+                        <input type="hidden" name="OriginProjectID" class="projectID" id="originProjectID" value="" />
+                        <input type="text" name="OriginProjectName" id="origin" class="projects text-ellipsis" value="" />
+                    </div>
                 </div>
                 <div class="custom-form-group">
-                    <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="OriginProjectNumber" class="projectNumber" value="" readonly />
+                    <div style="display:flex">
+                        <label style="width:150px">PROJ NO</label>
+                        <input type="text" name="OriginProjectNumber" class="projectNumber" value="" readonly />
+                    </div>
                 </div>
                 <div class="custom-form-group">
-                    <label style="width:150px">LOCATION</label>
-                    <input type="text" name="OriginProjectLocation" value="" readonly />
+                    <div style="display:flex">
+                        <label style="width:150px">LOCATION</label>
+                        <input type="text" name="OriginProjectLocation" value="" readonly />
+                    </div>
                 </div>
                 <div class="custom-form-group">
-                    <label style="width:150px">WH INCHARGE</label>
-                    <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
-                    <input type="text" name="OriginWHIncharge" class="employeeInfo" value="" />
+                    <div style="display:flex">
+                        <label style="width:150px">WH INCHARGE</label>
+                        <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
+                        <input type="text" name="OriginWHIncharge" class="employeeInfo" value="" />
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -62,12 +73,14 @@
             <fieldset class="scheduler-border" id="deliveryMethod-fieldset">
                 <legend class="scheduler-border">DELIVERY</legend>
                 <div class="custom-form-group">
-                    <label style="width:150px">DEL METHOD</label>
-                    <select style="width:100%" class="delMethodID">
-                        <option value="1">DELIVERY TRUCK</option>
-                        <option value="2">COURIER</option>
-                        <option value="3">MESSENGER</option>
-                    </select>
+                    <div style="display:flex">
+                        <label style="width:150px">DEL METHOD</label>
+                        <select style="width:100%" class="delMethodID">
+                            <option value="1">DELIVERY TRUCK</option>
+                            <option value="2">COURIER</option>
+                            <option value="3">MESSENGER</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="custom-form-group delMethodAttribute">
 
@@ -84,22 +97,30 @@
             <fieldset class="scheduler-border" id="destination-fieldset">
                 <legend class="scheduler-border">DESTINATION</legend>
                 <div class="custom-form-group">
-                    <label style="width:150px">PROJ NAME</label>
-                    <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
-                    <input type="text" name="DestinationProjectName" id="destination" class="projects text-ellipsis" value="" />
+                    <div style="display:flex">
+                        <label style="width:150px">PROJ NAME</label>
+                        <input type="hidden" name="DestinationProjectID" class="projectID" id="destinationProjectID" value="" />
+                        <input type="text" name="DestinationProjectName" id="destination" class="projects text-ellipsis" value="" />
+                    </div>
                 </div>
                 <div class="custom-form-group">
-                    <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="DestinationProjectNumber" class="projectNumber" value="" readonly />
+                    <div style="display:flex">
+                        <label style="width:150px">PROJ NO</label>
+                        <input type="text" name="DestinationProjectNumber" class="projectNumber" value="" readonly />
+                    </div>
                 </div>
                 <div class="custom-form-group">
-                    <label style="width:150px">LOCATION</label>
-                    <input type="text" name="DestinationProjectLocation" value="" readonly />
+                    <div style="display:flex">
+                        <label style="width:150px">LOCATION</label>
+                        <input type="text" name="DestinationProjectLocation" value="" readonly />
+                    </div>
                 </div>
                 <div class="custom-form-group">
-                    <label style="width:150px">WH INCHARGE</label>
-                    <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="">
-                    <input type="text" name="DestinationWHIncharge" class="employeeInfo" value="" />
+                    <div style="display:flex">
+                        <label style="width:150px">WH INCHARGE</label>
+                        <input type="hidden" name="DestinationWHInchargeID" class="employeeID" value="">
+                        <input type="text" name="DestinationWHIncharge" class="employeeInfo" value="" />
+                    </div>
                 </div>
             </fieldset>
         </div>

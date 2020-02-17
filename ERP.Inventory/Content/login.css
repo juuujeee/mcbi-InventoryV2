@@ -165,7 +165,6 @@ input:disabled {
     opacity: .8;
 }
 
-
 @media only screen and (max-width: 600px) {
     .login-wrapper {
         display: grid;
@@ -200,7 +199,6 @@ input:disabled {
     .header .text h1{
         font-size: 20px;
     }
-
     .login-action-container {
         text-align: center;
     }

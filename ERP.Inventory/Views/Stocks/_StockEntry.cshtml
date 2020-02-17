@@ -14,55 +14,82 @@
     <div class="content-body">
         <div class="row-container">
             <div class="col" id="col-1">
-                <div class="custom-form-group">
-                    <label style="width:150px">SUPPLIER</label>
-                    <input type="text" name="SupplierName" class="supplier" value="" />
-                </div>
-                <div class="custom-form-group">
-                    <label style="width:150px">PROJ NAME</label>
-                    <input type="text" class="projectName" name="ProjectName" value="" />
-                </div>
-                <div class="custom-form-group">
-                    <label style="width:150px">LOCATION</label>
-                    <input type="text" name="ProjectLocation" value="" disabled />
-                </div>
-                <div class="custom-form-group">
-                    <label style="width:150px">RECEIVED BY</label>
-                    <input type="text" name="ReceivedBy" class="receivedBy" value="" />
-                </div>
+                <fieldset class="scheduler-border" style="border-radius:5px">
+                    <legend class="scheduler-border">SUPPLIER</legend>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">SUPPLIER</label>
+                            <input type="text" name="SupplierName" class="supplier" value="" />
+                        </div>
+                    </div>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">SUP ID</label>
+                            <input type="text" name="SupplierIDCode" class="supplierIDCode" value="" disabled />
+                        </div>
+                    </div>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">DOC NO</label>
+                            <input type="text" name="DocNumber" value="" />
+                        </div>
+                    </div>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">RECEIVED BY</label>
+                            <input type="text" name="ReceivedBy" class="receivedBy" value="" />
+                        </div>
+                    </div>
+                </fieldset>
             </div>
 
             <div class="col" id="col-2">
-                <div class="custom-form-group">
-                    <label style="width:150px">SUP ID</label>
-                    <input type="text" name="SupplierIDCode" class="supplierIDCode" value="" disabled />
-                </div>
-                <div class="custom-form-group">
-                    <label style="width:150px">PROJ NO</label>
-                    <input type="text" name="ProjectNumber" class="projectNumber" value="" disabled />
-                </div>
-                <div class="custom-form-group">
-                    <label style="width:150px">DOC NO</label>
-                    <input type="text" name="DocNumber" value="" />
-                </div>
-                <div class="custom-form-group">
-                    <label style="width:150px">DEL DATE</label>
-                    <input type="text" name="DeliveryDate" class="date-picker" value="" />
-                </div>
+                <fieldset class="scheduler-border" style="border-radius:5px">
+                    <legend class="scheduler-border">PROJECT</legend>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">PROJ NAME</label>
+                            <input type="text" class="projectName" name="ProjectName" value="" />
+                        </div>
+                    </div>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">PROJ NO</label>
+                            <input type="text" name="ProjectNumber" class="projectNumber" value="" disabled />
+                        </div>
+                    </div>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">LOCATION</label>
+                            <input type="text" name="ProjectLocation" value="" disabled />
+                        </div>
+                    </div>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">DEL DATE</label>
+                            <input type="text" name="DeliveryDate" class="date-picker" value="" />
+                        </div>
+                    </div>
+                </fieldset>
             </div>
 
             <div class="col" id="col-3">
-                <div class="custom-form-group">
-                    <label style="width:150px">DEL METHOD</label>
-                    <select class="delMethodID">
-                        <option value="1">DELIVERY TRUCK</option>
-                        <option value="2">COURIER</option>
-                        <option value="3">MESSENGER</option>
-                    </select>
-                </div>
-                <div class="custom-form-group delMethodAttribute"></div>
-                <div class="custom-form-group delMethodAttribute"></div>
-                <div class="custom-form-group delMethodAttribute"></div>
+                <fieldset class="scheduler-border" style="border-radius:5px">
+                    <legend class="scheduler-border">DELIVERY</legend>
+                    <div class="custom-form-group">
+                        <div style="display:flex">
+                            <label style="width:150px">DEL METHOD</label>
+                            <select class="delMethodID">
+                                <option value="1">DELIVERY TRUCK</option>
+                                <option value="2">COURIER</option>
+                                <option value="3">MESSENGER</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="custom-form-group delMethodAttribute"></div>
+                    <div class="custom-form-group delMethodAttribute"></div>
+                    <div class="custom-form-group delMethodAttribute"></div>
+                </fieldset>
             </div>
         </div>
 

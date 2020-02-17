@@ -185,7 +185,8 @@ legend.scheduler-border {
     width: 100%;
     border: 1px solid #c9d6df;
     height: 30px;
-    padding: 0.375rem 0.75rem
+    padding: 0.375rem 0.75rem;
+    border-radius: 5px;
 }
 
 .custom-form-group > input:disabled, .custom-form-group > input[readonly],
@@ -296,28 +297,29 @@ form .error {
     text-overflow: ellipsis;
 }
 
-.content-body .row-container {
+.row-container {
     display: flex;
-    flex-direction: row;
     width: 100%;
+    flex-wrap: wrap;
     margin-top: 30px;
     padding-left: 15px;
 }
-.content-body .row-container .col {
-    flex: auto;
+.row-container .col {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
 }
-.content-body .stockEntryHeader #col-1,
-.content-body .stockEntryHeader #col-2{
+.row-container #col-1,
+.row-container #col-2{
     padding-right: 15px;
 }
 
-
-    /*SIDEBAR CSS*/
-    .sidebar {
-        height: 100%;
-        padding-top: 16px;
-        padding-left: 0;
-    }
+/*SIDEBAR CSS*/
+.sidebar {
+    height: 100%;
+    padding-top: 16px;
+    padding-left: 0;
+}
 
 .sidebar a {
     padding: 10px;
@@ -367,11 +369,22 @@ i.caret {
     display: flex;
     width: 100%;
 }
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 15px;
+    z-index: 999999;
+    position:fixed;
+}
 
 /*------------------------------------------------
         MEDIA QUERIES
 ------------------------------------------------*/
 @media only screen and (max-width: 768px) {
+    .mobile-menu{
+        display:block;
+    }
     .wrapper {
         height: 100%;
         display: grid;
@@ -385,15 +398,17 @@ i.caret {
     }
 
     .wrapper .content-body .row-container {
-        flex-direction:column;
+        /*flex-direction: column;*/
+        margin-top: 0;
     }
     .content-body{
         width: 100vw;
     }
-    .content-body .row-container .col {
-        width: 100%;
+    .row-container .col {
+        /*width: 100%;*/
+        flex-basis: unset;
     }
-    .content-body .stockEntryHeader #col-1, .content-body .stockEntryHeader #col-2{
+    .row-container #col-1, .row-container #col-2{
         padding-right: 0;
     }
     .custom-table thead tr td{
@@ -403,4 +418,8 @@ i.caret {
         padding-left: 15px;
         overflow-x: auto;
     }
+    .content .content-header h1{
+        margin: 0;
+    }
+    
 }
