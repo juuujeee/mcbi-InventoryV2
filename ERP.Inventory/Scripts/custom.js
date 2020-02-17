@@ -232,7 +232,7 @@ $('.delMethodID').on('change', function (e) {
     var $delMethodAttributeEl = $('.delMethodAttribute');
     $delMethodAttributeEl.html('');
 
-    var delMethodAttrURL = 'http://localhost:63666/Data/DelMethodAttribute';
+    var delMethodAttrURL = '/Data/DelMethodAttribute';
 
     $.ajaxSetup({
         async: false
@@ -252,7 +252,7 @@ $('.delMethodID').on('change', function (e) {
                 if (parseInt($this.val()) === 1) {
                     if (attrCounter === 2) {
 
-                        $.getJSON('http://localhost:63666/Data/DelMethodAttrValue', function (response) {
+                        $.getJSON('/Data/DelMethodAttrValue', function (response) {
 
                             delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
@@ -280,7 +280,7 @@ $('.delMethodID').on('change', function (e) {
                 if (parseInt($this.val()) === 2) {
                     if (attrCounter === 0) {
 
-                        $.getJSON('http://localhost:63666/Data/DelMethodAttrValue', function (response) {
+                        $.getJSON('/Data/DelMethodAttrValue', function (response) {
 
                             delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
