@@ -356,8 +356,6 @@ function fnGetItems(event) {
             }
 
         }
-
-
     });
 }
 
