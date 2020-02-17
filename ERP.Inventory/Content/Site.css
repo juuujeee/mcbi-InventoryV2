@@ -57,7 +57,23 @@ body {
     grid-area: footer
 }
 
+.header .for-desktop {
+    width: 100%;
+    text-align: right;
+}
 
+.header .for-mobile{
+    display: none;
+}
+
+.header .header-title {
+    width: 100%;
+    display: flex;
+    padding: 0 15px;
+}
+.header .header-title span {
+    font-size: 20px;
+}
 /*------------------------------------------------------
   JQUERY UI AUTOCOMPLETE
 --------------------------------------------------------*/
@@ -372,7 +388,7 @@ i.caret {
 .mobile-menu {
     display: none;
     position: absolute;
-    top: 25px;
+    top: 103px;
     right: 15px;
     z-index: 999999;
     position:fixed;
@@ -421,5 +437,31 @@ i.caret {
     .content .content-header h1{
         margin: 0;
     }
-    
+    .header .for-desktop{
+        display: none;
+    }
+    .header .for-mobile{
+        display: block;
+    }
+    .header .for-mobile img {
+        display: block;
+        padding-top:5px;
+        width: 15%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .header .header-title {
+        margin-top:2px;
+    }
+    .header .header-title span {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .content-header .title{
+        font-weight: 500;
+    }
+    legend.scheduler-border{
+        font-weight: 500 !important;
+    }
 }

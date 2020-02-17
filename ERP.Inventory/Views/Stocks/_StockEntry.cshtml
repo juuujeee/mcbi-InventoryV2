@@ -5,7 +5,7 @@
 <div class="content-header">
     <div style="display:flex">
         <div style="width:50%; text-align:left">
-            <h1>Entry Stocks</h1>
+            <h1 class="title">Entry Stocks</h1>
         </div>
     </div>
 </div>
@@ -214,7 +214,7 @@
 
             //FOR PROJECTS
             var project = [];
-            var projectURL = 'http://localhost:63666/Data/ENGProjectList';
+            var projectURL = '/Data/ENGProjectList';
 
             $.getJSON(projectURL, function (data) {
                 //var dat = data.Data;
@@ -245,7 +245,7 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = 'http://localhost:63666/Data/VendorList';
+            var supplierURL = '/Data/VendorList';
 
             $.getJSON(supplierURL, function (data) {
 
@@ -274,7 +274,7 @@
             //FOR RECEIVED BY
             var receivedBy = [];
 
-            var receivedByURL = 'http://localhost:63666/Data/HRMSEmployeeList/';
+            var receivedByURL = '/Data/HRMSEmployeeList/';
             $.getJSON(receivedByURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -428,7 +428,7 @@
                     "Content-Type": "application/json"
                 },
                 type: 'post',
-                url: 'http://localhost:63666/Data/NewItemHeaderList',
+                url: '/Data/NewItemHeaderList',
                 dataType: 'json',
                 data: JSON.stringify(DocEntry),
                 contentType: "application/json",
@@ -471,7 +471,7 @@
 
 
         //RECENT STOCK ENTRY TRANSACTIONS
-        var recentURL = 'http://localhost:63666/Data/NewItemEntryList/';
+        var recentURL = '/Data/NewItemEntryList/';
         $.getJSON(recentURL, function (data) {
 
             for (var i = 0; i < data.length; i++) {

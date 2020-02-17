@@ -330,7 +330,7 @@ function fnGetItems(event) {
 
     var $this = $(event.target);
     var items = [];
-    var itemURL = 'http://localhost:63666/Data/ItemsMasterlist';
+    var itemURL = '/Data/ItemsMasterlist';
 
     $this.autocomplete({
         source: items,
@@ -377,7 +377,7 @@ function fnGetItemsByProj(event) {
     else {
 
         var items = [];
-        var itemURL = 'http://localhost:63666/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
+        var itemURL = '/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
 
         $this.autocomplete({
             source: items,
@@ -437,7 +437,7 @@ function fnGetUnits(event) {
 
     var $this = $(event.target);
     var units = [];
-    var unitsURL = 'http://localhost:63666/Data/units';
+    var unitsURL = '/Data/units';
 
     $this.autocomplete({
         source: units,
@@ -472,7 +472,7 @@ function fnGetItemCondition(event) {
 
     var $this = $(event.target);
     var itemCondition = [];
-    var itemConditionURL = 'http://localhost:63666/Data/ItemCondition';
+    var itemConditionURL = '/Data/ItemCondition';
 
     $this.autocomplete({
         source: itemCondition,
@@ -507,7 +507,7 @@ function fnGetGenericName(event) {
     var $formEl = $this.closest('form');
 
     var category3 = [];
-    var category3URL = 'http://localhost:63666/Data/category3';
+    var category3URL = '/Data/category3';
 
     $.getJSON(category3URL, function (data) {
 

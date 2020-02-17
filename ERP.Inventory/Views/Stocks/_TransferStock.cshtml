@@ -5,7 +5,7 @@
 <div class="content-header">
     <div class="row-container">
         <div class="col">
-            <h1>Transfer Stocks</h1>
+            <h1 class="title">Transfer Stocks</h1>
         </div>
         <div class="col">
             <button type="button" class="custom-btn" id="clear_fields">Clear</button>
@@ -293,7 +293,7 @@
             if (e.keyCode === 13) {
                 // Do something
 
-                var link = 'http://localhost:63666/Data/TransMasterlist/SearchByReference?q=' + $(this).val();
+                var link = '/Data/TransMasterlist/SearchByReference?q=' + $(this).val();
 
                 //console.log(link);
 
@@ -305,7 +305,7 @@
 
                     else {
 
-                        //console.log(data);
+                        console.log(data);
 
                         $this.parents('.content-body').find('.card-body').find('input').val('');
                         $this.parents('.content-body').find('input[name=ID]').val(data.ID);
@@ -348,7 +348,7 @@
                             var entry = data.TransItemEntryList[i];
 
                             //for item name
-                            var itemLink = 'http://localhost:63666/Data/ItemsMasterList/' + entry.ItemID_011;
+                            var itemLink = '/Data/ItemsMasterList/' + entry.ItemID_011;
                             $.getJSON(itemLink, function (itemResponse) {
                                 if (itemResponse !== null) {
                                     $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
@@ -357,7 +357,7 @@
 
 
                             // for units
-                            var unitLink = 'http://localhost:63666/Data/units/' + entry.UnitsID_009;
+                            var unitLink = '/Data/units/' + entry.UnitsID_009;
                             $.getJSON(unitLink, function (unitResponse) {
                                 if (unitResponse !== null) {
                                     $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
@@ -371,7 +371,7 @@
 
                             8
                             //for item condition
-                            var itemConditionLink = 'http://localhost:63666/Data/itemcondition/' + entry.ItemCondID_018;
+                            var itemConditionLink = '/Data/itemcondition/' + entry.ItemCondID_018;
                             $.getJSON(itemConditionLink, function (itemConditionResponse) {
                                 if (itemConditionResponse !== null) {
                                     $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
@@ -439,7 +439,7 @@
 
             if ($this.attr('id') === 'saveTransferStock') {
 
-                url = 'http://localhost:63666/Data/TransMasterList';
+                url = '/Data/TransMasterList';
 
                 //SAVE TRANSFER STOCKS DATA
                 var saveTransferEntry = {
@@ -465,7 +465,7 @@
                 entry = saveTransferEntry;
             }
             else {
-                url = 'http://localhost:63666/Data/TransMasterList/ConfirmReceive';
+                url = '/Data/TransMasterList/ConfirmReceive';
 
                 var confirmTransferEntry = {
                     ID: $this.parents('.content-footer').prev().find('input[name=ID]').val() || 0,
@@ -560,7 +560,7 @@
 
         //EMPLOYEE AUTOCOMPLETE
         var emp = [];
-        var empURL = 'http://localhost:63666/Data/HRMSEmployeeList';
+        var empURL = '/Data/HRMSEmployeeList';
 
         $.getJSON(empURL, function (data) {
             for (var i = 0; i < data.length; i++) {
@@ -586,7 +586,7 @@
 
         //PROJECT AUTOCOMPLETE
         var proj = [];
-        var projURL = 'http://localhost:63666/Data/ENGProjectList';
+        var projURL = '/Data/ENGProjectList';
 
         $.getJSON(projURL, function (data) {
 
