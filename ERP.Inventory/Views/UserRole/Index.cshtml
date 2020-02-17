@@ -15,17 +15,48 @@
         <div style="width:33%">
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label style="width: 150px">Select User: </label>
-                    <select>
-                        <option value="1">User 1</option>
-                        <option value="2">User 2</option>
-                        <option value="3">User 3</option>
+                    <label style="width: 150px">Select User ID: </label>
+                    <select  id="user-id">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
             </div>
         </div>
         <div style="width:33%; margin-left:15px">
-            <button class="custom-btn custom-save-btn">GO</button>
+            <button class="custom-btn custom-save-btn" onclick=" SelectAUser()">GO</button>
+            <script>
+                function SelectAUser() {
+                    var e = document.getElementById("user-id");
+                    var userID = e.options[e.selectedIndex].value;
+                    
+                    GetUserInfo(userID, e => {
+
+                        console.log(e);
+                        //The field to enable or disable buttons
+                        for (var i = 0; i < e.customSettings.length; i++) {
+
+                            //console.log(e.customSettings[i].defaultElement);
+                            //console.log(e.customSettings[i].isAllowed);
+                            $(e.customSettings[i].defaultElement).attr('disabled', !e.customSettings[i].isAllowed);
+                            $(e.customSettings[i].defaultElement + '-check').prop('checked', e.customSettings[i].isAllowed);
+                            console.log()
+                            //console.log(e.customSettings[i].defaultElement + ' ' + e.customSettings[i].isAllowed);
+                        }
+
+
+
+                    });
+
+
+                }
+                function GetUserInfo(empID, res) {
+                    JSONRequest('GET', "http://192.168.1.100:97/api/UserRoleLevelMasterList/" + empID, e => {
+                        res(e);
+                    });
+                }
+            </script>
         </div>
         <div style="width:33%"></div>
     </div>
@@ -58,26 +89,82 @@
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">User Actions</legend>
                 <div class="custom-form-group text-center">
-                    <button class="custom-btn" style="width: 100%">INSERT</button>
+                    <button class="custom-btn control-names-add" style="width: 100%" onclick="Request('insert')">ADD</button>
                 </div>
                 <div class="custom-form-group text-center">
-                    <button class="custom-btn" style="width: 100%">UPDATE</button>
+                    <button class="custom-btn control-names-edit" style="width: 100%" onclick="Request('update')">EDIT</button>
                 </div>
                 <div class="custom-form-group text-center">
-                    <button class="custom-btn" style="width: 100%">DELETE</button>
+                    <button class="custom-btn control-names-remove" style="width: 100%" onclick="Request('delete')">REMOVE</button>
                 </div>
                 <div class="custom-form-group text-center">
-                    <button class="custom-btn" style="width: 100%">SELECT</button>
+                    <button class="custom-btn control-names-view" style="width: 100%" onclick="Request('select')">VIEW</button>
                 </div>
             </fieldset>
         </div>
         <div style="width:33%; padding: 0 15px">
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Message</legend>
-                <p>Sample Message Here !!!!</p>
+                <div class="request-result">
+                    <p>Sample Message Here !!!!</p>
+                </div>
             </fieldset>
         </div>
     </div>
+    <script>
+        function JSONRequest(method, url, result, data = null) {
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Typical action to be performed when the document is ready:
+                    //document.getElementById("demo").innerHTML = xhttp.responseText;
+                    result(JSON.parse(xhttp.responseText));
+                }
+            };
+            xhttp.open(method, url, true);
+            if (data == null)
+                xhttp.send();
+            else
+            {
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.send(JSON.stringify(data));
+                console.log(JSON.stringify(data));
+            }
+        }
+
+        function Request(command) {
+            var e = document.getElementById("user-id");
+            var userID = e.options[e.selectedIndex].value;
+
+            var data = {
+                "ID": 0,
+                "FirstName": "sample string 2",
+                "LastName": "sample string 3",
+                "CName": "names",
+                "userID": userID
+            }
+
+            if (command == 'insert') {
+                JSONRequest('POST', 'http://192.168.1.100:97/api/namesample', result => {
+                    $('.request-result').html(JSON.stringify( result));
+                }, data);
+            }
+            else if (command == 'update') {
+                JSONRequest('PUT', 'http://192.168.1.100:97/api/namesample', result => {
+                    $('.request-result').html(JSON.stringify(result));
+                }, data);
+            }
+            else if (command == 'select') {
+                JSONRequest('GET', 'http://192.168.1.100:97/api/namesample' + userID, result => {
+                    $('.request-result').html(JSON.stringify(result));
+                }, null);
+            }            
+        }
+
+
+
+    </script>
 
 
     <div style="display:flex;  margin-top: 30px">
@@ -89,31 +176,31 @@
         <div style="width: 33%">
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label style="width:100px">User:</label>
-                    <select>
-                        <option value="1">User 1</option>
-                        <option value="2">User 2</option>
-                        <option value="3">User 3</option>
+                    <label style="width:100px">User ID:</label>
+                    <select id="setting-user-id">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
             </div>
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label style="width:100px">Level:</label>
-                    <select>
-                        <option value="1">Level 1</option>
-                        <option value="2">Level 2</option>
-                        <option value="3">Level 3</option>
+                    <label style="width:100px">Level ID:</label>
+                    <select id="setting-level-id">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
             </div>
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label style="width:100px">Role:</label>
-                    <select>
-                        <option value="1">Role 1</option>
-                        <option value="2">Role 2</option>
-                        <option value="3">Role 3</option>
+                    <label style="width:100px">Role ID:</label>
+                    <select id="setting-role-id">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
             </div>
@@ -122,7 +209,7 @@
                     <label style="width:100px">Customize:</label>
                     <div style="display:flex; width: 30%">
                         <div style="width: 50%">
-                            <input type="checkbox" name="Yes" class="customize-checkBox" value="" /> Yes
+                            <input type="checkbox" name="Yes" class="customize-checkBox control-names-customize-check" value=""  /> Yes
                         </div>
                         <div style="width: 50%">
                             <input type="checkbox" name="Yes" class="customize-checkBox" value="" /> No
@@ -136,7 +223,7 @@
         <table id="userRoleTable" style="border-collapse: collapse; width: 100%; border: 1px solid" cellpadding="0" cellspacing="0">
             <thead>
                 <tr>
-                    <th>NameInfo</th>
+                    <th>FEATURES</th>
                     <th>View</th>
                     <th>Add</th>
                     <th>Edit</th>
@@ -146,21 +233,66 @@
             
             <tbody>
                 <tr>
-                    <td><small>nameinfo</small></td>
-                    <td class="text-center"><input type="checkbox" name="View" value="" /></td>
-                    <td class="text-center"><input type="checkbox" name="Add" value="" /></td>
-                    <td class="text-center"><input type="checkbox" name="Edit" value="" /></td>
-                    <td class="text-center"><input type="checkbox" name="Delete" value="" /></td>
+                    <td><small>USERS</small></td>
+                    <td class="text-center control-names-select"><input type="checkbox" class="control-names-view-check" name="View" value="4" /></td>
+                    <td class="text-center control-names-add"><input type="checkbox" class="control-names-add-check" name="Add" value="1" /></td>
+                    <td class="text-center control-names-edit"><input type="checkbox" class="control-names-edit-check" name="Edit" value="2" /></td>
+                    <td class="text-center control-names-remove"><input type="checkbox" class="control-names-remove-check" name="Delete" value="3" /></td>
                 </tr>
             </tbody>
         </table>
-        <button class="custom-btn custom-save-btn" style="float:right; margin-top: 10px">SAVE</button>
+        <button class="custom-btn custom-save-btn" style="float:right; margin-top: 10px" onclick="SaveRoleInfo()">SAVE</button>
     </div>
 </div>
 
 <div class="content-footer">
 
 </div>
+<script>
+    function SaveRoleInfo() {
+        //Untested
+
+        var e = document.getElementById("setting-user-id");
+        var userID = e.options[e.selectedIndex].value;
+        e = document.getElementById("setting-level-id");
+        var levelID = e.options[e.selectedIndex].value;
+        e = document.getElementById("setting-role-id");
+        var roleID = e.options[e.selectedIndex].value;
+
+
+
+
+        var data = {
+            "ID": 0,
+            "EmpID_HRMS": userID,
+            "Username": "",
+            "Password": "",
+            "LevelID": levelID,
+            "RoleID": roleID,
+            "isCustom": $('.control-names-customize-check').prop("checked") ,
+            "customSettings": [
+                { "ControlAccessID": 1, "isAllowed": $('.control-names-add-check').prop("checked")  },
+                { "ControlAccessID": 2, "isAllowed": $('.control-names-edit-check').prop("checked") },
+                { "ControlAccessID": 3, "isAllowed": $('.control-names-remove-check').prop("checked") },
+                { "ControlAccessID": 4, "isAllowed": $('.control-names-view-check').prop("checked") }
+            ]
+        }
+
+        //console.log(data);
+        //return;
+
+        JSONRequest("POST",
+            "http://192.168.1.100:97/api/UserRoleLevelMasterList/",
+            e => {
+                console.log(e);
+            },
+            data);
+
+    }
+
+
+
+</script>
 
 @section Scripts{
 
