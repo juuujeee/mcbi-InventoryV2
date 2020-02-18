@@ -396,7 +396,7 @@ i.caret {
     position: absolute;
     top: 17px;
     left: 15px;
-    z-index: 999999;
+    z-index: 99999;
     position:fixed;
 }
 .mobile-menu .custom-btn {
@@ -443,7 +443,11 @@ i.caret {
         height: 100%;
         display: grid;
         grid-template-columns: 100%;
-        grid-template-areas: "header" "main"
+        grid-template-areas: "header" "main";
+        grid-template-rows: 100px auto auto;
+    }
+    .header{
+        height: 100px;
     }
     .right-sidebar {
         display: none;
@@ -454,7 +458,6 @@ i.caret {
     .left-sidebar.mobile-menu-open{
         display:block;
     }
-
     .left-sidebar{
         max-width:75%;
         min-width: 75%;
@@ -494,7 +497,7 @@ i.caret {
     .header .for-mobile img {
         display: block;
         padding-top: 5px;
-        width: 15%;
+        width: 10%;
         margin-left: auto;
         margin-right: auto;
     }
@@ -512,16 +515,24 @@ i.caret {
     legend.scheduler-border {
         font-weight: 500 !important;
     }
-
+    
 }
 
 @media screen and (max-width: 479px) {
     /* start of phone styles */
+
+    .wrapper{
+        grid-template-rows: 70px auto auto;
+    }
+   
     .header .header-title span{
-        font-size: 18px;
+        font-size: 16px;
     }
     .content-header .title {
         font-size: 29px;
+    }
+    .header{
+       height: auto;
     }
 
 }
