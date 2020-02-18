@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<form action="#" method="post" name="StockEntryForm" autocomplete="off" ">
+<form action="#" method="post" name="StockEntryForm" autocomplete="off">
 
     <div class="content-body">
         <div class="row-container">
@@ -305,9 +305,6 @@
         $(function () {
             $('form[name=StockEntryForm]').validate({
                 rules: {
-                    // The key name on the left side is the name attribute
-                    // of an input field. Validation rules are defined
-                    // on the right side
                     SupplierName: "required",
                     ProjectName: "required",
                     ReceivedBy: "required",
@@ -315,21 +312,13 @@
                     DeliveryDate: "required"
 
                 },
-                // Specify validation error messages
-                //messages: {
-                //    Supplier: "Select a Supplier",
-                //    ProjectName: "Select a Project",
-                //    ReceivedBy: "Select a Receiver",
-                //    DocNumber: "This Field can't be empty",
-                //    DeliveryDate: "This Field can't be empty",
-                //    DeliveryMethodAttr: "This Field can't be empty"
-                //},
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
+                errorPlacement: function () {
+                    return false;
+                },
+               
                 submitHandler: function (form, event) {
                     event.preventDefault();
-                    //fnSaveStockEntry(form);
-
+                 
                     fnSaveStockEntry(form);
                 }
             });
@@ -339,6 +328,7 @@
                     required: true
                 });
             });
+
         })
 
 

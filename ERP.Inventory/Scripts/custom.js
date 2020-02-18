@@ -372,7 +372,6 @@ function fnGetItemsByProj(event) {
 
     if (projectID === null || projectID === '') {
         swal.fire('Warning', 'Select Origin Project', 'warning');
-
     }
     else {
 

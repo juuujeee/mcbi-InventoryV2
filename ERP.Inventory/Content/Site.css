@@ -304,9 +304,7 @@ hr {
     border: none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-form .error {
-    color: #ff0000;
-}
+
 .text-ellipsis {
     overflow: hidden;
     white-space: nowrap;
@@ -392,6 +390,15 @@ i.caret {
     right: 15px;
     z-index: 999999;
     position:fixed;
+}
+
+/*JQUERY VALIDATION*/
+.error {
+    border: 1px solid #f00 !important;
+}
+
+.valid {
+    border: 1px solid #c9d6df !important;
 }
 
 /*------------------------------------------------
