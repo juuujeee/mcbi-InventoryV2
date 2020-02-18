@@ -86,10 +86,12 @@ body {
         HEADER CSS
 -----------------------------------------------------*/
 .header {
-    position: sticky;
+    position: fixed;
     top: 0;
     border-bottom: 1px solid #fff;
     z-index: 9999;
+    width:100%;
+    min-height:70px;
 }
 
 
@@ -392,10 +394,16 @@ i.caret {
 .mobile-menu {
     display: none;
     position: absolute;
-    top: 103px;
-    right: 15px;
+    top: 17px;
+    left: 15px;
     z-index: 999999;
     position:fixed;
+}
+.mobile-menu .custom-btn {
+    font-size: 18px;
+    background: transparent;
+    color: #fff;
+    border:none;
 }
 
 /*JQUERY VALIDATION*/
@@ -406,13 +414,30 @@ i.caret {
 .valid {
     border: 1px solid #c9d6df !important;
 }
+.left-sidebar .sidebar-logo {
+    margin-top: 40px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+.left-sidebar .sidebar-logo img {
+    width: 150px;
+}
+.left-sidebar hr {
+    width: 90%;
+    background: #fff !important;
+}
 
-/*------------------------------------------------
-        MEDIA QUERIES
-------------------------------------------------*/
-@media only screen and (max-width: 768px) {
-    .mobile-menu{
-        display:block;
+
+
+@media screen and (max-width: 991px) {
+    /* start of large tablet styles */
+
+}
+
+@media screen and (max-width: 767px) {
+    /* start of medium tablet styles */
+    .mobile-menu {
+        display: block;
     }
     .wrapper {
         height: 100%;
@@ -420,61 +445,84 @@ i.caret {
         grid-template-columns: 100%;
         grid-template-areas: "header" "main"
     }
-
-    .right-sidebar,
-    .left-sidebar {
+    .right-sidebar {
         display: none;
     }
+    .left-sidebar{
+        display: none;
+    }
+    .left-sidebar.mobile-menu-open{
+        display:block;
+    }
 
+    .left-sidebar{
+        max-width:75%;
+        min-width: 75%;
+    }
+    .left-sidebar .sidebar-logo, 
+    .left-sidebar hr{
+        display: none;
+    }
     .wrapper .content-body .row-container {
-        /*flex-direction: column;*/
         margin-top: 0;
     }
-    .content-body{
+    .content-body {
         width: 100vw;
     }
     .row-container .col {
-        /*width: 100%;*/
         flex-basis: unset;
     }
-    .row-container #col-1, .row-container #col-2{
+    .row-container #col-1, .row-container #col-2 {
         padding-right: 0;
     }
-    .custom-table thead tr td{
+    .custom-table thead tr td {
         font-size: 15px;
     }
     .table-container {
         padding-left: 15px;
         overflow-x: auto;
     }
-    .content .content-header h1{
+    .content .content-header h1 {
         margin: 0;
     }
-    .header .for-desktop{
+    .header .for-desktop {
         display: none;
     }
-    .header .for-mobile{
+    .header .for-mobile {
         display: block;
     }
     .header .for-mobile img {
         display: block;
-        padding-top:5px;
+        padding-top: 5px;
         width: 15%;
         margin-left: auto;
         margin-right: auto;
     }
     .header .header-title {
-        margin-top:2px;
+        margin-top: 2px;
     }
     .header .header-title span {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
-    .content-header .title{
+    .content-header .title {
         font-weight: 500;
     }
-    legend.scheduler-border{
+    legend.scheduler-border {
         font-weight: 500 !important;
     }
+
 }
+
+@media screen and (max-width: 479px) {
+    /* start of phone styles */
+    .header .header-title span{
+        font-size: 18px;
+    }
+    .content-header .title {
+        font-size: 29px;
+    }
+
+}
+

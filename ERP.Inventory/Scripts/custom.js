@@ -363,6 +363,10 @@ function fnGetItems(event) {
     });
 }
 
+$('#mobile-menu-btn').on('click', function (e) {
+    $('.left-sidebar').toggleClass('mobile-menu-open');
+});
+
 
 function fnGetItemsByProj(event) {
 
