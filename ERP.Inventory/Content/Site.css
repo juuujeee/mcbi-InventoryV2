@@ -431,7 +431,9 @@ i.caret {
 
 @media screen and (max-width: 991px) {
     /* start of large tablet styles */
-
+    .left-sidebar .sidebar-logo img{
+        width: 75%;
+    }
 }
 
 @media screen and (max-width: 767px) {
