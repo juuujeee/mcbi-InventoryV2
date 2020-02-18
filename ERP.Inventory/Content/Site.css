@@ -195,20 +195,26 @@ legend.scheduler-border {
 .custom-form-group{
     margin:.6rem 0;
 }
-.custom-form-group input[type=text],
-.custom-form-group input[type=password],
-.custom-form-group select {
-    width: 100%;
-    border: 1px solid #c9d6df;
-    height: 30px;
-    padding: 0.375rem 0.75rem;
-    border-radius: 5px;
-}
+    .custom-form-group input[type=text],
+    .custom-form-group input[type=password],
+    .custom-form-group select {
+        width: 100%;
+        border: 1px solid #c9d6df;
+        height: 30px;
+        padding: 0.375rem 0.75rem;
+        border-radius: 5px;
+        outline: none;
+    }
 
 .custom-form-group > input:disabled, .custom-form-group > input[readonly],
 .custom-form-group > select:disabled, .custom-form-group > select[readonly]{
     background-color: #e9ecef;
     opacity: 1;
+}
+
+.custom-form-group input[type=text]:focus,
+.custom-form-group input[type=password]:focus {
+   border: 1px solid 
 }
 
 /*-------------------------------------------------
