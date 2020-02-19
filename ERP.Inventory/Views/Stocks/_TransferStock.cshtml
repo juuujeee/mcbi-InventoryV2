@@ -2,15 +2,20 @@
     ViewBag.Title = "Transfer Stock Page";
 }
 
-<div class="content-header">
+<div class="content-header" id="transferStock_header">
     <div class="row-container">
         <div class="col">
             <h1 class="title">Transfer Stocks</h1>
         </div>
         <div class="col">
-            <button type="button" class="custom-btn" id="clear_fields">Clear</button>
-            <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
-            <button type="button" class="custom-btn">Print</button>
+            <div class="desktop-view">
+                <button type="button" class="custom-btn" id="clear_fields">Clear</button>
+                <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
+                <button type="button" class="custom-btn">Print</button>
+            </div>
+            <div class="mobile-view">
+
+            </div>
         </div>
     </div>
 </div>
@@ -20,7 +25,7 @@
         <div class="col" id="col-1">
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label>Select New or Post Transfer</label>
+                    <label style="width:150px">Select New or Post Transfer</label>
                     <select id="transfer_stock_option">
                         <option value="1">NEW STOCK TRANSFER</option>
                         <option value="2">CONFIRM STOCK TRANSFER</option>
@@ -31,7 +36,7 @@
         <div class="col">
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label id="seriesNumber"></label>
+                    <label id="seriesNumber" style="width:150px"></label>
                     <input type="text" name="RefNumber" value="" autocomplete="off" />
                 </div>
             </div>
