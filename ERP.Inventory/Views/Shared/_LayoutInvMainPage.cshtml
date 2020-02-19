@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="~/Content/jquery-ui.css"/>
     <link rel="stylesheet" href="~/Content/datepicker.css"/>
     <link rel="stylesheet" href="~/Content/font-awesome.css"/>
+    <link href="~/Content/animate.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
@@ -29,7 +30,7 @@
                 <span style="">INVENTORY MANAGEMENT SYSTEM</span>
             </div>
         </div>
-        <div class="left-sidebar">
+        <div class="left-sidebar custom-animated">
 
             <div class="sidebar-logo" style="">
                 <img src="/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="">
@@ -44,11 +45,11 @@
                 </li>
                 <li style="position:relative">
                     <a href="javascript:void(0)" class="sidebar-menu" data-target="#inventorySubMenu">
-                        <i class="fa fa-angle-right caret" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
+                        <i class="fa fa-angle-right caret" style=""></i>
                         <i class="fa fa-tag fa-fw"></i>
                         INVENTORY
                     </a>
-                    <ul id="inventorySubMenu" class="d-none" style="padding-left: 0">
+                    <ul id="inventorySubMenu" class="d-none animated" style="padding-left: 0">
                         <li class="">
                             <a href="@Url.Action("StockEntry", "Stocks")" class="sidebar-menu sub-menu" style="position:relative">
                                 <i class="fa fa-circle fa-fw"></i>
@@ -57,7 +58,7 @@
                         </li>
                         <li class="" style="position:relative">
                             <a href="javascript:void(0)" data-target="#stockFlowSubMenu" class="sidebar-menu sub-menu" style="position:relative">
-                                <i class="fa fa-angle-right caret" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
+                                <i class="fa fa-angle-right caret" style=""></i>
                                 <i class="fa fa-circle fa-fw"></i>
                                 Stock Flow
                             </a>

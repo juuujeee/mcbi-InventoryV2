@@ -375,9 +375,15 @@ button:disabled{
     pointer-events: none;
     opacity: .8;
 }
-i.caret {
-    transition: all .2s ease;
+
+.sidebar-menu .caret {
+    position: absolute;
+    font-size: 20px;
+    right: 20px;
+    top: 10px;
+    transition: all .3s ease;
 }
+
 .open-menu i.caret{
     transform:rotate(90deg);
 }
@@ -405,6 +411,28 @@ i.caret {
     color: #fff;
     border:none;
 }
+.left-sidebar .sidebar-logo {
+    margin-top: 40px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.left-sidebar .sidebar-logo img {
+    width: 150px;
+}
+
+.left-sidebar hr {
+    width: 90%;
+    background: #fff !important;
+}
+
+.custom-animated {
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
 
 /*JQUERY VALIDATION*/
 .error {
@@ -413,18 +441,6 @@ i.caret {
 
 .valid {
     border: 1px solid #c9d6df !important;
-}
-.left-sidebar .sidebar-logo {
-    margin-top: 40px;
-    margin-bottom: 35px;
-    text-align: center;
-}
-.left-sidebar .sidebar-logo img {
-    width: 150px;
-}
-.left-sidebar hr {
-    width: 90%;
-    background: #fff !important;
 }
 
 
@@ -517,7 +533,9 @@ i.caret {
     legend.scheduler-border {
         font-weight: 500 !important;
     }
-    
+    .left-sidebar {
+        top: 100px;
+    }
 }
 
 @media screen and (max-width: 479px) {
@@ -535,6 +553,9 @@ i.caret {
     }
     .header{
        height: auto;
+    }
+    .left-sidebar{
+        top: 70px;
     }
 
 }
