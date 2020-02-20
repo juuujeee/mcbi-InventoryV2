@@ -14,7 +14,14 @@
                 <button type="button" class="custom-btn">Print</button>
             </div>
             <div class="mobile-view">
-
+                <div class="dropdown">
+                    <button onclick="ShowDropdown()" class="dropbtn">Action</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="javascript:void(0)" class="custom-btn" id="clear_fields">Clear</a>
+                        <a href="javascript:void(0)" class="custom-btn" id="edit_release_stock">Edit</a>
+                        <a href="javascript:void(0)" class="custom-btn">Print</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +51,7 @@
     </div>
     <div class="row-container">
         <div class="col">
-            <fieldset class="scheduler-border" id="releaseStock_employeeInfo">
+            <fieldset class="scheduler-border" id="releaseStock_employeeInfo" style="border-radius: 5px">
                 <legend class="scheduler-border">EMPLOYEE INFORMATION</legend>
                 <div class="row-container" id="row-1">
                     <div class="col">
@@ -59,7 +66,7 @@
                         <div class="custom-form-group">
                             <div style="display:flex">
                                 <label style="width: 150px">IDNUMBER</label>
-                                <input type="text" name="EmployeeIDNumber" value="" disabled/>
+                                <input type="text" name="EmployeeIDNumber" value="" disabled />
                             </div>
                         </div>
                     </div>
@@ -69,7 +76,7 @@
                         <div class="custom-form-group">
                             <div style="display:flex">
                                 <label style="width: 150px">POSITION</label>
-                                <input type="text" name="PositionName" value="" disabled/>
+                                <input type="text" name="PositionName" value="" disabled />
                             </div>
                         </div>
                     </div>
@@ -77,7 +84,7 @@
                         <div class="custom-form-group">
                             <div style="display:flex">
                                 <label style="width: 150px">DEPARTMENT</label>
-                                <input type="text" name="Department" value="" disabled/>
+                                <input type="text" name="Department" value="" disabled />
                             </div>
                         </div>
                     </div>
@@ -94,7 +101,7 @@
                     <div class="col">
                         <div class="custom-form-group">
                             <div style="display:flex">
-                                <label style="width: 150px">Ctrl No</label>
+                                <label style="width: 150px">CTRL NO</label>
                                 <input type="text" name="CtrlNumber" value="" />
                             </div>
                         </div>
@@ -140,16 +147,16 @@
             </tbody>
         </table>
     </div>
-    <div style="margin-top:15px">
-        <button class="custom-btn custom-info-btn" id="add_releaseStock_item">
-            <i class="fa fa-plus fa-fw"></i> Add
-        </button>
+    <div class="link-button-container">
+        <a class="link-button" id="add_releaseStock_item">
+            Add New Item
+        </a>
     </div>
 </div>
 
 <div class="content-footer">
     <div style="width: 100%; text-align:right">
-        <button type="button" class="custom-btn custom-save-btn save_transferStock" onclick="fnSaveReleaseStock(event)">
+        <button type="button" class="custom-btn custom-save-btn save_releaseStock responsive-button" onclick="fnSaveReleaseStock(event)">
             <i class="fa fa-save"></i> Save
         </button>
     </div>
@@ -179,30 +186,30 @@
 
     <script>
 
-        //$(function () {
-        //    $('#release_stock_option').trigger('change');
+        $(function () {
+            $('#release_stock_option').trigger('change');
 
-        //    //CLEAR FIELDS
-        //    $('#clear_fields').on('click', function (e) {
+            ////CLEAR FIELDS
+            //$('#clear_fields').on('click', function (e) {
 
-        //        $(this).closest('.content-header').next().find('input').val('');
-        //    });
+            //    $(this).closest('.content-header').next().find('input').val('');
+            //});
 
 
-        //    //EDIT TRANSFER STOCK
-        //    $('#edit_stock').on('click', function (e) {
+            ////EDIT TRANSFER STOCK
+            //$('#edit_stock').on('click', function (e) {
 
-        //        //make editable all inputs in the form
-        //        $(this).closest('.content-header').next().find('input, select').removeAttr('disabled');
+            //    //make editable all inputs in the form
+            //    $(this).closest('.content-header').next().find('input, select').removeAttr('disabled');
 
-        //        //remove the disabled property of save button
-        //        $(this).closest('.content-header').nextAll().find('.save_transferStock').removeAttr('disabled');
+            //    //remove the disabled property of save button
+            //    $(this).closest('.content-header').nextAll().find('.save_transferStock').removeAttr('disabled');
 
-        //        //remove the css inline in parent container
-        //        $(this).closest('.content-header').next().removeAttr('style');
+            //    //remove the css inline in parent container
+            //    $(this).closest('.content-header').next().removeAttr('style');
 
-        //    })
-        //});
+            //})
+        });
 
 
         $('#add_releaseStock_item').on('click', function (e) {
@@ -229,37 +236,56 @@
         })
 
 
-        ////FOR TRANSFER STOCK OPTION
-        //$('#release_stock_option').on('change', function (e) {
+        //FOR TRANSFER STOCK OPTION
+        $('#release_stock_option').on('change', function (e) {
 
-        //    var $this = $(this);
+            var $this = $(this);
 
-        //    if (parseInt($(this).val()) === 1) {
-        //        $('input[name=RefNumber]').removeClass('refNumber');
+            if (parseInt($(this).val()) === 1) {
+                $('input[name=RefNumber]').removeClass('refNumber');
 
-        //        $('#seriesNumber').text('Enter Form Series No:');
-        //        $this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').removeAttr('disabled');
+                $('#seriesNumber').text('Enter Form Series No:');
+                //$this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').removeAttr('disabled');
 
-        //        //item entry
-        //        $this.parents('.content-body').find('table.custom-table').find('input.items').removeAttr('disabled');
+                ////item entry
+                //$this.parents('.content-body').find('table.custom-table').find('input.items').removeAttr('disabled');
 
-        //        //change save button prop
-        //        $this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'saveTransferStock');
-        //    }
-        //    else {
+                ////change save button prop
+                //$this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'saveTransferStock');
+            }
+            else {
 
-        //        $('input[name=RefNumber]').addClass('refNumber');
+                $('input[name=RefNumber]').addClass('refNumber');
 
-        //        $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
-        //        $this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').attr('disabled', true);
+                $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
+                //$this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').attr('disabled', true);
 
-        //        //item entry
-        //        $this.parents('.content-body').next('div').find('table.custom-table').find('input.items').attr('disabled', true);
+                ////item entry
+                //$this.parents('.content-body').next('div').find('table.custom-table').find('input.items').attr('disabled', true);
 
-        //        //change save button prop
-        //        $this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'confirmTransferStock');
-        //    }
-        //});
+                ////change save button prop
+                //$this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'confirmTransferStock');
+            }
+        });
+
+
+        function ShowDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
     </script>
 
