@@ -25,27 +25,29 @@
             <div class="second-col">
                 <fieldset class="scheduler-border login-container">
                     <legend class="scheduler-border">LOGIN</legend>
-                    <div class="custom-form-group login-input">
-                        <div style="display:flex">
-                            <label style="width:150px">Username:</label>
-                            <input type="text" name="Username" class="" value="" />
+                    <form action="#" method="post" id="loginForm" autocomplete="off">
+                        <div class="custom-form-group login-input">
+                            <div style="display:flex">
+                                <label style="width:150px">Username:</label>
+                                <input type="text" name="Username" class="" value="" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="custom-form-group login-input">
-                        <div style="display:flex">
-                            <label style="width: 150px">Password:</label>
-                            <input type="password" name="Password" class="" value="" />
+                        <div class="custom-form-group login-input">
+                            <div style="display:flex">
+                                <label style="width: 150px">Password:</label>
+                                <input type="password" name="Password" class="" value="" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="custom-form-group" id="otp" style="display:none">
-                        <div style="display:flex">
-                            <label style="width: 150px">OTP:</label>
-                            <input type="text" name="OTP" class="" value="" />
+                        <div class="custom-form-group" id="otp" style="display:none">
+                            <div style="display:flex">
+                                <label style="width: 150px">OTP:</label>
+                                <input type="text" name="OTP" class="" value="" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="custom-form-group login-action-container">
-                        <button type="button" id="login_btn" class="custom-btn custom-save-btn login-btn">Login</button>
-                    </div>
+                        <div class="custom-form-group login-action-container">
+                            <button type="submit" id="login_btn" class="custom-btn custom-save-btn login-btn">Login</button>
+                        </div>
+                    </form>
                 </fieldset>
             </div>
             <div class="third-col"></div>
@@ -53,13 +55,45 @@
     </div>
 
     <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
 
     <script>
-        $('#login_btn').click(function (e) {
+        $('#loginForm').on('submit', function (e) {
 
-            $('#otp').show();
+            e.preventDefault();
 
-            $('.login-input').find('input').attr('disabled', true);
+            var loginData = {
+                Username: $(this).find('input[name=Username]').val(),
+                Password: $(this).find('input[name=Password]').val()
+            };
+
+            //console.log(loginData);
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'POST',
+                url: 'http://192.168.1.100:98/api/user/login',
+                data: JSON.stringify(loginData),
+                dataType: 'json',
+                success: function (response) {
+
+                    //console.log(response);
+
+                    if (response.ID > 0) {
+                        console.log(response.TokenInfo[0]);
+
+                        $.cookie("Token", response.TokenInfo[0].Token);
+                        $.cookie("UserID", response.TokenInfo[0].UserID);
+                    }
+                }
+            });
+
+            //$('#otp').show();
+
+            //$('.login-input').find('input').attr('disabled', true);
 
         });
     </script>
