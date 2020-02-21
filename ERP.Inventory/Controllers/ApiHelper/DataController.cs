@@ -15,12 +15,17 @@ namespace ERP.Inventory.Controllers
 
         public DataController() : base("http://192.168.1.100:90/api/") {
 
+
+        }
+
+        void LoadHeader()
+        { 
             SyncRequest.httpClient.DefaultRequestHeaders.Clear();
             foreach(string i in Request.Headers.AllKeys)
             {
                 SyncRequest.httpClient.DefaultRequestHeaders.Add(i, Request.Headers[i]);
             }
-
+        
         }
 
 
@@ -37,7 +42,7 @@ namespace ERP.Inventory.Controllers
         public ActionResult Get(string name, int? id, string sample)
         {
             //SyncRequest.httpClient.DefaultRequestHeaders.a
-
+            LoadHeader();
             if (id == 0)
                 return Ok(SyncRequest.HttpRequest(name));
             else if (id == null)
@@ -59,8 +64,9 @@ namespace ERP.Inventory.Controllers
         [Route("Data/{name}")]
         public ActionResult Get2(string name)
         {
-            
-                return Ok(SyncRequest.HttpRequest(name));
+            LoadHeader();
+
+            return Ok(SyncRequest.HttpRequest(name));
             /*
 
             if (id == 0)
@@ -80,6 +86,7 @@ namespace ERP.Inventory.Controllers
         [Helper.ProducesJson]
         public ActionResult Post(string name, string samples)
         {
+            LoadHeader();
             // + Request.RequestContext.RouteData.Values["directives"].ToString();
             Stream req = Request.InputStream;
             req.Seek(0, System.IO.SeekOrigin.Begin);

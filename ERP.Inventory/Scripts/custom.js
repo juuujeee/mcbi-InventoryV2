@@ -50,6 +50,13 @@ $('.sidebarCollapse').on('show.bs.collapse', function () {
 });
 
 
+$.ajaxSetup({
+    headers: {
+        'UserID': $.cookie("UserID"),
+        'Token': $.cookie("Token")
+    }
+});
+
 
 //FOR DELIVERY METHOD ONCHANGE
 $('.delMethodID').on('change', function (e) {
