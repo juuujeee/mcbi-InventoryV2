@@ -13,7 +13,15 @@ namespace ERP.Inventory.Controllers
     {
         public override object TempObject { get; set; }
 
-        public DataController() : base("http://192.168.1.100:90/api/") { }
+        public DataController() : base("http://192.168.1.100:90/api/") {
+
+            SyncRequest.httpClient.DefaultRequestHeaders.Clear();
+            foreach(string i in Request.Headers.AllKeys)
+            {
+                SyncRequest.httpClient.DefaultRequestHeaders.Add(i, Request.Headers[i]);
+            }
+
+        }
 
 
         // GET: Inventory
@@ -28,6 +36,7 @@ namespace ERP.Inventory.Controllers
         [Route("Data/{name}/{id}/{*sample}")]
         public ActionResult Get(string name, int? id, string sample)
         {
+            //SyncRequest.httpClient.DefaultRequestHeaders.a
 
             if (id == 0)
                 return Ok(SyncRequest.HttpRequest(name));

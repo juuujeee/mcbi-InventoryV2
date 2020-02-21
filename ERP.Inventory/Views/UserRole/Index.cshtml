@@ -41,15 +41,10 @@
                             //console.log(e.customSettings[i].isAllowed);
                             $(e.customSettings[i].defaultElement).attr('disabled', !e.customSettings[i].isAllowed);
                             $(e.customSettings[i].defaultElement + '-check').prop('checked', e.customSettings[i].isAllowed);
-                            console.log()
+                            //console.log()
                             //console.log(e.customSettings[i].defaultElement + ' ' + e.customSettings[i].isAllowed);
                         }
-
-
-
                     });
-
-
                 }
                 function GetUserInfo(empID, res) {
                     JSONRequest('GET', "http://192.168.1.100:97/api/UserRoleLevelMasterList/" + empID, e => {
