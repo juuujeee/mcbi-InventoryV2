@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Inventory", "ERP.Inventory\ERP.Inventory.csproj", "{235AA9FD-0A5B-431A-853B-500C32C0DCFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\ApiCommon\Helper\Helper.csproj", "{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\..\..\Desktop\inventories\ApiCommon\Helper\Helper.csproj", "{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
