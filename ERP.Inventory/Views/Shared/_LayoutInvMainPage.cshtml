@@ -6,32 +6,36 @@
     <link rel="stylesheet" href="~/Content/jquery-ui.css"/>
     <link rel="stylesheet" href="~/Content/datepicker.css"/>
     <link rel="stylesheet" href="~/Content/font-awesome.css"/>
+    <link href="~/Content/animate.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
 
     <div class="wrapper">
         <div class="mobile-menu">
-            <button class="custom-btn"><i class="fa fa-bars"></i></button>
+            <button class="custom-btn" id="mobile-menu-btn"><i class="fa fa-bars"></i></button>
         </div>
         <div class="header">
-            <div style="width:100%; text-align:right">
+            <div style="" class="for-desktop">
                 MCBI - Inventory Series @DateTime.Today.Year
             </div>
-            <div style="width: 100%; display:flex; padding:0 15px;">
+            <div class="for-mobile">
+                <img src="~/Content/Images/MCBILogo_White.png" alt="" />
+            </div>
+            <div class="header-title" style="">
                 @*<a href="#" style="color:white; text-decoration: none">
                     <img src="/Content/Images/temp_logo_transparent.png" alt="Alternate Text" style="width:35%; margin-right:5px">
 
                 </a>*@
-                <span style="font-size:20px">INVENTORY MANAGEMENT SYSTEM</span>
+                <span style="">INVENTORY MANAGEMENT SYSTEM</span>
             </div>
         </div>
-        <div class="left-sidebar">
+        <div class="left-sidebar custom-animated">
 
-            <div class="" style="margin-top:40px; margin-bottom:35px; text-align:center">
-                <img src="/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="width:150px">
+            <div class="sidebar-logo" style="">
+                <img src="/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="">
             </div>
-            <hr class="" style="width:90%; background: #fff !important">
+            <hr class="" style="">
             <ul class="sidebar">
                 <li>
                     <a href="#" class="sidebar-menu">
@@ -41,11 +45,11 @@
                 </li>
                 <li style="position:relative">
                     <a href="javascript:void(0)" class="sidebar-menu" data-target="#inventorySubMenu">
-                        <i class="fa fa-angle-right caret" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
+                        <i class="fa fa-angle-right caret" style=""></i>
                         <i class="fa fa-tag fa-fw"></i>
                         INVENTORY
                     </a>
-                    <ul id="inventorySubMenu" class="d-none" style="padding-left: 0">
+                    <ul id="inventorySubMenu" class="d-none animated" style="padding-left: 0">
                         <li class="">
                             <a href="@Url.Action("StockEntry", "Stocks")" class="sidebar-menu sub-menu" style="position:relative">
                                 <i class="fa fa-circle fa-fw"></i>
@@ -54,7 +58,7 @@
                         </li>
                         <li class="" style="position:relative">
                             <a href="javascript:void(0)" data-target="#stockFlowSubMenu" class="sidebar-menu sub-menu" style="position:relative">
-                                <i class="fa fa-angle-right caret" style="position:absolute; font-size:20px; right:20px; top:10px"></i>
+                                <i class="fa fa-angle-right caret" style=""></i>
                                 <i class="fa fa-circle fa-fw"></i>
                                 Stock Flow
                             </a>
@@ -63,7 +67,7 @@
                                     <a href="@Url.Action("TransferStock", "Stocks")" class="sidebar-menu child-sub-menu">Transfer Stocks</a>
                                 </li>
                                 <li class="">
-                                    <a href="#" class="sidebar-menu child-sub-menu">Release Stocks</a>
+                                    <a href="@Url.Action("ReleaseStock", "Stocks")" class="sidebar-menu child-sub-menu">Release Stocks</a>
                                 </li>
                             </ul>
                         </li>
@@ -127,6 +131,7 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/datepicker.js"></script>
     <script src="~/Scripts/sweetalert2.all.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
     <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
 </body>

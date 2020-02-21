@@ -2,15 +2,27 @@
     ViewBag.Title = "Transfer Stock Page";
 }
 
-<div class="content-header">
-    <div class="row-container">
+<div class="content-header" id="transferStock_header">
+    <div class="row-container" style="padding-left:0; margin-top:0">
         <div class="col">
-            <h1>Transfer Stocks</h1>
+            <h1 class="title" style="margin:0">Transfer Stocks</h1>
         </div>
         <div class="col">
-            <button type="button" class="custom-btn" id="clear_fields">Clear</button>
-            <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
-            <button type="button" class="custom-btn">Print</button>
+            <div class="desktop-view" style="text-align: right;">
+                <button type="button" class="custom-btn clear_fields">Clear</button>
+                <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
+                <button type="button" class="custom-btn">Print</button>
+            </div>
+            <div class="mobile-view">
+                <div class="dropdown">
+                    <button onclick="ShowDropdown()" class="dropbtn">Action</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <button type="button" class="custom-btn clear_fields">Clear</button>
+                        <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
+                        <button type="button" class="custom-btn">Print</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -20,7 +32,7 @@
         <div class="col" id="col-1">
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label>Select New or Post Transfer</label>
+                    <label style="width:150px">Select New or Post Transfer</label>
                     <select id="transfer_stock_option">
                         <option value="1">NEW STOCK TRANSFER</option>
                         <option value="2">CONFIRM STOCK TRANSFER</option>
@@ -31,7 +43,7 @@
         <div class="col">
             <div class="custom-form-group">
                 <div style="display:flex">
-                    <label id="seriesNumber"></label>
+                    <label id="seriesNumber" style="width:150px"></label>
                     <input type="text" name="RefNumber" value="" autocomplete="off" />
                 </div>
             </div>
@@ -39,7 +51,7 @@
     </div>
     <div class="row-container">
         <div class="col" id="col-1">
-            <fieldset class="scheduler-border" id="origin-fieldset">
+            <fieldset class="scheduler-border" id="origin-fieldset" style="border-radius: 5px">
                 <legend class="scheduler-border">ORIGIN DETAILS</legend>
                 <div class="custom-form-group">
                     <div style="display:flex">
@@ -70,7 +82,7 @@
             </fieldset>
         </div>
         <div class="col" id="col-2">
-            <fieldset class="scheduler-border" id="deliveryMethod-fieldset">
+            <fieldset class="scheduler-border" id="deliveryMethod-fieldset" style="border-radius: 5px">
                 <legend class="scheduler-border">DELIVERY</legend>
                 <div class="custom-form-group">
                     <div style="display:flex">
@@ -94,7 +106,7 @@
             </fieldset>
         </div>
         <div class="col" id="col-3">
-            <fieldset class="scheduler-border" id="destination-fieldset">
+            <fieldset class="scheduler-border" id="destination-fieldset" style="border-radius: 5px">
                 <legend class="scheduler-border">DESTINATION</legend>
                 <div class="custom-form-group">
                     <div style="display:flex">
@@ -162,19 +174,20 @@
             </tbody>
         </table>
     </div>
-    <div style="margin-top:15px">
-        <button class="custom-btn custom-info-btn" id="add_transferStock_item">
-            <i class="fa fa-plus fa-fw"></i> Add
-        </button>
+    <div class="link-button-container">
+        <a class="link-button" id="add_transferStock_item">
+             Add New Item
+        </a>
     </div>
 </div>
 
 <div class="content-footer">
     <div style="width: 100%; text-align:right">
-        <button type="button" class="custom-btn custom-save-btn save_transferStock" onclick="fnSaveTransferStock(event)">
+        <button type="button" class="custom-btn custom-save-btn save_transferStock responsive-button" onclick="fnSaveTransferStock(event)">
             <i class="fa fa-save"></i> Save
         </button>
     </div>
+
 </div>
 
 
@@ -207,7 +220,16 @@
             $('#transfer_stock_option').trigger('change');
 
             //CLEAR FIELDS
-            $('#clear_fields').on('click', function (e) {
+            //$('#clear_fields').on('click', function (e) {
+            //    e.preventDefault();
+
+            //    console.log("Test");
+
+            //    
+            //});
+
+            $(document).on('click', '.clear_fields', function (e) {
+                e.preventDefault();
 
                 $(this).closest('.content-header').next().find('input').val('');
             });
@@ -293,7 +315,7 @@
             if (e.keyCode === 13) {
                 // Do something
 
-                var link = 'http://localhost:63666/Data/TransMasterlist/SearchByReference?q=' + $(this).val();
+                var link = '/Data/TransMasterlist/SearchByReference?q=' + $(this).val();
 
                 //console.log(link);
 
@@ -305,7 +327,8 @@
 
                     else {
 
-                        //console.log(data);
+                        console.log(data);
+
 
                         $this.parents('.content-body').find('.card-body').find('input').val('');
                         $this.parents('.content-body').find('input[name=ID]').val(data.ID);
@@ -332,8 +355,6 @@
 
                             var delMethodAttr = data.TransInfoDelMetAttrValue[d];
 
-                            //console.log(data.TransInfoDelMetAttrValue[d]);
-
                             $this.parents('.content-body').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
                         }
 
@@ -348,7 +369,7 @@
                             var entry = data.TransItemEntryList[i];
 
                             //for item name
-                            var itemLink = 'http://localhost:63666/Data/ItemsMasterList/' + entry.ItemID_011;
+                            var itemLink = '/Data/ItemsMasterList/' + entry.ItemID_011;
                             $.getJSON(itemLink, function (itemResponse) {
                                 if (itemResponse !== null) {
                                     $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
@@ -357,7 +378,8 @@
 
 
                             // for units
-                            var unitLink = 'http://localhost:63666/Data/units/' + entry.UnitsID_009;
+                            var unitLink = '/Data/units/' + entry.UnitsID_009;
+                            console.log(unitLink);
                             $.getJSON(unitLink, function (unitResponse) {
                                 if (unitResponse !== null) {
                                     $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
@@ -371,7 +393,7 @@
 
                             8
                             //for item condition
-                            var itemConditionLink = 'http://localhost:63666/Data/itemcondition/' + entry.ItemCondID_018;
+                            var itemConditionLink = '/Data/itemcondition/' + entry.ItemConID_018;
                             $.getJSON(itemConditionLink, function (itemConditionResponse) {
                                 if (itemConditionResponse !== null) {
                                     $this.parents('.content-body').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
@@ -439,7 +461,7 @@
 
             if ($this.attr('id') === 'saveTransferStock') {
 
-                url = 'http://localhost:63666/Data/TransMasterList';
+                url = '/Data/TransMasterList';
 
                 //SAVE TRANSFER STOCKS DATA
                 var saveTransferEntry = {
@@ -465,7 +487,7 @@
                 entry = saveTransferEntry;
             }
             else {
-                url = 'http://localhost:63666/Data/TransMasterList/ConfirmReceive';
+                url = '/Data/TransMasterList/ConfirmReceive';
 
                 var confirmTransferEntry = {
                     ID: $this.parents('.content-footer').prev().find('input[name=ID]').val() || 0,
@@ -482,7 +504,7 @@
 
             console.log(entry);
 
-            return;
+            //return;
 
             $.ajax({
                 headers: {
@@ -560,7 +582,7 @@
 
         //EMPLOYEE AUTOCOMPLETE
         var emp = [];
-        var empURL = 'http://localhost:63666/Data/HRMSEmployeeList';
+        var empURL = '/Data/HRMSEmployeeList';
 
         $.getJSON(empURL, function (data) {
             for (var i = 0; i < data.length; i++) {
@@ -586,7 +608,7 @@
 
         //PROJECT AUTOCOMPLETE
         var proj = [];
-        var projURL = 'http://localhost:63666/Data/ENGProjectList';
+        var projURL = '/Data/ENGProjectList';
 
         $.getJSON(projURL, function (data) {
 
@@ -620,19 +642,24 @@
             });
         });
 
-        //RECENT TRANSFER STOCK ENTRY TRANSACTIONS
-        //var tranferStockURL = 'http://localhost:63666/Data/TransMasterlist';
-        //$.getJSON(tranferStockURL, function (data) {
 
-        //    //var confirmStock = [];
-        //    //var pendingStock = [];
+        function ShowDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-        //    //for (var i = 0; i < data.length; i++) {
-        //    //     console.log(data[i]);
-        //    //}
-
-           
-        //});
+         //Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
 
     </script>
 

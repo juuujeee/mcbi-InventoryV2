@@ -10,9 +10,8 @@ a {
 
 body {
     margin: 0;
-    font-family: Calibri, sans-serif;
     height: 100%;
-    background: #bdc8c8;
+    background: #eeeeee;
 }
 
 .login-wrapper {
@@ -24,7 +23,7 @@ body {
     grid-template-areas: "header" "content";
 }
 
-.header{
+.header {
     grid-area: header;
 }
 
@@ -33,14 +32,13 @@ body {
     /*background: #bdc8c8;*/
 }
 
-
 /*------------------------------------------------
         FIELDSET CSS
 -------------------------------------------------*/
 
 fieldset.scheduler-border {
     border: 1px groove #ddd !important;
-    padding: 0 1.4em 1.4em 1.4em !important;
+    padding: 0 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0 !important;
     -webkit-box-shadow: 0px 0px 0px 0px #000;
     box-shadow: 0px 0px 0px 0px #000;
@@ -56,19 +54,27 @@ legend.scheduler-border {
 }
 
 
+.login-container {
+    padding-top: 40px !important;
+    border-radius: 5px;
+}
+
+
 
 /*CUSTOM FORMS*/
 .custom-form-group {
     margin: .6rem 0;
 }
 
-.custom-form-group div > input,
-.custom-form-group div > select {
-    width: 100%;
-    border: 1px solid #c9d6df;
-    height: 30px;
-    padding: 0.375rem 0.75rem
-}
+    .custom-form-group div > input,
+    .custom-form-group div > select {
+        width: 100%;
+        border: 1px solid #c9d6df;
+        height: 30px;
+        padding: 0.375rem 0.75rem;
+        outline: none;
+        border-radius: 5px;
+    }
 
 .custom-btn {
     padding: 10px;
@@ -80,26 +86,27 @@ legend.scheduler-border {
     border-radius: 5px;
 }
 
-.custom-btn:hover {
-    background: #dde1e5;
-    border-color: #dde1e5;
-}
+    .custom-btn:hover {
+        background: #dde1e5;
+        border-color: #dde1e5;
+    }
+
 .custom-save-btn {
     background: #28a745;
     border-color: #28a745;
     color: #fff;
 }
 
-.custom-save-btn:hover {
-    background: #1f8236;
-    border-color: #1f8236;
-}
+    .custom-save-btn:hover {
+        background: #1f8236;
+        border-color: #1f8236;
+    }
 
 
 /*LOGIN CONTAINER*/
-.login-action-container{
-    text-align:right;
-    margin-top:15px;
+.login-action-container {
+    text-align: right;
+    margin-top: 15px;
 }
 
 .login-btn {
@@ -117,31 +124,35 @@ legend.scheduler-border {
     background: #222831;
     padding: 0 2em;
 }
-.header .logo {
-    grid-area: logo;
-    padding:5px;
-    z-index:99;
-}
-.header .text {
-    grid-area: text;
-    color:#fff;
-    /*font-size:25px;*/
-    display: table;
-    height: 100%;
-    padding:10px;
-}
-.header .text h1 {
-    display: table-cell;
-    margin: 0;
-    font-weight: 400;
-    font-size: 35px;
-    vertical-align:bottom;
-}
-.header .logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+
+    .header .logo {
+        grid-area: logo;
+        padding: 5px;
+        z-index: 99;
+    }
+
+    .header .text {
+        grid-area: text;
+        color: #fff;
+        /*font-size:25px;*/
+        display: table;
+        height: 100%;
+        padding: 10px;
+    }
+
+        .header .text h1 {
+            display: table-cell;
+            margin: 0;
+            font-weight: 400;
+            font-size: 35px;
+            vertical-align: bottom;
+        }
+
+    .header .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 
 .content {
     display: grid;
@@ -150,32 +161,43 @@ legend.scheduler-border {
     /*grid-template-rows: 100%;*/
     padding: 20px;
 }
-.content .first-col{
-    grid-area: first-col;
-}
-.content .second-col{
-    grid-area: second-col;
-}
-.content .third-col{
-    grid-area: third-col;
-}
+
+    .content .first-col {
+        grid-area: first-col;
+    }
+
+    .content .second-col {
+        grid-area: second-col;
+    }
+
+    .content .third-col {
+        grid-area: third-col;
+    }
 
 input:disabled {
     background-color: #e9ecef;
     opacity: .8;
 }
 
-@media only screen and (max-width: 600px) {
+
+
+@media screen and (max-width: 991px) {
+    /* start of large tablet styles */
+
+}
+
+@media screen and (max-width: 767px) {
+    /* start of medium tablet styles */
     .login-wrapper {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 30vh auto;
+        grid-template-rows: 20vh auto;
         grid-template-areas: "header" "content";
     }
 
     .header {
         display: grid;
-        grid-template-rows:80% auto;
+        grid-template-rows: 80% auto;
         grid-template-columns: 100%;
         grid-template-areas: "logo" "text";
         background: #222831;
@@ -188,18 +210,62 @@ input:disabled {
         grid-template-columns: 100%;
         grid-template-areas: "second-col";
     }
+
     .content .first-col,
-    .content .third-col{
-        display:none
+    .content .third-col {
+        display: none
     }
-    
+
     .content fieldset {
         width: 100%;
     }
-    .header .text h1{
+
+    .header .text h1 {
         font-size: 20px;
     }
+
+    .header .text {
+        text-align: center;
+    }
+
+    .header .logo {
+        padding: 0;
+        height: auto;
+    }
+
+    .header .logo img {
+        width: 30%;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
     .login-action-container {
         text-align: center;
     }
+
+    .content .second-col {
+        padding: 15px;
+        padding-top: 30px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    /* start of phone styles */
+    .login-wrapper {
+        grid-template-rows: 15vh auto;
+    }
+    .header .logo img {
+        width: 20%;
+    }
+    .header .text h1 {
+        font-size: 15px;
+    }
+    .header .text{
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 320px){
+
 }

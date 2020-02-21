@@ -5,11 +5,11 @@
 <div class="content-header">
     <div style="display:flex">
         <div style="width:50%; text-align:left">
-            <h1>Entry Stocks</h1>
+            <h1 class="title" style="margin:0">Entry Stocks</h1>
         </div>
     </div>
 </div>
-<form action="#" method="post" name="StockEntryForm" autocomplete="off" ">
+<form action="#" method="post" name="StockEntryForm" autocomplete="off">
 
     <div class="content-body">
         <div class="row-container">
@@ -134,17 +134,17 @@
                 </tbody>
             </table>
         </div>
-        <div style="margin-top:15px">
-            <button class="custom-btn custom-info-btn" type="button" id="add_stockEntry_item">
-                <i class="fa fa-plus fa-fw"></i> Add
-            </button>
+        <div class="link-button-container">
+            <a href="javascript:void(0)" class="link-button" id="add_stockEntry_item">
+                 Add New Item
+            </a>
         </div>
 
     </div>
 
     <div class="content-footer">
         <div style="width: 100%; text-align:right">
-            <button type="submit" class="custom-btn custom-save-btn">
+            <button type="submit" class="custom-btn custom-save-btn responsive-button">
                 <i class="fa fa-save"></i> Save
             </button>
         </div>
@@ -214,7 +214,7 @@
 
             //FOR PROJECTS
             var project = [];
-            var projectURL = 'http://localhost:63666/Data/ENGProjectList';
+            var projectURL = '/Data/ENGProjectList';
 
             $.getJSON(projectURL, function (data) {
                 //var dat = data.Data;
@@ -245,7 +245,7 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = 'http://localhost:63666/Data/VendorList';
+            var supplierURL = '/Data/VendorList';
 
             $.getJSON(supplierURL, function (data) {
 
@@ -274,7 +274,7 @@
             //FOR RECEIVED BY
             var receivedBy = [];
 
-            var receivedByURL = 'http://localhost:63666/Data/HRMSEmployeeList/';
+            var receivedByURL = '/Data/HRMSEmployeeList/';
             $.getJSON(receivedByURL, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
@@ -305,9 +305,6 @@
         $(function () {
             $('form[name=StockEntryForm]').validate({
                 rules: {
-                    // The key name on the left side is the name attribute
-                    // of an input field. Validation rules are defined
-                    // on the right side
                     SupplierName: "required",
                     ProjectName: "required",
                     ReceivedBy: "required",
@@ -315,21 +312,13 @@
                     DeliveryDate: "required"
 
                 },
-                // Specify validation error messages
-                //messages: {
-                //    Supplier: "Select a Supplier",
-                //    ProjectName: "Select a Project",
-                //    ReceivedBy: "Select a Receiver",
-                //    DocNumber: "This Field can't be empty",
-                //    DeliveryDate: "This Field can't be empty",
-                //    DeliveryMethodAttr: "This Field can't be empty"
-                //},
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
+                errorPlacement: function () {
+                    return false;
+                },
+               
                 submitHandler: function (form, event) {
                     event.preventDefault();
-                    //fnSaveStockEntry(form);
-
+                 
                     fnSaveStockEntry(form);
                 }
             });
@@ -339,6 +328,7 @@
                     required: true
                 });
             });
+
         })
 
 
@@ -428,7 +418,7 @@
                     "Content-Type": "application/json"
                 },
                 type: 'post',
-                url: 'http://localhost:63666/Data/NewItemHeaderList',
+                url: '/Data/NewItemHeaderList',
                 dataType: 'json',
                 data: JSON.stringify(DocEntry),
                 contentType: "application/json",
@@ -471,7 +461,7 @@
 
 
         //RECENT STOCK ENTRY TRANSACTIONS
-        var recentURL = 'http://localhost:63666/Data/NewItemEntryList/';
+        var recentURL = '/Data/NewItemEntryList/';
         $.getJSON(recentURL, function (data) {
 
             for (var i = 0; i < data.length; i++) {

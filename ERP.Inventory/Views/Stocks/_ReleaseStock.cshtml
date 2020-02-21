@@ -1,251 +1,221 @@
 ﻿@{
-    ViewBag.Title = "Release Stocks Page";
+    ViewBag.Title = "Release Stock Page";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card custom-card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Select Withdrawal or Issuance</label>
-                            <select class="form-control shadow-none">
-                                <option value="1">Withdrawal</option>
-                                <option value="2">Issuance</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-8"></div>
-                    <div class="col-md-12">
-                        <hr />
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <fieldset class="scheduler-border">
-                                    <legend class="scheduler-border">PROJECT DETAILS</legend>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ NAME</label>:
-                                                    <input type="hidden" name="OriginProjectID" class="projectID" value="" />
-                                                    <input type="text" name="OriginProjectName" class="form-control form-control-sm projects text-ellipsis" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ NO</label>:
-                                                    <input type="text" name="OriginProjectNumber" class="form-control form-control-sm projectNumber" value="" readonly />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>WH INCHARGE</label>:
-                                                    <input type="hidden" name="OriginWHInchargeID" class="employeeID" value="" />
-                                                    <input type="text" name="OriginWHIncharge" class="form-control form-control-sm employeeInfo" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="col-md-2"></div>
-                            
-                            <div class="col-md-5">
-                                <fieldset class="scheduler-border">
-                                    <legend class="scheduler-border">PEOPLE INVOLVE</legend>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>REQUESTED BY</label>:
-                                                    <input type="text" name="RequestedBy" class="form-control form-control-sm requestedBy text-ellipsis" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label>PROJ INCHARGE</label>:
-                                                    <input type="text" name="ProjIncharge" class="form-control form-control-sm projIncharge" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="custom-form-group">
-                                                <div class="d-flex table-entry-header-container">
-                                                    <label style="font-size:.7vw">REQUEST NUMBER</label>:
-                                                    <input type="text" name="RequestNumber" class="form-control form-control-sm requestNumber" value="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div class="float-left">
-                            <h1>Release Stocks</h1>
-                        </div>
-                    </div>
-                </div>
+<div class="content-header" id="releaseStock_header">
+    <div class="row-container" style="padding-left:0; margin-top:0">
+        <div class="col">
+            <h1 class="title" style="margin:0">Release Stocks</h1>
+        </div>
+        <div class="col">
+            <div class="desktop-view" style="text-align: right;">
+                <button type="button" class="custom-btn" id="clear_fields">Clear</button>
+                <button type="button" class="custom-btn" id="edit_transfer_stock">Edit</button>
+                <button type="button" class="custom-btn">Print</button>
             </div>
-            <div class="card-body px-0 pt-1">
-                <div class="table-responsive">
-                    <table class="custom-table" style="width: 100%; border: 1px solid white" id="releaseStockEntry">
-                        <thead>
-                            <tr style="background: #4ECB4A; height: 50px; border: 1px solid white" class="text-white">
-                                <th class="text-center" style="font-size: 23px">NO.</th>
-                                <th class="text-center" style="font-size: 23px">ITEM DESCRIPTION</th>
-                                <th class="text-center" style="font-size: 23px">UNITS</th>
-                                <th class="text-center" style="font-size: 23px">QTY</th>
-                                <th class="text-center" style="font-size: 23px">CONDITION</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="" id="newReleaseStockEntryTbody">
-                            @for (var i = 1; i <= 10; i++)
-                            {
-                                <tr class="transferStockEntryBody">
-                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number">@i</td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-                                        @*<input type="hidden" name="ItemID" class="itemID" value="" />*@
-                                        <input type="text" name="Items" value="" class="text-center items" onkeypress="fnGetItems(event)" style="border:none" />
-                                    </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-                                        @*<input type="hidden" name="UnitID" class="unitID" value="" />*@
-                                        <input type="text" name="Units" value="" class="text-center units" onkeypress="fnGetUnits(event)" style="border:none" />
-                                    </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-                                        <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
-                                    </td>
-                                    <td style="border-left:1px solid white; border-right: 1px solid white;">
-                                        @*<input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />*@
-                                        <input type="text" name="ItemCondition" value="" class="text-center itemCondition" onkeypress="fnGetItemCondition(event)" style="border:none" />
-                                        <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <button class="btn btn-sm mt-2 btn-info" id="add_releaseStock_item"><i class="fa fa-plus"></i> Add</button>
-            </div>
-            <div class="card-footer">
-                <div class="float-left">
-                    <div class="d-flex">
-                        <button class="btn btn-light shadow-none mr-3" style="padding:10px;">UPLOAD</button>
-                        <input type="file" name="Upload" value="" />
+            <div class="mobile-view">
+                <div class="dropdown">
+                    <button onclick="ShowDropdown()" class="dropbtn">Action</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="javascript:void(0)" class="custom-btn" id="clear_fields">Clear</a>
+                        <a href="javascript:void(0)" class="custom-btn" id="edit_release_stock">Edit</a>
+                        <a href="javascript:void(0)" class="custom-btn">Print</a>
                     </div>
-                </div>
-                <div class="float-right">
-                    <button class="btn btn-success shadow-none" type="button" onclick="" style="padding:10px;">SAVE</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="content-body">
+    <input type="hidden" name="ID" class="id" value="" />
+    <div class="row-container">
+        <div class="col" id="col-1">
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label style="width:150px">Select Issued or Withdrawn</label>
+                    <select id="release_stock_option" style="background: #fff">
+                        <option value="1">ISSUANCE</option>
+                        <option value="2">WITHDRAWAL</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="custom-form-group">
+                <div style="display:flex">
+                    <label id="seriesNumber" style="width:150px"></label>
+                    <input type="text" name="RefNumber" value="" autocomplete="off" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-container">
+        <div class="col">
+            <fieldset class="scheduler-border" id="releaseStock_employeeInfo" style="border-radius: 5px">
+                <legend class="scheduler-border">EMPLOYEE INFORMATION</legend>
+                <div class="row-container" id="row-1">
+                    <div class="col">
+                        <div class="custom-form-group">
+                            <div style="display:flex">
+                                <label style="width: 150px">FULLNAME</label>
+                                <input type="text" name="FullName" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="custom-form-group">
+                            <div style="display:flex">
+                                <label style="width: 150px">IDNUMBER</label>
+                                <input type="text" name="EmployeeIDNumber" value="" disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-container" id="row-2">
+                    <div class="col" style="">
+                        <div class="custom-form-group">
+                            <div style="display:flex">
+                                <label style="width: 150px">POSITION</label>
+                                <input type="text" name="PositionName" value="" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="custom-form-group">
+                            <div style="display:flex">
+                                <label style="width: 150px">DEPARTMENT</label>
+                                <input type="text" name="Department" value="" disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-container" id="row-2">
+                    <div class="col" style="">
+                        <div class="custom-form-group">
+                            <div style="display:flex">
+                                <label style="width: 150px">DATE</label>
+                                <input type="text" name="Date" class="date-picker" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="custom-form-group">
+                            <div style="display:flex">
+                                <label style="width: 150px">CTRL NO</label>
+                                <input type="text" name="CtrlNumber" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row-container">
+        <h3>Enter Items Here</h3>
+    </div>
+    <div class="table-container">
+        <table class="custom-table" cellspacing="0" cellpadding="0" id="releaseStockTable">
+            <thead>
+                <tr>
+                    <td>NO</td>
+                    <td>ITEM DESCRIPTION</td>
+                    <td>UNITS</td>
+                    <td>QTY</td>
+                    <td>CONDITION</td>
+                </tr>
+            </thead>
+            <tbody id="newReleaseStockEntryTbody">
+                @for (var i = 1; i <= 10; i++)
+                {
+                    <tr class="releaseStockEntryBody">
+                        <td style="text-align:center; width:80px;" class="number">@i</td>
+                        <td style="width: 500px;">
+                            <input type="text" name="Items" class="items" value="" onkeypress="fnGetItems(event)" />
+                        </td>
+                        <td style="width: 130px;">
+                            <input type="text" name="Units" class="units" disabled />
+                        </td>
+                        <td style="width: 130px;">
+                            <input type="text" name="Qty" class="qty" disabled />
+                        </td>
+                        <td style="position:relative;">
+                            <input type="text" name="ItemCondition" class="itemCondition" style="text-align:center" onkeypress="fnGetItemCondition(event)" />
+                            <i class="fa fa-remove remove-btn" onclick="fnRemoveItem(event)"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="link-button-container">
+        <a class="link-button" id="add_releaseStock_item">
+            Add New Item
+        </a>
+    </div>
+</div>
 
+<div class="content-footer">
+    <div style="width: 100%; text-align:right">
+        <button type="button" class="custom-btn custom-save-btn save_releaseStock responsive-button" onclick="fnSaveReleaseStock(event)">
+            <i class="fa fa-save"></i> Save
+        </button>
+    </div>
+</div>
 
 
 <table style="display: none" id="newReleaseStockEntryTbodyClone">
     <tr class="">
-        <td style="border-left:1px solid white; border-right: 1px solid white; width:80px" class="text-center number"></td>
-        <td style="border-left:1px solid white; border-right: 1px solid white;width:500px">
-            <input type="text" name="ItemDescription" value="" class="text-center itemDescription" style="border:none" />
+        <td style="text-align: center; width:80px" class="number"></td>
+        <td style="width:500px">
+            <input type="text" name="Items" value="" class="items" onkeypress="fnGetItems(event)" />
         </td>
-        <td style="border-left:1px solid white; border-right: 1px solid white;width:130px">
-            <input type="hidden" name="UnitID" class="unitID" value="" />
-            <input type="text" name="Units" value="" class="text-center units" style="border:none" />
+        <td style="width:130px">
+            <input type="text" name="Units" value="" class="units" disabled />
         </td>
-        <td style="border-left:1px solid white; border-right: 1px solid white; width:130px">
-            <input type="text" name="Qty" value="" class="text-center qty" style="border:none" />
+        <td style="width:130px">
+            <input type="text" name="Qty" value="" class="qty" disabled />
         </td>
-        <td style="border-left:1px solid white; border-right: 1px solid white;">
-            <input type="hidden" name="ItemConditionID" class="itemConditionID" value="" />
-            <input type="text" name="ItemCondition" value="" class="text-center itemCondition" style="border:none" />
-            <i class="fa fa-remove text-danger" style="position:absolute; cursor:pointer;right:-15px;" onclick="fnRemoveTransferStockItem(event)"></i>
+        <td style="position: relative">
+            <input type="text" name="ItemCondition" value="" class="itemCondition" onkeypress="fnGetItemCondition(event)" disabled />
+            <i class="fa fa-remove remove-btn" onclick="fnRemoveItem(event)"></i>
         </td>
     </tr>
 </table>
-
-
 
 @section Scripts{
 
     <script>
 
-        //EMPLOYEE AUTOCOMPLETE
-        var emp = [];
-        var empURL = 'http://124.105.198.3:91/api/PersonInformation';
+        $(function () {
+            $('#release_stock_option').trigger('change');
 
-        $.getJSON(empURL, function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var obj = {};
+            ////CLEAR FIELDS
+            //$('#clear_fields').on('click', function (e) {
 
-                obj.id = data[i].ID;
-                obj.value = data[i].FirstName + ' ' + data[i].LastName;
-                obj.label = data[i].FirstName + ' ' + data[i].LastName;
-
-                emp.push(obj);
+            //    $(this).closest('.content-header').next().find('input').val('');
+            //});
 
 
-                $(".employeeInfo").autocomplete({
-                    source: emp,
-                    select: function (event, ui) {
+            ////EDIT TRANSFER STOCK
+            //$('#edit_stock').on('click', function (e) {
 
-                        var $this = $(this);
-                        $this.closest('.table-entry-header-container').find('input.employeeID').val(ui.item.id);
-                    }
-                })
-            }
+            //    //make editable all inputs in the form
+            //    $(this).closest('.content-header').next().find('input, select').removeAttr('disabled');
+
+            //    //remove the disabled property of save button
+            //    $(this).closest('.content-header').nextAll().find('.save_transferStock').removeAttr('disabled');
+
+            //    //remove the css inline in parent container
+            //    $(this).closest('.content-header').next().removeAttr('style');
+
+            //})
         });
 
 
-        //PROJECT AUTOCOMPLETE
-        var proj = [];
-        var projURL = 'http://192.168.1.100:94/api/Projects';
-
-        $.getJSON(projURL, function (data) {
-            //var dat = data.Data;
-
-            for (var i = 0; i < data.length; i++) {
-
-                var newObj = {};
-
-                newObj.id = data[i].ID;
-                newObj.value = data[i].ProjectName;
-                newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
-                newObj.projectNo = data[i].ProjectNumber;
-
-                proj.push(newObj);
-
-            }
-
-            $(".projects").autocomplete({
-                source: proj,
-                select: function (event, ui) {
-
-                    var $this = $(this);
-
-                    $this.closest('.table-entry-header-container').find('input.projectID').val(ui.item.id);
-
-                    $this.closest('.col-md-12').next().find('input.projectNumber').val(ui.item.projectNo);
-                }
-            });
-        });
-
-        //ADD NEW ROW IN STOCK TRANSFER ITEM
         $('#add_releaseStock_item').on('click', function (e) {
             //console.log("Add");
 
+            //return;
             var counter = $('.releaseStockEntryBody').find('td.number').length;
 
             //console.log(counter);
@@ -265,19 +235,54 @@
             $('#newReleaseStockEntryTbodyClone').find('td.number').html("");
         })
 
-        //REMOVE STOCK TRANSFER ITEM ROW
-        function fnRemoveTransferStockItem(event) {
 
-            var $this = $(event.target);
+        //FOR TRANSFER STOCK OPTION
+        $('#release_stock_option').on('change', function (e) {
 
-            $($this).parents('tr').remove();
+            var $this = $(this);
 
-            var counter = $('.releaseStockEntryBody').find('td.number').length;
+            if (parseInt($(this).val()) === 1) {
+                $('input[name=RefNumber]').removeClass('refNumber');
+
+                $('#seriesNumber').text('Enter Form Series No:');
+                //$this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').removeAttr('disabled');
+
+                ////item entry
+                //$this.parents('.content-body').find('table.custom-table').find('input.items').removeAttr('disabled');
+
+                ////change save button prop
+                //$this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'saveTransferStock');
+            }
+            else {
+
+                $('input[name=RefNumber]').addClass('refNumber');
+
+                $('#seriesNumber').html('Enter Ref: <small>(Press Enter to Search)</small>');
+                //$this.parents('.content-body').find('fieldset#origin-fieldset, fieldset#destination-fieldset, fieldset#deliveryMethod-fieldset').find('input, select').attr('disabled', true);
+
+                ////item entry
+                //$this.parents('.content-body').next('div').find('table.custom-table').find('input.items').attr('disabled', true);
+
+                ////change save button prop
+                //$this.parents('.content-body').next().find('button.save_transferStock').attr('id', 'confirmTransferStock');
+            }
+        });
 
 
-            if (counter > 0) {
-                for (var i = 0; i < counter; i++) {
-                    $('.releaseStockEntryBody').find('td.number').eq(i).html(i + 1);
+        function ShowDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
                 }
             }
         }
