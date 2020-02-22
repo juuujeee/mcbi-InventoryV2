@@ -199,12 +199,10 @@
     <Content Include="Views\Form\_StockCard.cshtml" />
     <Content Include="Views\Form\_ToolsInventoryRecord.cshtml" />
     <Content Include="Views\Form\_WithdrawalSlip.cshtml" />
-    <Content Include="Views\Stocks\_StocksEntry - X.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\_Create.cshtml" />
     <Content Include="Views\Stocks\_ReleaseStock.cshtml" />
-    <Content Include="Views\Stocks\_TransferStock - X.cshtml" />
     <Content Include="Views\Stocks\_IssuedStock.cshtml" />
     <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />

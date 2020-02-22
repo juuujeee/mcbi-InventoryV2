@@ -518,157 +518,242 @@ button:disabled{
     cursor:pointer;
 }
 
+.custom-input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+.input-group-append, .input-group-prepend {
+    display: -ms-flexbox;
+    display: flex;
+}
+.input-group-prepend {
+    margin-right: -1px;
+}
+.input-group-append {
+    margin-left: -1px;
+}
+.custom-input-group > .custom-file, 
+.custom-input-group > .custom-select, 
+.custom-input-group > .form-control, 
+.custom-input-group > .form-control-plaintext {
+    position: relative;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
+    min-width: 0;
+    margin-bottom: 0;
+}
+.custom-input-group > .custom-select:not(:first-child), 
+.custom-input-group > .form-control:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+
 @media screen and (max-width: 991px) {
     /* start of large tablet styles */
-    .left-sidebar .sidebar-logo img{
+    .left-sidebar .sidebar-logo img {
         width: 75%;
     }
 }
 
-@media screen and (max-width: 767px) {
-    /* start of medium tablet styles */
-    .mobile-menu {
-        display: block;
-    }
-    .wrapper {
-        height: 100%;
-        display: grid;
-        grid-template-columns: 100%;
-        grid-template-areas: "header" "main";
-        grid-template-rows: 100px auto auto;
-    }
-    .header{
-        height: 100px;
-    }
-    .right-sidebar {
-        display: none;
-    }
-    .left-sidebar{
-        display: none;
-    }
-    .left-sidebar.mobile-menu-open{
-        display:block;
-    }
-    .left-sidebar{
-        max-width:75%;
-        min-width: 75%;
-    }
-    .left-sidebar .sidebar-logo, 
-    .left-sidebar hr{
-        display: none;
-    }
-    .wrapper .content-body .row-container {
-        margin-top: 0;
-    }
-    .content-body {
-        width: 100vw;
-    }
-    .row-container .col {
-        flex-basis: unset;
-        margin-right:0;
-    }
-    .row-container #col-1, .row-container #col-2 {
-        padding-right: 0;
-    }
-    .custom-table thead tr td {
-        font-size: 15px;
-    }
-    .table-container {
-        padding-left: 15px;
-        overflow-x: auto;
-    }
-    .content .content-header h1 {
-        margin: 0;
-    }
-    .header .for-desktop {
-        display: none;
-    }
-    .header .for-mobile {
-        display: block;
-    }
-    .header .for-mobile img {
-        display: block;
-        padding-top: 5px;
-        width: 10%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .header .header-title {
-        margin-top: 2px;
-    }
-    .header .header-title span {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .content-header .title {
-        font-weight: 500;
-    }
-    legend.scheduler-border {
-        font-weight: 500 !important;
-    }
-    .left-sidebar {
-        top: 100px;
-    }
-    .content{
-        border-right: none;
-    }
-    #transferStock_header .desktop-view,
-    #releaseStock_header .desktop-view {
-        display: none;
+    @media screen and (max-width: 767px) {
+        /* start of medium tablet styles */
+        .mobile-menu {
+            display: block;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 100%;
+            grid-template-areas: "header" "main";
+            grid-template-rows: 100px auto auto;
+        }
+
+        .header {
+            height: 100px;
+        }
+
+        .right-sidebar {
+            display: none;
+        }
+
+        .left-sidebar {
+            display: none;
+        }
+
+            .left-sidebar.mobile-menu-open {
+                display: block;
+            }
+
+        .left-sidebar {
+            max-width: 75%;
+            min-width: 75%;
+        }
+
+            .left-sidebar .sidebar-logo,
+            .left-sidebar hr {
+                display: none;
+            }
+
+        .wrapper .content-body .row-container {
+            margin-top: 0;
+        }
+
+        .content-body {
+            width: 100vw;
+        }
+
+        .row-container .col {
+            flex-basis: unset;
+            margin-right: 0;
+        }
+
+        .row-container #col-1, .row-container #col-2 {
+            padding-right: 0;
+        }
+
+        .custom-table thead tr td {
+            font-size: 15px;
+        }
+
+        .table-container {
+            padding-left: 15px;
+            overflow-x: auto;
+        }
+
+        .content .content-header h1 {
+            margin: 0;
+        }
+
+        .header .for-desktop {
+            display: none;
+        }
+
+        .header .for-mobile {
+            display: block;
+        }
+
+            .header .for-mobile img {
+                display: block;
+                padding-top: 5px;
+                width: 10%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        .header .header-title {
+            margin-top: 2px;
+        }
+
+            .header .header-title span {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        .content-header .title {
+            font-weight: 500;
+        }
+
+        legend.scheduler-border {
+            font-weight: 500 !important;
+        }
+
+        .left-sidebar {
+            top: 100px;
+        }
+
+        .content {
+            border-right: none;
+        }
+
+        #transferStock_header .desktop-view,
+        #releaseStock_header .desktop-view {
+            display: none;
+        }
+
+        #transferStock_header .mobile-view,
+        #releaseStock_header .mobile-view {
+            display: block;
+            text-align: right;
+        }
+
+        .sidebar a {
+            font-size: 1em;
+        }
+
+        #transferStock_header .row-container {
+            margin-top: 0;
+            padding-left: 0;
+        }
+
+        #releaseStock_employeeInfo .row-container .col:first-child {
+            margin-right: 0;
+        }
+
+        #releaseStock_employeeInfo {
+            margin-top: 15px !important;
+        }
+
+        .responsive-button {
+            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 15px;
+        }
+
+        .link-button-container {
+            padding-left: 15px;
+        }
     }
 
-    #transferStock_header .mobile-view,
-    #releaseStock_header .mobile-view {
-        display: block;
-        text-align:right;
-    }
-    .sidebar a{
-        font-size: 1em;
-    }
-    #transferStock_header .row-container{
-        margin-top: 0;
-        padding-left: 0;
-    }
-    #releaseStock_employeeInfo .row-container .col:first-child {
-        margin-right: 0;
-    }
 
-    #releaseStock_employeeInfo {
-        margin-top:15px !important;
-    }
-    .responsive-button {
-        width: 100%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        font-size:15px;
-    }
-    .link-button-container{
-        padding-left:15px;
-    }
-}
+    @media screen and (max-width: 479px) {
+        /* start of phone styles */
 
+        .wrapper {
+            grid-template-rows: 70px auto auto;
+        }
 
-@media screen and (max-width: 479px) {
-    /* start of phone styles */
+        .header .header-title span {
+            font-size: 15px;
+        }
 
-    .wrapper{
-        grid-template-rows: 70px auto auto;
-    }
-   
-    .header .header-title span{
-        font-size: 15px;
-    }
-    .content-header .title {
-        font-size: 29px;
-    }
-    .header{
-       height: auto;
-    }
-    .left-sidebar{
-        top: 70px;
-    }
+        .content-header .title {
+            font-size: 29px;
+        }
 
-}
+        .header {
+            height: auto;
+        }
+
+        .left-sidebar {
+            top: 70px;
+        }
+    }
 

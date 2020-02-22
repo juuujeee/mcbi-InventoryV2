@@ -23,7 +23,11 @@ namespace ERP.Inventory.Controllers
             SyncRequest.httpClient.DefaultRequestHeaders.Clear();
             foreach(string i in Request.Headers.AllKeys)
             {
-                SyncRequest.httpClient.DefaultRequestHeaders.Add(i, Request.Headers[i]);
+                if (i == "Content-Type" || i == "Content-Length") continue;
+                
+
+                string res = Request.Headers[i];
+                SyncRequest.httpClient.DefaultRequestHeaders.Add(i, res);
             }
         
         }

@@ -1,4 +1,13 @@
 ﻿
+$.ajaxSetup({
+    headers: {
+        "UserID": $.cookie("UserID"),
+        "Token": $.cookie("Token"),
+        "Content-Type": "application/json"
+    }
+});
+
+
 //INITIALIZE DATEPICKER
 $('body').on('focus', '.date-picker', function () {
     $(this).datepicker({
@@ -50,21 +59,12 @@ $('.sidebarCollapse').on('show.bs.collapse', function () {
 });
 
 
-$.ajaxSetup({
-    headers: {
-        'UserID': $.cookie("UserID"),
-        'Token': $.cookie("Token")
-    }
-});
-
-
 //FOR DELIVERY METHOD ONCHANGE
 $('.delMethodID').on('change', function (e) {
 
     var $this = $(this);
 
     var attrCounter = 0;
-
 
     var $delMethodAttributeEl = $('.delMethodAttribute');
     $delMethodAttributeEl.html('');
@@ -90,6 +90,8 @@ $('.delMethodID').on('change', function (e) {
                     if (attrCounter === 2) {
 
                         $.getJSON('/Data/DelMethodAttrValue', function (response) {
+
+                            //console.log(response);
 
                             delAttrContent += '<select class="deliveryMethodAttr wide" data-id="' + delMethodAttribute[z].ID + '">';
 
