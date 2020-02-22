@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Login Page";
+    ViewBag.Title = "Register Page";
     Layout = null;
 }
 
@@ -7,8 +7,10 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Register Page</title>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
     <link href="~/Content/login.css" rel="stylesheet" />
+
 </head>
 <body>
     <div class="login-wrapper">
@@ -24,18 +26,24 @@
             <div class="first-col"></div>
             <div class="second-col">
                 <fieldset class="scheduler-border login-container">
-                    <legend class="scheduler-border">LOGIN</legend>
+                    <legend class="scheduler-border">REGISTER</legend>
                     <form action="#" method="post" id="loginForm" autocomplete="off">
                         <div class="custom-form-group login-input">
                             <div style="display:flex">
+                                <label style="width: 150px">Employee</label>
+                                <input type="text" name="Employee" class="employee" required />
+                            </div>
+                        </div>
+                        <div class="custom-form-group login-input">
+                            <div style="display:flex">
                                 <label style="width:150px">Username:</label>
-                                <input type="text" name="Username" class="" required/>
+                                <input type="text" name="Username" class="" required />
                             </div>
                         </div>
                         <div class="custom-form-group login-input">
                             <div style="display:flex">
                                 <label style="width: 150px">Password:</label>
-                                <input type="password" name="Password" class="" required/>
+                                <input type="password" name="Password" class="" required />
                             </div>
                         </div>
                         <div class="custom-form-group" id="otp" style="display:none">
@@ -45,7 +53,7 @@
                             </div>
                         </div>
                         <div class="custom-form-group login-action-container">
-                            <button type="submit" id="login_btn" class="custom-btn custom-save-btn login-btn">Login</button>
+                            <button type="submit" id="login_btn" class="custom-btn custom-save-btn login-btn">Register</button>
                         </div>
                     </form>
                 </fieldset>
@@ -54,54 +62,45 @@
         </div>
     </div>
 
+
     <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
     <script src="~/Scripts/sweetalert2.all.js"></script>
 
     <script>
-        $('#loginForm').on('submit', function (e) {
+        var emp = [];
+        $.getJSON('/Data/HRMSEmployeeList/', function (data) {
+            //console.log(data);
 
-            e.preventDefault();
+            for (var i = 0; i < data.length; i++) {
+                var obj = {};
 
-            var loginData = {
-                Username: $(this).find('input[name=Username]').val(),
-                Password: $(this).find('input[name=Password]').val()
-            };
+                obj.id = data[i].ID;
+                obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                obj.label = data[i].FirstName + ' ' + data[i].LastName;
 
-            //console.log(loginData);
+                emp.push(obj);
+            }
 
-            $.ajax({
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                },
-                type: 'POST',
-                url: 'http://192.168.1.100:98/api/user/login',
-                data: JSON.stringify(loginData),
-                dataType: 'json',
-                success: function (response) {
+            $(".employee").autocomplete({
+                source: emp,
+                select: function (event, ui) {
 
-                    //console.log(response);
-
-                    if (response.ID > 0) {
-                        console.log(response.TokenInfo[0]);
-
-                        $.cookie("Token", response.TokenInfo[0].Token, { path: "/" });
-                        $.cookie("UserID", response.TokenInfo[0].UserID, { path: "/" });
-                    }
-                    else {
-                        swal.fire('Error', 'Login Failed', 'error');
-                    }
+                    $(this).attr('data-val', ui.item.id);   
                 }
-            });
+            })
+        });
 
-            //$('#otp').show();
+        $('.employee').change(function (e) {
 
-            //$('.login-input').find('input').attr('disabled', true);
+            console.log($(this).val());
+
+            return;
+            if ($(this).val() === '') {
+                $(this).removeAttr('data-val');
+            }
 
         });
     </script>
 </body>
 </html>
-
-
