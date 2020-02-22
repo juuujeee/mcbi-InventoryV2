@@ -32,7 +32,7 @@ namespace ERP.Inventory.Controllers
 
             base.Initialize(requestContext);
             
-            if(userID == "0" && toKen == "0")
+            if(userID == "0" || toKen == "0")
             {
                 RedirectToAction("Login", "Account").ExecuteResult(this.ControllerContext);
             }
