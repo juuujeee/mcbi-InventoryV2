@@ -88,6 +88,9 @@
 
                         $.cookie("Token", response.TokenInfo[0].Token, { path: "/" });
                         $.cookie("UserID", response.TokenInfo[0].UserID, { path: "/" });
+
+                        window.location = "@Url.Action("Index", "Inventory")";
+                        
                     }
                     else {
                         swal.fire('Error', 'Login Failed', 'error');

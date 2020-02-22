@@ -7,6 +7,16 @@ $.ajaxSetup({
     }
 });
 
+$('.logout_btn').click(function (e) {
+
+    e.preventDefault();
+
+    $.removeCookie('Token', { path: '/' });
+    $.removeCookie('UserID', { path: '/' });
+
+    window.location = "/Account/Login";
+});
+
 
 //INITIALIZE DATEPICKER
 $('body').on('focus', '.date-picker', function () {

@@ -23,5 +23,6 @@ namespace ERP.Inventory.Controllers
         {
             return View();
         }
+
     }
 }
