@@ -35,6 +35,27 @@ namespace ERP.Inventory.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        [Route("Test/Test")]
+        public ActionResult Test()
+        {
+            Helper.SynchronousRequest syncRequest = new Helper.SynchronousRequest("http://192.168.1.100:98/api/user/userroleaccess");
+            syncRequest.httpClient.DefaultRequestHeaders.Add("UserID", "38");
+            syncRequest.httpClient.DefaultRequestHeaders.Add("Token", "y65yK6eDALIfurzczhjZ7bK7D");
+            string retval = syncRequest.HttpRequest("", "GET");
+
+            JObject jo = JsonConvert.DeserializeObject<JObject>(retval);
+            JArray jAr = jo["customSettings"] as JArray;
+
+
+            Helper.JsonArrayToggler tog = new Helper.JsonArrayToggler(jAr, "", "style=\"display:none\"", "disabled=\"disabled\"");
+            bool b = tog["defaultElement=control-inventory-names-add"].GetValue<bool>("isAllowed");
+            b = tog["defaultElement=control-inventory-names-add, isAllowed=false"].GetValue<bool>("isHideifDisabled");
+
+            return Ok(tog["defaultElement=control-inventory-names-add, isAllowed=false"]["isHideifDisabled"]);
+        }
+
         [HttpGet]
         [Helper.ProducesJson]
         [Route("Data/{name}/{id}")]

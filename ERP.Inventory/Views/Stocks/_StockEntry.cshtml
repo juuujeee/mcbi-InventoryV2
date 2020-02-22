@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "Stock Entry Page";
+    ERP.Inventory.Controllers.ApiHelper.UserRoleAccess userRole = ViewBag.userRole as ERP.Inventory.Controllers.ApiHelper.UserRoleAccess;
+
 }
 
 <div class="content-header">
@@ -141,8 +143,9 @@
         </div>
 
     </div>
-
-    <div class="content-footer">
+    @if (userRole.isAllowed("control-inventory-NewItemHeaderList-add"))
+    {
+    <div class="content-footer" >
         <div style="width: 100%; text-align:right">
             <button type="submit" class="custom-btn custom-save-btn responsive-button">
                 <i class="fa fa-save"></i> Save
@@ -150,6 +153,7 @@
         </div>
 
     </div>
+    }
 </form>
 
 
