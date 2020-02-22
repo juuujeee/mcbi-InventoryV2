@@ -46,7 +46,6 @@ namespace ERP.Inventory.Controllers
 
         public ActionResult StockEntry()
         {
-
             ViewBag.userRole = userRole;
             return View("~/Views/Stocks/_StockEntry.cshtml");
         }
