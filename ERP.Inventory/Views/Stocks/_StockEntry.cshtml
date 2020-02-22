@@ -143,11 +143,11 @@
         </div>
 
     </div>
-    @if (userRole.isAllowed("control-inventory-NewItemHeaderList-add"))
+    @if (true || userRole.isAdd("control-inventory-NewItemHeaderList"))
     {
-    <div class="content-footer" >
+    <div class="content-footer"  >
         <div style="width: 100%; text-align:right">
-            <button type="submit" class="custom-btn custom-save-btn responsive-button">
+            <button type="submit" class="custom-btn custom-save-btn responsive-button" @userRole["control-inventory-names-remove"]>
                 <i class="fa fa-save"></i> Save
             </button>
         </div>

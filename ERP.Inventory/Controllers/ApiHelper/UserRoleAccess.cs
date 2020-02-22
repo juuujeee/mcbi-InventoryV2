@@ -16,7 +16,7 @@ namespace ERP.Inventory.Controllers.ApiHelper
             string retval = HttpRequest("", "GET");
             JObject jo = JsonConvert.DeserializeObject<JObject>(retval);
             JArray jAr = jo["customSettings"] as JArray;
-            JArrayToggler = new Helper.JsonArrayToggler(jAr, "", "style=\"display:none\"", "disabled=\"disabled\"");
+            JArrayToggler = new Helper.JsonArrayToggler(jAr, "", "style=\"display:none\"", "disabled");
         }
         private Helper.JsonArrayToggler JArrayToggler { get; set; }
         public bool isAllowed(string elementName)
@@ -27,8 +27,34 @@ namespace ERP.Inventory.Controllers.ApiHelper
         {
             get
             {
-                return JArrayToggler[$"defaultElement={elementName}, isAllowed=false"]["isHideifDisabled"];
+                string res = JArrayToggler[$"defaultElement={elementName}, isAllowed=false"]["isHideifDisabled"];
+                return res;
             }
+        }
+        public bool isAdd(string elementName)
+        {
+
+            return isAllowed(elementName + "-add");
+        }
+        public bool isUpdate(string elementName)
+        {
+
+            return isAllowed(elementName + "-edit");
+        }
+        public bool isRemove(string elementName)
+        {
+
+            return isAllowed(elementName + "-remove");
+        }
+        public bool isSelect(string elementName)
+        {
+
+            return isAllowed(elementName + "-view");
+        }
+        public bool isSelectList(string elementName)
+        {
+
+            return isAllowed(elementName + "-viewlist");
         }
 
     }
