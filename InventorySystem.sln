@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Inventory", "ERP.Inventory\ERP.Inventory.csproj", "{235AA9FD-0A5B-431A-853B-500C32C0DCFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "..\..\..\Desktop\inventories\ApiCommon\Helper\Helper.csproj", "{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{235AA9FD-0A5B-431A-853B-500C32C0DCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{235AA9FD-0A5B-431A-853B-500C32C0DCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{235AA9FD-0A5B-431A-853B-500C32C0DCFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36EA3F0D-4906-4EDA-AE1E-1ABCC0791879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
