@@ -217,7 +217,7 @@ legend.scheduler-border {
 
 .custom-form-group input[type=text]:focus,
 .custom-form-group input[type=password]:focus {
-   border: 1px solid 
+    border: 1px solid #c9d6df;
 }
 
 /*-------------------------------------------------
@@ -445,7 +445,7 @@ button:disabled{
 }
 
 .valid {
-    border: 1px solid #c9d6df !important;
+    border: 1px solid #c9d6df;
 }
 
 

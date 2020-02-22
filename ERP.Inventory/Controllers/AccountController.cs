@@ -18,5 +18,10 @@ namespace ERP.Inventory.Controllers
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }

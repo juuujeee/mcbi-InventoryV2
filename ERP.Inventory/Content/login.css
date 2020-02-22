@@ -179,6 +179,13 @@ input:disabled {
     opacity: .8;
 }
 
+/*------------------------------------------------------
+  JQUERY UI AUTOCOMPLETE
+--------------------------------------------------------*/
+.ui-autocomplete.ui-widget {
+    font-family: Calibri, sans-serif;
+    font-size: 13px;
+}
 
 
 @media screen and (max-width: 991px) {

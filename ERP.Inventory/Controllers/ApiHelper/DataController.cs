@@ -25,7 +25,6 @@ namespace ERP.Inventory.Controllers
             {
                 if (i == "Content-Type" || i == "Content-Length") continue;
                 
-
                 string res = Request.Headers[i];
                 SyncRequest.httpClient.DefaultRequestHeaders.Add(i, res);
             }
