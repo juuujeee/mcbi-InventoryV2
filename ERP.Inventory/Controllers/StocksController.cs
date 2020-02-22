@@ -9,6 +9,12 @@ namespace ERP.Inventory.Controllers
 {
     public class StocksController : Controller
     {
+
+        ApiHelper.UserRoleAccess userRole;
+        public StocksController()
+        {
+            userRole = new ApiHelper.UserRoleAccess("", "");
+        }
         // GET: Stocks
         public ActionResult Index()
         {
@@ -17,6 +23,7 @@ namespace ERP.Inventory.Controllers
 
         public ActionResult StockEntry()
         {
+            ViewBag.userRole = userRole;
             return View("~/Views/Stocks/_StockEntry.cshtml");
         }
 
