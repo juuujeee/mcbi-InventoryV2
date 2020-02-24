@@ -68,8 +68,11 @@ $('.delMethodID').on('change', function (e) {
 
     var attrCounter = 0;
 
-    var $delMethodAttributeEl = $('.delMethodAttribute');
-    $delMethodAttributeEl.html('');
+    //var $delMethodAttributeEl = $('.delMethodAttribute');
+    //$delMethodAttributeEl.html('');
+
+    var $delContent = $('.fieldset__delcontent');
+    $delContent.find('.can__remove').remove();
 
     var delMethodAttrURL = '/Data/DelMethodAttribute';
 
@@ -85,8 +88,10 @@ $('.delMethodID').on('change', function (e) {
 
             if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
 
-                delAttrContent += '<div style="display:flex">';
-                delAttrContent += '<label style="width:150px">' + delMethodAttribute[z].MethodAttribute.toUpperCase() + '</label>';
+                //delAttrContent += '<div style="display:flex">';
+                delAttrContent += '<div class="delcontent__label can__remove">';
+                delAttrContent += '<h4>' + delMethodAttribute[z].MethodAttribute.toUpperCase() + '</h4>';
+                delAttrContent += '</div>';
 
                 if (parseInt($this.val()) === 1) {
                     if (attrCounter === 2) {
@@ -94,8 +99,8 @@ $('.delMethodID').on('change', function (e) {
                         $.getJSON('/Data/DelMethodAttrValue', function (response) {
 
                             //console.log(response);
-
-                            delAttrContent += '<select class="deliveryMethodAttr wide" data-id="' + delMethodAttribute[z].ID + '">';
+                            delAttrContent += '<div class="delcontent__input can__remove">';
+                            delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                             for (var x = 0; x < response.length; x++) {
 
@@ -107,11 +112,14 @@ $('.delMethodID').on('change', function (e) {
 
                             }
                             delAttrContent += '</select>';
+                            delAttrContent += '</div>';
 
                         });
                     }
                     else {
+                        delAttrContent += '<div class="delcontent__input can__remove">';
                         delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '</div>';
                     }
 
                 }
@@ -121,7 +129,8 @@ $('.delMethodID').on('change', function (e) {
 
                         $.getJSON('/Data/DelMethodAttrValue', function (response) {
 
-                            delAttrContent += '<select class="deliveryMethodAttr wide" data-id="' + delMethodAttribute[z].ID + '">';
+                            delAttrContent += '<div class="delcontent__input can__remove">';
+                            delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
 
                             for (var x = 0; x < response.length; x++) {
 
@@ -133,22 +142,28 @@ $('.delMethodID').on('change', function (e) {
 
                             }
                             delAttrContent += '</select>';
+                            delAttrContent += '</div>';
 
                         });
                     }
                     else {
+                        delAttrContent += '<div class="delcontent__input can__remove">';
                         delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '</div>';
                     }
 
                 }
 
                 if (parseInt($this.val()) === 3) {
+                    delAttrContent += '<div class="delcontent__input can__remove">';
                     delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
-
+                    delAttrContent += '</div>';
                 }
-                delAttrContent += '</div>';
+                //delAttrContent += '</div>';
 
-                $delMethodAttributeEl.eq(attrCounter).append(delAttrContent);
+                //$delMethodAttributeEl.eq(attrCounter).append(delAttrContent);
+
+                $delContent.append(delAttrContent);
 
                 attrCounter++;
             }

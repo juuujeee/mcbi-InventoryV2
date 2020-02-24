@@ -39,6 +39,16 @@
     grid-area: supplier;
 }
 
+.route_project {
+    height: auto;
+    grid-area: project;
+}
+
+.route__delmethod {
+    height: auto;
+    grid-area: delmethod;
+}
+
 .supplier__fieldset {
     height: auto;
     border: 1px solid #A9A9A9;
@@ -73,19 +83,20 @@
 
 .supcontent__input {
     /*border:1px solid black;
-        border-radius:3px;*/
+    border-radius:3px;*/
 }
 
     .supcontent__input > input {
-        font-size: 1.2em;
+        font-size: .7em;
         font-family: Lato;
         font-weight: 500;
         padding: 3px;
         box-sizing: border-box;
         border: .5px solid #C8C8C8;
         border-radius: 4px;
-        background-color: #F0F0F0;
+        /*background-color: #F0F0F0;*/
         width: 100%;
+        line-height: 23px;
     }
 
 .supcontent__label > h4 {
@@ -136,15 +147,16 @@
 }
 
 .projcontent__input > input {
-    font-size: 1.2em;
+    font-size: .7em;
     font-family: Lato;
     font-weight: 500;
     padding: 3px;
     box-sizing: border-box;
     border: 1px solid #C8C8C8;
     border-radius: 4px;
-    background-color: white;
+    /*background-color: white;*/
     width: 100%;
+    line-height: 23px;
 }
 
 .projcontent__label > h4 {
@@ -168,10 +180,10 @@ route__delmethod {
     border-radius: 5px;
 }
 
-    .delmethod__fieldset > legend {
-        font-weight: 500;
-        font-size: 1.1em
-    }
+.delmethod__fieldset > legend {
+    font-weight: 500;
+    font-size: 1.1em
+}
 
 .fieldset__delcontent {
     height: auto;
@@ -182,11 +194,11 @@ route__delmethod {
     grid-row-gap: 10px;
 }
 
-    .fieldset__delcontent > div {
-        display: table;
-        height: 100%;
-        max-height: 3px;
-    }
+.fieldset__delcontent > div {
+    display: table;
+    height: 100%;
+    max-height: 3px;
+}
 
 .delcontent__label {
     font-size: 1em;
@@ -195,16 +207,18 @@ route__delmethod {
     padding-top: 5px;
 }
 
-.delcontent__input > input {
-    font-size: 1.2em;
+.delcontent__input > input,
+.delcontent__input > select {
+    font-size: .7em;
     font-family: Lato;
     font-weight: 500;
     padding: 3px;
     box-sizing: border-box;
     border: 1px solid #C8C8C8;
     border-radius: 4px;
-    background-color: white;
+    /*background-color: white;*/
     width: 100%;
+    line-height: 23px;
 }
 
 .delcontent__label > h4 {
@@ -214,6 +228,13 @@ route__delmethod {
     font-weight: 400;
     display: table-cell;
     vertical-align: middle;
+}
+
+.entrycontent__route input:read-only,
+.entrycontent__route input:disabled,
+.entrycontent__route select:disabled {
+    background: #e9ecef;
+    cursor: default;
 }
 
 /*-------------Table title here-----------------------*/
@@ -309,22 +330,23 @@ route__delmethod {
         height: auto;
     }
 
-        .tableitem__table > tbody > tr > td {
-            height: 30px;
-            border-left: 1px solid gray;
-            border: 1px solid gray;
-            padding: 2px 2px 2px 8px;
-        }
+.tableitem__table > tbody > tr > td {
+    height: 30px;
+    border-left: 1px solid gray;
+    border: 1px solid gray;
+    padding: 2px 2px 2px 8px;
+}
 
-            .tableitem__table > tbody > tr > td > input {
-                background: none;
-                font-size: 1em;
-                font-weight: 500;
-                height: auto;
-                width: 100%;
-                box-sizing: border-box;
-                border: none;
-            }
+.tableitem__table > tbody > tr > td > input {
+    background: none;
+    font-size: .8em;
+    font-weight: 500;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    line-height: 22px;
+}
 
 .entrycontent__footer {
     grid-area: footer;
@@ -346,17 +368,22 @@ route__delmethod {
         width: 150px;
         height: 40px;
         border-radius: 5px;
+        cursor: pointer;
     }
+
 .entrycontent__tableitem .add__new_item__stockEntry {
     text-decoration: none;
     color: #000000;
 }
-.entrycontent__tableitem .add__new_item__stockEntry:hover{
-    text-decoration:underline;
+
+    .entrycontent__tableitem .add__new_item__stockEntry:hover {
+        text-decoration: underline;
+    }
+
+.entrycontent__tableitem .position__relative {
+    position: relative;
 }
-.entrycontent__tableitem .position__relative{
-    position:relative;
-}
+
 .entrycontent__tableitem .remove__btn {
     position: absolute;
     cursor: pointer;
@@ -434,4 +461,14 @@ route__delmethod {
         font-size: 1em;
         font-weight: 500;
     }
+}
+
+
+/*JQUERY VALIDATION*/
+.error {
+    border: 1px solid #f00 !important;
+}
+
+.valid {
+    border: 1px solid #c9d6df;
 }
