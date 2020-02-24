@@ -1,0 +1,437 @@
+﻿body {
+}
+/*--------------Entry content main structure-----------*/
+.entrycontent {
+    font-family: sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    padding: 15px;
+    height: 100%;
+    max-width: 2200px;
+    background-color: none;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 70px auto 40px auto 120px;
+    grid-template-areas: "headtitle" "route" "tabletitle" "tableitem" "footer";
+    grid-gap: 10px;
+}
+/*---------------Header title ------------------------*/
+.entrycontent__headertitle {
+    grid-area: headtitle;
+    /*border-bottom: 1px solid gray;*/
+}
+
+    .entrycontent__headertitle > h1 {
+        margin: 0;
+        font-size: 2em;
+    }
+
+.entrycontent__route {
+    grid-area: route;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-areas: "supplier project delmethod";
+    grid-gap: 10px;
+}
+
+
+/* -------------Supplier Fieldset Details--------------*/
+.route__supplier {
+    height: auto;
+    grid-area: supplier;
+}
+
+.supplier__fieldset {
+    height: auto;
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+}
+
+    .supplier__fieldset > legend {
+        font-weight: 500;
+        font-size: 1.1em
+    }
+
+.fieldset__supcontent {
+    height: auto;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: repeat(4,1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;
+}
+
+    .fieldset__supcontent > div {
+        display: table;
+        height: 100%;
+        /*max-height: 30px;*/
+    }
+
+.supcontent__label {
+    border: none;
+    text-align: right;
+    padding-top: 5px;
+}
+
+.supcontent__input {
+    /*border:1px solid black;
+        border-radius:3px;*/
+}
+
+    .supcontent__input > input {
+        font-size: 1.2em;
+        font-family: Lato;
+        font-weight: 500;
+        padding: 3px;
+        box-sizing: border-box;
+        border: .5px solid #C8C8C8;
+        border-radius: 4px;
+        background-color: #F0F0F0;
+        width: 100%;
+    }
+
+.supcontent__label > h4 {
+    font-size: .9em;
+    margin: 0;
+    padding: 3px;
+    font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+}
+/* -------------Project Fieldset Details--------------*/
+.route_project {
+    height: auto;
+    grid-area: project;
+}
+
+.project__fieldset {
+    height: auto;
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+}
+
+    .project__fieldset > legend {
+        font-weight: 500;
+        font-size: 1.1em
+    }
+
+.fieldset__projcontent {
+    height: auto;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: repeat(4,1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;
+}
+
+    .fieldset__projcontent > div {
+        display: table;
+        height: 100%;
+        max-height: 3px;
+    }
+
+.projcontent__label {
+    font-size: 1em;
+    border: none;
+    text-align: right;
+    padding-top: 5px;
+}
+
+.projcontent__input > input {
+    font-size: 1.2em;
+    font-family: Lato;
+    font-weight: 500;
+    padding: 3px;
+    box-sizing: border-box;
+    border: 1px solid #C8C8C8;
+    border-radius: 4px;
+    background-color: white;
+    width: 100%;
+}
+
+.projcontent__label > h4 {
+    font-size: .9em;
+    margin: 0;
+    padding: 3px;
+    font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* -------------Del Method Fieldset Details--------------*/
+route__delmethod {
+    height: auto;
+    grid-area: delmethod;
+}
+
+.delmethod__fieldset {
+    height: auto;
+    border: 1px solid #A9A9A9;
+    border-radius: 5px;
+}
+
+    .delmethod__fieldset > legend {
+        font-weight: 500;
+        font-size: 1.1em
+    }
+
+.fieldset__delcontent {
+    height: auto;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: repeat(4,1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 10px;
+}
+
+    .fieldset__delcontent > div {
+        display: table;
+        height: 100%;
+        max-height: 3px;
+    }
+
+.delcontent__label {
+    font-size: 1em;
+    border: none;
+    text-align: right;
+    padding-top: 5px;
+}
+
+.delcontent__input > input {
+    font-size: 1.2em;
+    font-family: Lato;
+    font-weight: 500;
+    padding: 3px;
+    box-sizing: border-box;
+    border: 1px solid #C8C8C8;
+    border-radius: 4px;
+    background-color: white;
+    width: 100%;
+}
+
+.delcontent__label > h4 {
+    font-size: .9em;
+    margin: 0;
+    padding: 3px;
+    font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/*-------------Table title here-----------------------*/
+.entrycontent__tabletitle {
+    grid-area: tabletitle;
+    display: table;
+    height: 100%;
+}
+
+    .entrycontent__tabletitle > h1 {
+        margin: 0;
+        font-family: sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
+        font-weight: 500;
+        font-size: 1.7em;
+        display: table-cell;
+        vertical-align: bottom;
+    }
+/*-------------Table items here-----------------------*/
+.entrycontent__tableitem {
+    grid-area: tableitem;
+}
+
+.tableitem__table {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border: 1px solid gray;
+    background-color: whitesmoke;
+    width: 100%;
+    height: auto;
+}
+
+    .tableitem__table > thead > tr {
+        color: white;
+        background-color: forestgreen;
+        height: 40px;
+        text-align: center;
+        font-weight: 500;
+    }
+
+        .tableitem__table > thead > tr > td:nth-child(1) {
+            width: 8%;
+        }
+
+        .tableitem__table > thead > tr > td:nth-child(2) {
+            width: 40%;
+        }
+
+        .tableitem__table > thead > tr > td:nth-child(3) {
+            width: 10%;
+        }
+
+        .tableitem__table > thead > tr > td:nth-child(4) {
+            width: 12%;
+        }
+
+        .tableitem__table > thead > tr > td:nth-child(5) {
+            width: 15%;
+        }
+
+        .tableitem__table > thead > tr > td:nth-child(6) {
+            width: 15%;
+        }
+
+    .tableitem__table > tbody > tr > td:nth-child(1) > input {
+        text-align: center;
+    }
+
+    .tableitem__table > tbody > tr > td:nth-child(2) > input {
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tableitem__table > tbody > tr > td:nth-child(3) > input {
+        text-align: center;
+    }
+
+    .tableitem__table > tbody > tr > td:nth-child(4) > input {
+        text-align: center;
+    }
+
+    .tableitem__table > tbody > tr > td:nth-child(5) > input {
+        text-align: right;
+    }
+
+    .tableitem__table > tbody > tr > td:nth-child(6) > input {
+        text-align: center;
+    }
+
+    .tableitem__table > tbody > tr {
+        height: auto;
+    }
+
+        .tableitem__table > tbody > tr > td {
+            height: 30px;
+            border-left: 1px solid gray;
+            border: 1px solid gray;
+            padding: 2px 2px 2px 8px;
+        }
+
+            .tableitem__table > tbody > tr > td > input {
+                background: none;
+                font-size: 1em;
+                font-weight: 500;
+                height: auto;
+                width: 100%;
+                box-sizing: border-box;
+                border: none;
+            }
+
+.entrycontent__footer {
+    grid-area: footer;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 1fr 50px 1fr;
+}
+
+.footer__saveupload {
+    grid-column-start: 3;
+    grid-row-start: 2;
+    text-align: right;
+}
+
+    .footer__saveupload > input {
+        background-color: green;
+        font-size: 1em;
+        font-weight: 500;
+        width: 150px;
+        height: 40px;
+        border-radius: 5px;
+    }
+.entrycontent__tableitem .add__new_item__stockEntry {
+    text-decoration: none;
+    color: #000000;
+}
+.entrycontent__tableitem .add__new_item__stockEntry:hover{
+    text-decoration:underline;
+}
+.entrycontent__tableitem .position__relative{
+    position:relative;
+}
+.entrycontent__tableitem .remove__btn {
+    position: absolute;
+    cursor: pointer;
+    right: -15px;
+    color: #dc3545;
+    top: 4px;
+}
+
+@media only screen and (max-width:736px) and (orientation:landscape) {
+    .entrycontent__route {
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "supplier" "project" "delmethod";
+        grid-gap: 10px;
+    }
+
+    .entrycontent__tabletitle > h1 {
+        font-weight: 500;
+        font-size: 1.4em;
+    }
+
+    .fieldset__supcontent {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .fieldset__projcontent {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .fieldset__delcontent {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .tableitem__table > thead > tr {
+        font-size: .8em;
+    }
+
+    .tableitem__table > tbody > tr > td > input {
+        font-size: 1em;
+        font-weight: 500;
+    }
+}
+
+@media only screen and (max-width:640px) and (orientation:portrait) {
+
+    .entrycontent__route {
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "supplier" "project" "delmethod";
+        grid-gap: 10px;
+    }
+
+    .entrycontent__tabletitle > h1 {
+        font-weight: 500;
+        font-size: 1.4em;
+    }
+
+    .fieldset__supcontent {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .fieldset__projcontent {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .fieldset__delcontent {
+        grid-template-columns: 110px 1fr;
+    }
+
+    .tableitem__table > thead > tr {
+        font-size: .8em;
+    }
+
+    .tableitem__table > tbody > tr > td > input {
+        font-size: 1em;
+        font-weight: 500;
+    }
+}

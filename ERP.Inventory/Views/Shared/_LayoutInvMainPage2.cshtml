@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/jquery-ui.css"/>
+    <link rel="stylesheet" href="~/Content/datepicker.css"/>
+    <link rel="stylesheet" href="~/Content/font-awesome.css"/>
+    <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="mobile-menu">
+            <button class="custom-btn" id="mobile-menu-btn"><i class="fa fa-bars"></i></button>
+        </div>
+        <div class="header">
+            <div style="" class="for-desktop">
+                <a href="#" class="logout_btn">Logout</a>
+                MCBI - Inventory Series @DateTime.Today.Year
+            </div>
+            <div class="for-mobile">
+                <img src="~/Content/Images/MCBILogo_White.png" alt="" />
+            </div>
+            <div class="header-title" style="">
+                @*<a href="#" style="color:white; text-decoration: none">
+                    <img src="/Content/Images/temp_logo_transparent.png" alt="Alternate Text" style="width:35%; margin-right:5px">
+
+                </a>*@
+                <span style="">INVENTORY MANAGEMENT SYSTEM</span>
+            </div>
+        </div>
+        <div class="left-sidebar custom-animated">
+
+            <div class="sidebar-logo" style="">
+                <img src="/Content/Images/MCBILogo_White.png" alt="Alternate Text" style="">
+            </div>
+            <hr class="" style="">
+            <ul class="sidebar">
+                <li>
+                    <a href="#" class="sidebar-menu">
+                        <i class="fa fa-home fa-fw"></i>
+                        HOME
+                    </a>
+                </li>
+                <li style="position:relative">
+                    <a href="javascript:void(0)" class="sidebar-menu" data-target="#inventorySubMenu">
+                        <i class="fa fa-angle-right caret" style=""></i>
+                        <i class="fa fa-tag fa-fw"></i>
+                        INVENTORY
+                    </a>
+                    <ul id="inventorySubMenu" class="d-none animated" style="padding-left: 0">
+                        <li class="">
+                            <a href="@Url.Action("StockEntry", "Stocks")" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Entry
+                            </a>
+                        </li>
+                        <li class="" style="position:relative">
+                            <a href="javascript:void(0)" data-target="#stockFlowSubMenu" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-angle-right caret" style=""></i>
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Flow
+                            </a>
+                            <ul id="stockFlowSubMenu" class="d-none" style="padding-left: 0">
+                                <li class="">
+                                    <a href="@Url.Action("TransferStock", "Stocks")" class="sidebar-menu child-sub-menu">Transfer Stocks</a>
+                                </li>
+                                <li class="">
+                                    <a href="@Url.Action("ReleaseStock", "Stocks")" class="sidebar-menu child-sub-menu">Release Stocks</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Inquiry
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="javascript:void(0)" data-target="#stockDataSubMenu" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-angle-right caret" style=""></i>
+                                <i class="fa fa-circle fa-fw"></i>
+                                Stock Data
+                            </a>
+                            <ul id="stockDataSubMenu" class="d-none" style="padding-left: 0">
+                                <li class="">
+                                    <a href="#" class="sidebar-menu child-sub-menu">New Item Data</a>
+                                </li>
+                                <li class="">
+                                    <a href="#" class="sidebar-menu child-sub-menu">Update Item Data</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#" class="sidebar-menu sub-menu" style="position:relative">
+                                <i class="fa fa-circle"></i>
+                                Reports
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-cog fa-fw"></i>
+                        SETTINGS
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">@RenderBody()</div>
+
+        <div class="right-sidebar">
+            <div class="title" style="text-align:center">
+                <h3>RECENT TRANSACTIONS</h3>
+            </div>
+            @if (ViewBag.Title == "Stock Entry Page")
+            {
+                <div class="stockEntry_transactions">
+
+                </div>
+            }
+            @if(ViewBag.Title == "Transfer Stock Page")
+            {
+                <div class="transferEntry_transactions">
+                    <div style="min-height:40vh; max-height:40vh; padding: 5px 15px">
+                        <small>Confirm Transactions</small>
+                    </div>
+                    <div style="min-height:40vh; max-height:40vh; padding: 5px 15px">
+                        <small>Pending Transactions</small>
+                    </div>
+                </div>
+            }
+        </div>
+        @*<div class="footer">FOOTER</div>*@
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/datepicker.js"></script>
+    <script src="~/Scripts/sweetalert2.all.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/custom.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

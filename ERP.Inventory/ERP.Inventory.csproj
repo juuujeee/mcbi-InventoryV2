@@ -144,14 +144,17 @@
   <ItemGroup>
     <Content Include="Content\animate.css" />
     <Content Include="Content\datepicker.css" />
+    <Content Include="Content\EntryStocks.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Images\IT_Logo.png" />
     <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\MCBI-TEXT.png" />
+    <Content Include="Content\Images\MCBILogo_150px.png" />
     <Content Include="Content\Images\MCBILogo_White.png" />
     <Content Include="Content\Images\temp_logo.png" />
     <Content Include="Content\Images\temp_logo_transparent.png" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\LayoutInventory.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\overlayscrollbar.css" />
     <Content Include="favicon.ico" />
@@ -211,13 +214,15 @@
     <Content Include="Views\Stocks\_IssuedStock.cshtml" />
     <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />
-    <Content Include="Views\Stocks\_StockEntry.cshtml" />
-    <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
+    <Content Include="Views\Stocks\_StockEntry1.cshtml" />
+    <Content Include="Views\Shared\_LayoutInvMainPage2.cshtml" />
     <Content Include="Views\Stocks\_TransferStock.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
+    <Content Include="Views\Stocks\_StockEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

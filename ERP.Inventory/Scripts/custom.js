@@ -61,14 +61,6 @@ $.extend($.ui.autocomplete.prototype.options, {
 });
 
 
-//AUTO CLOSE THE SIDEBAR IF ANOTHER MENU IS OPEN
-$('.sidebarCollapse').on('show.bs.collapse', function () {
-
-    $('.sidebarCollapse').not(this).collapse('hide');
-
-});
-
-
 //FOR DELIVERY METHOD ONCHANGE
 $('.delMethodID').on('change', function (e) {
 
@@ -402,7 +394,7 @@ function fnRemoveItem(event) {
 /*------------------------------------
     CUSTOM MENU
  ------------------------------------*/
-$('.sidebar-menu').on('click', function (e) {
+$('.sidebar__menu').on('click', function (e) {
 
     var attr = $(this).attr('data-target');
 
@@ -410,13 +402,13 @@ $('.sidebar-menu').on('click', function (e) {
     if (typeof attr !== typeof undefined && attr !== false) {
         e.preventDefault();
 
-        $(attr).toggleClass('d-none');
+        $(attr).toggleClass('d__none');
 
-        if ($(attr).hasClass('d-none')) {
-            $(this).removeClass('open-menu');
+        if ($(attr).hasClass('d__none')) {
+            $(this).removeClass('open__menu');
         }
         else {
-            $(this).addClass('open-menu');
+            $(this).addClass('open__menu');
         }
 
 
