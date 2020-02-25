@@ -50,7 +50,6 @@ var crud = {
 };
 
 
-
 //FIT THE CONTAINER OF JQUERY AUTOCOMPLETE IN THE ELEMENT
 $.extend($.ui.autocomplete.prototype.options, {
     open: function (event, ui) {

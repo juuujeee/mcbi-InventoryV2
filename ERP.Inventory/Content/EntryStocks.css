@@ -472,3 +472,13 @@ route__delmethod {
 .valid {
     border: 1px solid #c9d6df;
 }
+
+
+/*NEW CSS*/
+#has__attribute__table{
+    border: 1px solid;
+    border-collapse:collapse;
+}
+#has__attribute__table td{
+    border: 1px solid;
+}

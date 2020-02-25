@@ -7,7 +7,7 @@
     <link href="~/Content/EntryStocks.css" rel="stylesheet">
 }
 
-<form action="#" method="post" name=StockEntryForm>
+<form action="#" method="post" name="StockEntryForm">
 
     <div class="entrycontent">
         <div class="entrycontent__headertitle"><h1> Entry Stocks</h1></div>
@@ -36,7 +36,7 @@
                         <div class="projcontent__label"><h4>PRJ NO</h4></div>
                         <div class="projcontent__input"><input type="text" name="ProjectNumber" readonly></div>
                         <div class="projcontent__label"><h4>LOCATION</h4></div>
-                        <div class="projcontent__input"><input type="text" name="ProjectLocation"></div>
+                        <div class="projcontent__input"><input type="text" name="ProjectLocation" readonly></div>
                         <div class="projcontent__label"><h4>DEL DATE</h4></div>
                         <div class="projcontent__input"><input type="text" name="DeliveryDate" class="date-picker"></div>
                     </div>
@@ -108,6 +108,15 @@
 
 </form>
 
+
+<table id="has__attribute__table" style="display:none">
+    <thead>
+
+    </thead>
+    <tbody>
+        <tr></tr>
+    </tbody>
+</table>
 
 
 
@@ -205,26 +214,30 @@
 
             $.getJSON(supplierURL, function (data) {
 
-                for (var i = 0; i < data.length; i++) {
+                //console.log(data);
 
-                    var newObj = {};
+                if (!(data === null || data === '[]')) {
+                    for (var i = 0; i < data.length; i++) {
 
-                    newObj.id = data[i].SupplierID;
-                    newObj.value = data[i].SupplierName;
-                    newObj.label = data[i].SupplierName;
+                        var newObj = {};
 
-                    suppliers.push(newObj);
+                        newObj.id = data[i].SupplierID;
+                        newObj.value = data[i].SupplierName;
+                        newObj.label = data[i].SupplierName;
 
+                        suppliers.push(newObj);
+                    }
+
+                    $("input[name=SupplierName]").autocomplete({
+                        source: suppliers,
+                        select: function (event, ui) {
+
+                            $(this).attr('data-val', ui.item.id);
+                            $(this).parents('.fieldset__supcontent').find('input[name=SupplierID]').val(ui.item.id);
+                        }
+                    })
                 }
 
-                $("input[name=SupplierName]").autocomplete({
-                    source: suppliers,
-                    select: function (event, ui) {
-
-                        $(this).attr('data-val', ui.item.id);
-                        $(this).parents('.fieldset__supcontent').find('input[name=SupplierID]').val(ui.item.id);
-                    }
-                })
             });
 
             //FOR RECEIVED BY
@@ -262,11 +275,11 @@
         $(function () {
             $('form[name=StockEntryForm]').validate({
                 rules: {
-                    SupplierName: "required",
-                    ProjectName: "required",
-                    ReceivedBy: "required",
-                    DocNumber: "required",
-                    DeliveryDate: "required"
+                    //SupplierName: "required",
+                    //ProjectName: "required",
+                    //ReceivedBy: "required",
+                    //DocNumber: "required",
+                    //DeliveryDate: "required"
                 },
                 errorPlacement: function () {
                     return false;
@@ -279,11 +292,11 @@
                 }
             });
 
-            $("[name^=DeliveryMethodAttr]").each(function () {
-                $(this).rules("add", {
-                    required: true
-                });
-            });
+            //$("[name^=DeliveryMethodAttr]").each(function () {
+            //    $(this).rules("add", {
+            //        required: true
+            //    });
+            //});
 
         })
 
@@ -364,6 +377,51 @@
                 DeliveryMethod: DeliveryMethod
             };
 
+            //FOR ITEM ATTRIBUTE
+
+            var thead = '';
+
+            $.getJSON('/Data/Attribute', function (res) {
+
+                thead += '<tr>';
+                thead += '<td>NO</td>';
+                thead += '<td>ITEM NAME</td>';
+
+                for (var r = 0; r < res.length; r++) {
+                    thead += '<td>' + res[r].AttributeName + '</td>';
+                }
+
+                thead += '</tr>';
+
+                //clean has attribute table
+                $('#has__attribute__table thead').html('');
+                $('#has__attribute__table tbody').html('');
+
+
+                $('#has__attribute__table thead').append(thead);
+
+                $('#has__attribute__table').dialog({
+                    autoResize: true,
+                    width: 'auto',
+                    modal: true,
+                    title: 'ITEM ATTRIBUTE',
+                    buttons: {
+                        "Save": function () {
+                            
+                            Save(DocEntry);
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+
+            });
+
+        }
+
+        function Save(DocEntry) {
+
             console.log(DocEntry);
 
             return;
@@ -412,7 +470,6 @@
                     swal.fire('Error', msg, 'error');
                 },
             });
-
         }
 
     </script>

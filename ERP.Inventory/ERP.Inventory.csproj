@@ -154,6 +154,12 @@
     <Content Include="Content\Images\MCBILogo_White.png" />
     <Content Include="Content\Images\temp_logo.png" />
     <Content Include="Content\Images\temp_logo_transparent.png" />
+    <Content Include="Content\Images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\Images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\Images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\Images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\LayoutInventory.css" />
     <Content Include="Content\login.css" />
