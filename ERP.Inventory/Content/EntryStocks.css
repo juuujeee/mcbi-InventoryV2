@@ -87,7 +87,7 @@
 }
 
     .supcontent__input > input {
-        font-size: .7em;
+        font-size: .8em;
         font-family: Lato;
         font-weight: 500;
         padding: 3px;
@@ -147,7 +147,7 @@
 }
 
 .projcontent__input > input {
-    font-size: .7em;
+    font-size: .8em;
     font-family: Lato;
     font-weight: 500;
     padding: 3px;
@@ -209,7 +209,7 @@ route__delmethod {
 
 .delcontent__input > input,
 .delcontent__input > select {
-    font-size: .7em;
+    font-size: .8em;
     font-family: Lato;
     font-weight: 500;
     padding: 3px;
@@ -475,10 +475,53 @@ route__delmethod {
 
 
 /*NEW CSS*/
-#has__attribute__table{
-    border: 1px solid;
-    border-collapse:collapse;
-}
-#has__attribute__table td{
-    border: 1px solid;
-}
+
+/*#region ITEM ATTRIBUTE CSS*/
+    .has__attribute__container{
+        display:grid;
+        grid-template-areas: "item_name" "item_attribute" "footer";
+        grid-template-rows:auto;
+        grid-template-columns: 700px;
+        grid-row-gap: 10px;
+        display:none;
+    }
+
+    .item__name {
+        grid-area: item_name;
+        display: grid;
+        height: auto;
+        grid-column-gap: 15px;
+        grid-template-columns: 120px 1fr;
+        margin-bottom: 15px;
+    }
+
+    .item__attribute {
+        grid-area: item_attribute;
+        display: grid;
+        height: auto;
+        grid-column-gap: 15px;
+        grid-row-gap: 10px;
+        grid-template-columns: 120px 1fr 80px 1fr;
+        margin-bottom: 15px;
+    }
+
+    .has__attribute__footer{
+        grid-area: footer;
+    }
+
+
+    .has__attribute__container input,
+    .has__attribute__container select {
+        font-size: .8em;
+        font-family: Lato;
+        font-weight: 500;
+        padding: 3px;
+        box-sizing: border-box;
+        border: .5px solid #C8C8C8;
+        border-radius: 4px;
+        /* background-color: #F0F0F0; */
+        width: 100%;
+        line-height: 23px;
+    }
+
+/*#endregion ITEM ATTRIBUTE CSS*/

@@ -189,7 +189,46 @@ function fnGetItems(event) {
         source: items,
         select: function (event, ui) {
 
+            var $this = $(this);
+
+           //console.log(ui.item.hasAttribute);
+
+            if (ui.item.hasAttribute) {
+                $('.has__attribute__container').dialog({
+                    autoResize: true,
+                    width: 'auto',
+                    modal: true,
+                    title: 'ITEM ATTRIBUTE',
+                    open: function () {
+                        $(this).find('input[name=ItemName]').val(ui.item.value);
+                    },
+                    buttons: {
+                        "OK": function () {
+
+                            $(this).find('.item__attribute').each(function (e) {
+
+
+                                //console.log($(this).find('select[name=ItemAttribute]').val());
+
+
+                                $this.closest('td').append('<span class="item-attribute" data-attribute-id="' + $(this).find('select[name=ItemAttribute]').val() + '" data-attribute-value="' + $(this).find('input[name=Value]').val() + '"></span>');
+                            });
+
+                            
+
+                            $(this).dialog("close");
+                            
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            }
+
             $(this).attr('data-val', ui.item.id);
+            $(this).attr('data-description', ui.item.value);
+            $(this).attr('data-attribute', ui.item.hasAttribute);
         }
     });
 
@@ -204,6 +243,7 @@ function fnGetItems(event) {
                 newObj.id = data[i].ID;
                 newObj.value = data[i].ItemFullNameInfo.Name;
                 newObj.label = data[i].ItemFullNameInfo.Name;
+                newObj.hasAttribute = data[i].Category3.hasAttribute;
 
                 items.push(newObj);
             }

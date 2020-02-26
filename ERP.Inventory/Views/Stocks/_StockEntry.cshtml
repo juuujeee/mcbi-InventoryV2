@@ -7,7 +7,7 @@
     <link href="~/Content/EntryStocks.css" rel="stylesheet">
 }
 
-<form action="#" method="post" name="StockEntryForm">
+<form action="#" method="post" name="StockEntryForm" autocomplete="off">
 
     <div class="entrycontent">
         <div class="entrycontent__headertitle"><h1> Entry Stocks</h1></div>
@@ -109,14 +109,51 @@
 </form>
 
 
-<table id="has__attribute__table" style="display:none">
-    <thead>
+<div class="has__attribute__container">
+    <div class="item__name">
+        <label>Item Name</label>
+        <input type="text" name="ItemName" value="" style="width: 100%" disabled />
+    </div>
 
-    </thead>
-    <tbody>
-        <tr></tr>
-    </tbody>
-</table>
+    <div class="item__attribute__wrapper">
+        <div class="item__attribute">
+            <label>Item Attribute</label>
+            <select class="item__attribute__name" name="ItemAttribute" style="width: 100%">
+                <option value="1">SERIAL NUMBER</option>
+                <option value="2">MODEL NUMBER</option>
+                <option value="3">PLATE NUMBER</option>
+                <option value="4">CHASIS NUMBER</option>
+                <option value="5">BODY NUMBER</option>
+                <option value="6">ENGINE NUMBER</option>
+            </select>
+
+            <label>Value</label>
+            <input type="text" name="Value" value="" style="width: 100%" />
+        </div>
+    </div>
+
+    <div class="has__attribute__footer">
+        <button type="button" class="add__attribute">Add</button>
+        <hr />
+    </div>
+</div>
+
+<div class="item__attribute__clone" style="display:none">
+    <div class="item__attribute">
+        <label>Item Attribute</label>
+        <select class="item__attribute__name" name="" style="width: 100%">
+            <option value="1">SERIAL NUMBER</option>
+            <option value="2">MODEL NUMBER</option>
+            <option value="3">PLATE NUMBER</option>
+            <option value="4">CHASIS NUMBER</option>
+            <option value="5">BODY NUMBER</option>
+            <option value="6">ENGINE NUMBER</option>
+        </select>
+
+        <label>Value</label>
+        <input type="text" name="Value" value="" style="width: 100%" />
+    </div>
+</div>
 
 
 
@@ -174,6 +211,28 @@
 
 
         $(function () {
+
+            $('.add__attribute').on('click', function (e) {
+
+                var $this = $(this);
+
+                //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
+                $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
+
+                //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
+                $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
+                $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
+
+                //APPEND NEW ROW IN ITEM ATTRIBUTE
+                $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
+
+                //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
+                $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
+                $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
+
+
+            });
+
 
             $('.delMethodID').trigger('change');
 
@@ -275,11 +334,11 @@
         $(function () {
             $('form[name=StockEntryForm]').validate({
                 rules: {
-                    //SupplierName: "required",
-                    //ProjectName: "required",
-                    //ReceivedBy: "required",
-                    //DocNumber: "required",
-                    //DeliveryDate: "required"
+                    SupplierName: "required",
+                    ProjectName: "required",
+                    ReceivedBy: "required",
+                    DocNumber: "required",
+                    DeliveryDate: "required"
                 },
                 errorPlacement: function () {
                     return false;
@@ -292,11 +351,11 @@
                 }
             });
 
-            //$("[name^=DeliveryMethodAttr]").each(function () {
-            //    $(this).rules("add", {
-            //        required: true
-            //    });
-            //});
+            $("[name^=DeliveryMethodAttr]").each(function () {
+                $(this).rules("add", {
+                    required: true
+                });
+            });
 
         })
 
@@ -311,15 +370,52 @@
             //FOR STOCK ENTRY ITEM
             $this.find('.stock__entry__tr').each(function () {
 
-                var obj = {
-                    ID: 0,
-                    DocEntryID_007: 0,
-                    ItemID_011: $(this).find('input[name=Items]').attr('data-val') || 0,
-                    UnitID_009: $(this).find('input[name=Units]').attr('data-val') || 0,
-                    ItemConditionID_018: $(this).find('input[name=ItemCondition]').attr('data-val') || 0,
-                    Quantity: $(this).find('input[name=Qty]').val() || 0,
-                    UnitPrice: $(this).find('input[name=UnitPrice]').val() || 0
-                };
+                var itemID = $(this).find('input[name=Items]').attr('data-val') || 0;
+                var unitID = $(this).find('input[name=Units]').attr('data-val') || 0;
+                var itemConditionID = $(this).find('input[name=ItemCondition]').attr('data-val') || 0;
+                var quantity = $(this).find('input[name=Qty]').val() || 0;
+                var unitPrice = $(this).find('input[name=UnitPrice]').val() || 0;
+
+                var itemAttribute = [];
+
+                $(this).find('input[name=Items]').closest('td').find('span.item-attribute').each(function () {
+
+                    var itemAttrObj = {
+                        ID: 0,
+                        ItemID_011: itemID,
+                        AttID_006: $(this).attr('data-attribute-id'),
+                        AttributeValue: $(this).attr('data-attribute-value')
+                    };
+
+                    itemAttribute.push(itemAttrObj);
+                })
+
+                var obj = {};
+
+                if (itemAttribute.length > 0) {
+                    obj = {
+                        ID: 0,
+                        DocEntryID_007: 0,
+                        ItemID_011: itemID,
+                        UnitID_009: unitID,
+                        ItemAttributes: itemAttribute,
+                        ItemConditionID_018: itemConditionID,
+                        Quantity: quantity,
+                        UnitPrice: unitPrice
+                    };
+                }
+                else {
+                    obj = {
+                        ID: 0,
+                        DocEntryID_007: 0,
+                        ItemID_011: itemID,
+                        UnitID_009: unitID,
+                        ItemConditionID_018: itemConditionID,
+                        Quantity: quantity,
+                        UnitPrice: unitPrice
+                    };
+                }
+
 
                 if (obj.ItemID_011 !== 0) {
                     stockEntryItem.push(obj);
@@ -357,7 +453,7 @@
                 DelMethodAttribute: [{
                     ID: 0,
                     DelMethodID_010: $('.delMethodID').val(),
-                    MethodAttribute: '',
+                    MethodAttribute: 'N/A',
                     DeliveryMethodEntryList: DeliveryMethodEntryList
                 }]
 
@@ -379,52 +475,9 @@
 
             //FOR ITEM ATTRIBUTE
 
-            var thead = '';
-
-            $.getJSON('/Data/Attribute', function (res) {
-
-                thead += '<tr>';
-                thead += '<td>NO</td>';
-                thead += '<td>ITEM NAME</td>';
-
-                for (var r = 0; r < res.length; r++) {
-                    thead += '<td>' + res[r].AttributeName + '</td>';
-                }
-
-                thead += '</tr>';
-
-                //clean has attribute table
-                $('#has__attribute__table thead').html('');
-                $('#has__attribute__table tbody').html('');
-
-
-                $('#has__attribute__table thead').append(thead);
-
-                $('#has__attribute__table').dialog({
-                    autoResize: true,
-                    width: 'auto',
-                    modal: true,
-                    title: 'ITEM ATTRIBUTE',
-                    buttons: {
-                        "Save": function () {
-                            
-                            Save(DocEntry);
-                        },
-                        Cancel: function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                });
-
-            });
-
-        }
-
-        function Save(DocEntry) {
-
             console.log(DocEntry);
 
-            return;
+            //return;
 
             $.ajax({
                 headers: {
@@ -470,7 +523,10 @@
                     swal.fire('Error', msg, 'error');
                 },
             });
+
+
         }
+
 
     </script>
 
