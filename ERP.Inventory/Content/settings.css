@@ -1,0 +1,170 @@
+﻿
+/*MAIN CONTAINER CSS*/
+.settings__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+}
+
+/*FIELDSET CSS*/
+.settings__fieldset {
+    border-radius: 5px;
+    height: 500px;
+    position: relative
+}
+
+    .settings__fieldset .fieldset__footer {
+        position: absolute;
+        bottom: 15px;
+        right: 26px;
+    }
+
+.fieldset__footer button {
+    background: #0c9463;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .fieldset__footer button:hover {
+        background: #0a6f4a;
+    }
+
+.fieldset__content {
+    display: grid;
+    grid-template-rows: 300px auto;
+    grid-template-areas: "main-content" "main-footer";
+    padding: 15px;
+    grid-template-columns: 100%;
+    border: 1px solid #ededed;
+}
+
+    .fieldset__content .main__content {
+        grid-area: main-content;
+        grid-row-gap: 15px;
+    }
+
+    .fieldset__content .main__footer .footer__form__fields {
+        display: grid;
+        grid-template-columns: 80% auto;
+        grid-column-gap: 20px;
+    }
+
+        .fieldset__content .main__footer .footer__form__fields button {
+            padding: 8px 20px;
+            border-radius: 5px;
+            background: #2c7873;
+            border: none;
+            color: #fff;
+            cursor:pointer;
+        }
+        .fieldset__content .main__footer .footer__form__fields button:hover {
+            background: #225855;
+        }
+
+    .fieldset__content .main__footer {
+        grid-area: main-footer;
+        border-top: 1px solid #ededed;
+    }
+
+/*FIELDSET 1 CONTENT CSS*/
+
+#fieldset__content__wrapper1 .main__content .content {
+    display: grid;
+    grid-template-columns: 80% 1fr;
+    grid-template-rows: auto;
+    margin-bottom: 15px;
+}
+
+    #fieldset__content__wrapper1 .main__content .content .content__text {
+        display: grid;
+        grid-template-columns: 30px 1fr;
+    }
+
+    #fieldset__content__wrapper1 .main__content .content .content__checkbox {
+        text-align: right;
+    }
+
+
+
+/*FIELDSET 2 CONTENT CSS*/
+
+#fieldset__content__wrapper2 .content {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-column-gap: 15px;
+    grid-template-rows: auto;
+    margin-bottom: 15px;
+}
+
+    #fieldset__content__wrapper2 .content .content__checkbox {
+        text-align: left;
+    }
+
+    #fieldset__content__wrapper2 .content .content__text {
+        display: grid;
+        grid-template-columns: 65px 1fr;
+    }
+
+
+/*FIELDSET 3 CONTENT CSS*/
+#fieldset__content__wrapper3 .fieldset__table__content{
+    display:grid;
+    grid-template-columns: 100%;
+    grid-template-rows:auto;
+    grid-row-gap: 15px;
+    margin-top:15px;
+}
+
+#fieldset__content__wrapper3 .fieldset__table__content .header{
+    display:grid;
+    grid-template-columns: 50px auto;
+}
+
+#fieldset__content__wrapper3 table, #fieldset__content__wrapper3 table td {
+    border: 1px solid #ededed;
+    border-collapse:collapse;
+}
+#fieldset__content__wrapper3 table thead td {
+    font-weight: 800;
+    height: 30px;
+}
+
+.privilege__wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+.privilege {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 30px auto;
+}
+
+
+#fieldset__content__wrapper4 .fieldset__table__content{
+    display:grid;
+    grid-gap:15px;
+    grid-template-rows:auto;
+    grid-template-columns: 100%;
+    margin-top: 15px;
+}
+
+#fieldset__content__wrapper4 .fieldset__table__content .content{
+    display:grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: auto;
+    grid-gap: 15px;
+}
+
+
+/*FIELDSET 4 CONTENT CSS*/
+
+@media only screen and (max-width: 640px) {
+    .settings__wrapper {
+        grid-row-gap: 20px;
+        grid-template-columns: 100%;
+    }
+}

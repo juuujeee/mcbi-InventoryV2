@@ -14,46 +14,62 @@ body {
         height: 100%;
         display: grid;
         grid-template-columns: minmax(180px,15%) auto minmax(180px,15%);
-        grid-template-rows: minmax(80px, 10%) auto;
+        grid-template-rows: 80px auto;
         grid-template-areas: "head head head" "sideleft content sideright";
     }
 
     .wrapper__header {
-        position: fixed;
         z-index: 99;
-        height: 10%;
-        padding-bottom: 10px;
         min-height: 80px;
+        position: fixed;
+        height: 80px;
         width: 100%;
         color: white;
-        border-bottom: 3px solid white;
+        border-bottom: 2px solid white;
         background-color: #141519;
         grid-area: head;
         box-sizing: border-box;
         display: grid;
-        grid-template-rows: 0 minmax(80px, 10%);
-        grid-template-areas: "logo" "text";
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+        grid-template-areas: "maintitle";
     }
 
     .header__headlogo {
-        grid-area: logo;
         display: none;
     }
 
-    .header__headtext {
-        display: inherit;
+    .header__headtitle {
         padding-left: 20px;
         padding-bottom: 5px;
-        grid-area: text;
+        grid-area: maintitle;
         height: 100%;
         display: table;
     }
 
-    .headtext__h1 {
+    .headtitle__h1 {
         font-weight: 400;
-        font-size: 2em;
+        font-size: 1.5em;
+        padding-bottom: 5px;
+        box-sizing: border-box;
         display: table-cell;
         vertical-align: bottom;
+    }
+
+    .header__sidetext {
+        position: fixed;
+        right: 0;
+        grid-area: sidetext;
+        text-align: right;
+        padding-left: 5px;
+        padding-right: 10px;
+    }
+
+    .header__sidetext > h4 {
+        margin: 0;
+        font-size: .8em;
+        font-weight: 300;
+        font-style: italic;
     }
 
     .wrapper__leftmenu {
@@ -301,9 +317,6 @@ body {
         padding-top: 10px;
         margin: 0;
     }
-    .headlogo__img{
-        height: 100%;
-    }
 
     .header__headtitle {
         padding: 0;
@@ -320,7 +333,6 @@ body {
         display: none;
     }
 }
-
 
 /*jquery autocomplete*/
 .ui-autocomplete.ui-widget {
