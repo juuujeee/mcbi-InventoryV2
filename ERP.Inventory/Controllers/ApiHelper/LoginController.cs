@@ -55,13 +55,6 @@ namespace ERP.Inventory.Controllers.ApiHelper
                 return Ok(SyncRequest.HttpRequest(ss));
             }
             return Ok(SyncRequest.HttpRequest(name + "/" + id));
-            /*
-
-            if (id == 0)
-                return Ok(JsonConvert.DeserializeObject<List<Inventory_Domain_Layer._001_invRefCategory1Domain>>(SyncRequest.HttpRequest(name)));
-
-            return Ok(JsonConvert.DeserializeObject<Inventory_Domain_Layer._001_invRefCategory1Domain>(SyncRequest.HttpRequest(name + "/" + id)));
-            */
         }
         [HttpGet]
         [Helper.ProducesJson]
@@ -69,15 +62,7 @@ namespace ERP.Inventory.Controllers.ApiHelper
         public ActionResult Get2(string name)
         {
             LoadHeader();
-
             return Ok(SyncRequest.HttpRequest(name));
-            /*
-
-            if (id == 0)
-                return Ok(JsonConvert.DeserializeObject<List<Inventory_Domain_Layer._001_invRefCategory1Domain>>(SyncRequest.HttpRequest(name)));
-
-            return Ok(JsonConvert.DeserializeObject<Inventory_Domain_Layer._001_invRefCategory1Domain>(SyncRequest.HttpRequest(name + "/" + id)));
-            */
         }
 
 
@@ -91,7 +76,6 @@ namespace ERP.Inventory.Controllers.ApiHelper
         public ActionResult Post(string name, string samples)
         {
             LoadHeader();
-            // + Request.RequestContext.RouteData.Values["directives"].ToString();
             Stream req = Request.InputStream;
             req.Seek(0, System.IO.SeekOrigin.Begin);
             string json = new StreamReader(req).ReadToEnd();
@@ -99,8 +83,6 @@ namespace ERP.Inventory.Controllers.ApiHelper
             req.Dispose();
             try
             {
-                //assuming JSON.net/Newtonsoft library from http://json.codeplex.com/
-                //input = JsonConvert.DeserializeObject<InputClass>(json)
                 return Ok
                     (
                         SyncRequest.HttpRequest
