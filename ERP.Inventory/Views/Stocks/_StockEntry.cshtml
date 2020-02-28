@@ -8,30 +8,19 @@
 }
 
 <form action="#" method="post" name="StockEntryForm" autocomplete="off">
-
+    <input type="hidden" name="ID" value="" />
     <div class="entrycontent">
-        <div class="entrycontent__headertitle">
-            <div class="title">
-                <h1>Entry Stocks</h1>
-                <div class="quick__links__buttons">
-                    <div>
-                        <button>New</button>
-                    </div>
-                    <div>
-                        <button>Clear</button>
-                    </div>
-                    <div>
-                        <button>Edit</button>
-                    </div>
-                    <div>
-                        <button>Print</button>
-                    </div>
-                </div>
+        <div class="entrycontent__entryheadertitle">
+            <div class="entryheadertitle__entrylabel">
+                <h1> Entry Stocks</h1>
             </div>
-            @*<div class="quick__links">
-                <div class="quick__links__content"></div>
-                <div class="quick__links__content"></div>
-            </div>*@
+            <div class="entryheadertitle__entrymenubutton">
+                <button class="entrymenubutton__nce new__entry" type="button">New</button>
+                <button class="entrymenubutton__nce clear__entry" type="button">Clear</button>
+                <button class="entrymenubutton__nce edit__entry" type="button">Edit</button>
+                <button class="entrymenubutton__ell" type="button">...</button>
+            </div>
+
         </div>
         <div class="entrycontent__route">
 
@@ -127,8 +116,12 @@
             <a href="javascript:void(0)" class="add__new_item__stockEntry">Add New Item</a>
         </div>
         <div class="entrycontent__footer">
-            <div class="footer__saveupload">
-                <input type="submit" value="Save">
+            <div class="footer__upload">
+                <label for="file"> Upload Support Docs</label>
+                <input id="file" type="file" value="Upload Attachment">
+            </div>
+            <div class="footer__save">
+                <button type="submit" class="save__btn">Save</button>
             </div>
         </div>
     </div>
@@ -520,8 +513,14 @@
                     if (response.RetVal === 1) {
                         swal.fire('Success', response.Message, 'success');
 
-                        //Clear Stock Entry Header
-                        $('form[name=StockEntryForm]').find('input').val("");
+                        //Disable All Input and Select Field
+                        $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+
+                        //Disable Table
+                        $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+
+                        //Assign ID in hidden input[name=ID]
+                        $this.find('input[name=ID]').val(response.DataID);
 
                     }
                     else {
@@ -551,9 +550,34 @@
                 },
             });
 
-
         }
 
+
+        $('.clear__entry').on('click', function () {
+            //Clear Stock Entry
+            $('form[name=StockEntryForm]').find('input').val("");
+        });
+
+        $('.edit__entry').on('click', function () {
+            
+            $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
+
+            $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
+
+            $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
+
+        });
+
+        $('.new__entry').on('click', function () {
+            $('form[name=StockEntryForm]').find('input').val("");
+        });
+
+        //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
+        //$(function () {
+        //    $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+        //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+        //    $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+        //});
 
     </script>
 

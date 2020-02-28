@@ -7,7 +7,7 @@ $.ajaxSetup({
     }
 });
 
-$('.logout_btn').click(function (e) {
+$('.logout__btn').click(function (e) {
 
     e.preventDefault();
 
@@ -246,7 +246,7 @@ function fnGetItemsByProj(event) {
 
     var $this = $(event.target);
 
-    var projectID = $this.parents('.entrycontent').find('input[name=OriginProjectID]').val();
+    var projectID = $this.parents('.Transcontent').find('input[name=OriginProjectID]').val();
 
    // console.log(projectID);
 

@@ -8,125 +8,130 @@
     
 }
 
-    <div class="entrycontent">
-        <div class="entrycontent__headertitle">
-            <div class="title">
-                <h1> Transfer Stocks</h1>
-            </div>
-            <div class="quick__links">
-                <div class="quick__links__content">
-                    <label>NEW / POST TRANSFER</label>
-                    <select id="transfer_stock_option">
-                        <option value="1">NEW STOCK TRANSFER</option>
-                        <option value="2">CONFIRM STOCK TRANSFER</option>
-                    </select>
-                </div>
-                <div class="quick__links__content">
-                    <label id="seriesNumber"></label>
-                    <input type="text" name="RefNumber" value="" autocomplete="off">
-                </div>
-            </div>
+<div class="Transcontent">
+    <div class="Transcontent__transheadertitle">
+        <div class="transheadertitle__translabel"><h1> Stock Transfer Form</h1></div>
+        <div class="transheadertitle__transmenubutton">
+            <button class="transmenubutton__nce">New</button>
+            <button class="transmenubutton__nce">Clear</button>
+            <button class="transmenubutton__nce">Edit</button>
+            <button class="transmenubutton__ell">...</button>
         </div>
-        <div class="entrycontent__route">
-            <fieldset id="">
-                <legend class="fieldset__title">ORIGIN DETAILS</legend>
-                <div class="fieldset__content">
-                    <div class="content">
-                        <label>PRJ NAME</label>
-                        <input type="hidden" name="OriginProjectID" value="" />
-                        <input type="text" name="OriginProjectName" value="" />
-                    </div>
-                    <div class="content">
-                        <label>PRJ NO</label>
-                        <input type="text" name="OriginProjectNumber" value="" disabled/>
-                    </div>
-                    <div class="content">
-                        <label>LOCATION</label>
-                        <input type="text" name="OriginProjectLocation" value="" disabled/>
-                    </div>
-                    <div class="content">
-                        <label>WH I/C</label>
-                        <input type="text" name="OriginWarehouseIncharge" value="" />
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset id="">
-                <legend class="fieldset__title">DELIVERY</legend>
-                <div class="fieldset__content delMethod__content">
-                    <div class="content">
-                        <label>METHOD</label>
-                        <select class="delMethodID">
-                            <option value="1">DELIVERY TRUCK</option>
-                            <option value="2">COURIER</option>
-                            <option value="3">MESSENGER</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset id="">
-                <legend class="fieldset__title">DESTINATION</legend>
-                <div class="fieldset__content">
-                    <div class="content">
-                        <label>PRJ NAME</label>
-                        <input type="hidden" name="DestinationProjectID" value="" />
-                        <input type="text" name="DestinationProjectName" value="" />
-                    </div>
-                    <div class="content">
-                        <label>PRJ NO</label>
-                        <input type="text" name="DestinationProjectNumber" value="" disabled/>
-                    </div>
-                    <div class="content">
-                        <label>LOCATION</label>
-                        <input type="text" name="DestinationProjectLocation" value="" disabled/>
-                    </div>
-                    <div class="content">
-                        <label>WH I/C</label>
-                        <input type="text" name="DestinationWarehouseIncharge" value="" />
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="entrycontent__tabletitle">
-            <h1>Enter new stock here...</h1>
-        </div>
-        <div class="entrycontent__tableitem">
-            <table class="tableitem__table">
-                <thead>
-                    <tr>
-                        <td>NO</td>
-                        <td>DESCRIPTION</td>
-                        <td>UNITS</td>
-                        <td>QTY</td>
-                        <td>PRICE</td>
-                        <td>COND</td>
-                    </tr>
-                </thead>
-                <tbody class="stock__entry__tbody">
-                    @for (var i = 1; i <= 10; i++)
-                    {
-                        <tr class="stock__entry__tr">
-                            <td class="counter">@i</td>
-                            <td><input type="text" name="Items" onkeypress="fnGetItemsByProj(event)"></td>
-                            <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
-                            <td><input type="text" name="Qty"></td>
-                            <td><input type="text" name="UnitPrice"></td>
-                            <td class="position__relative">
-                                <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
-                                <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
-                            </td>
-                        </tr>
-                    }
 
-                </tbody>
-            </table>
-            <a href="javascript:void(0)" class="add__new_item__stockEntry">Add New Item</a>
+    </div>
+    <div class="Transcontent__transselectfunc">
+        <div class="transselectfunc__labelselect"><h4>Select Transaction First...</h4></div>
+        <div class="transselectfunc__divselect">
+            <select class="divselect_selecttrans">
+                <option>Select Transaction</option>
+                <option>New Transaction</option>
+                <option>Confirm Transaction</option>
+            </select>
         </div>
-        <div class="entrycontent__footer">
-            <div class="footer__saveupload">
-                <input type="submit" value="Save" class="save__transferStock">
-            </div>
+        <div class="transselectfunc__labelrefno"><h4>Enter Ref No.</h4></div>
+        <div class="transselectfunc__divrefno">
+            <input type="text">
         </div>
     </div>
+    <div class="Transcontent__transroute">
+        <fieldset id="supplier__fieldset">
+            <legend class="fieldset__title">ORIGIN</legend>
+            <div class="fieldset__content">
+                <div class="content">
+                    <label>PRJ NAME</label>
+                    <input type="hidden" name="OriginProjectID" value="">
+                    <input type="text" name="OriginProjectName" value="">
+                </div>
+                <div class="content">
+                    <label>PRJ NO</label>
+                    <input type="text" name="OriginProjectNumber" value="" disabled="">
+                </div>
+                <div class="content">
+                    <label>LOCATION</label>
+                    <input type="text" name="OriginProjectLocation" value="" disabled="">
+                </div>
+                <div class="content">
+                    <label>INCHARGE</label>
+                    <input type="text" name="OriginWarehouseIncharge" value="">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="project__fieldset">
+            <legend class="fieldset__title">DESTINATION</legend>
+            <div class="fieldset__content">
+                <div class="content">
+                    <label>PRJ NAME</label>
+                    <input type="hidden" name="DestinationProjectID" value="">
+                    <input type="text" name="DestinationProjectName" value="">
+                </div>
+                <div class="content">
+                    <label>PRJ NO</label>
+                    <input type="text" name="DestinationProjectNumber" value="" disabled="">
+                </div>
+                <div class="content">
+                    <label>LOCATION</label>
+                    <input type="text" name="DestinationProjectLocation" value="" disabled="">
+                </div>
+                <div class="content">
+                    <label>INCHARGE</label>
+                    <input type="text" name="DestinationWarehouseIncharge" value="">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="delMethod__fieldset">
+            <legend class="fieldset__title">DELIVERY</legend>
+            <div class="fieldset__content delMethod__content">
+                <div class="content">
+                    <label>METHOD</label>
+                    <select class="delMethodID">
+                        <option value="1">DELIVERY TRUCK</option>
+                        <option value="2">COURIER</option>
+                        <option value="3">MESSENGER</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="Transcontent__transtabletitle">
+        <h1>Enter new stock here...</h1>
+    </div>
+    <div class="Transcontent__transtableitem">
+        <table class="tableitem__table">
+            <thead>
+                <tr>
+                    <td>NO</td>
+                    <td>DESCRIPTION</td>
+                    <td>UNITS</td>
+                    <td>QTY</td>
+                    <td>PRICE</td>
+                    <td>COND</td>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 1; i <=10; i++)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td><input type="text" name="Items" onkeypress="fnGetItemsByProj(event)"></td>
+                        <td><input type="text" value="" name="Units"></td>
+                        <td><input type="text" value="" name="Qty"></td>
+                        <td><input type="text" value="" name="UnitPrice"></td>
+                        <td><input type="text" value="" name="ItemCondition"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="Transcontent__transfooter">
+        <div class="footer__upload">
+            <label for="file"> Upload Support Docs</label>
+            <input id="file" type="file" value="Upload Attachment">
+        </div>
+        <div class="footer__save">
+            <input type="button" value="Save">
+        </div>
+    </div>
+</div>
 
 @section Scripts{
 
