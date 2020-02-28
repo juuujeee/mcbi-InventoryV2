@@ -189,6 +189,7 @@
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\overlayscrollbar.js" />
     <Content Include="Scripts\sweetalert2.all.js" />
