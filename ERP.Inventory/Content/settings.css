@@ -144,6 +144,7 @@
 }
 
 
+/*FIELDSET 4 CONTENT CSS*/
 #fieldset__content__wrapper4 .fieldset__table__content{
     display:grid;
     grid-gap:15px;
@@ -159,8 +160,6 @@
     grid-gap: 15px;
 }
 
-
-/*FIELDSET 4 CONTENT CSS*/
 
 @media only screen and (max-width: 640px) {
     .settings__wrapper {

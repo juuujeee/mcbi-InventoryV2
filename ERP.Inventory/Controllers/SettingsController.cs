@@ -13,7 +13,6 @@ namespace ERP.Inventory.Controllers
         {
             return View();
         }
-
         public ActionResult Advance()
         {
             return View();
