@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiHelper\DataController.cs" />
+    <Compile Include="Controllers\ApiHelper\LoginController.cs" />
     <Compile Include="Controllers\ApiHelper\UserRoleAccess.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -165,6 +166,7 @@
     <Content Include="Content\login.css" />
     <Content Include="Content\overlayscrollbar.css" />
     <Content Include="Content\settings.css" />
+    <Content Include="Content\TransferStock.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -239,6 +241,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Filter\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
