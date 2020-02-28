@@ -339,7 +339,7 @@
                         source: receivedBy,
                         select: function (event, ui) {
 
-                            console.log($(this));
+                            //console.log($(this));
 
                             $(this).attr('data-val', ui.item.id);
                         }
@@ -519,6 +519,9 @@
                         //Disable Table
                         $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
 
+                        //Disable Button
+                        $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+
                         //Assign ID in hidden input[name=ID]
                         $this.find('input[name=ID]').val(response.DataID);
 
@@ -559,11 +562,14 @@
         });
 
         $('.edit__entry').on('click', function () {
-            
+
+            //enable input and select field
             $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
 
+            //enable click and edit in table elements
             $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
 
+            //enable button save
             $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
 
         });
