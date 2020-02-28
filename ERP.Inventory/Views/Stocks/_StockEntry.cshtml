@@ -10,59 +10,86 @@
 <form action="#" method="post" name="StockEntryForm" autocomplete="off">
 
     <div class="entrycontent">
-        <div class="entrycontent__headertitle"><h1> Entry Stocks</h1></div>
+        <div class="entrycontent__headertitle">
+            <div class="title">
+                <h1>Entry Stocks</h1>
+                <div class="quick__links__buttons">
+                    <div>
+                        <button>New</button>
+                    </div>
+                    <div>
+                        <button>Clear</button>
+                    </div>
+                    <div>
+                        <button>Edit</button>
+                    </div>
+                    <div>
+                        <button>Print</button>
+                    </div>
+                </div>
+            </div>
+            @*<div class="quick__links">
+                <div class="quick__links__content"></div>
+                <div class="quick__links__content"></div>
+            </div>*@
+        </div>
         <div class="entrycontent__route">
-            <div class="route__supplier">
-                <fieldset class="supplier__fieldset">
-                    <legend>SUPPLIER</legend>
-                    <div class="fieldset__supcontent">
-                        <div class="supcontent__label"><h4>SUPPLIER</h4></div>
-                        <div class="supcontent__input"><input type="text" name="SupplierName"></div>
-                        <div class="supcontent__label"><h4>SUP ID</h4></div>
-                        <div class="supcontent__input"><input type="text" name="SupplierID" readonly></div>
-                        <div class="supcontent__label"><h4>DOC NO</h4></div>
-                        <div class="supcontent__input"><input type="text" name="DocNumber"></div>
-                        <div class="supcontent__label"><h4>RCV BY</h4></div>
-                        <div class="supcontent__input"><input type="text" name="ReceivedBy"></div>
+
+            <fieldset id="supplier__fieldset">
+                <legend class="fieldset__title">SUPPLIER</legend>
+                <div class="fieldset__content">
+                    <div class="content">
+                        <label>SUPPLIER</label>
+                        <input type="text" name="SupplierName">
                     </div>
-                </fieldset>
-            </div>
-            <div class="route__project">
-                <fieldset class="project__fieldset">
-                    <legend>PROJECT</legend>
-                    <div class="fieldset__projcontent">
-                        <div class="projcontent__label"><h4>PRJ NAME</h4></div>
-                        <div class="projcontent__input"><input type="text" name="ProjectName"></div>
-                        <div class="projcontent__label"><h4>PRJ NO</h4></div>
-                        <div class="projcontent__input"><input type="text" name="ProjectNumber" readonly></div>
-                        <div class="projcontent__label"><h4>LOCATION</h4></div>
-                        <div class="projcontent__input"><input type="text" name="ProjectLocation" readonly></div>
-                        <div class="projcontent__label"><h4>DEL DATE</h4></div>
-                        <div class="projcontent__input"><input type="text" name="DeliveryDate" class="date-picker"></div>
+                    <div class="content">
+                        <label>SUP ID</label>
+                        <input type="text" name="SupplierID" readonly>
                     </div>
-                </fieldset>
-            </div>
-            <div class="route__delmethod">
-                <fieldset class="delmethod__fieldset">
-                    <legend>DELIVERY</legend>
-                    <div class="fieldset__delcontent">
-                        <div class="delcontent__label"><h4>METHOD</h4></div>
-                        <div class="delcontent__input">
-                            <select class="delMethodID">
-                                <option value="1">DELIVERY TRUCK</option>
-                                <option value="2">COURIER</option>
-                                <option value="3">MESSENGER</option>
-                            </select>
-                        </div>
-                        @*<div class="delcontent__label"><h4>DRIVER</h4></div>
-                            <div class="delcontent__input"><input type="text"></div>
-                            <div class="delcontent__label"><h4>PLATE NO</h4></div>
-                            <div class="delcontent__input"><input type="text"></div>
-                            <div class="delcontent__label"><h4>VH TYPE</h4></div>
-                            <div class="delcontent__input"><input type="text"></div>*@
+                    <div class="content">
+                        <label>DOC NO</label>
+                        <input type="text" name="DocNumber">
                     </div>
-                </fieldset>
-            </div>
+                    <div class="content">
+                        <label>RCV BY</label>
+                        <input type="text" name="ReceivedBy">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="project__fieldset">
+                <legend class="fieldset__title">PROJECT</legend>
+                <div class="fieldset__content">
+                    <div class="content">
+                        <label>PRJ NAME</label>
+                        <input type="text" name="ProjectName">
+                    </div>
+                    <div class="content">
+                        <label>PRJ NO</label>
+                        <input type="text" name="ProjectNumber" readonly>
+                    </div>
+                    <div class="content">
+                        <label>LOCATION</label>
+                        <input type="text" name="ProjectLocation" readonly>
+                    </div>
+                    <div class="content">
+                        <label>DEL DATE</label>
+                        <input type="text" name="DeliveryDate" class="date-picker">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="delMethod__fieldset">
+                <legend class="fieldset__title">DELIVERY</legend>
+                <div class="fieldset__content delMethod__content">
+                    <div class="content">
+                        <label>METHOD</label>
+                        <select class="delMethodID">
+                            <option value="1">DELIVERY TRUCK</option>
+                            <option value="2">COURIER</option>
+                            <option value="3">MESSENGER</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
         </div>
         <div class="entrycontent__tabletitle">
             <h1>Enter new stock here...</h1>
@@ -261,11 +288,11 @@
                     select: function (event, ui) {
 
                         $(this).attr('data-val', ui.item.id);
-                        $(this).parents('.project__fieldset').find('input[name=ProjectNumber]').val(ui.item.projectNo);
+                        $(this).parents('fieldset#project__fieldset').find('input[name=ProjectNumber]').val(ui.item.projectNo);
                     }
                 });
             });
-
+            
 
             //FOR SUPPLIER
             var suppliers = [];
@@ -292,7 +319,7 @@
                         select: function (event, ui) {
 
                             $(this).attr('data-val', ui.item.id);
-                            $(this).parents('.fieldset__supcontent').find('input[name=SupplierID]').val(ui.item.id);
+                            $(this).parents('fieldset#supplier__fieldset').find('input[name=SupplierID]').val(ui.item.id);
                         }
                     })
                 }

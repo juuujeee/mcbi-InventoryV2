@@ -1,12 +1,13 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "Advance Settings";
 }
 
 @section Styles{
 
     <link href="~/Content/settings.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
 
 }
 
@@ -15,14 +16,22 @@
         <legend class="fieldset__title">CONTROLS</legend>
         <div class="fieldset__content" id="fieldset__content__wrapper1">
             <div class="main__content">
+                <div class="header">
+                    <label>Systems:</label>
+                    <select>
+                        <option value="">Invetory </option>
+                        <option value="">Vendor </option>
+                    </select>
+                </div>
                 @for (var i = 1; i <= 3; i++)
                 {
                     <div class="content">
                         <div class="content__text">
                             <input type="radio" name="name" value="" />
                             <div>
-                                Category @i
-                                <button><i class="fa fa-angle-double-right"></i></button>
+                                <span>Category @i</span>
+                                <button class="open-dialog"><i class="fa fa-angle-double-right"></i></button>
+
                             </div>
                         </div>
                         <div class="content__checkbox">
@@ -40,7 +49,7 @@
                     </div>
                 </div>
             </div>
-           
+
         </div>
         <div class="fieldset__footer">
             <button>Save</button>
@@ -189,3 +198,11 @@
         </div>
     </fieldset>
 </div>
+
+@section Scripts {
+    <script src="~/Scripts/modal.js"></script>
+    <script>
+        setModal();
+
+    </script>
+}
