@@ -113,7 +113,7 @@
 
                 </tbody>
             </table>
-            <a href="javascript:void(0)" class="add__new_item__stockEntry">Add New Item</a>
+            <a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>
         </div>
         <div class="entrycontent__footer">
             <div class="footer__upload">
@@ -195,7 +195,7 @@
 
     <script>
 
-        $('.add__new_item__stockEntry').on('click', function () {
+        function fnAddStockEntryItem(event) {
 
             var number = $('.stock__entry__tr').length;
 
@@ -207,24 +207,19 @@
             );
 
             $('.stock__entry__tbody__clone').find('tr').removeClass('stock__entry__tr');
-        });
-
+        }
 
         function fnRemoveItemStockEntry(event) {
             var $this = $(event.target);
 
             $this.closest('tr').remove();
 
-            var counter = $('.tableitem__table').find('td.counter').length;
-
-            //console.log(counter);
-
-            //return;
+            var counter = $('.entrycontent .tableitem__table').find('td.counter').length;
 
             if (counter > 0) {
                 for (var i = 0; i < counter; i++) {
 
-                    $('.tableitem__table').find('.counter').eq(i).text(i + 1);
+                    $('.entrycontent .tableitem__table').find('.counter').eq(i).text(i + 1);
                 }
             }
         }

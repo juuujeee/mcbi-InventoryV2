@@ -370,6 +370,23 @@
         color:#fff;
     }
 
+
+.Transcontent .position__relative {
+    position: relative;
+}
+.Transcontent .remove__btn {
+    position: absolute;
+    cursor: pointer;
+    right: -15px;
+    color: #dc3545;
+    top: 4px;
+}
+
+.Transcontent .add__transfer__stock__item {
+    text-decoration: none;
+    color: #000000;
+}
+
 @media screen and (max-width:640px) and (orientation:portrait) {
     html {
         font-size: 14px;
