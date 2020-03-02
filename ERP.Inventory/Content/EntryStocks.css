@@ -437,6 +437,17 @@
         ##Screen = B/w 481px to 767px
     */
 
+    .entrycontent {
+        grid-template-columns: 100%;
+    }
+    .entrycontent__entryheadertitle {
+        grid-template-columns: 100%;
+    }
+
+    .entrycontent__entryheadertitle .entryheadertitle__entrymenubutton {
+        display: none;
+    }
+
     .entrycontent__route {
         grid-template-columns: 100%;
         grid-template-rows: 1fr 1fr 1fr;
@@ -477,9 +488,14 @@
       ##Device = Most of the Smartphones Mobiles (Portrait)
       ##Screen = B/w 320px to 479px
     */
-
+    .entrycontent__entryheadertitle{
+        grid-template-columns: 100%;
+    }
+    .entrycontent__entryheadertitle .entryheadertitle__entrymenubutton{
+        display:none;
+    }
     .entrycontent__route {
-        grid-template-columns:100%;
+        grid-template-columns: 100%;
     }
     .quick__links__buttons{
         display:none;

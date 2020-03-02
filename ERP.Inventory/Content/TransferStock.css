@@ -387,71 +387,68 @@
     color: #000000;
 }
 
-@media screen and (max-width:640px) and (orientation:portrait) {
+
+/*================MEDIA QUERIES=====================*/
+
+@media (min-width: 768px) and (max-width: 1024px){
+    /*
+        ##Device = Tables, Ipads (portrait)
+        ##Screen = B/w 768px to 1024px
+    */
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape){
+    /*
+        ##Device = Tablets, Ipads (landscape)
+        ##Screen = B/w 768px to 1024px
+    */
+}
+@media (min-width: 481px) and (max-width: 767px){
+    /*
+        ##Device = Low Resolution Tablets, Mobiles(Landscape)
+        ##Screen = B/w 481px to 767px
+    */
+    html {
+        font-size: 14px;
+    }
+    .Transcontent {
+        grid-template-columns: 100%;
+    }
+    .Transcontent__transroute {
+        grid-template-columns: 100%;
+    }
+    .Transcontent__transheadertitle{
+        grid-template-columns: 100%;
+    }
+    .transheadertitle__transmenubutton{
+        display:none;
+    }
+  
+}
+@media(min-width: 320px) and (max-width: 480px){
+    /*
+        ##Device = Most of the Smartphones Mobiles (Portrait)
+        ##Screen = B/w 320px to 480px
+    */
     html {
         font-size: 14px;
     }
 
-    .entrycontent {
-        grid-template-rows: 40px auto 40px auto 40px;
-        padding: 5px 5px 10px 5px;
-    }
-
-    .entrycontent__route {
+    .Transcontent{
         grid-template-columns: 100%;
-        grid-template-rows: repeat(3,auto);
-        grid-template-areas: "supplier" "project" "delivery";
-        grid-gap: 10px;
     }
 
-    .entrycontent__headertitle > h1 {
-        margin: 0;
-        font-size: 1.7em;
-    }
-
-    .fieldset__suplegend {
-        font-size: 1.1em;
-        font-weight: 600;
-    }
-
-    .fieldset__prolegend {
-        font-size: 1.1em;
-        font-weight: 600;
-    }
-
-    .fieldset__dellegend {
-        margin-left: 10px;
-        font-size: 1.1em;
-        font-weight: 600;
-    }
-
-
-    .tableitem__table > thead > tr {
-        font-size: 1em;
-        height: 40px;
-        text-align: center;
-        font-weight: 400;
-    }
-
-    .entrycontent__footer {
-        grid-area: footer;
-        display: grid;
+    .Transcontent__transroute {
         grid-template-columns: 100%;
-        grid-template-rows: 100%;
     }
-
-    .footer__saveupload {
-        width: 100%;
-        height: 100%;
-        grid-column-start: 1;
-        grid-row-start: 1;
-        text-align: center;
+    .Transcontent__transheadertitle {
+        grid-template-columns: 100%;
     }
-
-        .footer__saveupload > input {
-            width: 100%;
-            height: 100%;
-            color: white;
-            font-size: 1.3em;
-        }
+    .transheadertitle__transmenubutton{
+        display:none;
+    }
+    .Transcontent__transselectfunc{
+        grid-column-gap: 20px;
+    }
 }
+
