@@ -491,7 +491,7 @@
     .entrycontent__entryheadertitle{
         grid-template-columns: 100%;
     }
-    .entrycontent__entryheadertitle .entryheadertitle__entrymenubutton{
+    .entrycontent__entryheadertitle .entryheadertitle__entrymenubutton {
         display:none;
     }
     .entrycontent__route {
