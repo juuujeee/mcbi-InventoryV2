@@ -161,6 +161,7 @@
     <Content Include="Content\Images\ui-icons_777777_256x240.png" />
     <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\itemMasterList.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\LayoutInventory.css" />
     <Content Include="Content\login.css" />
@@ -236,6 +237,7 @@
     <Content Include="Views\Stocks\_StockEntry.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Advance.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

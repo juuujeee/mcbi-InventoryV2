@@ -2,183 +2,92 @@
     ViewBag.Title = "Create Item Page";
 }
 
-<form action="#" method="post" enctype="multipart/form-data" onsubmit="fnSaveItemMasterList(event)">
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">GENERIC NAME</legend>
-                <div class="form-group">
-                    <label>Generic Name</label>
-                    <input type="text" name="GenericName" value="" class="form-control form-control-sm shadow-none genericName" onkeypress="fnGetGenericName(event)"/>
-                </div>
-            </fieldset>
-        </div>
+@section Styles{
 
-        <!--ITEM PROPERTY-->
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">PROPERTY</legend>
-                <div id="item_property_container">
-                    <div class="row item_property">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="Property" value="" class="form-control form-control-sm shadow-none" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 position-relative">
-                            <div class="form-group">
-                                <label>Value</label>
-                                <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
-                            </div>
-                            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor: pointer"></i>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-info btn-sm" onclick="fnAddNewProperty(event)"><i class="fa fa-plus"></i>Add</button>
-            </fieldset>
-        </div>
+    <link rel="stylesheet" href="~/Content/itemMasterList.css"/>
+    
+}
 
-        <!--ITEM ATTRIBUTE-->
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">ATTRIBUTE</legend>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="HasAttribute" id="" onchange="fnCheckItemAttribute(event)">
-                    <label class="form-check-label" for="">Has Attribute</label>
-                </div>
-                <div class="item_attribute_container">
 
+<form action="#" onsubmit="fnSaveItemMasterList(event)" method="post">
+    <div class="item__masterlist">
+        <div class="item__masterList__wrapper">
+            <div class="form__content">
+                <label>Category:</label>
+                <select></select>
+            </div>
+            <div class="form__content">
+                <label>Name:</label>
+                <input type="text" name="Name" value="" />
+            </div>
+            <div class="form__content">
+                <label>Code:</label>
+                <input type="text" name="Code" value="" />
+            </div>
+            <div class="form__content">
+                <label>Tag:</label>
+                <input type="text" name="Tag" class="" value="" />
+            </div>
+            <div class="form__content__checkbox">
+                <div class="checkbox__content">
+                    <input type="checkbox" name="HasAccountability" value="" />
+                    <label>Has Accountability</label>
                 </div>
-                <button type="button" class="btn btn-info btn-sm d-none" onclick="fnAddNewAttribute(event)"><i class="fa fa-plus"></i>Add</button>
-            </fieldset>
-        </div>
+                <div class="checkbox__content">
+                    <input type="radio" name="Attribute" id="has__attribute" value="" />
+                    <label>Has Attribute</label>
+                </div>
+                <div class="checkbox__content">
+                    <input type="radio" name="Attribute" id="no__attribute" value="" />
+                    <label>No Attribute</label>
+                </div>
+            </div>
+            <div class="form__content" id="attribute__name__wrapper" style="display:none">
+                <label>Attribute: </label>
+                <select></select>
+            </div>
 
-        <!--ITEM OTHERS(TAGS/CODE)-->
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">OTHERS</legend>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Tags</label>
-                            <input type="text" name="Tag" value="" class="form-control form-control-sm shadow-none" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Code</label>
-                            <input type="text" name="Code" value="" class="form-control form-control-sm shadow-none"/>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+            <div class="button__content__footer">
+                <button type="submit">Save</button>
+            </div>
         </div>
     </div>
 </form>
 
+@section Scripts{
+    <script>
 
-<!--FOR CLONE PURPOSES HERE-->
-<div style="display: none" id="item_property_clone">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="Property" value="" class="form-control form-control-sm shadow-none" />
-            </div>
-        </div>
-        <div class="col-md-6 position-relative">
-            <div class="form-group">
-                <label>Value</label>
-                <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
-            </div>
-            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor:pointer"></i>
-        </div>
-    </div>
-</div>
 
-<div style="display: none" id="item_attribute_clone">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="Attribute" value="" class="form-control form-control-sm shadow-none" />
-            </div>
-        </div>
-        <div class="col-md-6 position-relative">
-            <div class="form-group">
-                <label>Value</label>
-                <input type="text" name="AttributeValue" class="form-control form-control-sm shadow-none" value="" />
-            </div>
-            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor: pointer"></i>
-        </div>
-    </div>
-</div>
+        function fnSaveItemMasterList(event) {
 
-<!--END CLONE PURPOSES-->
-<script>
+            event.preventDefault();
 
-    function fnAddNewProperty(event) {
-        console.log("add property");
+            console.log("Test");
 
-        $('#item_property_clone').find('row').addClass('item_property');
+            return;
 
-        $('#item_property_container').append(
-            $('#item_property_clone').html()
-        );
+            var itemData = {
+                ID: 0,
+                Code: $(event.target).find('input[name=Code]').val(),
+                Tag: $(event.target).find('input[name=Tag]').val(),
+                hasAttribute: $(event.target).find('input[name=HasAttribute]').is(":checked") ? true : false
+            };
 
-        $('#item_property_clone').find('row').removeClass('item_property');
-
-    }
-
-    function fnRemoveItem(event) {
-
-        var $this = $(event.target);
-
-        $this.closest('.row').remove();
-    }
-
-    function fnCheckItemAttribute(event) {
-
-        var $this = $(event.target);
-
-        if ($this.prop("checked") === true) {
-            $this.closest('fieldset').find('button').removeClass('d-none');
+            console.log(itemData);
         }
-        else {
 
-            $this.closest('fieldset').find('button').addClass('d-none');
+        $('input[name=Attribute]').on('click', function () {
 
-            $('.item_attribute_container').html('');
-        }
-    }
+            if ($(this).attr('id') === 'has__attribute') {
+                 $('#attribute__name__wrapper').removeAttr('style');
+            }
+            else {
+                 $('#attribute__name__wrapper').css({ "display": "none" });
+            }
 
-    function fnAddNewAttribute(event) {
+        });
 
-        $('#item_attribute_clone').find('row').addClass('item_attribute');
-
-        $('.item_attribute_container').append(
-            $('#item_attribute_clone').html()
-        );
-
-        $('#item_attribute_clone').find('row').removeClass('item_attribute');
-
-    }
-
-    function fnSaveItemMasterList(event) {
-        event.preventDefault();
-
-        var itemData = {
-            ID: 0,
-            Code: $(event.target).find('input[name=Code]').val(),
-            Tag: $(event.target).find('input[name=Tag]').val(),
-            hasAttribute: $(event.target).find('input[name=HasAttribute]').is(":checked") ? true: false
-        };
-
-        console.log(itemData);
-    }
-
-</script>
-
+    </script>
+}
 
 
