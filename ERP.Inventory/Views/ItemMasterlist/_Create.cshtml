@@ -9,12 +9,12 @@
 }
 
 
-<form action="#" onsubmit="fnSaveItemMasterList(event)" method="post">
+<form action="#" onsubmit="fnSaveItemMasterList(event)" method="post" autocomplete="off">
     <div class="item__masterlist">
         <div class="item__masterList__wrapper">
             <div class="form__content">
                 <label>Category:</label>
-                <select></select>
+                <select class="category2__wrapper"></select>
             </div>
             <div class="form__content">
                 <label>Name:</label>
@@ -42,11 +42,13 @@
                     <label>No Attribute</label>
                 </div>
             </div>
-            <div class="form__content" id="attribute__name__wrapper" style="display:none">
+            <div class="form__content__attribute" id="attribute__name__wrapper" style="display:none">
+                <hr />
                 <label>Attribute: </label>
-                <select></select>
+                <div class="content__attribute">
+                   
+                </div>
             </div>
-
             <div class="button__content__footer">
                 <button type="submit">Save</button>
             </div>
@@ -54,23 +56,26 @@
     </div>
 </form>
 
+<div class="content__clone" style="display:none;">
+    <div class="content">
+        <input type="checkbox" name="AttributeName" value="" />
+        <label></label>
+    </div>
+</div>
+
+
 @section Scripts{
     <script>
-
 
         function fnSaveItemMasterList(event) {
 
             event.preventDefault();
 
-            console.log("Test");
-
-            return;
-
             var itemData = {
                 ID: 0,
                 Code: $(event.target).find('input[name=Code]').val(),
                 Tag: $(event.target).find('input[name=Tag]').val(),
-                hasAttribute: $(event.target).find('input[name=HasAttribute]').is(":checked") ? true : false
+                hasAccountability: $(event.target).find('input[name=HasAccountability]').is(":checked") ? true : false
             };
 
             console.log(itemData);
@@ -79,12 +84,41 @@
         $('input[name=Attribute]').on('click', function () {
 
             if ($(this).attr('id') === 'has__attribute') {
-                 $('#attribute__name__wrapper').removeAttr('style');
+                $('#attribute__name__wrapper').removeAttr('style');
+
+                $.getJSON('/Data/Attribute/', function (data) {
+                    //console.log(data);
+
+                    if (data.length > 0) {
+
+                        $('.content__attribute').html('');
+
+                        for (var i = 0; i < data.length; i++) {
+
+                            $('.content__clone').find('label').text(data[i].AttributeName);
+                            $('.content__clone').find('input').val(data[i].ID);
+
+                          
+                            $('.content__attribute').append($('.content__clone').html());
+                        }
+                    }
+                });
             }
             else {
                  $('#attribute__name__wrapper').css({ "display": "none" });
             }
 
+        });
+
+        //Category 2
+         $.getJSON('/Data/Category2/', function (data) {
+             //console.log(data);
+
+             if (data.length > 0) {
+                 for (var i = 0; i < data.length; i++) {
+                     $('.category2__wrapper').append(new Option(data[i].Name, data[i].ID));
+                 }
+             }
         });
 
     </script>
