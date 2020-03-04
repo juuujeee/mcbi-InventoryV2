@@ -98,3 +98,12 @@
 .item__masterList__wrapper select{
     font-size: .9em;
 }
+
+/*JQUERY VALIDATION*/
+.error {
+    border: 1px solid #f00 !important;
+}
+
+.valid {
+    border: 1px solid #c9d6df;
+}

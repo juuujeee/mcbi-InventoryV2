@@ -9,7 +9,7 @@
 }
 
 
-<form action="#" onsubmit="fnSaveItemMasterList(event)" method="post" autocomplete="off">
+<form action="#" name="ItemMasterlistForm" method="post" autocomplete="off">
     <div class="item__masterlist">
         <div class="item__masterList__wrapper">
             <div class="form__content">
@@ -67,15 +67,35 @@
 @section Scripts{
     <script>
 
-        function fnSaveItemMasterList(event) {
+        $('form[name=ItemMasterlistForm]').validate({
+
+            rules: {
+                Name: "required",
+                Code: "required",
+                Tag: "required"
+            },
+            errorPlacement: function () {
+                return false;
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+
+                fnSaveItemMasterList(form);
+            }
+
+        });
+
+        function fnSaveItemMasterList(form) {
 
             event.preventDefault();
 
+            var $this = $(form);
+
             var itemData = {
                 ID: 0,
-                Code: $(event.target).find('input[name=Code]').val(),
-                Tag: $(event.target).find('input[name=Tag]').val(),
-                hasAccountability: $(event.target).find('input[name=HasAccountability]').is(":checked") ? true : false
+                Code: $this.find('input[name=Code]').val(),
+                Tag: $this.find('input[name=Tag]').val(),
+                hasAccountability: $this.find('input[name=HasAccountability]').is(":checked") ? true : false
             };
 
             console.log(itemData);
@@ -105,7 +125,10 @@
                 });
             }
             else {
-                 $('#attribute__name__wrapper').css({ "display": "none" });
+
+                $('#attribute__name__wrapper').css({ "display": "none" });
+
+                $('.content__attribute').html('');
             }
 
         });

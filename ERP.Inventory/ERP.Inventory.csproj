@@ -167,6 +167,7 @@
     <Content Include="Content\login.css" />
     <Content Include="Content\overlayscrollbar.css" />
     <Content Include="Content\settings.css" />
+    <Content Include="Content\StockInquiry.css" />
     <Content Include="Content\TransferStock.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />

@@ -2,87 +2,67 @@
     ViewBag.Title = "Stock Inquiry Page";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card custom-card border-0">
-            <div class="card-header" style="border-bottom: none">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="float-left">
-                            <h1>Stock Inquiry</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="card custom-card" id="stock_inquiry">
-            <div class="card-header pb-0">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Search Item <small></small></label>
-                            <input type="text" name="Search" id="" value="" class="form-control form-control-sm shadow-none search_item_masterlist" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
+@section Styles{
 
+    <link rel="stylesheet" href="~/Content/StockInquiry.css"/>
+    
+}
+
+    <div class="stock__inquiry__wrapper">
+        <div class="inquiry__header">
+            <div class="title">
+                <h1>Stock Inquiry</h1>
             </div>
-            <div class="card-footer">
+            <div class="menu__button">
 
             </div>
         </div>
+        <div class="inquiry__searchBox">
+            <div class="input__wrapper">
+                <input type="text" name="Search" value="" />
+            </div>
+            <div class="button__wrapper">
+                <button type="button" id="search__btn">Search</button>
+            </div>
+        </div>
+        <div class="inquiry__body">
+            <table class="tableitem__table">
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>DESCRIPTION</td>
+                        <td>UNITS</td>
+                        <td>QTY</td>
+                        <td>PRICE</td>
+                        <td>COND</td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
-</div>
 
 @section Scripts{
 
     <script>
 
 
-        $(document).on('keyup', '.search_item_masterlist', function (e) {
+        $('#search__btn').on('click', function () {
 
             var $this = $(this);
 
-            var searchVal = $this.val();
+            var searchVal = $this.parents('.inquiry__searchBox').find('input[name=Search]').val();
 
-            if (searchVal !== '') {
-                var searchURL = 'http://124.105.198.3:90/api/ItemsMasterList/Search?q=' + searchVal;
+            //console.log(searchVal);
 
-                var items = [];
+            var searchURL = '/Data/ItemsMasterList/Search?q=' + searchVal;
 
-                $this.autocomplete({
-                    source: items,
-                    select: function (event, ui) {
+            $.getJSON(searchURL, function (data) {
 
-                        console.log(ui.item.id);
-                    }
-                });
+                console.log(data);
 
-                $.getJSON(searchURL, function (response) {
-
-                    //console.log(response);
-
-                    for (var i = 0; i < response.length; i++) {
-                        var obj = {};
-
-                        if (response[i].ItemFullNameInfo !== null) {
-                            obj.id = response[i].ID;
-                            obj.label = response[i].ItemFullNameInfo.Name;
-                            obj.value = response[i].ItemFullNameInfo.Name;
-
-                            items.push(obj);
-                        }
-                    }
-
-                });
-            }
+            });
 
         });
-
 
 
     </script>
