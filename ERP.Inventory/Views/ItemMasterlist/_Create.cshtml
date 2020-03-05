@@ -14,7 +14,7 @@
         <div class="item__masterList__wrapper">
             <div class="form__content">
                 <label>Category:</label>
-                <select class="category2__wrapper"></select>
+                <select class="category2__wrapper" name="Category2"></select>
             </div>
             <div class="form__content">
                 <label>Name:</label>
@@ -91,14 +91,84 @@
 
             var $this = $(form);
 
+            var cat3 = [];
+
+            $this.find('input[name=AttributeName]').each(function () {
+
+                if ($(this).is(":checked")) {
+
+                    //console.log($(this).val());
+
+                    var obj = {
+                        ID: 0,
+                        Cat3ID_003: 0,
+                        AttrId_006: $(this).val(),
+                        isRequired: true
+                    }
+
+                    if (obj.AttrId_006 > 0) {
+                        cat3.push(obj);
+                    }
+                }
+
+            });
+
             var itemData = {
                 ID: 0,
-                Code: $this.find('input[name=Code]').val(),
-                Tag: $this.find('input[name=Tag]').val(),
-                hasAccountability: $this.find('input[name=HasAccountability]').is(":checked") ? true : false
+                Cat2ID_002: $this.find('select[name=Category2]').val(),
+                Name: $this.find('input[name=Name]').val(),
+                hasAttribute: $this.find('input#has__attribute').is(":checked") ? true : false,
+                Category3Defaults: cat3,
+                ItemsMasterListInfo: {
+                    Code: $this.find('input[name=Code]').val(),
+                    Tag: $this.find('input[name=Tag]').val(),
+                    hasAccountability: $this.find('input[name=HasAccountability]').is(":checked") ? true : false
+                }
             };
 
-            console.log(itemData);
+            //console.log(itemData);
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: '/Data/ItemFullName',
+                dataType: 'json',
+                data: JSON.stringify(itemData),
+                contentType: "application/json",
+                success: function (response) {
+
+                    if (response.RetVal === 1) {
+                        swal.fire('Success', response.Message, 'success');
+                    }
+                    else {
+                        swal.fire('Error', response.Message, 'error');
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            })
         }
 
         $('input[name=Attribute]').on('click', function () {

@@ -26,20 +26,28 @@
             </div>
         </div>
         <div class="inquiry__body">
-            <table class="tableitem__table">
+            <table class="tableitem__table" id="stock__inquiry__table">
                 <thead>
                     <tr>
-                        <td>No</td>
-                        <td>DESCRIPTION</td>
-                        <td>UNITS</td>
-                        <td>QTY</td>
-                        <td>PRICE</td>
-                        <td>COND</td>
+                        <td>ITEM NAME</td>
+                        <td>QUANTITY</td>
+                        <td>ACTION</td>
                     </tr>
                 </thead>
+                <tbody class="stock__inquiry__tbody">
+                    
+                </tbody>
             </table>
         </div>
     </div>
+
+    <table style="display:none;" class="stock__inquiry__tbody__clone">
+        <tr>
+            <td class="item__name"></td>
+            <td class="quantity"></td>
+            <td class="action"></td>
+        </tr>
+    </table>
 
 @section Scripts{
 
@@ -58,7 +66,40 @@
 
             $.getJSON(searchURL, function (data) {
 
-                console.log(data);
+                $('.stock__inquiry__tbody').html('');
+
+                if (data.length > 0) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var qty = 0;
+
+                        if (data[i].ProjectQuantity !== null) {
+                            var projQuantity = data[i].ProjectQuantity;
+                            for (var z = 0; z < projQuantity.length; z++) {
+                                qty += projQuantity[z].Quantity;
+                            }
+                        }
+
+                        if (data[i].ItemFullNameInfo !== null) {
+
+                            $('.stock__inquiry__tbody__clone').find('td.item__name').html(data[i].ItemFullNameInfo.Name);
+                            $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
+                            $('.stock__inquiry__tbody__clone').find('td.action').html('<button><i class="fa fa-search fa-fw"></i> View</button>');
+
+                            $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
+                        }
+                    }
+
+                   // console.log(data);
+                }
+                else {
+                    var tr = '';
+
+                    tr += '<tr><td colspan="3" style="text-align:center">No Item to Show</td></tr>';
+
+                    $('.stock__inquiry__tbody').append(tr);
+                }
 
             });
 

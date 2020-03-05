@@ -13,7 +13,7 @@ namespace ERP.Inventory.Controllers
     {
         public override object TempObject { get; set; }
 
-        public DataController() : base("http://192.168.1.100:90/api/") {
+        public DataController() : base("http://mcbi-dev:90/api/") {
 
 
         }
@@ -43,7 +43,7 @@ namespace ERP.Inventory.Controllers
         [Route("Test/Test")]
         public ActionResult Test()
         {
-            Helper.SynchronousRequest syncRequest = new Helper.SynchronousRequest("http://192.168.1.100:98/api/user/userroleaccess");
+            Helper.SynchronousRequest syncRequest = new Helper.SynchronousRequest("http://mcbi-dev:98/api/user/userroleaccess");
             syncRequest.httpClient.DefaultRequestHeaders.Add("UserID", "38");
             syncRequest.httpClient.DefaultRequestHeaders.Add("Token", "y65yK6eDALIfurzczhjZ7bK7D");
             string retval = syncRequest.HttpRequest("", "GET");
@@ -99,12 +99,12 @@ namespace ERP.Inventory.Controllers
             return Ok(JsonConvert.DeserializeObject<Inventory_Domain_Layer._001_invRefCategory1Domain>(SyncRequest.HttpRequest(name + "/" + id)));
             */
         }
-        
 
 
 
 
-       // [HttpPut]
+
+        // [HttpPut]
         [HttpPost]
         [Route("Data/{name}/{*samples}")]
         [Helper.ProducesJson]
@@ -121,15 +121,21 @@ namespace ERP.Inventory.Controllers
             {
                 //assuming JSON.net/Newtonsoft library from http://json.codeplex.com/
                 //input = JsonConvert.DeserializeObject<InputClass>(json)
-                return Ok
-                    (
+
+                string requestURL = "";
+                //if (string.IsNullOrEmpty(samples))
+                    requestURL = Request.RawUrl.Replace("/Data/", "").ToString();
+                //else 
+                    //requestURL = name;
+                var result =
                         SyncRequest.HttpRequest
-                        (
-                            samples != null ? Request.RawUrl.Replace("/Data/", "").ToString() : name,
+                        (requestURL,
                             "POST",
                             new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json")
-                        )
-                    );
+                        );
+
+                return Ok(result);
+
             }
 
             catch (Exception ex)
