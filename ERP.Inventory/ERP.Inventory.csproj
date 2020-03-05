@@ -135,6 +135,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemMasterlistController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
@@ -236,6 +237,8 @@
     <Content Include="Views\Stocks\_StockEntry.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Advance.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\Items\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
