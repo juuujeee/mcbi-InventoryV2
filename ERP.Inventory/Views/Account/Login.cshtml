@@ -80,7 +80,7 @@
                         "Content-Type": "application/json"
                     },
                     type: 'POST',
-                    url: 'http://192.168.1.100:98/api/user/login',
+                    url: 'http://mcbi-dev:98/api/user/login',
                     data: JSON.stringify(loginData),
                     dataType: 'json',
                     success: function (response) {
@@ -94,11 +94,12 @@
                             $.cookie("Token", response.TokenInfo[0].Token, { path: "/" });
                             $.cookie("UserID", response.TokenInfo[0].UserID, { path: "/" });
 
-                            $('#otp').show();
+                            window.location = "@Url.Action("Index", "Inventory")";
+                            //$('#otp').show();
 
-                            $('.login-input').find('input').attr('disabled', true);
+                            //$('.login-input').find('input').attr('disabled', true);
 
-                            $this.find('#login_btn').text("Verify");
+                            //$this.find('#login_btn').text("Verify");
 
                         }
                         else {
@@ -107,7 +108,7 @@
                     }
                 });
             }
-            else {
+            @*else {
                 console.log("Verify");
                 var url = 'http://124.105.198.3:98/api/User/VerifyCode/' + $(this).find('input[name=OTP]').val();
 
@@ -131,19 +132,12 @@
                         }
                     }
                 });
-            }
+            }*@
 
 
 
         });
 
-        $('#verifyLogin').on('submit', function (e) {
-            e.preventDefault();
-
-            
-
-            console.log(url);
-        });
 
     </script>
 </body>

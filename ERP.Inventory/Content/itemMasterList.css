@@ -1,0 +1,109 @@
+﻿body {
+}
+
+.item__masterlist {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "content ..";
+    grid-row-gap: 15px;
+}
+
+.item__masterList__wrapper{
+   grid-area: content;
+   display:grid;
+   grid-template-columns: 100%;
+   grid-template-rows: auto;
+}
+
+.item__masterList__wrapper .form__content{
+    display:grid;
+    grid-template-columns: 80px auto;
+    grid-gap:15px;
+    margin-bottom:15px;
+}
+
+.item__masterList__wrapper .form__content__checkbox{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-template-rows: 100%;
+}
+
+.item__masterList__wrapper .form__content__checkbox .checkbox__content{
+    display:grid;
+    grid-template-columns:25px auto;
+    grid-template-rows: 100%;
+}
+
+.item__masterList__wrapper .button__content__footer{
+    text-align:right;
+    padding-top:30px;
+}
+
+.item__masterList__wrapper .button__content__footer button {
+    background-color: forestgreen;
+    font-size: 1em;
+    font-weight: 500;
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid forestgreen;
+    transition: all .3s linear;
+}
+
+.item__masterList__wrapper .button__content__footer button:hover {
+    background: #196d19;
+}
+
+.item__masterList__wrapper .form__content__attribute {
+    margin-top: 15px;
+    display:grid;
+    grid-template-rows:auto;
+    grid-template-columns: 100%;
+}
+.item__masterList__wrapper .form__content__attribute hr {
+    width:100%;
+    border-top: 1px solid e2e2e2;
+}
+.item__masterList__wrapper .form__content__attribute .content__attribute {
+    display:grid;
+    grid-template-rows:auto;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 10px;
+}
+.item__masterList__wrapper .form__content__attribute .content__attribute .content {
+    display:grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 30px auto;
+    grid-column-gap: 10px;
+}
+
+/*FORM INPUTS*/
+.item__masterList__wrapper input,
+.item__masterList__wrapper select {
+    font-size: .8em;
+    font-family: Lato;
+    font-weight: 500;
+    padding: 3px;
+    box-sizing: border-box;
+    border: .5px solid #C8C8C8;
+    border-radius: 4px;
+    width: 100%;
+    line-height: 23px;
+}
+
+.item__masterList__wrapper select{
+    font-size: .9em;
+}
+
+/*JQUERY VALIDATION*/
+.error {
+    border: 1px solid #f00 !important;
+}
+
+.valid {
+    border: 1px solid #c9d6df;
+}

@@ -7,7 +7,7 @@ $.ajaxSetup({
     }
 });
 
-$('.logout_btn').click(function (e) {
+$('.logout__btn').click(function (e) {
 
     e.preventDefault();
 
@@ -224,21 +224,26 @@ function fnGetItems(event) {
 
     $.getJSON(itemURL, function (data) {
 
-        for (var i = 0; i < data.length; i++) {
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
 
-            var newObj = {};
+                console.log(data[i].ItemFullNameInfo.Name);
 
-            if (data[i].ItemFullNameInfo !== null) {
+                var newObj = {};
 
-                newObj.id = data[i].ID;
-                newObj.value = data[i].ItemFullNameInfo.Name;
-                newObj.label = data[i].ItemFullNameInfo.Name;
-                newObj.hasAttribute = data[i].Category3.hasAttribute;
+                if (data[i].ItemFullNameInfo !== null) {
 
-                items.push(newObj);
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].ItemFullNameInfo.Name;
+                    newObj.label = data[i].ItemFullNameInfo.Name;
+                    newObj.hasAttribute = data[i].Category3.hasAttribute;
+
+                    items.push(newObj);
+                }
+
             }
-
         }
+
     });
 }
 
@@ -246,7 +251,7 @@ function fnGetItemsByProj(event) {
 
     var $this = $(event.target);
 
-    var projectID = $this.parents('.entrycontent').find('input[name=OriginProjectID]').val();
+    var projectID = $this.parents('.Transcontent').find('input[name=OriginProjectID]').val();
 
    // console.log(projectID);
 

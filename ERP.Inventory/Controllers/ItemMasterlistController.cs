@@ -17,7 +17,7 @@ namespace ERP.Inventory.Controllers
 
         public ActionResult Create()
         {
-            return PartialView("~/Views/ItemMasterlist/_Create.cshtml");
+            return View("~/Views/ItemMasterlist/_Create.cshtml");
         }
 
     }

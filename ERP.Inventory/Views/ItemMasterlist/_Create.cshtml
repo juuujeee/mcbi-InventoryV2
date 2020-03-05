@@ -2,183 +2,219 @@
     ViewBag.Title = "Create Item Page";
 }
 
-<form action="#" method="post" enctype="multipart/form-data" onsubmit="fnSaveItemMasterList(event)">
-    <div class="row">
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">GENERIC NAME</legend>
-                <div class="form-group">
-                    <label>Generic Name</label>
-                    <input type="text" name="GenericName" value="" class="form-control form-control-sm shadow-none genericName" onkeypress="fnGetGenericName(event)"/>
-                </div>
-            </fieldset>
-        </div>
+@section Styles{
 
-        <!--ITEM PROPERTY-->
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">PROPERTY</legend>
-                <div id="item_property_container">
-                    <div class="row item_property">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="Property" value="" class="form-control form-control-sm shadow-none" />
-                            </div>
-                        </div>
-                        <div class="col-md-6 position-relative">
-                            <div class="form-group">
-                                <label>Value</label>
-                                <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
-                            </div>
-                            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor: pointer"></i>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-info btn-sm" onclick="fnAddNewProperty(event)"><i class="fa fa-plus"></i>Add</button>
-            </fieldset>
-        </div>
+    <link rel="stylesheet" href="~/Content/itemMasterList.css"/>
+    
+}
 
-        <!--ITEM ATTRIBUTE-->
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">ATTRIBUTE</legend>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="HasAttribute" id="" onchange="fnCheckItemAttribute(event)">
-                    <label class="form-check-label" for="">Has Attribute</label>
-                </div>
-                <div class="item_attribute_container">
 
+<form action="#" name="ItemMasterlistForm" method="post" autocomplete="off">
+    <div class="item__masterlist">
+        <div class="item__masterList__wrapper">
+            <div class="form__content">
+                <label>Category:</label>
+                <select class="category2__wrapper" name="Category2"></select>
+            </div>
+            <div class="form__content">
+                <label>Name:</label>
+                <input type="text" name="Name" value="" />
+            </div>
+            <div class="form__content">
+                <label>Code:</label>
+                <input type="text" name="Code" value="" />
+            </div>
+            <div class="form__content">
+                <label>Tag:</label>
+                <input type="text" name="Tag" class="" value="" />
+            </div>
+            <div class="form__content__checkbox">
+                <div class="checkbox__content">
+                    <input type="checkbox" name="HasAccountability" value="" />
+                    <label>Has Accountability</label>
                 </div>
-                <button type="button" class="btn btn-info btn-sm d-none" onclick="fnAddNewAttribute(event)"><i class="fa fa-plus"></i>Add</button>
-            </fieldset>
-        </div>
-
-        <!--ITEM OTHERS(TAGS/CODE)-->
-        <div class="col-md-12">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border">OTHERS</legend>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Tags</label>
-                            <input type="text" name="Tag" value="" class="form-control form-control-sm shadow-none" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Code</label>
-                            <input type="text" name="Code" value="" class="form-control form-control-sm shadow-none"/>
-                        </div>
-                    </div>
+                <div class="checkbox__content">
+                    <input type="radio" name="Attribute" id="has__attribute" value="" />
+                    <label>Has Attribute</label>
                 </div>
-            </fieldset>
+                <div class="checkbox__content">
+                    <input type="radio" name="Attribute" id="no__attribute" value="" />
+                    <label>No Attribute</label>
+                </div>
+            </div>
+            <div class="form__content__attribute" id="attribute__name__wrapper" style="display:none">
+                <hr />
+                <label>Attribute: </label>
+                <div class="content__attribute">
+                   
+                </div>
+            </div>
+            <div class="button__content__footer">
+                <button type="submit">Save</button>
+            </div>
         </div>
     </div>
 </form>
 
-
-<!--FOR CLONE PURPOSES HERE-->
-<div style="display: none" id="item_property_clone">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="Property" value="" class="form-control form-control-sm shadow-none" />
-            </div>
-        </div>
-        <div class="col-md-6 position-relative">
-            <div class="form-group">
-                <label>Value</label>
-                <input type="text" name="PropertyValue" class="form-control form-control-sm shadow-none" value="" />
-            </div>
-            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor:pointer"></i>
-        </div>
+<div class="content__clone" style="display:none;">
+    <div class="content">
+        <input type="checkbox" name="AttributeName" value="" />
+        <label></label>
     </div>
 </div>
 
-<div style="display: none" id="item_attribute_clone">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="Attribute" value="" class="form-control form-control-sm shadow-none" />
-            </div>
-        </div>
-        <div class="col-md-6 position-relative">
-            <div class="form-group">
-                <label>Value</label>
-                <input type="text" name="AttributeValue" class="form-control form-control-sm shadow-none" value="" />
-            </div>
-            <i class="fa fa-close text-danger position-absolute" onclick="fnRemoveItem(event)" style="right:-3px; top:38px; cursor: pointer"></i>
-        </div>
-    </div>
-</div>
 
-<!--END CLONE PURPOSES-->
-<script>
+@section Scripts{
+    <script>
 
-    function fnAddNewProperty(event) {
-        console.log("add property");
+        $('form[name=ItemMasterlistForm]').validate({
 
-        $('#item_property_clone').find('row').addClass('item_property');
+            rules: {
+                Name: "required",
+                Code: "required",
+                Tag: "required"
+            },
+            errorPlacement: function () {
+                return false;
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
 
-        $('#item_property_container').append(
-            $('#item_property_clone').html()
-        );
+                fnSaveItemMasterList(form);
+            }
 
-        $('#item_property_clone').find('row').removeClass('item_property');
+        });
 
-    }
+        function fnSaveItemMasterList(form) {
 
-    function fnRemoveItem(event) {
+            event.preventDefault();
 
-        var $this = $(event.target);
+            var $this = $(form);
 
-        $this.closest('.row').remove();
-    }
+            var cat3 = [];
 
-    function fnCheckItemAttribute(event) {
+            $this.find('input[name=AttributeName]').each(function () {
 
-        var $this = $(event.target);
+                if ($(this).is(":checked")) {
 
-        if ($this.prop("checked") === true) {
-            $this.closest('fieldset').find('button').removeClass('d-none');
+                    //console.log($(this).val());
+
+                    var obj = {
+                        ID: 0,
+                        Cat3ID_003: 0,
+                        AttrId_006: $(this).val(),
+                        isRequired: true
+                    }
+
+                    if (obj.AttrId_006 > 0) {
+                        cat3.push(obj);
+                    }
+                }
+
+            });
+
+            var itemData = {
+                ID: 0,
+                Cat2ID_002: $this.find('select[name=Category2]').val(),
+                Name: $this.find('input[name=Name]').val(),
+                hasAttribute: $this.find('input#has__attribute').is(":checked") ? true : false,
+                Category3Defaults: cat3,
+                ItemsMasterListInfo: {
+                    Code: $this.find('input[name=Code]').val(),
+                    Tag: $this.find('input[name=Tag]').val(),
+                    hasAccountability: $this.find('input[name=HasAccountability]').is(":checked") ? true : false
+                }
+            };
+
+            //console.log(itemData);
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: '/Data/ItemFullName',
+                dataType: 'json',
+                data: JSON.stringify(itemData),
+                contentType: "application/json",
+                success: function (response) {
+
+                    if (response.RetVal === 1) {
+                        swal.fire('Success', response.Message, 'success');
+                    }
+                    else {
+                        swal.fire('Error', response.Message, 'error');
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            })
         }
-        else {
 
-            $this.closest('fieldset').find('button').addClass('d-none');
+        $('input[name=Attribute]').on('click', function () {
 
-            $('.item_attribute_container').html('');
-        }
-    }
+            if ($(this).attr('id') === 'has__attribute') {
+                $('#attribute__name__wrapper').removeAttr('style');
 
-    function fnAddNewAttribute(event) {
+                $.getJSON('/Data/Attribute/', function (data) {
+                    //console.log(data);
 
-        $('#item_attribute_clone').find('row').addClass('item_attribute');
+                    if (data.length > 0) {
 
-        $('.item_attribute_container').append(
-            $('#item_attribute_clone').html()
-        );
+                        $('.content__attribute').html('');
 
-        $('#item_attribute_clone').find('row').removeClass('item_attribute');
+                        for (var i = 0; i < data.length; i++) {
 
-    }
+                            $('.content__clone').find('label').text(data[i].AttributeName);
+                            $('.content__clone').find('input').val(data[i].ID);
 
-    function fnSaveItemMasterList(event) {
-        event.preventDefault();
+                          
+                            $('.content__attribute').append($('.content__clone').html());
+                        }
+                    }
+                });
+            }
+            else {
 
-        var itemData = {
-            ID: 0,
-            Code: $(event.target).find('input[name=Code]').val(),
-            Tag: $(event.target).find('input[name=Tag]').val(),
-            hasAttribute: $(event.target).find('input[name=HasAttribute]').is(":checked") ? true: false
-        };
+                $('#attribute__name__wrapper').css({ "display": "none" });
 
-        console.log(itemData);
-    }
+                $('.content__attribute').html('');
+            }
 
-</script>
+        });
 
+        //Category 2
+         $.getJSON('/Data/Category2/', function (data) {
+             //console.log(data);
+
+             if (data.length > 0) {
+                 for (var i = 0; i < data.length; i++) {
+                     $('.category2__wrapper').append(new Option(data[i].Name, data[i].ID));
+                 }
+             }
+        });
+
+    </script>
+}
 
 
