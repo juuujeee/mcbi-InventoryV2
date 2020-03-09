@@ -9,7 +9,7 @@ namespace ERP.Inventory.Controllers.ApiHelper
 {
     public class UserRoleAccess : Helper.SynchronousRequest
     {
-        public UserRoleAccess(string UserID, string Token) : base("http://mcbi-dev:98/api/user/userroleaccess")
+        public UserRoleAccess(string UserID, string Token) : base("http://192.168.1.100:98/api/user/userroleaccess")
         {
             httpClient.DefaultRequestHeaders.Add("UserID", "38");
             httpClient.DefaultRequestHeaders.Add("Token", "y65yK6eDALIfurzczhjZ7bK7D");

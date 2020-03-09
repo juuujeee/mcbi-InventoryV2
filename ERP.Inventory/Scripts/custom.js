@@ -168,12 +168,40 @@ $('.delMethodID').on('change', function (e) {
 
 
 
+
 //FOR ITEMS AUTOCOMPLETE
+var items = [];
+var itemURL = '/Data/ItemsMasterlist';
+
+$.getJSON(itemURL, function (data) {
+
+    //console.log(data);
+
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+
+            // console.log(data[i].ItemFullNameInfo.Name);
+
+            var newObj = {};
+
+            if (data[i].ItemFullNameInfo !== null) {
+
+                newObj.id = data[i].ID;
+                newObj.value = data[i].ItemFullNameInfo.Name;
+                newObj.label = data[i].ItemFullNameInfo.Name;
+                newObj.hasAttribute = data[i].Category3.hasAttribute;
+
+                items.push(newObj);
+            }
+
+        }
+    }
+
+});
+
 function fnGetItems(event) {
 
     var $this = $(event.target);
-    var items = [];
-    var itemURL = '/Data/ItemsMasterlist';
 
     $this.autocomplete({
         source: items,
@@ -181,7 +209,7 @@ function fnGetItems(event) {
 
             var $this = $(this);
 
-           //console.log(ui.item.hasAttribute);
+            //console.log(ui.item.hasAttribute);
 
             if (ui.item.hasAttribute) {
                 $('.has__attribute__container').dialog({
@@ -204,10 +232,10 @@ function fnGetItems(event) {
                                 $this.closest('td').append('<span class="item-attribute" data-attribute-id="' + $(this).find('select[name=ItemAttribute]').val() + '" data-attribute-value="' + $(this).find('input[name=Value]').val() + '"></span>');
                             });
 
-                            
+
 
                             $(this).dialog("close");
-                            
+
                         },
                         Cancel: function () {
                             $(this).dialog("close");
@@ -222,38 +250,16 @@ function fnGetItems(event) {
         }
     });
 
-    $.getJSON(itemURL, function (data) {
-
-        if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-
-                console.log(data[i].ItemFullNameInfo.Name);
-
-                var newObj = {};
-
-                if (data[i].ItemFullNameInfo !== null) {
-
-                    newObj.id = data[i].ID;
-                    newObj.value = data[i].ItemFullNameInfo.Name;
-                    newObj.label = data[i].ItemFullNameInfo.Name;
-                    newObj.hasAttribute = data[i].Category3.hasAttribute;
-
-                    items.push(newObj);
-                }
-
-            }
-        }
-
-    });
 }
+
+
+
+
 
 function fnGetItemsByProj(event) {
 
     var $this = $(event.target);
-
     var projectID = $this.parents('.Transcontent').find('input[name=OriginProjectID]').val();
-
-   // console.log(projectID);
 
     if (projectID === null || projectID === '') {
         swal.fire('Warning', 'Select Origin Project', 'warning');
@@ -262,16 +268,6 @@ function fnGetItemsByProj(event) {
 
         var items = [];
         var itemURL = '/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
-
-        $this.autocomplete({
-            source: items,
-            select: function (event, ui) {
-
-                $(this).attr('data-val', ui.item.id);
-                $(this).closest('tr').find('input[name=Units]').val(ui.item.units).attr('data-val', ui.item.unitID);
-                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).attr('data-limit', ui.item.quantity).removeAttr('disabled');
-            }
-        });
 
         $.getJSON(itemURL, function (data) {
 
@@ -310,17 +306,44 @@ function fnGetItemsByProj(event) {
             }
 
         });
+
+
+        $this.autocomplete({
+            source: items,
+            select: function (event, ui) {
+
+                $(this).attr('data-val', ui.item.id);
+                $(this).closest('tr').find('input[name=Units]').val(ui.item.units).attr('data-val', ui.item.unitID);
+                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).attr('data-limit', ui.item.quantity).removeAttr('disabled');
+            }
+        });
+
     }
 
 }
 
 
 //FOR UNITS AUTOCOMPLETE
+var units = [];
+var unitsURL = '/Data/units';
+$.getJSON(unitsURL, function (data) {
+
+    for (var i = 0; i < data.length; i++) {
+        var obj = {};
+
+        obj.id = data[i].ID;
+        obj.value = data[i].ShortName;
+        obj.label = data[i].ShortName;
+        obj.fullname = data[i].FullName;
+
+        units.push(obj);
+    }
+
+});
+
 function fnGetUnits(event) {
 
     var $this = $(event.target);
-    var units = [];
-    var unitsURL = '/Data/units';
 
     $this.autocomplete({
         source: units,
@@ -333,29 +356,28 @@ function fnGetUnits(event) {
         }
     });
 
-    $.getJSON(unitsURL, function (data) {
-
-        for (var i = 0; i < data.length; i++) {
-            var obj = {};
-
-            obj.id = data[i].ID;
-            obj.value = data[i].ShortName;
-            obj.label = data[i].ShortName;
-            obj.fullname = data[i].FullName;
-
-            units.push(obj);
-        }
-
-    });
 }
 
 
 // FOR ITEM CONDITION
+var itemCondition = [];
+var itemConditionURL = '/Data/ItemCondition';
+$.getJSON(itemConditionURL, function (data) {
+
+    for (var i = 0; i < data.length; i++) {
+        var obj = {};
+
+        obj.id = data[i].ID;
+        obj.value = data[i].StatusName;
+        obj.label = data[i].StatusName;
+
+        itemCondition.push(obj);
+    }
+});
+
 function fnGetItemCondition(event) {
 
     var $this = $(event.target);
-    var itemCondition = [];
-    var itemConditionURL = '/Data/ItemCondition';
 
     $this.autocomplete({
         source: itemCondition,
@@ -364,19 +386,6 @@ function fnGetItemCondition(event) {
             var $this = $(this);
 
             $this.attr('data-val', ui.item.id);
-        }
-    });
-
-    $.getJSON(itemConditionURL, function (data) {
-
-        for (var i = 0; i < data.length; i++) {
-            var obj = {};
-
-            obj.id = data[i].ID;
-            obj.value = data[i].StatusName;
-            obj.label = data[i].StatusName;
-
-            itemCondition.push(obj);
         }
     });
 }

@@ -284,8 +284,9 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = '/Data/VendorList';
-
+            var supplierURL = '/Data/VendorList/';
+            var supplierName = '';
+           
             $.getJSON(supplierURL, function (data) {
 
                 //console.log(data);
@@ -293,14 +294,27 @@
                 if (!(data === null || data === '[]')) {
                     for (var i = 0; i < data.length; i++) {
 
-                        var newObj = {};
+                        //console.log(data[i]);
 
-                        newObj.id = data[i].SupplierID;
-                        newObj.value = data[i].SupplierName;
-                        newObj.label = data[i].SupplierName;
+                        supplierName = data[i].VendorSupplier.SupplierName;
 
-                        suppliers.push(newObj);
+                        for (var z = 0; z < data[i].VendorBranch.length; z++) {
+
+                            var branchName = data[i].VendorBranch[z].branchName;
+
+                            var newObj = {};
+
+                            newObj.id = data[i].VendorBranch[z].ID;
+                            newObj.value = supplierName + ' - ' + branchName;
+                            newObj.label = supplierName + ' - ' + branchName;
+
+                            suppliers.push(newObj);
+
+                        }
+
                     }
+
+                    //console.log(suppliers);
 
                     $("input[name=SupplierName]").autocomplete({
                         source: suppliers,
