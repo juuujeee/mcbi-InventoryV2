@@ -1,0 +1,208 @@
+﻿@{
+    ViewBag.Title = "Item items";
+}
+
+@section Styles{
+
+    <link href="~/Content/settings.css" rel="stylesheet" />
+}
+
+<div class="settings__wrapper">
+    <fieldset class="settings__fieldset">
+        <legend class="fieldset__title">Adding Item</legend>
+        <div class="fieldset__content" id="fieldset__content__wrapper1">
+            <div class="main__content">
+                <div class="header" style=" margin-bottom: 10px">
+                    <label for="name">Name:</label>
+                    <input style="width:300px" type="text" id="name" name="name"><br><br>
+
+                    <input type="checkbox" name="name" value="" />
+                    <label style="font-size: 25px">has Attributes</label>
+                </div>
+                <div class="main__footer" style="padding-top: 10px">
+
+                    @for (var i = 1; i <= 5; i++)
+                    {
+                        <div class="content">
+                            <div class="content__text">
+                                <input type="checkbox" name="name" value="" />
+                                <div>
+                                    <span>Attribute @i</span>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="fieldset__footer">
+                    <button>Save</button>
+                </div>
+            </div>
+            @*<div class="main__footer">
+                <div class="footer">
+                    <h4>Add Control:</h4>
+                    <div class="footer__form__fields">
+                        <input type="text" name="name" value="" />
+                        <button>Add</button>
+                    </div>
+                </div>
+            </div>
+                *@
+        </div>
+        </fieldset>
+        </div>
+        @*<div class="fieldset__footer">
+            <button>Save</button>
+        </div>
+    </fieldset>
+
+    <fieldset class="settings__fieldset">
+        <legend class="fieldset__title">ACTIONS/METHODS/ACCESS</legend>
+        <div class="fieldset__content" id="fieldset__content__wrapper2">
+            <div class="main__content">
+                <div class="content">
+                    <div class="content__checkbox">
+                        <input type="checkbox" name="name" value="" />
+                    </div>
+                    <div class="content__text">
+                        <span>Insert</span>
+                        <div>
+                            <button><i class="fa fa-angle-double-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="content__checkbox">
+                        <input type="checkbox" name="name" value="" />
+                    </div>
+                    <div class="content__text">
+                        <span>Update</span>
+                        <div>
+                            <button><i class="fa fa-angle-double-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="content__checkbox">
+                        <div>
+                            <input type="checkbox" name="name" value="" />
+                        </div>
+                    </div>
+                    <div class="content__text">
+                        <span>Delete</span>
+                        <div>
+                            <button><i class="fa fa-angle-double-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="content__checkbox">
+                        <input type="checkbox" name="name" value="" />
+                    </div>
+                    <div class="content__text">
+                        <span>Select</span>
+                        <div>
+                            <button><i class="fa fa-angle-double-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main__footer">
+                <div class="footer">
+                    <h4>Add Control:</h4>
+                    <div class="footer__form__fields">
+                        <input type="text" name="name" value="" />
+                        <button>Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fieldset__footer">
+            <button>Save</button>
+        </div>
+    </fieldset>
+
+    <fieldset class="settings__fieldset" id="fieldset__content__wrapper3">
+        <legend class="fieldset__title">LEVEL CONTROL ACCESS</legend>
+        <div class="fieldset__table__content">
+            <div class="header">
+                <label>Level: </label>
+                <select>
+                    @for (var i = 1; i <= 10; i++)
+                    {
+                        <option value="@i">Level @i</option>
+                    }
+
+                </select>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>System Inventory</td>
+                        <td>Privilege</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 1; i <= 3; i++)
+                    {
+                        <tr>
+                            <td>Category @i</td>
+                            <td class="privilege__wrapper">
+                                <div class="privilege">
+                                    <input type="checkbox" name="name" value="" />
+                                    <span>Insert</span>
+                                </div>
+                                <div class="privilege">
+                                    <input type="checkbox" name="name" value="" />
+                                    <span>Update</span>
+                                </div>
+                                <div class="privilege">
+                                    <input type="checkbox" name="name" value="" />
+                                    <span>Delete</span>
+                                </div>
+                                <div class="privilege">
+                                    <input type="checkbox" name="name" value="" />
+                                    <span>Select</span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="fieldset__footer">
+            <button>Save</button>
+        </div>
+    </fieldset>
+
+    <fieldset class="settings__fieldset" id="fieldset__content__wrapper4">
+        <legend class="fieldset__title">ROLE LEVEL DEFAULT</legend>
+        <div class="fieldset__table__content">
+            @for (var i = 1; i <= 10; i++)
+            {
+                <div class="content">
+                    <label>Role @i</label>
+                    <select>
+                        @for (var z = 1; z <= 5; z++)
+                        {
+                            <option value="@z">Level @z</option>
+                        }
+                    </select>
+                </div>
+            }
+
+        </div>
+        <div class="fieldset__footer">
+            <button>Save</button>
+        </div>
+    </fieldset>
+</div>*@
+
+@section Scripts {
+    <script src="~/Scripts/modal.js"></script>
+    <script>
+        setModal();
+
+    </script>
+}

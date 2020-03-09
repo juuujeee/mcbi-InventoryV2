@@ -2,87 +2,108 @@
     ViewBag.Title = "Stock Inquiry Page";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card custom-card border-0">
-            <div class="card-header" style="border-bottom: none">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="float-left">
-                            <h1>Stock Inquiry</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="card custom-card" id="stock_inquiry">
-            <div class="card-header pb-0">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>Search Item <small></small></label>
-                            <input type="text" name="Search" id="" value="" class="form-control form-control-sm shadow-none search_item_masterlist" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
+@section Styles{
 
+    <link rel="stylesheet" href="~/Content/StockInquiry.css"/>
+    
+}
+
+    <div class="stock__inquiry__wrapper">
+        <div class="inquiry__header">
+            <div class="title">
+                <h1>Stock Inquiry</h1>
             </div>
-            <div class="card-footer">
+            <div class="menu__button">
 
             </div>
         </div>
+        <div class="inquiry__searchBox">
+            <div class="input__wrapper">
+                <input type="text" name="Search" value="" />
+            </div>
+            <div class="button__wrapper">
+                <button type="button" id="search__btn">Search</button>
+            </div>
+        </div>
+        <div class="inquiry__body">
+            <table class="tableitem__table" id="stock__inquiry__table">
+                <thead>
+                    <tr>
+                        <td>ITEM NAME</td>
+                        <td>QUANTITY</td>
+                        <td>ACTION</td>
+                    </tr>
+                </thead>
+                <tbody class="stock__inquiry__tbody">
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
+    <table style="display:none;" class="stock__inquiry__tbody__clone">
+        <tr>
+            <td class="item__name"></td>
+            <td class="quantity"></td>
+            <td class="action"></td>
+        </tr>
+    </table>
 
 @section Scripts{
 
     <script>
 
 
-        $(document).on('keyup', '.search_item_masterlist', function (e) {
+        $('#search__btn').on('click', function () {
 
             var $this = $(this);
 
-            var searchVal = $this.val();
+            var searchVal = $this.parents('.inquiry__searchBox').find('input[name=Search]').val();
 
-            if (searchVal !== '') {
-                var searchURL = 'http://124.105.198.3:90/api/ItemsMasterList/Search?q=' + searchVal;
+            //console.log(searchVal);
 
-                var items = [];
+            var searchURL = '/Data/ItemsMasterList/Search?q=' + searchVal;
 
-                $this.autocomplete({
-                    source: items,
-                    select: function (event, ui) {
+            $.getJSON(searchURL, function (data) {
 
-                        console.log(ui.item.id);
-                    }
-                });
+                $('.stock__inquiry__tbody').html('');
 
-                $.getJSON(searchURL, function (response) {
+                if (data.length > 0) {
 
-                    //console.log(response);
+                    for (var i = 0; i < data.length; i++) {
 
-                    for (var i = 0; i < response.length; i++) {
-                        var obj = {};
+                        var qty = 0;
 
-                        if (response[i].ItemFullNameInfo !== null) {
-                            obj.id = response[i].ID;
-                            obj.label = response[i].ItemFullNameInfo.Name;
-                            obj.value = response[i].ItemFullNameInfo.Name;
+                        if (data[i].ProjectQuantity !== null) {
+                            var projQuantity = data[i].ProjectQuantity;
+                            for (var z = 0; z < projQuantity.length; z++) {
+                                qty += projQuantity[z].Quantity;
+                            }
+                        }
 
-                            items.push(obj);
+                        if (data[i].ItemFullNameInfo !== null) {
+
+                            $('.stock__inquiry__tbody__clone').find('td.item__name').html(data[i].ItemFullNameInfo.Name);
+                            $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
+                            $('.stock__inquiry__tbody__clone').find('td.action').html('<button><i class="fa fa-search fa-fw"></i> View</button>');
+
+                            $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
                         }
                     }
 
-                });
-            }
+                   // console.log(data);
+                }
+                else {
+                    var tr = '';
+
+                    tr += '<tr><td colspan="3" style="text-align:center">No Item to Show</td></tr>';
+
+                    $('.stock__inquiry__tbody').append(tr);
+                }
+
+            });
 
         });
-
 
 
     </script>

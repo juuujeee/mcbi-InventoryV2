@@ -8,30 +8,19 @@
 }
 
 <form action="#" method="post" name="StockEntryForm" autocomplete="off">
-
+    <input type="hidden" name="ID" value="" />
     <div class="entrycontent">
-        <div class="entrycontent__headertitle">
-            <div class="title">
-                <h1>Entry Stocks</h1>
-                <div class="quick__links__buttons">
-                    <div>
-                        <button>New</button>
-                    </div>
-                    <div>
-                        <button>Clear</button>
-                    </div>
-                    <div>
-                        <button>Edit</button>
-                    </div>
-                    <div>
-                        <button>Print</button>
-                    </div>
-                </div>
+        <div class="entrycontent__entryheadertitle">
+            <div class="entryheadertitle__entrylabel">
+                <h1> Entry Stocks</h1>
             </div>
-            @*<div class="quick__links">
-                <div class="quick__links__content"></div>
-                <div class="quick__links__content"></div>
-            </div>*@
+            <div class="entryheadertitle__entrymenubutton">
+                <button class="entrymenubutton__nce new__entry" type="button">New</button>
+                <button class="entrymenubutton__nce clear__entry" type="button">Clear</button>
+                <button class="entrymenubutton__nce edit__entry" type="button">Edit</button>
+                <button class="entrymenubutton__ell" type="button">...</button>
+            </div>
+
         </div>
         <div class="entrycontent__route">
 
@@ -124,11 +113,15 @@
 
                 </tbody>
             </table>
-            <a href="javascript:void(0)" class="add__new_item__stockEntry">Add New Item</a>
+            <a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>
         </div>
         <div class="entrycontent__footer">
-            <div class="footer__saveupload">
-                <input type="submit" value="Save">
+            <div class="footer__upload">
+                <label for="file"> Upload Support Docs</label>
+                <input id="file" type="file" value="Upload Attachment">
+            </div>
+            <div class="footer__save">
+                <button type="submit" class="save__btn">Save</button>
             </div>
         </div>
     </div>
@@ -202,7 +195,7 @@
 
     <script>
 
-        $('.add__new_item__stockEntry').on('click', function () {
+        function fnAddStockEntryItem(event) {
 
             var number = $('.stock__entry__tr').length;
 
@@ -214,24 +207,19 @@
             );
 
             $('.stock__entry__tbody__clone').find('tr').removeClass('stock__entry__tr');
-        });
-
+        }
 
         function fnRemoveItemStockEntry(event) {
             var $this = $(event.target);
 
             $this.closest('tr').remove();
 
-            var counter = $('.tableitem__table').find('td.counter').length;
-
-            //console.log(counter);
-
-            //return;
+            var counter = $('.entrycontent .tableitem__table').find('td.counter').length;
 
             if (counter > 0) {
                 for (var i = 0; i < counter; i++) {
 
-                    $('.tableitem__table').find('.counter').eq(i).text(i + 1);
+                    $('.entrycontent .tableitem__table').find('.counter').eq(i).text(i + 1);
                 }
             }
         }
@@ -296,8 +284,9 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = '/Data/VendorList';
-
+            var supplierURL = '/Data/VendorList/';
+            var supplierName = '';
+           
             $.getJSON(supplierURL, function (data) {
 
                 //console.log(data);
@@ -305,14 +294,27 @@
                 if (!(data === null || data === '[]')) {
                     for (var i = 0; i < data.length; i++) {
 
-                        var newObj = {};
+                        //console.log(data[i]);
 
-                        newObj.id = data[i].SupplierID;
-                        newObj.value = data[i].SupplierName;
-                        newObj.label = data[i].SupplierName;
+                        supplierName = data[i].VendorSupplier.SupplierName;
 
-                        suppliers.push(newObj);
+                        for (var z = 0; z < data[i].VendorBranch.length; z++) {
+
+                            var branchName = data[i].VendorBranch[z].branchName;
+
+                            var newObj = {};
+
+                            newObj.id = data[i].VendorBranch[z].ID;
+                            newObj.value = supplierName + ' - ' + branchName;
+                            newObj.label = supplierName + ' - ' + branchName;
+
+                            suppliers.push(newObj);
+
+                        }
+
                     }
+
+                    //console.log(suppliers);
 
                     $("input[name=SupplierName]").autocomplete({
                         source: suppliers,
@@ -346,7 +348,7 @@
                         source: receivedBy,
                         select: function (event, ui) {
 
-                            console.log($(this));
+                            //console.log($(this));
 
                             $(this).attr('data-val', ui.item.id);
                         }
@@ -520,8 +522,17 @@
                     if (response.RetVal === 1) {
                         swal.fire('Success', response.Message, 'success');
 
-                        //Clear Stock Entry Header
-                        $('form[name=StockEntryForm]').find('input').val("");
+                        //Disable All Input and Select Field
+                        $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+
+                        //Disable Table
+                        $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+
+                        //Disable Button
+                        $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+
+                        //Assign ID in hidden input[name=ID]
+                        $this.find('input[name=ID]').val(response.DataID);
 
                     }
                     else {
@@ -551,9 +562,37 @@
                 },
             });
 
-
         }
 
+
+        $('.clear__entry').on('click', function () {
+            //Clear Stock Entry
+            $('form[name=StockEntryForm]').find('input').val("");
+        });
+
+        $('.edit__entry').on('click', function () {
+
+            //enable input and select field
+            $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
+
+            //enable click and edit in table elements
+            $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
+
+            //enable button save
+            $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
+
+        });
+
+        $('.new__entry').on('click', function () {
+            $('form[name=StockEntryForm]').find('input').val("");
+        });
+
+        //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
+        //$(function () {
+        //    $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+        //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+        //    $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+        //});
 
     </script>
 

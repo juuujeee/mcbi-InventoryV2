@@ -15,7 +15,7 @@ namespace ERP.Inventory.Controllers.ApiHelper
 
         public LoginController() : base("http://192.168.1.100:98/api/")
         {
-
+            SyncRequest.httpClient.BaseAddress = new Uri("http://192.168.1.100:98/api/");
 
         }
 
@@ -83,15 +83,20 @@ namespace ERP.Inventory.Controllers.ApiHelper
             req.Dispose();
             try
             {
-                return Ok
-                    (
+
+                string requestURL = "";
+                //if (string.IsNullOrEmpty(samples))
+                requestURL = Request.RawUrl.Replace("/Login/", "").ToString();
+                //else 
+
+                var result =
                         SyncRequest.HttpRequest
-                        (
-                            samples != null ? Request.RawUrl.Replace("/Login/", "").ToString() : name,
+                        (requestURL,
                             "POST",
                             new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json")
-                        )
-                    );
+                        );
+
+                return Ok(result);
             }
 
             catch (Exception ex)

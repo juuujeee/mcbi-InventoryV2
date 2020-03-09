@@ -5,40 +5,40 @@
 @section Styles{
 
     <link href="~/Content/settings.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 
 
 }
 
+@*
+    CONTROLS    
+*@
 <div class="settings__wrapper">
     <fieldset class="settings__fieldset">
         <legend class="fieldset__title">CONTROLS</legend>
         <div class="fieldset__content" id="fieldset__content__wrapper1">
-            <div class="main__content">
+            <div class="main__content controlcontainer" >
                 <div class="header">
                     <label>Systems:</label>
-                    <select>
-                        <option value="">Invetory </option>
-                        <option value="">Vendor </option>
+                    <select class="system_data">
                     </select>
                 </div>
-                @for (var i = 1; i <= 3; i++)
-                {
-                    <div class="content">
+                <br/>
+                    <div class="content controlclone" style="display:none;">
                         <div class="content__text">
                             <input type="radio" name="name" value="" />
                             <div>
-                                <span>Category @i</span>
-                                <button class="open-dialog"><i class="fa fa-angle-double-right"></i></button>
-
+                                <span class="controller_data">
+                                    @* for data *@
+                                </span>
+                                
                             </div>
                         </div>
                         <div class="content__checkbox">
+                            <button class="open-dialog"><i class="fa fa-angle-double-right"></i></button>
                             <input type="checkbox" name="name" value="" />
                         </div>
                     </div>
-                }
             </div>
             <div class="main__footer">
                 <div class="footer">
@@ -56,51 +56,19 @@
         </div>
     </fieldset>
 
+    @*
+        ACTIONS/METHODS/ACCESS
+    *@
     <fieldset class="settings__fieldset">
         <legend class="fieldset__title">ACTIONS/METHODS/ACCESS</legend>
         <div class="fieldset__content" id="fieldset__content__wrapper2">
-            <div class="main__content">
-                <div class="content">
+            <div class="main__content actions_container">
+                <div class="content actions_clone" style="display:none">
                     <div class="content__checkbox">
                         <input type="checkbox" name="name" value="" />
                     </div>
-                    <div class="content__text">
-                        <span>Insert</span>
-                        <div>
-                            <button><i class="fa fa-angle-double-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="content__checkbox">
-                        <input type="checkbox" name="name" value="" />
-                    </div>
-                    <div class="content__text">
-                        <span>Update</span>
-                        <div>
-                            <button><i class="fa fa-angle-double-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="content__checkbox">
-                        <div>
-                            <input type="checkbox" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="content__text">
-                        <span>Delete</span>
-                        <div>
-                            <button><i class="fa fa-angle-double-right"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="content">
-                    <div class="content__checkbox">
-                        <input type="checkbox" name="name" value="" />
-                    </div>
-                    <div class="content__text">
-                        <span>Select</span>
+                    <div>
+                        <span class="actions_data"> @* for data*@ </span>
                         <div>
                             <button><i class="fa fa-angle-double-right"></i></button>
                         </div>
@@ -122,17 +90,20 @@
         </div>
     </fieldset>
 
+    @*
+        lEVEL CONTROL ACCESS    
+    *@
     <fieldset class="settings__fieldset" id="fieldset__content__wrapper3">
         <legend class="fieldset__title">LEVEL CONTROL ACCESS</legend>
         <div class="fieldset__table__content">
             <div class="header">
                 <label>Level: </label>
-                <select>
-                    @for (var i = 1; i <= 10; i++)
-                    {
-                        <option value="@i">Level @i</option>
-                    }
-
+                <select class="dropdown_level_data">
+                </select>
+            </div>
+            <div class="header" style="display:none">
+                <label>Role: </label>
+                <select class="dropdown_role_data">
                 </select>
             </div>
             <table>
@@ -142,31 +113,35 @@
                         <td>Privilege</td>
                     </tr>
                 </thead>
-                <tbody>
-                    @for (var i = 1; i <= 3; i++)
-                    {
-                        <tr>
-                            <td>Category @i</td>
-                            <td class="privilege__wrapper">
-                                <div class="privilege">
-                                    <input type="checkbox" name="name" value="" />
-                                    <span>Insert</span>
-                                </div>
-                                <div class="privilege">
-                                    <input type="checkbox" name="name" value="" />
-                                    <span>Update</span>
-                                </div>
-                                <div class="privilege">
-                                    <input type="checkbox" name="name" value="" />
-                                    <span>Delete</span>
-                                </div>
-                                <div class="privilege">
-                                    <input type="checkbox" name="name" value="" />
-                                    <span>Select</span>
-                                </div>
-                            </td>
-                        </tr>
-                    }
+                <tbody class="level_container">
+
+                    <tr class="level_clone" style="display:none">
+                        <td class="level_data">
+                            @*
+                        for data
+                            *@
+                        </td>
+
+                        <td class="privilege__wrapper">
+                            <div class="privilege">
+                                <input type="checkbox" name="name" value="" />
+                                <span>Insert</span>
+                            </div>
+                            <div class="privilege">
+                                <input type="checkbox" name="name" value="" />
+                                <span>Update</span>
+                            </div>
+                            <div class="privilege">
+                                <input type="checkbox" name="name" value="" />
+                                <span>Delete</span>
+                            </div>
+                            <div class="privilege">
+                                <input type="checkbox" name="name" value="" />
+                                <span>Select</span>
+                            </div>
+                        </td>
+                    </tr>
+
 
                 </tbody>
             </table>
@@ -178,19 +153,14 @@
 
     <fieldset class="settings__fieldset" id="fieldset__content__wrapper4">
         <legend class="fieldset__title">ROLE LEVEL DEFAULT</legend>
-        <div class="fieldset__table__content">
-            @for (var i = 1; i <= 10; i++)
-            {
-                <div class="content">
-                    <label>Role @i</label>
-                    <select>
-                        @for (var z = 1; z <= 5; z++)
-                        {
-                            <option value="@z">Level @z</option>
-                        }
+        <div class="fieldset__table__content rolecontainer">
+            
+                <div class="content roleclone" style="display:none;">
+                    <label class="role_data"></label>
+                    <select class="dropdown_level_data">
+                        
                     </select>
                 </div>
-            }
 
         </div>
         <div class="fieldset__footer">
@@ -202,7 +172,124 @@
 @section Scripts {
     <script src="~/Scripts/modal.js"></script>
     <script>
+        window.RoleLevelCount = 0;
         setModal();
 
+        //--------------------------------------DROPDOWN Data--------------------------------------
+
+        //CONTROLS for Systems
+        $.getJSON('http://192.168.1.100:98/api/refsystem', function (data)
+        {
+            //console.log(data[0]);
+            for (var i = 0; i < data.length; i++) {
+                $('.system_data').append(new Option(data[i].SystemTitle, data[i].ID));
+
+            }
+        })
+
+        //LEVEL CONTROL ACCESS FOR LEVEL
+        $.getJSON('http://192.168.1.100:98/api/reflevel', function (data5) {
+
+            for (var a = 0; a < data5.length; a++) {
+                //console.log(data5[a]);
+                $('.dropdown_level_data').append(new Option(data5[a].Level, data5[a].ID));
+            }
+            LevelLoaded();
+        });
+
+
+        //LCA for Role
+        $.getJSON('http://192.168.1.100:98/api/refroleslist', function (data7)
+        {
+            //console.log(data[0]);
+            for (var d = 0; d < data7.length; d++) {
+                $('.dropdown_role_data').append(new Option(data7[d].RoleName, data7[d].ID));
+
+            }
+        })
+
+        //--------------------------------------Text Data--------------------------------------
+
+        //CONTROLS for Controller
+        $.getJSON('http://192.168.1.100:98/api/refcontrollist', function (data1)
+        {
+            for (var x = 0; x < data1.length; x++)
+            {
+                //console.log(data1[x]);
+
+                //CLONE CONTROL HERE
+                var clone = $('.controlclone');
+
+                //MODIFY
+                clone.find('.controller_data').html(data1[x].title);
+
+
+
+
+                //APPEND HERE
+                $('.controlcontainer').append('<div class="content">'+clone.html()+'</div>');
+
+
+            }
+            setModal();
+        })
+
+        //ACTIONS/METHOD/ACCESS
+        $.getJSON('http://192.168.1.100:98/api/refaccesslist', function (data2)
+        {
+            for (var z = 0; z < data2.length; z++)
+            {
+                //console.log(data2[z]);
+
+                var cloneactions = $('.actions_clone')
+
+                cloneactions.find('.actions_data').html(data2[z].Action2);
+
+                $('.actions_container').append('<div class="content">' + cloneactions.html()+'</div>')
+            }
+        })
+
+        //CONTROLS for Controller
+        $.getJSON('http://192.168.1.100:98/api/refcontrollist', function (data3)
+        {
+            for (var v = 0; v < data3.length; v++)
+            {
+                //console.log(data3[v]);
+
+                //CLONE CONTROL HERE
+                var clonecontrols = $('.level_clone');
+                
+                //MODIFY
+                clonecontrols.find('.level_data').html(data3[v].title);
+
+
+                //APPEND HERE
+                $('.level_container').append('<tr class="">'+clonecontrols.html()+'</tr>');
+
+            }
+        })
+        function LevelLoaded() {
+            //ROLE LEVEL DEFAULT
+            $.getJSON('http://192.168.1.100:98/api/refroleslist', function (data6) {
+                for (var b = 0; b < data6.length; b++) {
+                    //console.log(data6[b]);
+
+                    //CLONE CONTROL HERE
+                    var clonerole = $('.roleclone');
+
+                    //MODIFY
+                    clonerole.find('.role_data').html(data6[b].RoleName);
+                    //clonerole.attr("data-role-id", );
+                    var p = $('<div class="content" data-role-id="' + data6[b].ID + '">' + clonerole.html()+ '</div>');
+                    //APPEND HERE
+                    $('.rolecontainer').append(p);
+                    p.find('.dropdown_level_data').val(data6[b].DefaultLevel);
+
+                }
+            })
+        }
+
     </script>
+
+
 }

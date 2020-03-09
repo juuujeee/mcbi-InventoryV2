@@ -239,6 +239,18 @@ body {
 
 /*#endregion RIGHT MENU STYLES*/
 
+.mobile__menu__button {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 15px;
+    background:transparent;
+    border:none;
+    color: #fff;
+}
+.mobile__menu__button i {
+    font-size:20px;
+}
 
 
 @media screen and (max-width:1300px) {
@@ -296,8 +308,29 @@ body {
     }
 }
 
-@media screen and (max-width:640px) {
+/*@media screen and (max-width:640px) {
 
+   
+}*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* 
+      ##Device = Tablets, Ipads (portrait)
+      ##Screen = B/w 768px to 1024px
+    */
+
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    /* 
+      ##Device = Tablets, Ipads (landscape)
+      ##Screen = B/w 768px to 1024px
+    */
+}
+@media (min-width: 481px) and (max-width: 767px) {
+    /* 
+        ##Device = Low Resolution Tablets, Mobiles (Landscape)
+        ##Screen = B/w 481px to 767px
+    */
     .wrapper {
         grid-template-columns: 100%;
         grid-template-rows: minmax(120px,10%) 1fr;
@@ -332,7 +365,56 @@ body {
     .header__sidetext {
         display: none;
     }
+    .mobile__menu__button {
+        display: block;
+    }
 }
+@media (min-width: 320px) and (max-width: 480px) {
+    /* 
+      ##Device = Most of the Smartphones Mobiles (Portrait)
+      ##Screen = B/w 320px to 479px
+    */
+    .wrapper {
+        grid-template-columns: auto;
+        grid-template-rows: minmax(120px,10%) 1fr;
+    }
+
+    .wrapper__header {
+        min-height: 120px;
+        position: fixed;
+        grid-template-columns: 100%;
+        grid-template-rows: 75% 25%;
+        grid-template-areas: "logo" "maintitle";
+        padding: 0;
+    }
+
+    .header__headlogo {
+        text-align: center;
+        padding-top: 10px;
+        margin: 0;
+    }
+
+    .header__headtitle {
+        padding: 0;
+        text-align: center;
+        font-size:15px;
+    }
+
+    .headtitle__h1 {
+        font-weight: 300;
+        font-size: 1.5em;
+        padding-bottom: 10px;
+        padding-left:0;
+    }
+
+    .header__sidetext {
+        display: none;
+    }
+    .mobile__menu__button {
+        display:block;
+    }
+}
+
 
 /*jquery autocomplete*/
 .ui-autocomplete.ui-widget {
@@ -340,3 +422,10 @@ body {
     font-size: .9em;
 }
 
+.logout__btn {
+    color: #fff;
+    text-decoration: none;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+}

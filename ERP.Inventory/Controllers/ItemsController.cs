@@ -1,5 +1,4 @@
-﻿using Rotativa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,18 +6,17 @@ using System.Web.Mvc;
 
 namespace ERP.Inventory.Controllers
 {
-    public class ItemMasterlistController : Controller
+    public class ItemsController : Controller
     {
-        // GET: ItemMasterlist
+        // GET: Items
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Item()
         {
-            return View("~/Views/ItemMasterlist/_Create.cshtml");
+            return View();
         }
-
     }
 }

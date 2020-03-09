@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemMasterlistController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StocksController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
@@ -162,11 +163,13 @@
     <Content Include="Content\Images\ui-icons_777777_256x240.png" />
     <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\itemMasterList.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\LayoutInventory.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\overlayscrollbar.css" />
     <Content Include="Content\settings.css" />
+    <Content Include="Content\StockInquiry.css" />
     <Content Include="Content\TransferStock.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -237,6 +240,8 @@
     <Content Include="Views\Stocks\_StockEntry.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Advance.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
+    <Content Include="Views\Items\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
