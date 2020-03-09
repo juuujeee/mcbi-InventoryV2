@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" , initial="1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
+    <link href="~/Content/animate.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet"/>
-    <link href="~/Content/datepicker.css" rel="stylesheet"/>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
     <link href="~/Content/LayoutInventory.css" rel="stylesheet" />
     @RenderSection("Styles", false)
 </head>
@@ -20,9 +21,9 @@
             </div>
             <div class="header__sidetext">
                 <h4>IMS © copyright series 2020 @{Write("@");} version 1.0</h4>
-                <a href="javascript:void(0)" class="logout__btn">Logout</a>
+                <a href="javascript:void(0)" class="logout__btn logout">Logout</a>
             </div>
-            <button class="mobile__menu__button">
+            <button class="mobile__menu__button" id="mobile-menu-btn">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
@@ -104,6 +105,7 @@
                     </li>
                 </ul>
             </div>
+            <a href="javascript:void(0)" class="mobile__logout__btn logout">Logout</a>
         </div>
         <div class="wrapper__maincontent">
             @RenderBody()

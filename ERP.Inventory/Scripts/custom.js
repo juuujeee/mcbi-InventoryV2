@@ -7,7 +7,7 @@ $.ajaxSetup({
     }
 });
 
-$('.logout__btn').click(function (e) {
+$('.logout').click(function (e) {
 
     e.preventDefault();
 
@@ -489,23 +489,8 @@ $('.sidebar__menu').on('click', function (e) {
 
 $('#mobile-menu-btn').on('click', function (e) {
 
-    var $leftSidebar = $('.left-sidebar');
+    var $leftSidebar = $('.wrapper__leftmenu');
 
-    if ($leftSidebar.hasClass('slideInLeft')) {
-
-        $leftSidebar.removeClass('slideInLeft');
-        $leftSidebar.addClass('slideOutLeft');
-
-        //$leftSidebar.removeClass('mobile-menu-open');
-
-    }
-    else {
-
-        $leftSidebar.removeClass('slideOutLeft');
-        $leftSidebar.addClass('slideInLeft');
-
-        $leftSidebar.addClass('mobile-menu-open');
-    }
-
+    $leftSidebar.toggleClass('open__menu');
 
 });

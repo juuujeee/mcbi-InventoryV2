@@ -6,6 +6,10 @@ body {
     margin: 0;
 }
 
+button {
+    outline: none
+}
+
 /*#region WRAPPER STYLES*/
 
     .wrapper {
@@ -82,20 +86,33 @@ body {
         display: grid;
         grid-template-rows: minmax(80px, 10%) 18% auto;
         grid-template-areas: "dummy" "logoleft" "menuleft";
+        transition:all .3s ease;
     }
 
+    .wrapper__leftmenu.open__menu {
+        width:100%;
+        min-width: 250px;
+        max-width:250px;
+    }
+
+    .mobile__logout__btn{
+        display:none;
+        position:absolute;
+        bottom: 130px;
+        left: 15px;
+        text-decoration: none;
+        color: #fff;
+    }
 /*#endregion WRAPPER STYLES*/
-
-
 /*#region LEFT MENU STYLES*/
-    .leftmenu__leftlogo {
-        grid-area: logoleft;
-        text-align: center;
-        min-height: 140px;
-        max-height: 170px;
-        padding: 25px;
-        border-bottom: 1px solid white;
-    }
+.leftmenu__leftlogo {
+    grid-area: logoleft;
+    text-align: center;
+    min-height: 140px;
+    max-height: 170px;
+    padding: 25px;
+    border-bottom: 1px solid white;
+}
 
     .leftlogo__img {
         max-height: 100%;
@@ -249,7 +266,7 @@ body {
     color: #fff;
 }
 .mobile__menu__button i {
-    font-size:20px;
+    font-size:22px;
 }
 
 
@@ -368,6 +385,26 @@ body {
     .mobile__menu__button {
         display: block;
     }
+    .wrapper__leftmenu {
+        display: block;
+        margin-top: 120px;
+        width: 0;
+        max-width: 0;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .leftmenu__menu {
+        margin-top: 0;
+    }
+
+    .leftmenu__leftlogo {
+        display: none;
+    }
+
+    .mobile__logout__btn{
+        display: block;
+    }
 }
 @media (min-width: 320px) and (max-width: 480px) {
     /* 
@@ -412,6 +449,23 @@ body {
     }
     .mobile__menu__button {
         display:block;
+    }
+    .wrapper__leftmenu {
+        display: block;
+        margin-top: 120px;
+        width: 0;
+        max-width: 0;
+        min-width: 0;
+        overflow: hidden;
+    }
+    .leftmenu__menu{
+        margin-top:0;
+    }
+    .leftmenu__leftlogo{
+        display: none;
+    }
+    .mobile__logout__btn {
+        display: block;
     }
 }
 
