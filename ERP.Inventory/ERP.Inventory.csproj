@@ -131,6 +131,7 @@
     <Compile Include="Controllers\ApiHelper\DataController.cs" />
     <Compile Include="Controllers\ApiHelper\LoginController.cs" />
     <Compile Include="Controllers\ApiHelper\UserRoleAccess.cs" />
+    <Compile Include="Controllers\FileUpload.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
