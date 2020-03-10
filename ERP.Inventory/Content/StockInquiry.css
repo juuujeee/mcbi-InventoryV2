@@ -31,10 +31,11 @@
 .stock__inquiry__wrapper .inquiry__searchBox {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 90% auto;
+    grid-template-columns: 50% 40% auto;
     grid-column-gap: 15px;
 }
-.stock__inquiry__wrapper .inquiry__searchBox .input__wrapper input {
+.stock__inquiry__wrapper .inquiry__searchBox .input__wrapper input, 
+.stock__inquiry__wrapper .inquiry__searchBox .input2__wrapper input {
     width: 100%;
     font-size: 1em;
     font-family: Lato;
@@ -45,6 +46,7 @@
     border-radius: 4px;
     width: 100%;
     line-height: 34px;
+    font-family: Tahoma;
 }
 
 .stock__inquiry__wrapper .inquiry__searchBox .button__wrapper {
@@ -108,6 +110,69 @@
    border-radius: 5px;
    border:none;
    padding: 10px 15px;
+}
+
+
+
+/*
+    ITEMS DETAILS CSS
+*/
+.item__details__container{
+    display:grid;
+    grid-template-columns: 100%;
+}
+.item__details__container .item__details__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #d4d3d3;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+.item__details__container .item__details__header .item__name{
+    display:grid;
+    grid-template-columns: 100%;
+    grid-gap: 5px;
+}
+.item__details__container .item__details__header .item__name .content{
+    display:grid;
+    grid-template-columns: 90px 1fr;
+    grid-template-rows: auto;
+    grid-row-gap: 10px;
+}
+
+.item__details__container input {
+    border: none;
+    border-bottom: 1px solid #00000057;
+}
+.item__details__container input:focus{
+    outline: none;
+}
+
+.item__details__container .item__details__body{
+    padding-top:5px;
+}
+.item__details__container .item__details__body h4.title{
+    margin-top: 0;
+}
+
+.item__details__container .item__details__body table {
+    width: 100%;
+    border: 1px solid #E8E8E8;
+    color: #fff;
+    height: auto;
+    border-collapse: collapse;
+    background: #585858;
+    text-align:left;
+}
+
+.item__details__container .item__details__body table > thead > tr {
+    color: white;
+    background-color: forestgreen;
+    height: 40px;
+    font-weight: bold;
+} 
+.item__details__container .item__details__body table > thead > tr > th{
+    padding-left: 15px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px){

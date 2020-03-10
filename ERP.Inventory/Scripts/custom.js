@@ -286,6 +286,8 @@ function fnGetItemsByProj(event) {
                         if (proj.ProjectID === parseInt(projectID)) {
 
                             qty += proj.Quantity;
+
+                            //console.log(proj.Quantity);
                         }
                     }
 

@@ -229,7 +229,6 @@
     <Content Include="Views\Stocks\_IssuedStock.cshtml" />
     <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
     <Content Include="Views\Stocks\_StockInquiry.cshtml" />
-    <Content Include="Views\Stocks\_StockEntry1.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage2.cshtml" />
     <Content Include="Views\Stocks\_TransferStock.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />

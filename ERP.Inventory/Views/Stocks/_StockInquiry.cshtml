@@ -4,67 +4,229 @@
 
 @section Styles{
 
-    <link rel="stylesheet" href="~/Content/StockInquiry.css"/>
-    
+    <link rel="stylesheet" href="~/Content/StockInquiry.css" />
+
 }
 
-    <div class="stock__inquiry__wrapper">
-        <div class="inquiry__header">
-            <div class="title">
-                <h1>Stock Inquiry</h1>
-            </div>
-            <div class="menu__button">
+<div class="stock__inquiry__wrapper">
+    <div class="inquiry__header">
+        <div class="title">
+            <h1>Stock Inquiry</h1>
+        </div>
+        <div class="menu__button">
 
-            </div>
-        </div>
-        <div class="inquiry__searchBox">
-            <div class="input__wrapper">
-                <input type="text" name="Search" value="" />
-            </div>
-            <div class="button__wrapper">
-                <button type="button" id="search__btn">Search</button>
-            </div>
-        </div>
-        <div class="inquiry__body">
-            <table class="tableitem__table" id="stock__inquiry__table">
-                <thead>
-                    <tr>
-                        <td>ITEM NAME</td>
-                        <td>QUANTITY</td>
-                        <td>ACTION</td>
-                    </tr>
-                </thead>
-                <tbody class="stock__inquiry__tbody">
-                    
-                </tbody>
-            </table>
         </div>
     </div>
+    <div class="inquiry__searchBox">
+        <div class="input__wrapper">
+            <input type="text" name="Search" id="search__items" placeholder="Search Item" value="" onkeypress="fnSearchItemByProj(event)" data-val="0"/>
+        </div>
+        <div class="input2__wrapper">
+            <input type="text" name="ProjectSite" placeholder="Search Projects" id="projects" value="" data-val="0"/>
+        </div>
+        <div class="button__wrapper">
+            <button type="button" id="search__btn">Search</button>
+        </div>
+    </div>
+    <div class="inquiry__body">
+        <table class="tableitem__table" id="stock__inquiry__table">
+            <thead>
+                <tr>
+                    <td>ITEM NAME</td>
+                    <td>QUANTITY</td>
+                    <td>ACTION</td>
+                </tr>
+            </thead>
+            <tbody class="stock__inquiry__tbody">
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <table style="display:none;" class="stock__inquiry__tbody__clone">
-        <tr>
-            <td class="item__name"></td>
-            <td class="quantity"></td>
-            <td class="action"></td>
-        </tr>
-    </table>
+<table style="display:none;" class="stock__inquiry__tbody__clone">
+    <tr>
+        <td class="item__name"></td>
+        <td class="quantity"></td>
+        <td class="action"></td>
+    </tr>
+</table>
+
+<div class="item__details__container" style="display:none">
+    <div class="item__details__header">
+        <div class="item__name">
+            <div class="content">
+                <label>Item: </label>
+                <input type="text" name="ItemName" readonly value="" />
+            </div>
+            <div class="content">
+                <label>Total Qty: </label>
+                <input type="text" name="TotalQuantity" readonly value="" />
+            </div>
+        </div>
+        <div class="item__image">
+
+        </div>
+    </div>
+    <div class="item__details__body">
+        <h4 class="title">Item Per Project</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>ProjectName</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 @section Scripts{
 
     <script>
+
+        //$('#search__items').on('keypress', function (e) {
+
+        //    var searchItem = $(this).val();
+
+        //    if (e.which === 13) {
+        //        //console.log('You press enter!!');
+
+        //        SearchItem(searchItem);
+
+        //    }
+        //});
+
+        function fnSearchItemByProj(event) {
+            
+            var items = [];
+            var projectID = $('#projects').attr('data-val') || 0;
+            var searchURL = '/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
+
+            //console.log(searchURL);
+            $('#search__items').autocomplete({
+                source: items,
+                select: function (event, ui) {
+                    var itemID = ui.item.id;
+                    //console.log(itemID);
+                    $(this).attr('data-val', itemID);
+                }
+            });
+
+            $.getJSON(searchURL, function (data) {
+                //console.log(data);
+
+                if (data.length > 0 || data !== null) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var obj = {};
+
+                        //console.log(data[i]);
+
+                        if (data[i].ItemFullNameInfo !== null) {
+                            obj.id = data[i].ID;
+                            obj.label = data[i].ItemFullNameInfo.Name;
+                            obj.value = data[i].ItemFullNameInfo.Name;
+
+                            items.push(obj);
+                        }
+                    }
+                }
+
+            });
+        }
+
+        $(function () {
+
+            var projects = [];
+            $.getJSON('/Data/ENGProjectList', function (data) {
+
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = {};
+
+                        obj.id = data[i].ID;
+                        obj.value = data[i].ProjectName;
+                        obj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                        obj.projectNo = data[i].ProjectNumber;
+
+                        projects.push(obj);
+                    }
+
+                    $('#projects').autocomplete({
+                        source: projects,
+                        select: function (event, ui) {
+                            $(this).attr('data-val', ui.item.id);
+                        }
+                    });
+                }
+
+            });
+
+        })
 
 
         $('#search__btn').on('click', function () {
 
             var $this = $(this);
 
-            var searchVal = $this.parents('.inquiry__searchBox').find('input[name=Search]').val();
+            //var searchVal = $this.parents('.inquiry__searchBox').find('input[name=Search]').val();
+
+            var projectID = $('#projects').attr('data-val') || 0;
+            var itemID = $('#search__items').attr('data-val') || 0;
 
             //console.log(searchVal);
 
-            var searchURL = '/Data/ItemsMasterList/Search?q=' + searchVal;
+            DisplayItem(itemID, projectID);
+
+        });
+
+        //$(document).on('click', '.item__details', function () {
+
+        //    var url = '/Data/ItemsMasterList/' + $(this).attr('id');
+
+        //    $.getJSON(url, function (data) {
+        //        console.log(data);
+
+        //        var itemName = data.ItemFullNameInfo.Name;
+        //        var qty = 0;
+
+        //        if (data.ProjectQuantity !== null) {
+
+        //            var projectQuantity = data.ProjectQuantity;
+
+        //            for (var q = 0; q < projectQuantity.length; q++) {
+        //                qty += projectQuantity[q].Quantity;
+        //            }
+        //        }
+
+
+        //        $('.item__details__container').find('input[name=ItemName]').val(itemName);
+        //        $('.item__details__container').find('input[name=TotalQuantity]').val(qty);
+        //    });
+
+        //    $('.item__details__container').dialog({
+        //        modal: true,
+        //        width: "50%",
+        //        title: "Item Details"
+        //    });
+
+        //});
+
+
+        function DisplayItem(itemID, projectID) {
+
+            var searchURL = '/Data/ItemsMasterList/' + itemID;
+
+            //return;
+
+            console.log(searchURL);
 
             $.getJSON(searchURL, function (data) {
+
+                console.log(data);
 
                 $('.stock__inquiry__tbody').html('');
 
@@ -75,9 +237,17 @@
                         var qty = 0;
 
                         if (data[i].ProjectQuantity !== null) {
+
                             var projQuantity = data[i].ProjectQuantity;
                             for (var z = 0; z < projQuantity.length; z++) {
-                                qty += projQuantity[z].Quantity;
+
+                                console.log(projQuantity[z]);
+
+                                if (projQuantity.ProjectInfo.ID === projectID) {
+                                    qty += projQuantity[z].Quantity;
+                                }
+
+                                //console.log(projQuantity[z].Quantity);
                             }
                         }
 
@@ -85,13 +255,13 @@
 
                             $('.stock__inquiry__tbody__clone').find('td.item__name').html(data[i].ItemFullNameInfo.Name);
                             $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
-                            $('.stock__inquiry__tbody__clone').find('td.action').html('<button><i class="fa fa-search fa-fw"></i> View</button>');
+                            $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data[i].ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
 
                             $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
                         }
                     }
 
-                   // console.log(data);
+                    // console.log(data);
                 }
                 else {
                     var tr = '';
@@ -102,8 +272,7 @@
                 }
 
             });
-
-        });
+        }
 
 
     </script>
