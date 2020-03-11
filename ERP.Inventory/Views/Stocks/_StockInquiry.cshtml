@@ -22,7 +22,8 @@
             <input type="text" name="Search" id="search__items" placeholder="Search Item" value="" onkeypress="fnSearchItemByProj(event)" data-val="0"/>
         </div>
         <div class="input2__wrapper">
-            <input type="text" name="ProjectSite" placeholder="Search Projects" id="projects" value="" data-val="0"/>
+            @*<input type="text" name="ProjectSite" placeholder="Search Projects" id="projects" value="" data-val="0"/>*@
+            <select class="" id="projects" name="ProjectSite"></select>
         </div>
         <div class="button__wrapper">
             <button type="button" id="search__btn">Search</button>
@@ -101,7 +102,7 @@
         function fnSearchItemByProj(event) {
             
             var items = [];
-            var projectID = $('#projects').attr('data-val') || 0;
+            var projectID = $('#projects').val() || 0;
             var searchURL = '/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
 
             //console.log(searchURL);
@@ -140,27 +141,30 @@
 
         $(function () {
 
-            var projects = [];
             $.getJSON('/Data/ENGProjectList', function (data) {
 
+                $('#projects').html('');
+
                 if (data.length > 0) {
+
+                    $('#projects').append(new Option('All Projects', 0));
+
                     for (var i = 0; i < data.length; i++) {
-                        var obj = {};
 
-                        obj.id = data[i].ID;
-                        obj.value = data[i].ProjectName;
-                        obj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
-                        obj.projectNo = data[i].ProjectNumber;
+                        var project = data[i].ProjectNumber + '-' + data[i].ProjectName;
 
-                        projects.push(obj);
+                        if (project.length < 52) {
+                            $('#projects').append(new Option(project, data[i].ID));
+                        }
+                        else {
+                            $('#projects').append(new Option(project.slice(0,52) + '...', data[i].ID));
+
+                        }
+
+                        //console.log(project.length);
+
                     }
 
-                    $('#projects').autocomplete({
-                        source: projects,
-                        select: function (event, ui) {
-                            $(this).attr('data-val', ui.item.id);
-                        }
-                    });
                 }
 
             });
@@ -174,10 +178,10 @@
 
             //var searchVal = $this.parents('.inquiry__searchBox').find('input[name=Search]').val();
 
-            var projectID = $('#projects').attr('data-val') || 0;
+            var projectID = $('#projects').val() || 0;
             var itemID = $('#search__items').attr('data-val') || 0;
 
-            //console.log(searchVal);
+            //console.log(projectID);
 
             DisplayItem(itemID, projectID);
 
@@ -222,58 +226,88 @@
 
             //return;
 
-            console.log(searchURL);
+            //console.log(searchURL);
 
             $.getJSON(searchURL, function (data) {
 
-                console.log(data);
 
                 $('.stock__inquiry__tbody').html('');
 
-                if (data.length > 0) {
+                var qty = 0;
 
-                    for (var i = 0; i < data.length; i++) {
+                if (data.ProjectQuantity !== null) {
 
-                        var qty = 0;
+                    var projQuantity = data.ProjectQuantity;
+                    for (var z = 0; z < projQuantity.length; z++) {
 
-                        if (data[i].ProjectQuantity !== null) {
-
-                            var projQuantity = data[i].ProjectQuantity;
-                            for (var z = 0; z < projQuantity.length; z++) {
-
-                                console.log(projQuantity[z]);
-
-                                if (projQuantity.ProjectInfo.ID === projectID) {
-                                    qty += projQuantity[z].Quantity;
-                                }
-
-                                //console.log(projQuantity[z].Quantity);
+                        if (parseInt(projectID) === 0) {
+                            //console.log("all projects");
+                            qty += projQuantity[z].Quantity;
+                        }
+                        else {
+                            if (projQuantity[z].ProjectInfo.ID === parseInt(projectID)) {
+                                qty += projQuantity[z].Quantity;
                             }
                         }
-
-                        if (data[i].ItemFullNameInfo !== null) {
-
-                            $('.stock__inquiry__tbody__clone').find('td.item__name').html(data[i].ItemFullNameInfo.Name);
-                            $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
-                            $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data[i].ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
-
-                            $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
-                        }
+                      
+                        //console.log(projQuantity[z].Quantity);
                     }
-
-                    // console.log(data);
                 }
-                else {
-                    var tr = '';
 
-                    tr += '<tr><td colspan="3" style="text-align:center">No matching records found</td></tr>';
+                if (data.ItemFullNameInfo !== null) {
 
-                    $('.stock__inquiry__tbody').append(tr);
+                    $('.stock__inquiry__tbody__clone').find('td.item__name').html(data.ItemFullNameInfo.Name);
+                    $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
+                    $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data.ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
+
+                    $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
                 }
+
+
+
+                //if (data.length > 0) {
+
+                //    //for (var i = 0; i < data.length; i++) {
+
+                //    var qty = 0;
+
+                //    if (data.ProjectQuantity !== null) {
+
+                //        var projQuantity = data.ProjectQuantity;
+                //        for (var z = 0; z < projQuantity.length; z++) {
+
+                //            console.log(projQuantity[z]);
+
+                //            if (projQuantity.ProjectInfo.ID === projectID) {
+                //                qty += projQuantity[z].Quantity;
+                //            }
+
+                //            //console.log(projQuantity[z].Quantity);
+                //        }
+                //    }
+
+                //    if (data[i].ItemFullNameInfo !== null) {
+
+                //        $('.stock__inquiry__tbody__clone').find('td.item__name').html(data[i].ItemFullNameInfo.Name);
+                //        $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
+                //        $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data[i].ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
+
+                //        $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
+                //    }
+                //    //}
+
+                //    // console.log(data);
+                //}
+                //else {
+                //    var tr = '';
+
+                //    tr += '<tr><td colspan="3" style="text-align:center">No matching records found</td></tr>';
+
+                //    $('.stock__inquiry__tbody').append(tr);
+                //}
 
             });
         }
-
 
     </script>
 

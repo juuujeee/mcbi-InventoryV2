@@ -35,7 +35,7 @@
     grid-column-gap: 15px;
 }
 .stock__inquiry__wrapper .inquiry__searchBox .input__wrapper input, 
-.stock__inquiry__wrapper .inquiry__searchBox .input2__wrapper input {
+.stock__inquiry__wrapper .inquiry__searchBox .input2__wrapper select {
     width: 100%;
     font-size: 1em;
     font-family: Lato;
@@ -47,6 +47,10 @@
     width: 100%;
     line-height: 34px;
     font-family: Tahoma;
+}
+
+.stock__inquiry__wrapper .inquiry__searchBox .input2__wrapper select{
+    padding:9px;
 }
 
 .stock__inquiry__wrapper .inquiry__searchBox .button__wrapper {
@@ -202,7 +206,7 @@
     }
 
     .stock__inquiry__wrapper .inquiry__searchBox {
-        grid-template-columns: 5fr 1fr;
+        grid-template-columns: 5fr 2fr 1fr;
     }
 }
 
@@ -221,6 +225,6 @@
     }
 
     .stock__inquiry__wrapper .inquiry__searchBox {
-        grid-template-columns: 5fr 1fr;
+        grid-template-columns: 5fr 2fr 1fr;
     }
 }
