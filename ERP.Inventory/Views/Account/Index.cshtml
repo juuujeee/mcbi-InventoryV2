@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "User Account Page";
+}
+
+@section Styles{
+
+    <link href="~/Content/accountIndex.css" rel="stylesheet" />
+
+}
+
+<div class="user__page__wrapper">
+    <div class="page__header">
+        <div class="title">
+            <h1>User List</h1>
+        </div>
+        <div class="header__button">
+            <button class="new__entry open__modal" id="openModal" type="button">New</button>
+            <button class="clear__entry" type="button">Clear</button>
+            <button class="edit__entry" type="button">Edit</button>
+            <button class="ellipsis__btn" type="button">...</button>
+        </div>
+    </div>
+
+    <div class="page__body">
+        <table class="user__list__table">
+            <thead>
+                <tr>
+                    <td>USERNAME</td>
+                    <td>EMPLOYEE</td>
+                    <td>ROLE</td>
+                    <td>LEVEL</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 1; i <= 10; i++)
+                {
+                    <tr>
+                        <td>User @i</td>
+                        <td>Employee @i</td>
+                        <td>Role @i</td>
+                        <td>Level @i</td>
+                        <td></td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot></tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div class="user-modal" id="userModal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p>Some text in the Modal..</p>
+    </div>
+</div>
+
+@section Scripts{
+    
+
+<script>
+
+    var userModal = document.getElementById('userModal');
+
+    var addBtn = document.getElementsByClassName('open__modal')[0];
+
+    addBtn.onclick = function () {
+        userModal.style.display = "block";
+    }
+
+    document.getElementById('closeModal').onclick = function () {
+        userModal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        console.log(event.target);
+    }
+
+</script>    
+    
+}

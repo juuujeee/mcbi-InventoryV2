@@ -173,14 +173,13 @@ $('.delMethodID').on('change', function (e) {
 var items = [];
 var itemURL = '/Data/ItemsMasterlist';
 
-$.getJSON(itemURL, function (data) {
 
-    //console.log(data);
+JsonRequest(itemURL, 'GET', null, function (data) {
+
+   // console.log(data);
 
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
-
-            // console.log(data[i].ItemFullNameInfo.Name);
 
             var newObj = {};
 
@@ -199,6 +198,7 @@ $.getJSON(itemURL, function (data) {
 
 });
 
+
 function fnGetItems(event) {
 
     var $this = $(event.target);
@@ -207,9 +207,7 @@ function fnGetItems(event) {
         source: items,
         select: function (event, ui) {
 
-            var $this = $(this);
-
-            //console.log(ui.item.hasAttribute);
+            var $this = this;
 
             if (ui.item.hasAttribute) {
                 $('.has__attribute__container').dialog({
@@ -328,17 +326,21 @@ function fnGetItemsByProj(event) {
 //FOR UNITS AUTOCOMPLETE
 var units = [];
 var unitsURL = '/Data/units';
-$.getJSON(unitsURL, function (data) {
 
-    for (var i = 0; i < data.length; i++) {
-        var obj = {};
 
-        obj.id = data[i].ID;
-        obj.value = data[i].ShortName;
-        obj.label = data[i].ShortName;
-        obj.fullname = data[i].FullName;
+JsonRequest(unitsURL, 'GET', null, function (data) {
 
-        units.push(obj);
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].ShortName;
+            obj.label = data[i].ShortName;
+            obj.fullname = data[i].FullName;
+
+            units.push(obj);
+        }
     }
 
 });
@@ -364,17 +366,22 @@ function fnGetUnits(event) {
 // FOR ITEM CONDITION
 var itemCondition = [];
 var itemConditionURL = '/Data/ItemCondition';
-$.getJSON(itemConditionURL, function (data) {
 
-    for (var i = 0; i < data.length; i++) {
-        var obj = {};
 
-        obj.id = data[i].ID;
-        obj.value = data[i].StatusName;
-        obj.label = data[i].StatusName;
+JsonRequest(itemConditionURL, 'GET', null, function (data) {
 
-        itemCondition.push(obj);
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].StatusName;
+            obj.label = data[i].StatusName;
+
+            itemCondition.push(obj);
+        }
     }
+  
 });
 
 function fnGetItemCondition(event) {

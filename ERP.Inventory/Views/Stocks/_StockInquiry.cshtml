@@ -38,19 +38,20 @@
                     <td>ACTION</td>
                 </tr>
             </thead>
-            <tbody class="stock__inquiry__tbody">
-            </tbody>
+            <tbody class="stock__inquiry__tbody"></tbody>
         </table>
     </div>
 </div>
 
-<table style="display:none;" class="stock__inquiry__tbody__clone">
+<table style="display:none;" class="stock__inquiry__tbody__clone" id="stock__inquiry__tbody__clone">
     <tr>
         <td class="item__name"></td>
         <td class="quantity"></td>
         <td class="action"></td>
     </tr>
 </table>
+
+
 
 <div class="item__details__container" style="display:none">
     <div class="item__details__header">
@@ -87,44 +88,20 @@
 
     <script>
 
-        //$('#search__items').on('keypress', function (e) {
-
-        //    var searchItem = $(this).val();
-
-        //    if (e.which === 13) {
-        //        //console.log('You press enter!!');
-
-        //        SearchItem(searchItem);
-
-        //    }
-        //});
 
         function fnSearchItemByProj(event) {
             
             var items = [];
-            var projectID = $('#projects').val() || 0;
+            var projectID = document.getElementById('projects').value || 0;
             var searchURL = '/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
 
-            //console.log(searchURL);
-            $('#search__items').autocomplete({
-                source: items,
-                select: function (event, ui) {
-                    var itemID = ui.item.id;
-                    //console.log(itemID);
-                    $(this).attr('data-val', itemID);
-                }
-            });
+            JsonRequest(searchURL, 'GET', null, function (data) {
 
-            $.getJSON(searchURL, function (data) {
                 //console.log(data);
 
                 if (data.length > 0 || data !== null) {
-
                     for (var i = 0; i < data.length; i++) {
-
                         var obj = {};
-
-                        //console.log(data[i]);
 
                         if (data[i].ItemFullNameInfo !== null) {
                             obj.id = data[i].ID;
@@ -136,35 +113,39 @@
                     }
                 }
 
+                $('#search__items').autocomplete({
+                    source: items,
+                    select: function (event, ui) {
+                        var itemID = ui.item.id;
+                        $(this).attr('data-val', itemID);
+                    }
+                });
+
             });
+
         }
 
         $(function () {
 
-            $.getJSON('/Data/ENGProjectList', function (data) {
+            JsonRequest('/Data/ENGProjectList', 'GET', null, function (data) {
 
-                $('#projects').html('');
+                var projectEl = document.getElementById('projects');
+
+                projectEl.innerHTML = '';
 
                 if (data.length > 0) {
-
-                    $('#projects').append(new Option('All Projects', 0));
+                    projectEl.appendChild(new Option('All Projects', 0));
 
                     for (var i = 0; i < data.length; i++) {
-
                         var project = data[i].ProjectNumber + '-' + data[i].ProjectName;
 
                         if (project.length < 52) {
-                            $('#projects').append(new Option(project, data[i].ID));
+                            projectEl.appendChild(new Option(project, data[i].ID));
                         }
                         else {
-                            $('#projects').append(new Option(project.slice(0,52) + '...', data[i].ID));
-
+                            projectEl.appendChild(new Option(project.slice(0, 52) + '...', data[i].ID));
                         }
-
-                        //console.log(project.length);
-
                     }
-
                 }
 
             });
@@ -187,38 +168,6 @@
 
         });
 
-        //$(document).on('click', '.item__details', function () {
-
-        //    var url = '/Data/ItemsMasterList/' + $(this).attr('id');
-
-        //    $.getJSON(url, function (data) {
-        //        console.log(data);
-
-        //        var itemName = data.ItemFullNameInfo.Name;
-        //        var qty = 0;
-
-        //        if (data.ProjectQuantity !== null) {
-
-        //            var projectQuantity = data.ProjectQuantity;
-
-        //            for (var q = 0; q < projectQuantity.length; q++) {
-        //                qty += projectQuantity[q].Quantity;
-        //            }
-        //        }
-
-
-        //        $('.item__details__container').find('input[name=ItemName]').val(itemName);
-        //        $('.item__details__container').find('input[name=TotalQuantity]').val(qty);
-        //    });
-
-        //    $('.item__details__container').dialog({
-        //        modal: true,
-        //        width: "50%",
-        //        title: "Item Details"
-        //    });
-
-        //});
-
 
         function DisplayItem(itemID, projectID) {
 
@@ -226,22 +175,18 @@
 
             //return;
 
-            //console.log(searchURL);
-
-            $.getJSON(searchURL, function (data) {
-
-
-                $('.stock__inquiry__tbody').html('');
+            JsonRequest(searchURL, 'GET', null, function (data) {
+                
+                var stockInquiryTable = document.getElementById('stock__inquiry__table');
+                stockInquiryTable.querySelector('.stock__inquiry__tbody').innerHTML = '';
 
                 var qty = 0;
 
                 if (data.ProjectQuantity !== null) {
-
                     var projQuantity = data.ProjectQuantity;
-                    for (var z = 0; z < projQuantity.length; z++) {
 
+                    for (var z = 0; z < projQuantity.length; z++) {
                         if (parseInt(projectID) === 0) {
-                            //console.log("all projects");
                             qty += projQuantity[z].Quantity;
                         }
                         else {
@@ -249,64 +194,57 @@
                                 qty += projQuantity[z].Quantity;
                             }
                         }
-                      
-                        //console.log(projQuantity[z].Quantity);
                     }
                 }
 
                 if (data.ItemFullNameInfo !== null) {
 
-                    $('.stock__inquiry__tbody__clone').find('td.item__name').html(data.ItemFullNameInfo.Name);
-                    $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
-                    $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data.ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
+                    var stockInquiryTableClone = document.getElementById('stock__inquiry__tbody__clone');
 
-                    $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
+                    //stockInquiryTbodyClone.querySelector('td.item__name').innerHTML = data.ItemFullNameInfo.Name;
+                    //stockInquiryTbodyClone.querySelector('td.quantity').innerHTML = qty;
+                    //stockInquiryTbodyClone.querySelector('td.action').innerHTML = '<button class="item__details" id="' + data.ID + '"><i class="fa fa-search fa-fw"></i> View</button>';
+
+                    //stockInquiryTable.querySelector('.stock__inquiry__tbody').innerHTML = stockInquiryTableClone.children;
                 }
+            });
+
+            //$.getJSON(searchURL, function (data) {
 
 
+            //    $('.stock__inquiry__tbody').html('');
 
-                //if (data.length > 0) {
+            //    var qty = 0;
 
-                //    //for (var i = 0; i < data.length; i++) {
+                //if (data.ProjectQuantity !== null) {
 
-                //    var qty = 0;
+                //    var projQuantity = data.ProjectQuantity;
+                //    for (var z = 0; z < projQuantity.length; z++) {
 
-                //    if (data.ProjectQuantity !== null) {
-
-                //        var projQuantity = data.ProjectQuantity;
-                //        for (var z = 0; z < projQuantity.length; z++) {
-
-                //            console.log(projQuantity[z]);
-
-                //            if (projQuantity.ProjectInfo.ID === projectID) {
+                //        if (parseInt(projectID) === 0) {
+                //            //console.log("all projects");
+                //            qty += projQuantity[z].Quantity;
+                //        }
+                //        else {
+                //            if (projQuantity[z].ProjectInfo.ID === parseInt(projectID)) {
                 //                qty += projQuantity[z].Quantity;
                 //            }
-
-                //            //console.log(projQuantity[z].Quantity);
                 //        }
+                      
+                //        //console.log(projQuantity[z].Quantity);
                 //    }
-
-                //    if (data[i].ItemFullNameInfo !== null) {
-
-                //        $('.stock__inquiry__tbody__clone').find('td.item__name').html(data[i].ItemFullNameInfo.Name);
-                //        $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
-                //        $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data[i].ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
-
-                //        $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
-                //    }
-                //    //}
-
-                //    // console.log(data);
-                //}
-                //else {
-                //    var tr = '';
-
-                //    tr += '<tr><td colspan="3" style="text-align:center">No matching records found</td></tr>';
-
-                //    $('.stock__inquiry__tbody').append(tr);
                 //}
 
-            });
+                //if (data.ItemFullNameInfo !== null) {
+
+                //    $('.stock__inquiry__tbody__clone').find('td.item__name').html(data.ItemFullNameInfo.Name);
+                //    $('.stock__inquiry__tbody__clone').find('td.quantity').html(qty);
+                //    $('.stock__inquiry__tbody__clone').find('td.action').html('<button class="item__details" id="' + data.ID + '"><i class="fa fa-search fa-fw"></i> View</button>');
+
+                //    $('.stock__inquiry__tbody').append($('.stock__inquiry__tbody__clone tbody').html());
+                //}
+
+            //});
         }
 
     </script>
