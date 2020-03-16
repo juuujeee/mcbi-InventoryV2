@@ -1,0 +1,667 @@
+﻿
+
+@{
+    ViewBag.Title = "Entry Stocks Page";
+}
+
+@section Styles{
+    <link href="~/Content/EntryStocks.css" rel="stylesheet">
+}
+
+<form action="#" method="post" name="StockEntryForm" autocomplete="off">
+    <input type="hidden" name="ID" value="" />
+    <div class="entrycontent">
+        <div class="entrycontent__entryheadertitle">
+            <div class="entryheadertitle__entrylabel">
+                <h1> Entry Stocks</h1>
+            </div>
+            <div class="entryheadertitle__entrymenubutton">
+                <button class="entrymenubutton__nce new__entry" type="button">New</button>
+                <button class="entrymenubutton__nce clear__entry" type="button">Clear</button>
+                <button class="entrymenubutton__nce edit__entry" type="button">Edit</button>
+                <button class="entrymenubutton__ell" type="button">...</button>
+            </div>
+
+        </div>
+        <div class="entrycontent__route">
+
+            <fieldset id="supplier__fieldset">
+                <legend class="fieldset__title">SUPPLIER</legend>
+                <div class="fieldset__content">
+                    <div class="content">
+                        <label>SUPPLIER</label>
+                        <input type="text" name="SupplierName">
+                    </div>
+                    <div class="content">
+                        <label>SUP ID</label>
+                        <input type="text" name="SupplierID" readonly>
+                    </div>
+                    <div class="content">
+                        <label>DOC NO</label>
+                        <input type="text" name="DocNumber">
+                    </div>
+                    <div class="content">
+                        <label>RCV BY</label>
+                        <input type="text" name="ReceivedBy">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="project__fieldset">
+                <legend class="fieldset__title">PROJECT</legend>
+                <div class="fieldset__content">
+                    <div class="content">
+                        <label>PRJ NAME</label>
+                        <input type="text" name="ProjectName">
+                    </div>
+                    <div class="content">
+                        <label>PRJ NO</label>
+                        <input type="text" name="ProjectNumber" readonly>
+                    </div>
+                    <div class="content">
+                        <label>LOCATION</label>
+                        <input type="text" name="ProjectLocation" readonly>
+                    </div>
+                    <div class="content">
+                        <label>DEL DATE</label>
+                        <input type="text" name="DeliveryDate" class="date-picker">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset id="delMethod__fieldset">
+                <legend class="fieldset__title">DELIVERY</legend>
+                <div class="fieldset__content delMethod__content">
+                    <div class="content">
+                        <label>METHOD</label>
+                        <select class="delMethodID">
+                            <option value="1">DELIVERY TRUCK</option>
+                            <option value="2">COURIER</option>
+                            <option value="3">MESSENGER</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="entrycontent__tabletitle">
+            <h1>Enter new stock here...</h1>
+        </div>
+        <div class="entrycontent__tableitem">
+
+            <table class="tableitem__table">
+                <thead>
+                    <tr>
+                        <td>NO</td>
+                        <td>DESCRIPTION</td>
+                        <td>UNITS</td>
+                        <td>QTY</td>
+                        <td>PRICE</td>
+                        <td>TOTAL AMOUNT</td>
+                        <td>COND</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody class="stock__entry__tbody">
+                    @for (var i = 1; i <= 10; i++)
+                    {
+                        <tr class="stock__entry__tr">
+                            <td class="counter"><input type="text" disabled value="@i" /></td>
+                            <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
+                            <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
+                            <td><input type="text" name="Qty" class="quantity"></td>
+                            <td><input type="text" name="UnitPrice" class="unitPrice"></td>
+                            <td><input type="text" name="TotalAmount" /></td>
+                            <td>
+                                <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+                            </td>
+                            <td class="position__relative">
+                                <input type="button" value="..." />
+                                <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5"><h3>Total Amount :</h3></td>
+                        <td><input type="text" disabled="disabled" id="" /></td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+            @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
+        </div>
+        <div class="entrycontent__footer">
+            <div class="footer__labelupperright">
+                <hr>
+                <label> Upload attachement</label> <br>
+            </div>
+            <div class="footer__upload">
+                <label class="upload__label" for="file"> Select File</label>
+                <span class="upload__span">No file selected...</span>
+                <button class="upload__button" type="button">Upload</button>
+                <input id="file" type="file" hidden="hidden">
+            </div>
+            <div class="footer__progressbar"></div>
+            <div class="footer__save">
+                <button class="save__buttonright save__btn" type="submit">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="has__attribute__container">
+    <div class="item__name">
+        <label>Item Name</label>
+        <input type="text" name="ItemName" value="" style="width: 100%" disabled />
+    </div>
+
+    <div class="item__attribute__wrapper">
+        <div class="item__attribute">
+            <label>Item Attribute</label>
+            <select class="item__attribute__name" name="ItemAttribute" style="width: 100%">
+                <option value="1">SERIAL NUMBER</option>
+                <option value="2">MODEL NUMBER</option>
+                <option value="3">PLATE NUMBER</option>
+                <option value="4">CHASIS NUMBER</option>
+                <option value="5">BODY NUMBER</option>
+                <option value="6">ENGINE NUMBER</option>
+            </select>
+
+            <label>Value</label>
+            <input type="text" name="Value" value="" style="width: 100%" />
+        </div>
+    </div>
+
+    <div class="has__attribute__footer">
+        <button type="button" class="add__attribute">Add</button>
+        <hr />
+    </div>
+</div>
+
+<div class="item__attribute__clone" style="display:none">
+    <div class="item__attribute">
+        <label>Item Attribute</label>
+        <select class="item__attribute__name" name="" style="width: 100%">
+            <option value="1">SERIAL NUMBER</option>
+            <option value="2">MODEL NUMBER</option>
+            <option value="3">PLATE NUMBER</option>
+            <option value="4">CHASIS NUMBER</option>
+            <option value="5">BODY NUMBER</option>
+            <option value="6">ENGINE NUMBER</option>
+        </select>
+
+        <label>Value</label>
+        <input type="text" name="Value" value="" style="width: 100%" />
+    </div>
+</div>
+
+
+
+<table style="display: none" class="stock__entry__tbody__clone">
+    <tr class="">
+        <td class="counter"></td>
+        <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
+        <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
+        <td><input type="text" name="Qty"></td>
+        <td><input type="text" name="UnitPrice"></td>
+        <td class="position__relative">
+            <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+            <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
+        </td>
+    </tr>
+</table>
+
+@section Scripts{
+
+    <script>
+
+        function fnAddStockEntryItem(event) {
+
+            var number = $('.stock__entry__tr').length;
+
+            $('.stock__entry__tbody__clone').find('tr').addClass('stock__entry__tr');
+            $('.stock__entry__tbody__clone').find('td.counter').eq(0).text(number + 1);
+
+            $('.stock__entry__tbody').append(
+                $('.stock__entry__tbody__clone tbody').html()
+            );
+
+            $('.stock__entry__tbody__clone').find('tr').removeClass('stock__entry__tr');
+        }
+
+        function fnRemoveItemStockEntry(event) {
+            var $this = $(event.target);
+
+            $this.closest('tr').remove();
+
+            var counter = $('.entrycontent .tableitem__table').find('td.counter').length;
+
+            if (counter > 0) {
+                for (var i = 0; i < counter; i++) {
+
+                    $('.entrycontent .tableitem__table').find('.counter').eq(i).text(i + 1);
+                }
+            }
+        }
+
+
+        $(function () {
+
+            $('.add__attribute').on('click', function (e) {
+
+                var $this = $(this);
+
+                //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
+                $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
+
+                //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
+                $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
+                $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
+
+                //APPEND NEW ROW IN ITEM ATTRIBUTE
+                $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
+
+                //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
+                $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
+                $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
+
+
+            });
+
+
+            $('.delMethodID').trigger('change');
+
+            //FOR PROJECTS
+            var project = [];
+            var projectURL = '/Data/ENGProjectList';
+
+            $.getJSON(projectURL, function (data) {
+                //var dat = data.Data;
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    newObj.id = data[i].ID;
+                    newObj.value = data[i].ProjectName;
+                    newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                    newObj.projectNo = data[i].ProjectNumber;
+
+                    project.push(newObj);
+
+                }
+
+                $("input[name=ProjectName]").autocomplete({
+                    source: project,
+                    select: function (event, ui) {
+
+                        $(this).attr('data-val', ui.item.id);
+                        $(this).parents('fieldset#project__fieldset').find('input[name=ProjectNumber]').val(ui.item.projectNo);
+                    }
+                });
+            });
+
+
+            //FOR SUPPLIER
+            var suppliers = [];
+            var supplierURL = '/Data/VendorList/';
+            var supplierName = '';
+
+            $.getJSON(supplierURL, function (data) {
+
+                //console.log(data);
+
+                if (!(data === null || data === '[]')) {
+                    for (var i = 0; i < data.length; i++) {
+
+                        //console.log(data[i]);
+
+                        supplierName = data[i].VendorSupplier.SupplierName;
+
+                        for (var z = 0; z < data[i].VendorBranch.length; z++) {
+
+                            var branchName = data[i].VendorBranch[z].branchName;
+
+                            var newObj = {};
+
+                            newObj.id = data[i].VendorBranch[z].ID;
+                            newObj.value = supplierName + ' - ' + branchName;
+                            newObj.label = supplierName + ' - ' + branchName;
+
+                            suppliers.push(newObj);
+
+                        }
+
+                    }
+
+                    //console.log(suppliers);
+
+                    $("input[name=SupplierName]").autocomplete({
+                        source: suppliers,
+                        select: function (event, ui) {
+
+                            $(this).attr('data-val', ui.item.id);
+                            $(this).parents('fieldset#supplier__fieldset').find('input[name=SupplierID]').val(ui.item.id);
+                        }
+                    })
+                }
+
+            });
+
+            //FOR RECEIVED BY
+            var receivedBy = [];
+
+            var receivedByURL = '/Data/HRMSEmployeeList/';
+            $.getJSON(receivedByURL, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var obj = {};
+
+                    obj.id = data[i].ID;
+                    obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                    obj.label = data[i].FirstName + ' ' + data[i].LastName;
+
+                    receivedBy.push(obj);
+
+
+                    $("input[name=ReceivedBy]").autocomplete({
+                        source: receivedBy,
+                        select: function (event, ui) {
+
+                            //console.log($(this));
+
+                            $(this).attr('data-val', ui.item.id);
+                        }
+                    })
+
+                }
+
+            });
+
+        });
+
+        $(function () {
+            $('form[name=StockEntryForm]').validate({
+                rules: {
+                    SupplierName: "required",
+                    ProjectName: "required",
+                    ReceivedBy: "required",
+                    DocNumber: "required",
+                    DeliveryDate: "required"
+                },
+                errorPlacement: function () {
+                    return false;
+                },
+
+                submitHandler: function (form, event) {
+                    event.preventDefault();
+
+                    fnSaveStockEntry(form);
+                }
+            });
+
+            $("[name^=DeliveryMethodAttr]").each(function () {
+                $(this).rules("add", {
+                    required: true
+                });
+            });
+
+        })
+
+
+        //SAVE DATA
+        function fnSaveStockEntry(form) {
+
+            var stockEntryItem = [];
+            var $this = $(form);
+
+
+            //FOR STOCK ENTRY ITEM
+            $this.find('.stock__entry__tr').each(function () {
+
+                var itemID = $(this).find('input[name=Items]').attr('data-val') || 0;
+                var unitID = $(this).find('input[name=Units]').attr('data-val') || 0;
+                var itemConditionID = $(this).find('input[name=ItemCondition]').attr('data-val') || 0;
+                var quantity = $(this).find('input[name=Qty]').val() || 0;
+                var unitPrice = $(this).find('input[name=UnitPrice]').val() || 0;
+
+                var itemAttribute = [];
+
+                $(this).find('input[name=Items]').closest('td').find('span.item-attribute').each(function () {
+
+                    var itemAttrObj = {
+                        ID: 0,
+                        ItemID_011: itemID,
+                        AttID_006: $(this).attr('data-attribute-id'),
+                        AttributeValue: $(this).attr('data-attribute-value')
+                    };
+
+                    itemAttribute.push(itemAttrObj);
+                })
+
+                var obj = {};
+
+                if (itemAttribute.length > 0) {
+                    obj = {
+                        ID: 0,
+                        DocEntryID_007: 0,
+                        ItemID_011: itemID,
+                        UnitID_009: unitID,
+                        ItemAttributes: itemAttribute,
+                        ItemConditionID_018: itemConditionID,
+                        Quantity: quantity,
+                        UnitPrice: unitPrice
+                    };
+                }
+                else {
+                    obj = {
+                        ID: 0,
+                        DocEntryID_007: 0,
+                        ItemID_011: itemID,
+                        UnitID_009: unitID,
+                        ItemConditionID_018: itemConditionID,
+                        Quantity: quantity,
+                        UnitPrice: unitPrice
+                    };
+                }
+
+
+                if (obj.ItemID_011 !== 0) {
+                    stockEntryItem.push(obj);
+                }
+
+            });
+
+            let current_datetime = new Date();
+            let formatted_date = (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate() + "/" + current_datetime.getFullYear();
+
+
+
+            //FOR DELIVERY ENTRY
+
+            var DeliveryMethodEntryList = [];
+            $('.deliveryMethodAttr').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    DocEntryListID_007: 0,
+                    DelMethodAttrID_008: $(this).attr('data-id'),
+                    AttributeValueID_008a: 0,
+                    AttributeValue: $(this).val()
+                };
+
+                if (obj.AttributeValue !== "") {
+                    DeliveryMethodEntryList.push(obj);
+                }
+            });
+
+            var DeliveryMethod = {
+
+                // ID: $('.delMethodID').val(),
+                Name: $('.delMethodID').children('option:selected').text(),
+                DelMethodAttribute: [{
+                    ID: 0,
+                    DelMethodID_010: $('.delMethodID').val(),
+                    MethodAttribute: 'N/A',
+                    DeliveryMethodEntryList: DeliveryMethodEntryList
+                }]
+
+            };
+
+
+            //FOR STOCK ENTRY HEADER
+            var DocEntry = {
+                ID: 0,
+                SupID_VendorDB: $this.find('input[name=SupplierName]').attr('data-val') || 0,
+                ProjectID_EnggDB: $this.find('input[name=ProjectName]').attr('data-val') || 0,
+                DocumentNumber: $this.find('input[name=DocNumber]').val() || 0,
+                DeliveryDate: $this.find('input[name=DeliveryDate]').val() || 0,
+                EntryDate: formatted_date,
+                ReceiverID_HRDB: $this.find('input[name=ReceivedBy]').attr('data-val') || 0,
+                ItemEntryList: stockEntryItem,
+                DeliveryMethod: DeliveryMethod
+            };
+
+            //FOR ITEM ATTRIBUTE
+
+            console.log(DocEntry);
+
+            //return;
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: '/Data/NewItemHeaderList',
+                dataType: 'json',
+                data: JSON.stringify(DocEntry),
+                contentType: "application/json",
+                success: function (response) {
+                    if (response.RetVal === 1) {
+                        swal.fire('Success', response.Message, 'success');
+
+                        //Disable All Input and Select Field
+                        $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+
+                        //Disable Table
+                        $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+
+                        //Disable Button
+                        $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+
+                        //Assign ID in hidden input[name=ID]
+                        $this.find('input[name=ID]').val(response.DataID);
+
+                    }
+                    else {
+                        swal.fire('Error', response.Message, 'error');
+                    }
+                },
+                error: function (jqXHR, exception) {
+
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            });
+
+        }
+
+
+        $('.clear__entry').on('click', function () {
+            //Clear Stock Entry
+            $('form[name=StockEntryForm]').find('input').val("");
+        });
+
+        $('.edit__entry').on('click', function () {
+
+            //enable input and select field
+            $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
+
+            //enable click and edit in table elements
+            $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
+
+            //enable button save
+            $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
+
+        });
+
+        $('.new__entry').on('click', function () {
+            $('form[name=StockEntryForm]').find('input').val("");
+        });
+
+
+        $.getJSON('/StockEntry/GetSupplier', function (data) {
+            //console.log(data);
+        });
+
+        //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
+        //$(function () {
+        //    $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+        //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+        //    $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+        //});
+
+
+        $('.quantity').on('keyup', function () {
+            console.log("Quantity");
+
+            var totalAmount = 0;
+
+            $('.quantity').each(function () {
+
+                var qty = $(this).val() || 0;
+                var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
+
+                totalAmount = totalAmount + (qty * price);
+
+            });
+
+            console.log(totalAmount);
+        });
+
+        $('.unitPrice').on('keyup', function () {
+            console.log("Price");
+
+            var totalAmount = 0;
+
+             $('.quantity').each(function () {
+
+                var qty = $(this).val() || 0;
+                var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
+
+                totalAmount = totalAmount + (qty * price);
+
+             });
+
+            console.log(totalAmount);
+
+        });
+
+    </script>
+
+}

@@ -1,0 +1,562 @@
+﻿
+@{
+    ViewBag.Title = "Transfer Stock Page";
+}
+
+@section Styles{
+
+    <link href="~/Content/TransferStock.css" rel="stylesheet" />
+
+}
+
+<div class="Transcontent">
+    <div class="Transcontent__transheadertitle">
+        <div class="transheadertitle__translabel"><h1> Stock Transfer Form</h1></div>
+        <div class="transheadertitle__transmenubutton">
+            <button class="transmenubutton__nce new__transferStocks">New</button>
+            <button class="transmenubutton__nce clear__transferStocks">Clear</button>
+            <button class="transmenubutton__nce edit__transferStocks">Edit</button>
+            <button class="transmenubutton__ell">...</button>
+        </div>
+
+    </div>
+    <div class="Transcontent__transselectfunc">
+        <div class="transselectfunc__labelselect"><h4>Select Transaction First...</h4></div>
+        <div class="transselectfunc__divselect">
+            <select class="divselect_selecttrans" onchange="fnCheckTransferTransaction(event)">
+                <option disabled selected>Select Transaction</option>
+                <option value="1">New Transaction</option>
+                <option value="2">Confirm Transaction</option>
+            </select>
+        </div>
+        <div class="transselectfunc__labelrefno"><h4>Enter Ref No.</h4></div>
+        <div class="transselectfunc__divrefno">
+            <input type="text" name="RefNumber">
+        </div>
+    </div>
+    <div class="Transcontent__transroute">
+        <fieldset id="supplier__fieldset">
+            <legend class="fieldset__title">ORIGIN</legend>
+            <div class="fieldset__content">
+                <div class="content">
+                    <label>PRJ NAME</label>
+                    <input type="hidden" name="OriginProjectID" class="projectID" value="">
+                    <input type="text" name="OriginProjectName" class="projects" value="">
+                </div>
+                <div class="content">
+                    <label>PRJ NO</label>
+                    <input type="text" name="OriginProjectNumber" class="projectNumber" value="" readonly>
+                </div>
+                <div class="content">
+                    <label>LOCATION</label>
+                    <input type="text" name="OriginProjectLocation" value="" readonly>
+                </div>
+                <div class="content">
+                    <label>INCHARGE</label>
+                    <input type="text" name="OriginWarehouseIncharge" class="employeeInfo" value="">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="project__fieldset">
+            <legend class="fieldset__title">DESTINATION</legend>
+            <div class="fieldset__content">
+                <div class="content">
+                    <label>PRJ NAME</label>
+                    <input type="hidden" name="DestinationProjectID" class="projectID" value="">
+                    <input type="text" name="DestinationProjectName" class="projects" value="">
+                </div>
+                <div class="content">
+                    <label>PRJ NO</label>
+                    <input type="text" name="DestinationProjectNumber" class="projectNumber" value="" readonly>
+                </div>
+                <div class="content">
+                    <label>LOCATION</label>
+                    <input type="text" name="DestinationProjectLocation" value="" readonly>
+                </div>
+                <div class="content">
+                    <label>INCHARGE</label>
+                    <input type="text" name="DestinationWarehouseIncharge" class="employeeInfo" value="">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="delMethod__fieldset">
+            <legend class="fieldset__title">DELIVERY</legend>
+            <div class="fieldset__content delMethod__content">
+                <div class="content">
+                    <label>METHOD</label>
+                    <select class="delMethodID">
+                        <option value="1">DELIVERY TRUCK</option>
+                        <option value="2">COURIER</option>
+                        <option value="3">MESSENGER</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="Transcontent__transtabletitle">
+        <h1>Enter new stock here...</h1>
+    </div>
+    <div class="Transcontent__transtableitem">
+        <table class="tableitem__table">
+            <thead>
+                <tr>
+                    <td>NO</td>
+                    <td>DESCRIPTION</td>
+                    <td>UNITS</td>
+                    <td>QTY</td>
+                    <td>PRICE</td>
+                    <td>COND</td>
+                </tr>
+            </thead>
+            <tbody class="transfer__stock__tbody">
+                @for (var i = 1; i <= 10; i++)
+                {
+                    <tr class="transfer__stock__tr">
+                        <td class="counter">@i</td>
+                        <td><input type="text" name="Items" onkeypress="fnGetItemsByProj(event)"></td>
+                        <td><input type="text" value="" name="Units" disabled></td>
+                        <td><input type="text" value="" name="Qty" disabled></td>
+                        <td><input type="text" value="" name="UnitPrice" disabled></td>
+                        <td class="position__relative">
+                            <input type="text" value="" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+                            <i class="fa fa-remove remove__btn" onclick="fnRemoveTransferStockItem(event)"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a href="javascript:void(0)" class="add__transfer__stock__item" onclick="fnAddTranferStockItem(event)">Add New Item</a>
+    </div>
+    <div class="Transcontent__transfooter">
+        <div class="footer__upload">
+            <label for="file"> Upload Support Docs</label>
+            <input id="file" type="file" value="Upload Attachment">
+        </div>
+        <div class="footer__save">
+            <input type="button" value="Save">
+        </div>
+    </div>
+</div>
+
+
+<table style="display:none" class="transfer__stock__tbody__clone">
+    <tr class="">
+        <td class="counter"></td>
+        <td><input type="text" name="Items" onkeypress="fnGetItemsByProj(event)"></td>
+        <td><input type="text" value="" name="Units" disabled></td>
+        <td><input type="text" value="" name="Qty" disabled></td>
+        <td><input type="text" value="" name="UnitPrice" disabled></td>
+        <td class="position__relative">
+            <input type="text" value="" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+            <i class="fa fa-remove remove__btn" onclick="fnRemoveTransferStockItem(event)"></i>
+        </td>
+    </tr>
+</table>
+
+@section Scripts{
+
+    <script>
+
+        function fnAddTranferStockItem(event) {
+
+            var number = $('.transfer__stock__tr').length;
+
+            $('.transfer__stock__tbody__clone').find('tr').addClass('transfer__stock__tr');
+            $('.transfer__stock__tbody__clone').find('td.counter').eq(0).text(number + 1);
+
+            $('.transfer__stock__tbody').append(
+                $('.transfer__stock__tbody__clone tbody').html()
+            );
+
+            $('.transfer__stock__tbody__clone').find('tr').removeClass('transfer__stock__tr')
+        }
+
+        function fnRemoveTransferStockItem(event) {
+            var $this = $(event.target);
+
+            $this.closest('tr').remove();
+
+            var counter = $('.Transcontent .tableitem__table').find('td.counter').length;
+
+            if (counter > 0) {
+                for (var i = 0; i < counter; i++) {
+
+                    $('.Transcontent .tableitem__table').find('.counter').eq(i).text(i + 1);
+                }
+            }
+        }
+
+        function fnCheckTransferTransaction(event) {
+
+            var $this = $(event.target);
+
+            if ($this.val() === '1') {
+                //console.log("New");
+                $('.Transcontent__transroute').find('input,select').removeAttr('disabled');
+                $('.Transcontent__transtableitem').removeAttr('style');
+            }
+            else {
+                //console.log("Confirm");
+                $('.Transcontent__transroute').find('input,select').attr('disabled', true);
+                $('.Transcontent__transtableitem').css({ "pointer-events": "none" });
+            }
+        }
+
+        $(function () {
+            $('.delMethodID').trigger('change');
+
+        });
+
+
+        //GET TRANSFER STOCKS BY REFNUMBER
+        $(document).on('keyup', 'input[name=RefNumber]', function (e) {
+
+            var $this = $(this);
+
+            if (e.keyCode === 13) {
+                // Do something
+
+                var link = '/Data/TransMasterlist/SearchByReference?q=' + $(this).val();
+
+                //console.log(link);
+
+                $.getJSON(link, function (data) {
+
+                    if (data === null) {
+                        swal.fire('Warning', 'No found data', 'warning');
+                    }
+
+                    else {
+
+                        console.log(data);
+
+
+                        $this.parents('.Transcontent').find('.card-body').find('input').val('');
+                        $this.parents('.Transcontent').find('input[name=ID]').val(data.ID);
+
+                        //ORIGIN
+                        $this.parents('.Transcontent').find('input[name=OriginProjectID]').val(data.TransInfoOrigin.ProjectID_EnggDB);
+                        $this.parents('.Transcontent').find('input[name=OriginProjectName]').val(data.TransInfoOrigin.ProjectInfo.ProjectName)
+                        $this.parents('.Transcontent').find('input[name=OriginProjectNumber]').val(data.TransInfoOrigin.ProjectInfo.ProjectNumber)
+                        $this.parents('.Transcontent').find('input[name=OriginWHInchargeID]').val(data.TransInfoOrigin.WHInchargeID_HrmsDB);
+                        $this.parents('.Transcontent').find('input[name=OriginWHIncharge]').val((data.TransInfoOrigin.WHInchargeInfo.FirstName + ' ' + data.TransInfoOrigin.WHInchargeInfo.LastName));
+
+
+                        //DESTINATION
+                        $this.parents('.Transcontent').find('input[name=DestinationProjectID]').val(data.TransInfoDestination.ProjectID_EnggDB);
+                        $this.parents('.Transcontent').find('input[name=DestinationProjectName]').val(data.TransInfoDestination.ProjectInfo.ProjectName)
+                        $this.parents('.Transcontent').find('input[name=DestinationProjectNumber]').val(data.TransInfoDestination.ProjectInfo.ProjectNumber)
+                        $this.parents('.Transcontent').find('input[name=DestinationWHInchargeID]').val(data.TransInfoDestination.WHInchargeID_HrmsDB);
+                        $this.parents('.Transcontent').find('input[name=DestinationWHIncharge]').val((data.TransInfoDestination.WHInchargeInfo.FirstName + ' ' + data.TransInfoDestination.WHInchargeInfo.LastName));
+
+                        //DELIVERY METHOD
+                        $this.parents('.Transcontent').find('select.delMethodID').val(data.DeliveryMethod.ID).trigger('change');
+
+                        for (var d = 0; d < data.TransInfoDelMetAttrValue.length; d++) {
+
+                            var delMethodAttr = data.TransInfoDelMetAttrValue[d];
+
+                            $this.parents('.Transcontent').find('.deliveryMethodAttr').eq(d).val(delMethodAttr.AttributeValue).attr('disabled', true);
+                        }
+
+
+
+                        //STOCK ENTRY
+                        $.ajaxSetup({
+                            async: false
+                        });
+                        for (var i = 0; i < data.TransItemEntryList.length; i++) {
+
+                            var entry = data.TransItemEntryList[i];
+
+                            //for item name
+                            var itemLink = '/Data/ItemsMasterList/' + entry.ItemID_011;
+                            $.getJSON(itemLink, function (itemResponse) {
+                                if (itemResponse !== null) {
+                                    $this.parents('.Transcontent').find('.transferStockEntryBody').eq(i).find('input[name=Items]').val(itemResponse.ItemFullNameInfo.Name).attr('data-val', itemResponse.ItemFullNameInfo.ItemID_011);
+                                }
+                            })
+
+
+                            // for units
+                            var unitLink = '/Data/units/' + entry.UnitsID_009;
+                            console.log(unitLink);
+                            $.getJSON(unitLink, function (unitResponse) {
+                                if (unitResponse !== null) {
+                                    $this.parents('.Transcontent').find('.transferStockEntryBody').eq(i).find('input[name=Units]').val(unitResponse.ShortName).attr('data-val', unitResponse.ID);
+                                }
+                            });
+
+
+                            //for quantity
+                            //$this.parents('.card').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').val(entry.Quantity);
+                            $this.parents('.Transcontent').find('.transferStockEntryBody').eq(i).find('input[name=Qty]').removeAttr('disabled');
+
+                            8
+                            //for item condition
+                            var itemConditionLink = '/Data/itemcondition/' + entry.ItemConID_018;
+                            $.getJSON(itemConditionLink, function (itemConditionResponse) {
+                                if (itemConditionResponse !== null) {
+                                    $this.parents('.Transcontent').find('.transferStockEntryBody').eq(i).find('input[name=ItemCondition]').val(itemConditionResponse.StatusName).attr('data-val', itemConditionResponse.ID);
+                                }
+                            });
+
+                        }
+                        $.ajaxSetup({
+                            async: true
+                        });
+
+                    }
+
+                });
+            }
+
+        });
+
+
+        //SAVE TRANSFER STOCK
+        function fnSaveTransferStock(event) {
+
+            event.preventDefault();
+            var $this = $(event.target);
+
+            //FOR TRANSFER DELIVERY METHOD
+            var transDelMethodList = [];
+            $this.parents('.content-footer').prev().find('.deliveryMethodAttr').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    DeliveryAttrID_008: $(this).attr('data-id'),
+                    AttributeValueID: $this.parents('.content-body').find('.delMethodID').val(),
+                    AttributeValue: $(this).val(),
+                    isDestination: false
+                };
+
+                if (obj.AttributeValue !== "") {
+                    transDelMethodList.push(obj);
+                }
+            });
+
+            //FOR TRANSFER ITEM ENTRY
+            var transItemEntry = [];
+            $this.parents('.content-footer').prev().find('.transferStockEntryBody').each(function () {
+
+                var obj = {
+                    ID: 0,
+                    TransMasterID_021: 0,
+                    ItemID_011: $(this).find('input[name=Items]').attr('data-val') || 0,
+                    UnitID_009: $(this).find('input[name=Units]').attr('data-val') || 0,
+                    ItemConditionID_018: $(this).find('input[name=ItemCondition]').attr('data-val') || 0,
+                    Quantity: $(this).find('input[name=Qty]').val() || 0,
+                };
+
+                if (obj.ItemID_011 !== 0) {
+                    transItemEntry.push(obj);
+                }
+            });
+
+
+            var entry = '';
+            var url = '';
+
+            if ($this.attr('id') === 'saveTransferStock') {
+
+                url = '/Data/TransMasterList';
+
+                //SAVE TRANSFER STOCKS DATA
+                var saveTransferEntry = {
+                    ID: $this.parents('.content-footer').prev().find('input[name=ID]').val() || 0,
+                    ReferenceNumber: '',
+                    HardSeriesNumber: $this.parents('.content-footer').prev().find('input[name=RefNumber]').val(),
+                    TransInfoOrigin: {
+                        ID: 0,
+                        TransMasterID_021: 0,
+                        ProjectID_EnggDB: $this.parents('.content-footer').prev().find('input[name=OriginProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.parents('.content-footer').prev().find('input[name=OriginWarehouseIncharge]').attr('data-val') || 0
+                    },
+                    TransInfoDestination: {
+                        ID: 0,
+                        TransMasterID_021: 0,
+                        ProjectID_EnggDB: $this.parents('.content-footer').prev().find('input[name=DestinationProjectID]').val() || 0,
+                        WHInchargeID_HrmsDB: $this.parents('.content-footer').prev().find('input[name=DestinationWarehouseIncharge]').attr('data-val') || 0
+                    },
+                    TransInfoDelMetAttrValue: transDelMethodList,
+                    TransItemEntryList: transItemEntry
+                };
+
+                entry = saveTransferEntry;
+            }
+            else {
+                url = '/Data/TransMasterList/ConfirmReceive';
+
+                var confirmTransferEntry = {
+                    ID: $this.parents('.content-footer').prev().find('input[name=ID]').val() || 0,
+                    ReferenceNumber: 'N/A',
+                    HardSeriesNumber: 0,
+                    isCancelled: true,
+                    cancelReason: "N/A",
+                    TransItemReceivedList: transItemEntry
+                };
+
+                entry = confirmTransferEntry;
+
+            }
+
+            console.log(entry);
+
+            //return;
+
+            $.ajax({
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                type: 'post',
+                url: url,
+                dataType: 'json',
+                data: JSON.stringify(entry),
+                contentType: "application/json",
+                success: function (response) {
+
+                    if ($this.attr('id') === 'saveTransferStock') {
+                        console.log(response);
+
+                        if (response.RetVal === 1) {
+
+                            var msg = JSON.parse(response.Message);
+
+                            //console.log(msg);
+
+                            swal.fire('Success', msg.Info, 'success');
+
+                            //$this.parents('.content-footer').prev().css({ "pointer-events": "none" });
+                            //$this.parents('.content-footer').prev().find('input, select').attr('disabled', true);
+                            //$this.attr('disabled', true)
+
+                            //$this.parents('.content-footer').prev().find('#seriesNumber').text('Reference Number:');
+                            //$this.parents('.content-footer').prev().find('input[name=RefNumber]').val(msg.ReferenceNumber);
+
+                        }
+                        else {
+                            swal.fire('Error', response.Message, 'error');
+                        }
+                    }
+
+                    else {
+                        console.log(response);
+                        if (response.RetVal === 1) {
+                            var msg = JSON.parse(response.Message);
+
+                            swal.fire('Success', msg.Info, 'success');
+                        }
+                        else {
+                            swal.fire('Error', response.Message, 'error');
+                        }
+                    }
+
+
+                },
+                error: function (jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+
+                    swal.fire('Error', msg, 'error');
+                },
+            });
+
+        }
+
+        //EMPLOYEE AUTOCOMPLETE
+        var emp = [];
+        var empURL = '/Data/HRMSEmployeeList';
+
+        $.getJSON(empURL, function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var obj = {};
+
+                obj.id = data[i].ID;
+                obj.value = data[i].FirstName + ' ' + data[i].LastName;
+                obj.label = data[i].FirstName + ' ' + data[i].LastName;
+
+                emp.push(obj);
+
+
+                $(".employeeInfo").autocomplete({
+                    source: emp,
+                    select: function (event, ui) {
+                        $(this).attr('data-val',ui.item.id);
+                    }
+                })
+            }
+        });
+
+
+        //PROJECT AUTOCOMPLETE
+        var proj = [];
+        var projURL = '/Data/ENGProjectList';
+
+        $.getJSON(projURL, function (data) {
+
+            //var dat = data.Data;
+
+            for (var i = 0; i < data.length; i++) {
+
+                var newObj = {};
+
+                newObj.id = data[i].ID;
+                newObj.value = data[i].ProjectName;
+                newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
+                newObj.projectNo = data[i].ProjectNumber;
+
+                proj.push(newObj);
+
+            }
+
+            $(".projects").autocomplete({
+                source: proj,
+                select: function (event, ui) {
+
+
+                    $(this).closest('.content').find('input.projectID').val(ui.item.id);
+                    $(this).closest('fieldset').find('input.projectNumber').val(ui.item.projectNo);
+                }
+            });
+        });
+
+
+        //function ShowDropdown() {
+        //    document.getElementById("myDropdown").classList.toggle("show");
+        //}
+
+        // //Close the dropdown if the user clicks outside of it
+        //window.onclick = function (event) {
+        //    if (!event.target.matches('.dropbtn')) {
+        //        var dropdowns = document.getElementsByClassName("dropdown-content");
+        //        var i;
+        //        for (i = 0; i < dropdowns.length; i++) {
+        //            var openDropdown = dropdowns[i];
+        //            if (openDropdown.classList.contains('show')) {
+        //                openDropdown.classList.remove('show');
+        //            }
+        //        }
+        //    }
+        //}
+
+    </script>
+
+}

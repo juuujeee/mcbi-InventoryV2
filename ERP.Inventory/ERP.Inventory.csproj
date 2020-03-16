@@ -138,11 +138,14 @@
     <Compile Include="Controllers\ItemMasterlistController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\StocksController.cs" />
+    <Compile Include="Controllers\StockEntryController.cs" />
+    <Compile Include="Controllers\StockInquiryController.cs" />
+    <Compile Include="Controllers\StockTransferController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\VendorList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,28 +230,23 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\_Create.cshtml" />
-    <Content Include="Views\Stocks\_ReleaseStock.cshtml" />
-    <Content Include="Views\Stocks\_IssuedStock.cshtml" />
-    <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
-    <Content Include="Views\Stocks\_StockInquiry.cshtml" />
-    <Content Include="Views\Shared\_LayoutInvMainPage2.cshtml" />
-    <Content Include="Views\Stocks\_TransferStock.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
-    <Content Include="Views\Stocks\_StockEntry.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Advance.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\Item.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\StockEntry\Index.cshtml" />
+    <Content Include="Views\StockTransfer\Index.cshtml" />
+    <Content Include="Views\StockInquiry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filter\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
