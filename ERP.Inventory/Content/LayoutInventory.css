@@ -185,7 +185,7 @@ button {
 
 /*#region WRAPPER MAIN CONTENT STYLES*/
 .wrapper__maincontent {
-    background-color: #D0D0D0;
+    /*background-color: #D0D0D0;*/
     grid-area: content;
     margin: 0;
     padding: 10px;

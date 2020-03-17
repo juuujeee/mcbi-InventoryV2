@@ -1,27 +1,33 @@
-﻿body {
-}
+﻿
 /*--------------Entry content main structure-----------*/
+
 .entrycontent {
     font-family: sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
-    padding: 15px;
+    padding: 0;
+    margin: 15px;
     height: 100%;
     max-width: 2200px;
-    background-color: none;
+    /*background-color: #DFE0E1;*/
+    background-color: #D8D8D8;
+    /*border: 1px solid #404040;*/
     border-radius: 10px;
-    display: grid;
-    grid-template-rows: 60px auto 40px auto 120px;
-    grid-template-areas: "headtitle" "route" "tabletitle" "tableitem" "footer";
-    grid-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
+
 /*---------------Header title ------------------------*/
 .entrycontent__entryheadertitle {
-    grid-area: headtitle;
+    height: 60px;
+    grid-area: entryheadtitle;
+    margin-bottom: 10px;
     border-radius: 5px;
-    background-color: #585858;
+    background-color: #404040;
     color: white;
     display: grid;
     grid-template-columns: minmax(400px,auto) 290px;
 }
+
 .entryheadertitle__entrylabel {
     padding: 10px;
     display: flex;
@@ -29,7 +35,9 @@
 }
 .entryheadertitle__entrylabel > h1 {
     margin: 0;
-    font-size: 2rem;
+    margin-left: 30px;
+    font-size: 1.8rem;
+    font-weight: 500;
 }
 .entryheadertitle__entrymenubutton {
     padding: 5px;
@@ -63,13 +71,97 @@
 }
 
 
+/*Entry Content Inside Wrapper*/
+.entrycontent__insidewrapper{
+    padding: 15px;
+}
+
+.entrycontent__entrsearchref {
+    margin-bottom: 10px;
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 15fr minmax(200px,7fr) minmax(150px,2fr);
+    grid-gap: 10px;
+    --searchref-border-input: 1px solid #C8C8C8;
+    --searchref-border-radius-input: 4px;
+    --searchref-fontsize-input: 1em;
+    --searchref-height-inputdiv: 27px;
+    --searchref-fontsize-label: 0.9em;
+}
+.entrsearchref__notes {
+    display: flex;
+    align-items: center;
+}
+
+/*REF SEARCH BOX*/
+.entrsearchref_search {
+    grid-column-start: 2;
+    display: flex;
+    flex-direction: column;
+}
+.entrsearchref_search label {
+    font-size: var(--searchref-fontsize-label);
+}
+.entrsearchref_search > div {
+    height: var(--searchref-height-inputdiv);
+    display: grid;
+    grid-template-columns: 1fr 40px;
+}
+.entrsearchref_search input {
+    height: 100%;
+    width: 100%;
+    font-size: var(--searchref-fontsize-input);
+    padding: 3px;
+    border: var(--searchref-border-input);
+    border-right: none;
+    box-sizing: border-box;
+    border-bottom-left-radius: var(--searchref-border-radius-input);
+    border-top-left-radius: var(--searchref-border-radius-input);
+}
+.entrsearchref_search button {
+    height: 100%;
+    width: 40px;
+    margin: 0;
+    border: var(--searchref-border-input);
+    box-sizing: border-box;
+    border-top-right-radius: var(--searchref-border-radius-input);
+    border-bottom-right-radius: var(--searchref-border-radius-input);
+}
+
+/*REF NO*/
+.entrsearchref__refno {
+    grid-column-start: 3;
+    display: flex;
+    flex-direction: column;
+}
+.entrsearchref__refno label {
+    font-size: var(--searchref-fontsize-label);
+}
+.entrsearchref__refno > div {
+    height: var(--searchref-height-inputdiv);
+    display: grid;
+}
+.entrsearchref__refno input {
+    height: 100%;
+    width: 100%;
+    font-size: var(--searchref-fontsize-input);
+    padding: 3px;
+    border: var(--searchref-border-input);
+    border-right: none;
+    box-sizing: border-box;
+    border-radius: var(--searchref-border-radius-input);
+}
+
+
 /*-----------------------ENTRY CONTENT------------------------*/
 .entrycontent__route {
     grid-area: route;
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-gap: 10px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 .entrycontent__route fieldset {
@@ -137,14 +229,14 @@
     height: 100%;
 }
 
-    .entrycontent__tabletitle > h1 {
-        margin: 0;
-        font-family: sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
-        font-weight: 500;
-        font-size: 1.7em;
-        display: table-cell;
-        vertical-align: bottom;
-    }
+.entrycontent__tabletitle > h1 {
+    margin: 0;
+    font-family: sans-serif,'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    font-weight: 500;
+    font-size: 1.7em;
+    display: table-cell;
+    vertical-align: bottom;
+}
 /*-------------Table items here-----------------------*/
 .entrycontent__tableitem {
     grid-area: tableitem;
@@ -156,17 +248,19 @@
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 7px;
+    border: 1px solid #A9A9A9;
+    /*overflow:hidden;*/
+    border-right: none;
+    width: 100%;
 }
 
 .tableitem__table > thead > tr {
     color: white;
-    height: 50px;
+    height: 35px;
     text-align: center;
     font-weight: 500;
-}
-
-.tableitem__table > thead > tr > td {
-    background-color: forestgreen;
+    font-size: 1em;
+    background-color: #707070;
 }
 
 .tableitem__table > thead > tr > td:first-child {
@@ -206,19 +300,22 @@
 .tableitem__table > tbody > tr {
     font-weight: 300;
     height: auto;
-    color: white;
+    /*color: white;*/
+}
+.tableitem__table > tbody > tr{
+    background: #e6e6e6;
+}
+.tableitem__table > tbody > tr:hover{
+    color: blue;
 }
 
-.tableitem__table > tbody > tr:hover {
-    color: yellow;
-}
 
 .tableitem__table > tbody > tr:nth-child(2n+1) {
-    background: #505050;
+    /*background: #505050;*/
 }
 
 .tableitem__table > tbody > tr:nth-child(2n) {
-    background: #606060;
+    /*background: #606060;*/
 }
 
 .tableitem__table > tbody > tr > td {
@@ -243,7 +340,7 @@
     padding-bottom: 5px;
 }
 
-.tableitem__table > tbody > tr > td:first-child > input {
+.tableitem__table > tbody > tr > td:first-child {
     text-align: center;
 }
 
@@ -327,21 +424,14 @@
     border-bottom-right-radius: 7px;
 }
 
+
 .entrycontent__footer {
     grid-area: footer;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: minmax(500px,1fr) 1fr;
     grid-template-rows: auto auto auto;
 }
-.footer__upload {
-    grid-column-start: 1;
-    grid-row-start: 2;
-    text-align: right;
-    display: flex;
-    align-items: center;
-}
-
-.Entrycontent__footer hr {
+.entrycontent__footer hr {
     border: 1px solid #B8B8B8;
 }
 
@@ -351,8 +441,19 @@
     grid-column-end: 4;
     height: 100%;
     width: 100%;
+    padding-bottom: 5px;
+}
+.footer__labelupperright label{
+    font-size:.85em;
 }
 
+.footer__upload {
+    grid-column-start: 1;
+    grid-row-start: 2;
+    text-align: right;
+    display: flex;
+    align-items: center;
+}
 .upload__label {
     height: 30px;
     border: 1px solid #989898;
@@ -361,12 +462,10 @@
     background-color: #B8B8B8;
     box-sizing: border-box;
 }
-
-    .upload__label:hover {
-        background-color: #B8B8B8;
-        color: white;
-    }
-
+.upload__label:hover {
+    background-color: #B8B8B8;
+    color: white;
+}
 .upload__span {
     padding: 3px;
     max-width: 220px;
@@ -377,7 +476,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .upload__button {
     padding: 5px 10px 5px 10px;
     height: 30px;
@@ -388,8 +486,37 @@
     box-sizing: border-box;
 }
 
+.footer__progressbar {
+    color: white;
+    height: 20px;
+    width: 300px;
+    margin-top: 10px;
+    grid-column-start: 1;
+    grid-row-start: 3;
+    border: 1px solid #707070;
+    border-radius: 3px;
+}
+.progressbardiv__progress {
+    height: 100%;
+    width: 60%;
+    background-color: #707070;
+    padding: 2px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__notes {
+    grid-column-start: 2;
+    grid-row-start: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
 .footer__save {
-    grid-column-start: 3;
+    grid-column-start: 2;
     grid-row-start: 2;
     display: flex;
     align-items: center;
@@ -409,6 +536,11 @@
     text-align: center;
     color: white;
     border: none;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+.save__buttonright:hover {
+    background: #1c751c;
 }
 
 .entrycontent__tableitem .add__new_item__stockEntry {

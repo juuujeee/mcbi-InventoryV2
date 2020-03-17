@@ -45,15 +45,19 @@ namespace ERP.Inventory.Controllers
 
         public JsonResult GetSupplier()
         {
-            //List<VendorInfo> ven = null;
-            string s = "";
+            List<VendorInfo> ven = null;
+            //List<VendorInfo> ven1 = null;
+            //string s = "";
             using (var client = new HttpClient())
             {
                 client.BaseAddress =  new Uri("http://192.168.1.100:99/api/vendor/supplierlist");
                 //client.DefaultRequestHeaders.Accept.Clear();
                 //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                s = client.GetAsync("").Result.Content.ReadAsStringAsync().Result;
+                //s = client.GetAsync("").Result.Content.ReadAsStringAsync().Result;
+
+
+                ven = client.GetAsync("").Result.Content.ReadAsAsync<IList<VendorInfo>>().Result.ToList();
 
             }
 
@@ -61,7 +65,8 @@ namespace ERP.Inventory.Controllers
             //Helper.SynchronousRequest sr = new SynchronousRequest("http://192.168.1.100:99/api/vendor/supplierlist");
             //string s =  sr.HttpRequest("");
 
-            List<VendorInfo> ven = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VendorInfo>>(s);
+
+            //List<VendorInfo> ven = Newtonsoft.Json.JsonConvert.DeserializeObject<List<VendorInfo>>(s);
 
             return Json(ven, JsonRequestBehavior.AllowGet);
         }

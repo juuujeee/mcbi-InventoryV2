@@ -8,8 +8,12 @@
     <link href="~/Content/EntryStocks.css" rel="stylesheet">
 }
 
+
+
+
 <form action="#" method="post" name="StockEntryForm" autocomplete="off">
     <input type="hidden" name="ID" value="" />
+
     <div class="entrycontent">
         <div class="entrycontent__entryheadertitle">
             <div class="entryheadertitle__entrylabel">
@@ -21,138 +25,168 @@
                 <button class="entrymenubutton__nce edit__entry" type="button">Edit</button>
                 <button class="entrymenubutton__ell" type="button">...</button>
             </div>
-
         </div>
-        <div class="entrycontent__route">
 
-            <fieldset id="supplier__fieldset">
-                <legend class="fieldset__title">SUPPLIER</legend>
-                <div class="fieldset__content">
-                    <div class="content">
-                        <label>SUPPLIER</label>
-                        <input type="text" name="SupplierName">
-                    </div>
-                    <div class="content">
-                        <label>SUP ID</label>
-                        <input type="text" name="SupplierID" readonly>
-                    </div>
-                    <div class="content">
-                        <label>DOC NO</label>
-                        <input type="text" name="DocNumber">
-                    </div>
-                    <div class="content">
-                        <label>RCV BY</label>
-                        <input type="text" name="ReceivedBy">
+        <div class="entrycontent__insidewrapper">
+            <!--Search and Reference Number-->
+            <div class="entrycontent__entrsearchref">
+                <div class="entrsearchref__notes">
+                    <small>* You can search and enter reference no. to retrieved previous transaction here...</small>
+                </div>
+                <div class="entrsearchref_search">
+                    <label>Search Here...</label>
+                    <div>
+                        <input type="text" name="name" value="" />
+                        <button></button>
                     </div>
                 </div>
-            </fieldset>
-            <fieldset id="project__fieldset">
-                <legend class="fieldset__title">PROJECT</legend>
-                <div class="fieldset__content">
-                    <div class="content">
-                        <label>PRJ NAME</label>
-                        <input type="text" name="ProjectName">
-                    </div>
-                    <div class="content">
-                        <label>PRJ NO</label>
-                        <input type="text" name="ProjectNumber" readonly>
-                    </div>
-                    <div class="content">
-                        <label>LOCATION</label>
-                        <input type="text" name="ProjectLocation" readonly>
-                    </div>
-                    <div class="content">
-                        <label>DEL DATE</label>
-                        <input type="text" name="DeliveryDate" class="date-picker">
+                <div class="entrsearchref__refno">
+                    <label>Reference No.</label>
+                    <div>
+                        <input />
                     </div>
                 </div>
-            </fieldset>
-            <fieldset id="delMethod__fieldset">
-                <legend class="fieldset__title">DELIVERY</legend>
-                <div class="fieldset__content delMethod__content">
-                    <div class="content">
-                        <label>METHOD</label>
-                        <select class="delMethodID">
-                            <option value="1">DELIVERY TRUCK</option>
-                            <option value="2">COURIER</option>
-                            <option value="3">MESSENGER</option>
-                        </select>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="entrycontent__tabletitle">
-            <h1>Enter new stock here...</h1>
-        </div>
-        <div class="entrycontent__tableitem">
+            </div>
 
-            <table class="tableitem__table">
-                <thead>
-                    <tr>
-                        <td>NO</td>
-                        <td>DESCRIPTION</td>
-                        <td>UNITS</td>
-                        <td>QTY</td>
-                        <td>PRICE</td>
-                        <td>TOTAL AMOUNT</td>
-                        <td>COND</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody class="stock__entry__tbody">
-                    @for (var i = 1; i <= 10; i++)
-                    {
-                        <tr class="stock__entry__tr">
-                            <td class="counter"><input type="text" disabled value="@i" /></td>
-                            <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
-                            <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
-                            <td><input type="text" name="Qty" class="quantity"></td>
-                            <td><input type="text" name="UnitPrice" class="unitPrice"></td>
-                            <td><input type="text" name="TotalAmount" /></td>
-                            <td>
-                                <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
-                            </td>
-                            <td class="position__relative">
-                                <input type="button" value="..." />
-                                <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
-                            </td>
+            <div class="entrycontent__route">
+                <fieldset id="supplier__fieldset">
+                    <legend class="fieldset__title">SUPPLIER</legend>
+                    <div class="fieldset__content">
+                        <div class="content autocomplete">
+                            <label>SUPPLIER</label>
+                            <input type="text" name="SupplierName" id="suppliers">
+                        </div>
+                        <div class="content">
+                            <label>SUP ID</label>
+                            <input type="text" name="SupplierID" readonly>
+                        </div>
+                        <div class="content">
+                            <label>DOC NO</label>
+                            <input type="text" name="DocNumber">
+                        </div>
+                        <div class="content autocomplete">
+                            <label>RCV BY</label>
+                            <input type="text" name="ReceivedBy" id="receivedBy">
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset id="project__fieldset">
+                    <legend class="fieldset__title">PROJECT</legend>
+                    <div class="fieldset__content">
+                        <div class="content autocomplete">
+                            <label>PRJ NAME</label>
+                            <input type="text" name="ProjectName" id="projects">
+                        </div>
+                        <div class="content">
+                            <label>PRJ NO</label>
+                            <input type="text" name="ProjectNumber" readonly>
+                        </div>
+                        <div class="content">
+                            <label>LOCATION</label>
+                            <input type="text" name="ProjectLocation" readonly>
+                        </div>
+                        <div class="content">
+                            <label>DEL DATE</label>
+                            <input type="text" name="DeliveryDate" class="date-picker">
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset id="delMethod__fieldset">
+                    <legend class="fieldset__title">DELIVERY</legend>
+                    <div class="fieldset__content delMethod__content">
+                        <div class="content">
+                            <label>METHOD</label>
+                            <select class="delMethodID">
+                                <option value="1">DELIVERY TRUCK</option>
+                                <option value="2">COURIER</option>
+                                <option value="3">MESSENGER</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+            <div class="entrycontent__tabletitle">
+                <h1>Enter new stock here...</h1>
+            </div>
+            <div class="entrycontent__tableitem">
+
+                <table class="tableitem__table">
+                    <thead>
+                        <tr>
+                            <td>NO</td>
+                            <td>DESCRIPTION</td>
+                            <td>UNITS</td>
+                            <td>QTY</td>
+                            <td>PRICE</td>
+                            <td>TOTAL AMOUNT</td>
+                            <td>COND</td>
+                            <td></td>
                         </tr>
+                    </thead>
+                    <tbody class="stock__entry__tbody">
+                        @for (var i = 1; i <= 10; i++)
+                        {
+                            <tr class="stock__entry__tr">
+                                <td class="counter">@i</td>
+                                <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
+                                <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
+                                <td><input type="text" name="Qty" class="quantity"></td>
+                                <td><input type="text" name="UnitPrice" class="unitPrice"></td>
+                                <td class="totalAmount"></td>
+                                <td>
+                                    <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+                                </td>
+                                <td class="position__relative">
+                                    <input type="button" value="..." />
+                                    <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
+                                </td>
+                            </tr>
 
-                    }
+                        }
 
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="5"><h3>Total Amount :</h3></td>
-                        <td><input type="text" disabled="disabled" id="" /></td>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
-                    </tr>
-                </tfoot>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5"><h3>Total Amount :</h3></td>
+                            <td id="overAllTotalAmount"></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
+                        </tr>
+                    </tfoot>
 
-            </table>
+                </table>
 
-            @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
-        </div>
-        <div class="entrycontent__footer">
-            <div class="footer__labelupperright">
-                <hr>
-                <label> Upload attachement</label> <br>
+                @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
             </div>
-            <div class="footer__upload">
-                <label class="upload__label" for="file"> Select File</label>
-                <span class="upload__span">No file selected...</span>
-                <button class="upload__button" type="button">Upload</button>
-                <input id="file" type="file" hidden="hidden">
-            </div>
-            <div class="footer__progressbar"></div>
-            <div class="footer__save">
-                <button class="save__buttonright save__btn" type="submit">Save</button>
+            <div class="entrycontent__footer">
+                <div class="footer__labelupperright">
+                    <hr>
+                    <label>* Select and Upload attachement</label> <br>
+                </div>
+                <div class="footer__upload">
+                    <label class="upload__label" for="file"> Select File</label>
+                    <span class="upload__span">No file selected...</span>
+                    <button class="upload__button" type="button">Upload</button>
+                    <input id="file" type="file" hidden="hidden">
+                </div>
+                <div class="footer__progressbar">
+                    <div class="progressbardiv__progress">
+                        <small>60% complete</small>
+                    </div>
+                </div>
+                <div class="footer__notes">
+                    <small>* Complete all neccessary fields and uploads before clicking save button...</small>
+                </div>
+                <div class="footer__save">
+                    <button class="save__buttonright save__btn" type="submit">Save</button>
+                </div>
             </div>
         </div>
     </div>
+
 </form>
 
 
@@ -221,6 +255,8 @@
 @section Scripts{
 
     <script>
+        DeliveryAttrMethod();
+
 
         function fnAddStockEntryItem(event) {
 
@@ -237,19 +273,38 @@
         }
 
         function fnRemoveItemStockEntry(event) {
-            var $this = $(event.target);
+            var el = event.target;
+            //console.log(el);
 
-            $this.closest('tr').remove();
+            el.closest('tr').remove();
 
-            var counter = $('.entrycontent .tableitem__table').find('td.counter').length;
+            var countEl = document.querySelectorAll('.entrycontent .tableitem__table .counter');
 
-            if (counter > 0) {
-                for (var i = 0; i < counter; i++) {
+            //console.log(countEl.length);
 
-                    $('.entrycontent .tableitem__table').find('.counter').eq(i).text(i + 1);
-                }
+            if (countEl.length > 0) {
+
+                countEl.forEach((item, index) => {
+
+                    item.innerHTML = parseInt(index + 1);
+                });
             }
         }
+
+        //function fnRemoveItemStockEntry(event) {
+        //    var $this = $(event.target);
+
+        //    $this.closest('tr').remove();
+
+        //    var counter = $('.entrycontent .tableitem__table').find('td.counter').length;
+
+        //    if (counter > 0) {
+        //        for (var i = 0; i < counter; i++) {
+
+        //            $('.entrycontent .tableitem__table').find('.counter').eq(i).text(i + 1);
+        //        }
+        //    }
+        //}
 
 
         $(function () {
@@ -279,112 +334,75 @@
             $('.delMethodID').trigger('change');
 
             //FOR PROJECTS
-            var project = [];
+            var projects = [];
             var projectURL = '/Data/ENGProjectList';
 
-            $.getJSON(projectURL, function (data) {
-                //var dat = data.Data;
-
+            JsonRequest(projectURL, 'GET', null, function (data) {
+               
                 for (var i = 0; i < data.length; i++) {
-
                     var newObj = {};
 
-                    newObj.id = data[i].ID;
-                    newObj.value = data[i].ProjectName;
-                    newObj.label = data[i].ProjectNumber + '-' + data[i].ProjectName;
-                    newObj.projectNo = data[i].ProjectNumber;
+                    newObj.ID = data[i].ID;
+                    newObj.Value = data[i].ProjectName + ' - ' + data[i].ProjectNumber;
 
-                    project.push(newObj);
-
+                    projects.push(newObj);
                 }
 
-                $("input[name=ProjectName]").autocomplete({
-                    source: project,
-                    select: function (event, ui) {
+                autocomplete(document.getElementById("projects"), projects, true, "ID", "Value", (el, data) => {
 
-                        $(this).attr('data-val', ui.item.id);
-                        $(this).parents('fieldset#project__fieldset').find('input[name=ProjectNumber]').val(ui.item.projectNo);
-                    }
                 });
             });
 
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = '/Data/VendorList/';
-            var supplierName = '';
+            var supplierURL = '/StockEntry/GetSupplier';
+            
 
-            $.getJSON(supplierURL, function (data) {
+            JsonRequest(supplierURL, 'GET', null, function (data) {
+                for (var i = 0; i < data.length; i++) {
 
-                //console.log(data);
+                    supplierName = data[i].VendorSupplier.SupplierName;
 
-                if (!(data === null || data === '[]')) {
-                    for (var i = 0; i < data.length; i++) {
+                    for (var z = 0; z < data[i].VendorBranch.length; z++) {
 
-                        //console.log(data[i]);
+                        var branchName = data[i].VendorBranch[z].BranchName;
 
-                        supplierName = data[i].VendorSupplier.SupplierName;
+                        var newObj = {};
 
-                        for (var z = 0; z < data[i].VendorBranch.length; z++) {
+                        newObj.ID = data[i].VendorBranch[z].ID;
+                        newObj.Value = supplierName + ' - ' + branchName;
 
-                            var branchName = data[i].VendorBranch[z].branchName;
-
-                            var newObj = {};
-
-                            newObj.id = data[i].VendorBranch[z].ID;
-                            newObj.value = supplierName + ' - ' + branchName;
-                            newObj.label = supplierName + ' - ' + branchName;
-
-                            suppliers.push(newObj);
-
-                        }
-
+                        suppliers.push(newObj);
                     }
 
-                    //console.log(suppliers);
-
-                    $("input[name=SupplierName]").autocomplete({
-                        source: suppliers,
-                        select: function (event, ui) {
-
-                            $(this).attr('data-val', ui.item.id);
-                            $(this).parents('fieldset#supplier__fieldset').find('input[name=SupplierID]').val(ui.item.id);
-                        }
-                    })
                 }
 
-            });
+                autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => {
 
+                });
+            })
+
+          
             //FOR RECEIVED BY
             var receivedBy = [];
-
             var receivedByURL = '/Data/HRMSEmployeeList/';
-            $.getJSON(receivedByURL, function (data) {
+            JsonRequest(receivedByURL, 'GET', null, function (data) {
 
                 for (var i = 0; i < data.length; i++) {
-                    var obj = {};
 
-                    obj.id = data[i].ID;
-                    obj.value = data[i].FirstName + ' ' + data[i].LastName;
-                    obj.label = data[i].FirstName + ' ' + data[i].LastName;
+                    var obj = {};
+                    obj.ID = data[i].ID;
+                    obj.Value = data[i].FirstName + ' ' + data[i].LastName;
 
                     receivedBy.push(obj);
-
-
-                    $("input[name=ReceivedBy]").autocomplete({
-                        source: receivedBy,
-                        select: function (event, ui) {
-
-                            //console.log($(this));
-
-                            $(this).attr('data-val', ui.item.id);
-                        }
-                    })
-
                 }
 
-            });
-
+                autocomplete(document.getElementById("receivedBy"), receivedBy, true, "ID", "Value", (el, data) => {
+                    
+                });
+            })
+           
         });
 
         $(function () {
@@ -615,10 +633,6 @@
         });
 
 
-        $.getJSON('/StockEntry/GetSupplier', function (data) {
-            //console.log(data);
-        });
-
         //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
         //$(function () {
         //    $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
@@ -627,8 +641,8 @@
         //});
 
 
-        $('.quantity').on('keyup', function () {
-            console.log("Quantity");
+        $('.quantity').on('change', function () {
+            //console.log("Quantity");
 
             var totalAmount = 0;
 
@@ -639,13 +653,19 @@
 
                 totalAmount = totalAmount + (qty * price);
 
+                var amount = qty * price;
+
+                if (amount > 0) {
+                    $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
+                }
+
             });
 
-            console.log(totalAmount);
+            $('#overallTotalAmount').val(totalAmount);
         });
 
-        $('.unitPrice').on('keyup', function () {
-            console.log("Price");
+        $('.unitPrice').on('change', function () {
+            //console.log("Price");
 
             var totalAmount = 0;
 
@@ -654,11 +674,17 @@
                 var qty = $(this).val() || 0;
                 var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
 
-                totalAmount = totalAmount + (qty * price);
+                 totalAmount = totalAmount + (qty * price);
+
+                 var amount = qty * price;
+
+                 if (amount > 0) {
+                    $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
+                 }
 
              });
 
-            console.log(totalAmount);
+            $('#overallTotalAmount').val(totalAmount);
 
         });
 
