@@ -58,6 +58,7 @@
     <script src="~/Scripts/sweetalert2.all.js"></script>
 
     <script>
+    
         var loginForm = document.getElementById("loginForm");
 
         loginForm.onsubmit = function (event) {
@@ -80,6 +81,22 @@
                     //console.log(this.responseText);
 
                     var data = JSON.parse(this.responseText);
+
+                    console.log(data);
+
+                    if (data.ID > 0) {
+                        setCookie("Token", data.TokenInfo[0].Token);
+                        setCookie("UserID", data.TokenInfo[0].UserID);
+
+                         window.location = "@Url.Action("Index", "Inventory")";
+                    }
+                    else {
+                        swal.fire('Error', 'Login Failed', 'error');
+                    }
+
+                    
+
+
 
                 };
                 xhr.send(JSON.stringify(loginData));
