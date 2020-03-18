@@ -7,7 +7,6 @@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     @*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
     <link rel="stylesheet" href="~/Content/autocomplete.css"/>
-    <link href="~/Content/datepicker.css" rel="stylesheet" />
     <link href="~/Content/LayoutInventory.css" rel="stylesheet" />
     @RenderSection("Styles", false)
 </head>
@@ -22,9 +21,9 @@
             </div>
             <div class="header__sidetext">
                 <h4>IMS © copyright series 2020 @{Write("@");} version 1.0</h4>
-                <a href="javascript:void(0)" class="logout__btn logout">Logout</a>
+                <a href="javascript:void(0)" class="logout__btn logout" onclick="Logout(event)">Logout</a>
             </div>
-            <button class="mobile__menu__button" id="mobile-menu-btn">
+            <button class="mobile__menu__button" id="mobile-menu-btn" onclick="OpenMobileMenu(event)">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
@@ -195,14 +194,10 @@
 </div>
 
 
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
+   
     <script src="~/Scripts/autocomplete.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/datepicker.js"></script>
     <script src="~/Scripts/sweetalert2.all.js"></script>
-    <script src="~/Scripts/jquery.cookie.js"></script>
     <script src="~/Scripts/main.js"></script>
-    <script src="~/Scripts/custom.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
