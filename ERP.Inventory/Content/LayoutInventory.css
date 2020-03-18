@@ -392,6 +392,7 @@ button {
         max-width: 0;
         min-width: 0;
         overflow: hidden;
+        z-index: 25;
     }
 
     .leftmenu__menu {
@@ -405,6 +406,7 @@ button {
     .mobile__logout__btn{
         display: block;
     }
+
 }
 @media (min-width: 320px) and (max-width: 480px) {
     /* 
@@ -457,6 +459,7 @@ button {
         max-width: 0;
         min-width: 0;
         overflow: hidden;
+        z-index: 25;
     }
     .leftmenu__menu{
         margin-top:0;
@@ -467,6 +470,7 @@ button {
     .mobile__logout__btn {
         display: block;
     }
+
 }
 
 

@@ -8,8 +8,14 @@
     <link href="~/Content/EntryStocks.css" rel="stylesheet">
 }
 
-
-
+<div class="entryStocks__menu__button">
+    <i class="fa fa-ellipsis-v" id="mobileMenuBtn"></i>
+</div>
+<div class="entryStocks__menu__content">
+    <div class="entrycontent__searchRef">
+        <small>* You can search and enter reference no. to retrieved previous transaction here...</small>
+    </div>
+</div>
 
 <form action="#" method="post" name="StockEntryForm" autocomplete="off">
     <input type="hidden" name="ID" value="" />
@@ -87,7 +93,7 @@
                         </div>
                         <div class="content">
                             <label>DEL DATE</label>
-                            <input type="text" name="DeliveryDate" class="date-picker">
+                            <input type="date" name="DeliveryDate" class="">
                         </div>
                     </div>
                 </fieldset>
@@ -306,39 +312,16 @@
         //    }
         //}
 
+        (function() {
+           // your page initialization code here
+           // the DOM will be available here
 
-        $(function () {
-
-            $('.add__attribute').on('click', function (e) {
-
-                var $this = $(this);
-
-                //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
-                $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
-
-                //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
-                $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
-                $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
-
-                //APPEND NEW ROW IN ITEM ATTRIBUTE
-                $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
-
-                //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
-                $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
-                $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
-
-
-            });
-
-
-            $('.delMethodID').trigger('change');
-
-            //FOR PROJECTS
+        /*FOR PROJECTS*/
             var projects = [];
             var projectURL = '/Data/ENGProjectList';
 
             JsonRequest(projectURL, 'GET', null, function (data) {
-               
+
                 for (var i = 0; i < data.length; i++) {
                     var newObj = {};
 
@@ -352,12 +335,14 @@
 
                 });
             });
+        /*END PROJECTS*/
 
+        /*============================================================================================================*/
 
-            //FOR SUPPLIER
+        /*FOR SUPPLIER*/
             var suppliers = [];
             var supplierURL = '/StockEntry/GetSupplier';
-            
+
 
             JsonRequest(supplierURL, 'GET', null, function (data) {
                 for (var i = 0; i < data.length; i++) {
@@ -382,9 +367,11 @@
 
                 });
             })
+        /*END SUPPLIER*/
 
-          
-            //FOR RECEIVED BY
+        /*================================================================================================*/
+
+        /*FOR RECEIVED BY*/
             var receivedBy = [];
             var receivedByURL = '/Data/HRMSEmployeeList/';
             JsonRequest(receivedByURL, 'GET', null, function (data) {
@@ -399,39 +386,71 @@
                 }
 
                 autocomplete(document.getElementById("receivedBy"), receivedBy, true, "ID", "Value", (el, data) => {
-                    
+
                 });
-            })
+            })  
+
+        /*END RECEIVED BY*/
+        /*==============================================================================================*/
+
+        })();
+
+        //$(function () {
+
+            //$('.add__attribute').on('click', function (e) {
+
+            //    var $this = $(this);
+
+            //    //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
+            //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
+
+            //    //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
+            //    $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
+            //    $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
+
+            //    //APPEND NEW ROW IN ITEM ATTRIBUTE
+            //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
+
+            //    //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
+            //    $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
+            //    $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
+
+
+            //});
+
+
+            //$('.delMethodID').trigger('change');
+
            
-        });
+        //});
 
-        $(function () {
-            $('form[name=StockEntryForm]').validate({
-                rules: {
-                    SupplierName: "required",
-                    ProjectName: "required",
-                    ReceivedBy: "required",
-                    DocNumber: "required",
-                    DeliveryDate: "required"
-                },
-                errorPlacement: function () {
-                    return false;
-                },
+        //$(function () {
+        //    $('form[name=StockEntryForm]').validate({
+        //        rules: {
+        //            SupplierName: "required",
+        //            ProjectName: "required",
+        //            ReceivedBy: "required",
+        //            DocNumber: "required",
+        //            DeliveryDate: "required"
+        //        },
+        //        errorPlacement: function () {
+        //            return false;
+        //        },
 
-                submitHandler: function (form, event) {
-                    event.preventDefault();
+        //        submitHandler: function (form, event) {
+        //            event.preventDefault();
 
-                    fnSaveStockEntry(form);
-                }
-            });
+        //            fnSaveStockEntry(form);
+        //        }
+        //    });
 
-            $("[name^=DeliveryMethodAttr]").each(function () {
-                $(this).rules("add", {
-                    required: true
-                });
-            });
+        //    $("[name^=DeliveryMethodAttr]").each(function () {
+        //        $(this).rules("add", {
+        //            required: true
+        //        });
+        //    });
 
-        })
+        //})
 
 
         //SAVE DATA
@@ -574,7 +593,7 @@
                         $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
 
                         //Disable Button
-                        $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+                        $('form[name=StockEntryForm]').find('button.save__btn').css({ "pointer-events": "none" });
 
                         //Assign ID in hidden input[name=ID]
                         $this.find('input[name=ID]').val(response.DataID);
@@ -610,27 +629,27 @@
         }
 
 
-        $('.clear__entry').on('click', function () {
-            //Clear Stock Entry
-            $('form[name=StockEntryForm]').find('input').val("");
-        });
+        //$('.clear__entry').on('click', function () {
+        //    //Clear Stock Entry
+        //    $('form[name=StockEntryForm]').find('input').val("");
+        //});
 
-        $('.edit__entry').on('click', function () {
+        //$('.edit__entry').on('click', function () {
 
-            //enable input and select field
-            $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
+        //    //enable input and select field
+        //    $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
 
-            //enable click and edit in table elements
-            $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
+        //    //enable click and edit in table elements
+        //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
 
-            //enable button save
-            $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
+        //    //enable button save
+        //    $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
 
-        });
+        //});
 
-        $('.new__entry').on('click', function () {
-            $('form[name=StockEntryForm]').find('input').val("");
-        });
+        //$('.new__entry').on('click', function () {
+        //    $('form[name=StockEntryForm]').find('input').val("");
+        //});
 
 
         //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
@@ -641,52 +660,52 @@
         //});
 
 
-        $('.quantity').on('change', function () {
-            //console.log("Quantity");
+        //$('.quantity').on('change', function () {
+        //    //console.log("Quantity");
 
-            var totalAmount = 0;
+        //    var totalAmount = 0;
 
-            $('.quantity').each(function () {
+        //    $('.quantity').each(function () {
 
-                var qty = $(this).val() || 0;
-                var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
+        //        var qty = $(this).val() || 0;
+        //        var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
 
-                totalAmount = totalAmount + (qty * price);
+        //        totalAmount = totalAmount + (qty * price);
 
-                var amount = qty * price;
+        //        var amount = qty * price;
 
-                if (amount > 0) {
-                    $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
-                }
+        //        if (amount > 0) {
+        //            $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
+        //        }
 
-            });
+        //    });
 
-            $('#overallTotalAmount').val(totalAmount);
-        });
+        //    $('#overallTotalAmount').val(totalAmount);
+        //});
 
-        $('.unitPrice').on('change', function () {
-            //console.log("Price");
+        //$('.unitPrice').on('change', function () {
+        //    //console.log("Price");
 
-            var totalAmount = 0;
+        //    var totalAmount = 0;
 
-             $('.quantity').each(function () {
+        //    $('.quantity').each(function () {
 
-                var qty = $(this).val() || 0;
-                var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
+        //        var qty = $(this).val() || 0;
+        //        var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
 
-                 totalAmount = totalAmount + (qty * price);
+        //        totalAmount = totalAmount + (qty * price);
 
-                 var amount = qty * price;
+        //        var amount = qty * price;
 
-                 if (amount > 0) {
-                    $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
-                 }
+        //        if (amount > 0) {
+        //            $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
+        //        }
 
-             });
+        //    });
 
-            $('#overallTotalAmount').val(totalAmount);
+        //    $('#overallTotalAmount').val(totalAmount);
 
-        });
+        //});
 
     </script>
 

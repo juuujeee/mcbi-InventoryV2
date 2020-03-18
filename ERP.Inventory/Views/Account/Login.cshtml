@@ -35,7 +35,7 @@
                         <div class="custom-form-group login-input">
                             <div style="display:flex">
                                 <label style="width: 150px">Password:</label>
-                                <input type="password" name="Password" class="" required/>
+                                <input type="password" name="Password" class="" required />
                             </div>
                         </div>
                         <div class="custom-form-group" id="otp" style="display:none">
@@ -54,92 +54,121 @@
         </div>
     </div>
 
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/main.js"></script>
     <script src="~/Scripts/sweetalert2.all.js"></script>
 
     <script>
-        $('#loginForm').on('submit', function (e) {
+        var loginForm = document.getElementById("loginForm");
 
-            e.preventDefault();
+        loginForm.onsubmit = function (event) {
+            event.preventDefault();
 
-            var $this = $(this);
+            var loginBtn = document.getElementById("login_btn");
 
-            if ($this.find('button').text() === 'Login') {
+            if (loginBtn.textContent === "Login") {
 
                 var loginData = {
-                    Username: $(this).find('input[name=Username]').val(),
-                    Password: $(this).find('input[name=Password]').val()
+                    Username: document.getElementsByName("Username")[0].value,
+                    Password: document.getElementsByName("Password")[0].value
                 };
 
-                //console.log(loginData);
-
-                $.ajax({
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json"
-                    },
-                    type: 'POST',
-                    url: '/Login/user/login',
-                    data: JSON.stringify(loginData),
-                    dataType: 'json',
-                    success: function (response) {
-
-                        console.log(response);
-
-                        if (response.ID > 0) {
-                            console.log(response.TokenInfo[0]);
-                            console.log(response);
-
-                            $.cookie("Token", response.TokenInfo[0].Token, { path: "/" });
-                            $.cookie("UserID", response.TokenInfo[0].UserID, { path: "/" });
-
-                            window.location = "@Url.Action("Index", "Inventory")";
-                            //$('#otp').show();
-
-                            //$('.login-input').find('input').attr('disabled', true);
-
-                            //$this.find('#login_btn').text("Verify");
-
-                        }
-                        else {
-                            swal.fire('Error', 'Login Failed', 'error');
-                        }
-                    }
-                });
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/Login/user/login', true);
+                xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
+                xhr.onload = function () {
+                    // do something to response
+                    console.log(this.responseText);
+                };
+                xhr.send(JSON.stringify(loginData));
             }
-            @*else {
-                console.log("Verify");
-                var url = 'http://124.105.198.3:98/api/User/VerifyCode/' + $(this).find('input[name=OTP]').val();
+            else {
 
-                $.ajax({
-                     headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                        "UserID": $.cookie("UserID"),
-                        "Token": $.cookie("Token")
-                    },
-                    type: 'GET',
-                    url: url,
-                    dataType: 'json',
-                    success: function (response) {
+            }
 
-                        if (response.Verified > 0) {
-                            window.location = "@Url.Action("Index", "Inventory")";
-                        }
-                        else {
-                            swal.fire('Error', response.Message, 'error');
-                        }
+        };
+    </script>
+
+    @*
+            <script>
+                $('#loginForm').on('submit', function (e) {
+
+                    e.preventDefault();
+
+                    var $this = $(this);
+
+                    if ($this.find('button').text() === 'Login') {
+
+                        var loginData = {
+                            Username: $(this).find('input[name=Username]').val(),
+                            Password: $(this).find('input[name=Password]').val()
+                        };
+
+                        $.ajax({
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json"
+                            },
+                            type: 'POST',
+                            url: '/Login/user/login',
+                            data: JSON.stringify(loginData),
+                            dataType: 'json',
+                            success: function (response) {
+
+                                console.log(response);
+
+                                if (response.ID > 0) {
+                                    console.log(response.TokenInfo[0]);
+                                    console.log(response);
+
+                                    $.cookie("Token", response.TokenInfo[0].Token, { path: "/" });
+                                    $.cookie("UserID", response.TokenInfo[0].UserID, { path: "/" });
+
+                                    window.location = "@Url.Action("Index", "Inventory")";
+                                    //$('#otp').show();
+
+                                    //$('.login-input').find('input').attr('disabled', true);
+
+                                    //$this.find('#login_btn').text("Verify");
+
+                                }
+                                else {
+                                    swal.fire('Error', 'Login Failed', 'error');
+                                }
+                            }
+                        });
                     }
-                });
-            }*@
+                    else {
+                        console.log("Verify");
+                        var url = 'http://124.105.198.3:98/api/User/VerifyCode/' + $(this).find('input[name=OTP]').val();
+
+                        $.ajax({
+                             headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json",
+                                "UserID": $.cookie("UserID"),
+                                "Token": $.cookie("Token")
+                            },
+                            type: 'GET',
+                            url: url,
+                            dataType: 'json',
+                            success: function (response) {
+
+                                if (response.Verified > 0) {
+                                    window.location = "@Url.Action("Index", "Inventory")";
+                                }
+                                else {
+                                    swal.fire('Error', response.Message, 'error');
+                                }
+                            }
+                        });
+                    }
 
 
 
         });
 
-
-    </script>
+        </script>
+    *@
 </body>
 </html>
 
