@@ -77,7 +77,10 @@
                 xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
                 xhr.onload = function () {
                     // do something to response
-                    console.log(this.responseText);
+                    //console.log(this.responseText);
+
+                    var data = JSON.parse(this.responseText);
+
                 };
                 xhr.send(JSON.stringify(loginData));
             }
