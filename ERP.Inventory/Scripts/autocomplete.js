@@ -1,4 +1,22 @@
-﻿function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'Name', template = function (el, data = null) { }) {
+﻿/**
+ * 
+ * @param {any} inp             specific Element
+ * @param {any} arr             JSON ARRAY
+ * @param {any} searchByWord    WORD BY WORD
+ * @param {any} keyID           ID for everyData
+ * @param {any} keyText         Text for displaying
+ * @param {any} template        RETURN template
+ * 
+ * //USAGE
+ * var jArray = {ID:1, Text:"Sample"}
+ *  autocomplete(document.getElementById("myInput"), jArray, true, "ID", "Text", (el, data) => {
+ *               if (el.order % 2 == 0)
+ *                   el.style.backgroundColor = 'blue';
+ *           });
+ */
+
+
+function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'Name', template = function (el, data = null) { }, limit = 10) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -28,8 +46,9 @@
             /*Customizing Search based on compatibility*/
             //======================= WORD BY WORD SEARCH ================================
             if (searchByWord) {
-                var compatible = true;
 
+                //CHECKING IF EVERY WORD EXISTS
+                var compatible = true;
                 for (var j = 0; j < inputArray.length; j++) {
 
                     if (arr[i][keyText].toUpperCase().indexOf(inputArray[j]) < 0) {
@@ -37,6 +56,7 @@
                         break;
                     }
                 }
+
                 if (compatible) {
                     count++;
                     //CREATING ELEMENT FOR THE RESULT
@@ -62,60 +82,64 @@
 
                     a.appendChild(b);
                 }
-                continue;
+                //========================================================================
+                //============================= END OF WORD BY WORD=======================
+                //========================================================================
+
+            }
+            else {
+                //=======================================================================
+                //====================== SEARCH FIRST LETTER ============================
+                //=======================================================================
+                /*check if the item starts with the same letters as the text field value:*/
+
+                if (arr[i][keyText].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    count++;
+                    /*create a DIV element for each matching element:*/
+                    b = document.createElement("DIV");
+                    /*make the matching letters bold:*/
+                    b.innerHTML = "<strong>" + arr[i][keyText].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i][keyText].substr(val.length);
+                    /*insert a input field that will hold the current array item's value:*/
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "' data-id='" + arr[i][keyID] + "'>";
+                    /*execute a function when someone clicks on the item value (DIV element):*/
+                    b.addEventListener("click", function (e) {
+                        /*insert the value for the autocomplete text field:*/
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        inp.setAttribute("data-id", this.getElementsByTagName("input")[0].getAttribute("data-id"));
+                        /*close the list of autocompleted values,
+                        (or any other open lists of autocompleted values:*/
+                        closeAllLists();
+                    });
+                    b.order = count;
+
+                    //SETUP TEMPLATE
+                    if (template != null)
+                        template(b, arr[i]);
+
+
+                    a.appendChild(b);
+                }
+
+                //=======================================================================
+                //====================== END SEARCH FIRST LETTER ==================================
+                //=======================================================================
             }
 
-            //========================================================================
-            //============================= END OF WORD BY WORD=======================
-            //========================================================================
-
-
-            //=======================================================================
-            //====================== SEARCH FIRST LETTER ============================
-            //=======================================================================
-            /*check if the item starts with the same letters as the text field value:*/
-
-            if (arr[i][keyText].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                count++;
-                /*create a DIV element for each matching element:*/
-                b = document.createElement("DIV");
-                /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i][keyText].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i][keyText].substr(val.length);
-                /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "' data-id='" + arr[i][keyID] + "'>";
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function (e) {
-                    /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    inp.setAttribute("data-id", this.getElementsByTagName("input")[0].getAttribute("data-id"));
-                    /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:*/
-                    closeAllLists();
-                });
-                b.order = count;
-
-                //SETUP TEMPLATE
-                if (template != null)
-                    template(b, arr[i]);
-
-
-                a.appendChild(b);
-            }
-
-            //=======================================================================
-            //====================== END SEARCH FIRST LETTER ==================================
-            //=======================================================================
-
-
+            //Limiting
+            if (count == limit)
+                break;
         }
+        //GET UNIQUES
+        var uniqueArray = inputArray.filter(function (item, pos) {
+            return inputArray.indexOf(item) == pos;
+        });
         //HIGHLIGHTING TEXT FOR THE RESULT
         if (searchByWord) {
-            for (var k = 0; k < inputArray.length; k++) {
-                highlight(this.id + "autocomplete-list", inputArray[k]);
+            for (var k = 0; k < uniqueArray.length; k++) {
+                highlight(this.id + "autocomplete-list", uniqueArray[k]);
             }
         }
-
 
     });
     /*execute a function presses a key on the keyboard:*/
@@ -169,27 +193,30 @@
             }
         }
     }
-    function highlight(elClass, text) {
+    function highlight(elClass, texts) {
         var inputTexts = document.getElementsByClassName(elClass)[0].children;
-        var texts = text.split(' ');
         //LOOP FOR THE HTML ELEMENTS
         for (var i = 0; i < inputTexts.length; i++) {
 
+
             var inputText = inputTexts[i];
             var innerHTML = inputText.innerHTML;
-            //LOOP FOR THE SPLIT STRINGS
-            for (var j = 0; j < texts.length; j++) {
-                if (texts[j] == '' || texts[j] == undefined) continue;
 
-                var index = innerHTML.toLowerCase().indexOf(texts[j].toLowerCase());
-                if (index >= 0) {
-                    innerHTML = innerHTML.substring(0, index) + "<b>" + innerHTML.substring(index, index + text.length) + "</b>" + innerHTML.substring(index + text.length);
-                    inputText.innerHTML = innerHTML;
-                }
+            var index = innerHTML.toLowerCase().indexOf(texts.toLowerCase());
+
+            //Catching B for error HTML displays in options
+            if (texts == 'B') {
+                if (innerHTML.charAt(index + 1) == '>')
+                    continue;
+            }
+
+            //FORMATTING DISPLAY AND BOLDING COMPATIBLE WORD OR TEXT
+            if (index >= 0) {
+                innerHTML = innerHTML.substring(0, index) + "<b>" + innerHTML.substring(index, index + texts.length) + "</b>" + innerHTML.substring(index + texts.length);
+                inputText.innerHTML = innerHTML;
             }
         }
     }
-    /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
