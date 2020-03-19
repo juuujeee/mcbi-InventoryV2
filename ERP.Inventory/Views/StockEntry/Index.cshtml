@@ -77,7 +77,7 @@
                             <span class="autocomplete">
                                 <input type="text" name="ReceivedBy" id="receivedBy">
                             </span>
-                            
+
                         </div>
                     </div>
                 </fieldset>
@@ -99,9 +99,9 @@
                             <input type="text" name="ProjectLocation" readonly>
                         </div>
                         <div class="content autocomplete">
-                            <label>INCHARGE</label>
+                            <label>WH ICHG</label>
                             @*<input type="date" name="DeliveryDate" class="">*@
-                            <input type="text" name="WarehouseInCharge"/>
+                            <input type="text" name="WarehouseInCharge" />
                         </div>
                     </div>
                 </fieldset>
@@ -142,7 +142,12 @@
                         {
                             <tr class="stock__entry__tr">
                                 <td class="counter">@i</td>
-                                <td class="" style="position: relative"><input type="text" name="Items"></td>
+                                <!-- <td class="" style="position: relative"><input type="text" name="Items"></td>-->
+                                <td>
+                                    <div class="content autocomplete" style="width:100%;">
+                                        <input type="text" name="Items" id="itemsData_@i" class="stockitem">
+                                    </div>
+                                </td>
                                 <td style="position:relative"><input type="text" name="Units"></td>
                                 <td><input type="text" name="Qty" class="quantity"></td>
                                 <td><input type="text" name="UnitPrice" class="unitPrice"></td>
@@ -252,21 +257,60 @@
 
 
 @*<table style="display: none" class="stock__entry__tbody__clone">
-    <tr class="">
-        <td class="counter"></td>
-        <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
-        <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
-        <td><input type="text" name="Qty"></td>
-        <td><input type="text" name="UnitPrice"></td>
-        <td class="position__relative">
-            <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
-            <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
-        </td>
-    </tr>
-</table>*@
+        <tr class="">
+            <td class="counter"></td>
+            <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
+            <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
+            <td><input type="text" name="Qty"></td>
+            <td><input type="text" name="UnitPrice"></td>
+            <td class="position__relative">
+                <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+                <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
+            </td>
+        </tr>
+    </table>*@
 
 @section Scripts{
+    <script>
+        var items = [];
+        JsonRequest(itemURL, 'GET', null, function (data) {
 
+            // console.log(data);
+
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    if (data[i].ItemFullNameInfo !== null) {
+
+                        newObj.id = data[i].ID;
+                        newObj.value = data[i].ItemFullNameInfo.Name;
+                        newObj.label = data[i].ItemFullNameInfo.Name;
+                        newObj.hasAttribute = data[i].Category3.hasAttribute;
+
+                        items.push(newObj);
+                    }
+
+                }
+            }
+
+            //finding class and filter it the autocompelete
+            //1. Get input elements for items
+            var itemsList = document.getElementsByClassName('stockitem');
+
+            for (var i = 0; i < itemsList.length; i++) {
+
+
+                autocomplete(itemsList[i], items, true, "id", "value", (el, data) => {
+
+                });
+            }
+            console.log("Hello");
+
+
+        });
+    </script>
     <script>
         DeliveryAttrMethod();
 
@@ -319,16 +363,16 @@
         //    }
         //}
 
-        (function() {
-           // your page initialization code here
-           // the DOM will be available here
+        (function () {
+            // your page initialization code here
+            // the DOM will be available here
 
             var delMethodEl = document.getElementsByClassName("delMethodID")[0];
             var event = new Event('change');
             delMethodEl.dispatchEvent(event);
 
 
-        /*FOR PROJECTS*/
+            /*FOR PROJECTS*/
             var projects = [];
             var projectURL = '/Data/ENGProjectList';
 
@@ -347,11 +391,11 @@
 
                 });
             });
-        /*END PROJECTS*/
+            /*END PROJECTS*/
 
-        /*============================================================================================================*/
+            /*============================================================================================================*/
 
-        /*FOR SUPPLIER*/
+            /*FOR SUPPLIER*/
             var suppliers = [];
             var supplierURL = '/StockEntry/GetSupplier';
 
@@ -379,11 +423,11 @@
 
                 });
             })
-        /*END SUPPLIER*/
+            /*END SUPPLIER*/
 
-        /*================================================================================================*/
+            /*================================================================================================*/
 
-        /*FOR RECEIVED BY*/
+            /*FOR RECEIVED BY*/
             var receivedBy = [];
             var receivedByURL = '/Data/HRMSEmployeeList/';
             JsonRequest(receivedByURL, 'GET', null, function (data) {
@@ -400,40 +444,40 @@
                 autocomplete(document.getElementById("receivedBy"), receivedBy, true, "ID", "Value", (el, data) => {
 
                 });
-            })  
+            })
 
-        /*END RECEIVED BY*/
-        /*==============================================================================================*/
+            /*END RECEIVED BY*/
+            /*==============================================================================================*/
 
         })();
 
         //$(function () {
 
-            //$('.add__attribute').on('click', function (e) {
+        //$('.add__attribute').on('click', function (e) {
 
-            //    var $this = $(this);
+        //    var $this = $(this);
 
-            //    //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
-            //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
+        //    //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
+        //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
 
-            //    //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
-            //    $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
-            //    $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
+        //    //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
+        //    $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
+        //    $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
 
-            //    //APPEND NEW ROW IN ITEM ATTRIBUTE
-            //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
+        //    //APPEND NEW ROW IN ITEM ATTRIBUTE
+        //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
 
-            //    //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
-            //    $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
-            //    $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
-
-
-            //});
+        //    //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
+        //    $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
+        //    $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
 
 
-            //$('.delMethodID').trigger('change');
+        //});
 
-           
+
+        //$('.delMethodID').trigger('change');
+
+
         //});
 
         //$(function () {
@@ -641,83 +685,83 @@
         }
 
 
-        //$('.clear__entry').on('click', function () {
-        //    //Clear Stock Entry
-        //    $('form[name=StockEntryForm]').find('input').val("");
-        //});
+            //$('.clear__entry').on('click', function () {
+            //    //Clear Stock Entry
+            //    $('form[name=StockEntryForm]').find('input').val("");
+            //});
 
-        //$('.edit__entry').on('click', function () {
+            //$('.edit__entry').on('click', function () {
 
-        //    //enable input and select field
-        //    $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
+            //    //enable input and select field
+            //    $('form[name=StockEntryForm]').find('input,select').removeAttr('disabled');
 
-        //    //enable click and edit in table elements
-        //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
+            //    //enable click and edit in table elements
+            //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').removeAttr('style');
 
-        //    //enable button save
-        //    $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
+            //    //enable button save
+            //    $('form[name=StockEntryForm]').find('button.save__btn').removeAttr('style');
 
-        //});
+            //});
 
-        //$('.new__entry').on('click', function () {
-        //    $('form[name=StockEntryForm]').find('input').val("");
-        //});
-
-
-        //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
-        //$(function () {
-        //    $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
-        //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
-        //    $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
-        //});
+            //$('.new__entry').on('click', function () {
+            //    $('form[name=StockEntryForm]').find('input').val("");
+            //});
 
 
-        //$('.quantity').on('change', function () {
-        //    //console.log("Quantity");
+            //TESTING PURPOSES FOR DISABLED INPUT AND TABLE
+            //$(function () {
+            //    $('form[name=StockEntryForm]').find('input,select').attr('disabled', true);
+            //    $('form[name=StockEntryForm]').find('.entrycontent__tableitem').css({ "pointer-events": "none" });
+            //    $('form[name=StockEntryForm]').find('button.save__btn').css({"pointer-events": "none"});
+            //});
 
-        //    var totalAmount = 0;
 
-        //    $('.quantity').each(function () {
+            //$('.quantity').on('change', function () {
+            //    //console.log("Quantity");
 
-        //        var qty = $(this).val() || 0;
-        //        var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
+            //    var totalAmount = 0;
 
-        //        totalAmount = totalAmount + (qty * price);
+            //    $('.quantity').each(function () {
 
-        //        var amount = qty * price;
+            //        var qty = $(this).val() || 0;
+            //        var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
 
-        //        if (amount > 0) {
-        //            $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
-        //        }
+            //        totalAmount = totalAmount + (qty * price);
 
-        //    });
+            //        var amount = qty * price;
 
-        //    $('#overallTotalAmount').val(totalAmount);
-        //});
+            //        if (amount > 0) {
+            //            $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
+            //        }
 
-        //$('.unitPrice').on('change', function () {
-        //    //console.log("Price");
+            //    });
 
-        //    var totalAmount = 0;
+            //    $('#overallTotalAmount').val(totalAmount);
+            //});
 
-        //    $('.quantity').each(function () {
+            //$('.unitPrice').on('change', function () {
+            //    //console.log("Price");
 
-        //        var qty = $(this).val() || 0;
-        //        var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
+            //    var totalAmount = 0;
 
-        //        totalAmount = totalAmount + (qty * price);
+            //    $('.quantity').each(function () {
 
-        //        var amount = qty * price;
+            //        var qty = $(this).val() || 0;
+            //        var price = $(this).parents('tr').find('input.unitPrice').val() || 0;
 
-        //        if (amount > 0) {
-        //            $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
-        //        }
+            //        totalAmount = totalAmount + (qty * price);
 
-        //    });
+            //        var amount = qty * price;
 
-        //    $('#overallTotalAmount').val(totalAmount);
+            //        if (amount > 0) {
+            //            $(this).parents('tr').find('input[name=TotalAmount]').val(qty * price);
+            //        }
 
-        //});
+            //    });
+
+            //    $('#overallTotalAmount').val(totalAmount);
+
+            //});
 
     </script>
 
