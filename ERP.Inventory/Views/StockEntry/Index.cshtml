@@ -91,9 +91,14 @@
                             <label>LOCATION</label>
                             <input type="text" name="ProjectLocation" readonly>
                         </div>
+                        <!--
                         <div class="content">
                             <label>DEL DATE</label>
                             <input type="date" name="DeliveryDate" class="">
+                        </div>-->
+                        <div class="content">
+                            <label>WH ICHG</label>
+                            <input type="text" name="DeliveryDate">
                         </div>
                     </div>
                 </fieldset>
@@ -135,7 +140,12 @@
                         {
                             <tr class="stock__entry__tr">
                                 <td class="counter">@i</td>
-                                <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
+                                <!-- <td><input type="text" name="Items" onkeypress="fnGetItems(event)" id="itemsData_@i" class="stockitem"></td>-->
+                                <td>
+                                    <div class="content autocomplete" style="width:100%;">
+                                        <input type="text" name="Items" id="itemsData_@i" class="stockitem">
+                                    </div>
+                                </td>
                                 <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
                                 <td><input type="text" name="Qty" class="quantity"></td>
                                 <td><input type="text" name="UnitPrice" class="unitPrice"></td>
@@ -164,6 +174,7 @@
                     </tfoot>
 
                 </table>
+
 
                 @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
             </div>
@@ -312,11 +323,11 @@
         //    }
         //}
 
-        (function() {
-           // your page initialization code here
-           // the DOM will be available here
+        (function () {
+            // your page initialization code here
+            // the DOM will be available here
 
-        /*FOR PROJECTS*/
+            /*FOR PROJECTS*/
             var projects = [];
             var projectURL = '/Data/ENGProjectList';
 
@@ -335,11 +346,11 @@
 
                 });
             });
-        /*END PROJECTS*/
+            /*END PROJECTS*/
 
-        /*============================================================================================================*/
+            /*============================================================================================================*/
 
-        /*FOR SUPPLIER*/
+            /*FOR SUPPLIER*/
             var suppliers = [];
             var supplierURL = '/StockEntry/GetSupplier';
 
@@ -367,11 +378,11 @@
 
                 });
             })
-        /*END SUPPLIER*/
+            /*END SUPPLIER*/
 
-        /*================================================================================================*/
+            /*================================================================================================*/
 
-        /*FOR RECEIVED BY*/
+            /*FOR RECEIVED BY*/
             var receivedBy = [];
             var receivedByURL = '/Data/HRMSEmployeeList/';
             JsonRequest(receivedByURL, 'GET', null, function (data) {
@@ -388,40 +399,40 @@
                 autocomplete(document.getElementById("receivedBy"), receivedBy, true, "ID", "Value", (el, data) => {
 
                 });
-            })  
+            })
 
-        /*END RECEIVED BY*/
-        /*==============================================================================================*/
+            /*END RECEIVED BY*/
+            /*==============================================================================================*/
 
         })();
 
         //$(function () {
 
-            //$('.add__attribute').on('click', function (e) {
+        //$('.add__attribute').on('click', function (e) {
 
-            //    var $this = $(this);
+        //    var $this = $(this);
 
-            //    //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
-            //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
+        //    //REMOVE ITEM ATTRIBUTE ITEM THAT HAS `can__remove` CLASS
+        //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper .can__remove').remove();
 
-            //    //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
-            //    $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
-            //    $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
+        //    //ADD CLASS AND NAME FOR ITEM ATTRIBUTE CLONE
+        //    $('.item__attribute__clone').find('.item__attribute').addClass("can__remove");
+        //    $('.item__attribute__clone').find('select.item__attribute__name').attr('name', 'ItemAttribute');
 
-            //    //APPEND NEW ROW IN ITEM ATTRIBUTE
-            //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
+        //    //APPEND NEW ROW IN ITEM ATTRIBUTE
+        //    $this.parents('.has__attribute__container').find('.item__attribute__wrapper').append($('.item__attribute__clone').html());
 
-            //    //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
-            //    $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
-            //    $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
-
-
-            //});
+        //    //REMOVE ADDED CLASS AND NAME IN ITEM ATTRIBUTE CLONE
+        //    $('.item__attribute__clone').find('select.item__attribute__name').removeAttr('name');
+        //    $('.item__attribute__clone').find('.item__attribute').removeClass("can__remove");
 
 
-            //$('.delMethodID').trigger('change');
+        //});
 
-           
+
+        //$('.delMethodID').trigger('change');
+
+
         //});
 
         //$(function () {
@@ -707,6 +718,46 @@
 
         //});
 
+    </script>
+    <script>
+        var items = [];
+        JsonRequest(itemURL, 'GET', null, function (data) {
+
+            // console.log(data);
+
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+
+                    var newObj = {};
+
+                    if (data[i].ItemFullNameInfo !== null) {
+
+                        newObj.id = data[i].ID;
+                        newObj.value = data[i].ItemFullNameInfo.Name;
+                        newObj.label = data[i].ItemFullNameInfo.Name;
+                        newObj.hasAttribute = data[i].Category3.hasAttribute;
+
+                        items.push(newObj);
+                    }
+
+                }
+            }
+
+            //finding class and filter it the autocompelete
+            //1. Get input elements for items
+            var itemsList = document.getElementsByClassName('stockitem');
+
+            for (var i = 0; i < itemsList.length; i++) {
+
+
+                autocomplete(itemsList[i], items, true, "id", "value", (el, data) => {
+
+                });
+            }
+            console.log("Hello");
+
+
+        });
     </script>
 
 }
