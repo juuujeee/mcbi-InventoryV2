@@ -1,6 +1,6 @@
 ﻿function setCookie(cname, cvalue) {
     var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + 365 + ";path=/";
 }
@@ -208,12 +208,9 @@ function DeliveryAttrMethod() {
 /*============================================================================================================================*/
 
 /*GET ITEMS AUTOCOMPLETE*/
-var items = [];
+var itemsData = [];
 var itemURL = '/Data/ItemsMasterlist';
-
 JsonRequest(itemURL, 'GET', null, function (data) {
-
-    // console.log(data);
 
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
@@ -222,138 +219,140 @@ JsonRequest(itemURL, 'GET', null, function (data) {
 
             if (data[i].ItemFullNameInfo !== null) {
 
-                newObj.id = data[i].ID;
-                newObj.value = data[i].ItemFullNameInfo.Name;
-                newObj.label = data[i].ItemFullNameInfo.Name;
+                newObj.ID = data[i].ID;
+                newObj.Value = data[i].ItemFullNameInfo.Name;
                 newObj.hasAttribute = data[i].Category3.hasAttribute;
 
-                items.push(newObj);
+                itemsData.push(newObj);
             }
 
         }
     }
 
+    var el = document.getElementsByName("Items");
+
+    el.forEach((item, index) => {
+        
+        autocomplete(item, itemsData, true, "ID", "Value", (el, data) => {
+        });
+    });
+
 });
-
-
-function fnGetItems(event) {
-
-    var $this = $(event.target);
-
-}
 /*END GET ITEMS AUTOCOMPLETE*/
 
 /*===========================================================================================================================*/
 
 /*GET UNITS AUTOCOMPLETE*/
-var units = [];
+var unitsData = [];
 var unitsURL = '/Data/units';
-
-
 JsonRequest(unitsURL, 'GET', null, function (data) {
 
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
             var obj = {};
 
-            obj.id = data[i].ID;
-            obj.value = data[i].ShortName;
-            obj.label = data[i].ShortName;
-            obj.fullname = data[i].FullName;
+            obj.ID = data[i].ID;
+            obj.Value = data[i].ShortName;
 
-            units.push(obj);
+            unitsData.push(obj);
         }
     }
 
-});
+    var el = document.getElementsByName("Units");
 
-function fnGetUnits(event) {
+    el.forEach((item, index) => {
+        autocomplete(item, unitsData, true, "ID", "Value", (el, data) => {
 
-    var $this = $(event.target);
-
-    $this.autocomplete({
-        source: units,
-        select: function (event, ui) {
-
-            var $this = $(this);
-
-            $this.attr('data-fullname', ui.item.fullname);
-            $this.attr('data-val', ui.item.id);
-        }
+        });
     });
 
-}
+});
 /*END UNITS AUTOCOMPLETE*/
 
 /*================================================================================================================================*/
 
 /*GET ITEM CONDITION AUTOCOMPLETE*/
-var itemCondition = [];
+var itemConditionData = [];
 var itemConditionURL = '/Data/ItemCondition';
-
-
 JsonRequest(itemConditionURL, 'GET', null, function (data) {
 
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
             var obj = {};
 
-            obj.id = data[i].ID;
-            obj.value = data[i].StatusName;
-            obj.label = data[i].StatusName;
+            obj.ID = data[i].ID;
+            obj.Value = data[i].StatusName;
 
-            itemCondition.push(obj);
+            itemConditionData.push(obj);
         }
     }
 
+    var el = document.getElementsByName("ItemCondition");
+
+    el.forEach((item, index) => {
+        autocomplete(item, itemConditionData, true, "ID", "Value", (el, data) => {
+
+        });
+    });
+
 });
-
-function fnGetItemCondition(event) {
-
-    var $this = $(event.target);
-
-}
-
 /*END ITEM CONDITION AUTOCOMPLETE*/
 
 /*=======================================================================================================================*/
 
 /*MOBILE MENU JS*/
-
 function OpenMobileMenu(event) {
 
-    console.log(event);
-
-    //var mobileMenu = document.getElementById("mobile-menu-btn");
-
-    //mobileMenu.onclick = function () {
-    //    document.getElementsByClassName("wrapper__leftmenu")[0].classList.toggle("open__menu");
-    //};
+    document.getElementsByClassName("wrapper__leftmenu")[0].classList.toggle("open__menu");
 }
-
 /*END MOBILE MENU JS*/
 
 /*=========================================================================================================================*/
 
 /*LOGOUT BUTTON JS*/
-
 function Logout(event) {
 
-    console.log(event);
+    console.log(event.target);
 
-    //var logout = document.getElementsByClassName("logout")[0];
+    event.preventDefault();
 
-    //logout.onclick = function (event) {
-    //    event.preventDefault();
+    deleteCookie("Token");
+    deleteCookie("UserID");
 
-    //    deleteCookie("Token");
-    //    deleteCookie("UserID");
+    window.location = "/Account/Login";
 
-    //    window.location = "/Account/Login";
-    //};
 }
-
 /*END LOGOUT BUTTON JS*/
 
+/*===========================================================================================================================*/
 
+/*SIDEBAR MENU JS*/
+function CollapsedSidebarMenu(event) {
+
+    console.log(event.target.getAttribute("data-target"));
+
+    var attr = event.target.getAttribute("data-target");
+
+    if (typeof attr !== typeof undefined && attr !== false) {
+        event.preventDefault();
+
+        var el = document.querySelectorAll(attr)[0];
+        
+        el.classList.toggle("d__none");
+
+        //event.target.className = "open__menu";
+
+        //console.log(event.target.className.toggle("open__menu"));
+        
+
+        //if (attr.classList.contains("open__menu")) {
+        //    event.target.classList.remove("open__menu");
+        //}
+        //else {
+        //    document.event.target.classList.add("open__menu");
+        //}
+    }
+
+}
+/*END SIDEBAR MENU JS*/
 
