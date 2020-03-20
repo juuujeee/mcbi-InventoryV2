@@ -341,7 +341,7 @@ function Logout(event) {
 /*SIDEBAR MENU JS*/
 function CollapsedSidebarMenu(event) {
 
-    console.log(event.target.getAttribute("data-target"));
+   // console.log(event.target.getAttribute("data-target"));
 
     var attr = event.target.getAttribute("data-target");
 
@@ -351,6 +351,16 @@ function CollapsedSidebarMenu(event) {
         var el = document.querySelectorAll(attr)[0];
         
         el.classList.toggle("d__none");
+
+        //console.log(event.target.classList.contains("open__menu"));
+
+        if (event.target.classList.contains("open__menu")) {
+            event.target.classList.remove("open__menu");
+        }
+        else {
+            
+            event.target.classList.add("open__menu");
+        }
 
         //event.target.className = "open__menu";
 
