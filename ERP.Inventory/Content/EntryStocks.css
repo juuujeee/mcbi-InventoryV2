@@ -330,7 +330,7 @@
     border-right: 1px solid #888888;
 }
 
-.tableitem__table > tbody > tr > td > input {
+.tableitem__table > tbody > tr > td  input {
     color: inherit;
     font-weight: inherit;
     background: none;

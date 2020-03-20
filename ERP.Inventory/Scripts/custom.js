@@ -299,6 +299,20 @@ JsonRequest(itemURL, 'GET', null, function (data) {
 
         }
     }
+    
+    //finding class and filter it the autocompelete
+    //1. Get input elements for items
+    var itemsList = document.getElementsByClassName('stockitem');
+
+    for (var i = 0; i < itemsList.length; i++) {
+
+
+        autocomplete(itemsList[i], items, true, "id", "value", (el, data) => {
+
+        });
+    }
+    console.log("Hello");
+
 
 });
 
