@@ -16,7 +16,7 @@
  */
 
 
-function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'Name', template = function (el, data = null) { }, limit = 10) {
+function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'Name', template = function (el, data = null) { }, selectedElement = function (e) { }, limit = 10) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -70,6 +70,9 @@ function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'N
                         /*insert the value for the autocomplete text field:*/
                         inp.value = this.getElementsByTagName("input")[0].value;
                         inp.setAttribute("data-id", this.getElementsByTagName("input")[0].getAttribute("data-id"));
+
+                        //RETURN THE SELECTED ELEMENT
+                        selectedElement(this);
                         /*close the list of autocompleted values,
                         (or any other open lists of autocompleted values:*/
                         closeAllLists();
@@ -107,6 +110,10 @@ function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'N
                         /*insert the value for the autocomplete text field:*/
                         inp.value = this.getElementsByTagName("input")[0].value;
                         inp.setAttribute("data-id", this.getElementsByTagName("input")[0].getAttribute("data-id"));
+
+                        //RETURN THE SELECTED ELEMENT
+                        selectedElement(this);
+
                         /*close the list of autocompleted values,
                         (or any other open lists of autocompleted values:*/
                         closeAllLists();

@@ -101,7 +101,7 @@
                         <div class="content autocomplete">
                             <label>WH ICHG</label>
                             @*<input type="date" name="DeliveryDate" class="">*@
-                            <input type="text" name="WarehouseInCharge" />
+                            <input type="text" name="WarehouseInCharge" id="warehouseincharge" />
                         </div>
                     </div>
                 </fieldset>
@@ -442,6 +442,13 @@
                 }
 
                 autocomplete(document.getElementById("receivedBy"), receivedBy, true, "ID", "Value", (el, data) => {
+
+                }, el => {
+
+                    console.log(el);
+                });
+
+                autocomplete(document.getElementById("warehouseincharge"), receivedBy, true, "ID", "Value", (el, data) => {
 
                 });
             })
