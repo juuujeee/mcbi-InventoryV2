@@ -325,14 +325,19 @@
 
                     newObj.ID = data[i].ID;
                     newObj.Value = data[i].ProjectName + ' - ' + data[i].ProjectNumber;
+                    newObj.projectNumber = data[i].ProjectNumber;
 
                     projects.push(newObj);
                 }
 
                 autocomplete(document.getElementById("projects"), projects, true, "ID", "Value", (el, data) => {
                     //document.getElementsByName("ProjectNumber")[0].value = ;
+                    //console.log(el);
 
-                    console.log();
+                }, sel => {
+
+                        console.log(sel);
+                        console.log(sel.data);
                 });
             });
         /*END PROJECTS*/
