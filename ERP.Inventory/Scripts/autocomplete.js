@@ -78,6 +78,7 @@ function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'N
                         closeAllLists();
                     });
                     b.order = count;
+                    b.data = arr[i];
 
                     //RETURN via template
                     if (template != null)
@@ -119,6 +120,7 @@ function autocomplete(inp, arr, searchByWord = false, keyID = 'ID', keyText = 'N
                         closeAllLists();
                     });
                     b.order = count;
+                    b.data = arr[i];
 
                     //SETUP TEMPLATE
                     if (template != null)
