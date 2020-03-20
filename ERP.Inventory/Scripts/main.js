@@ -128,10 +128,11 @@ function DeliveryAttrMethod() {
 
                     attr = delMethodAttribute[z];
 
+                    //console.log(attr);
+
                     var delAttrContent = '';
 
                     if (delMethodAttribute[z].DelMethodID_010 === parseInt(val)) {
-
 
                         delAttrContent += '<div class="content delMethod__can__remove">';
                         delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute.toUpperCase() + '</label>';
@@ -140,18 +141,24 @@ function DeliveryAttrMethod() {
                             if (attrCounter === 2) {
                                 JsonRequest('/Data/DelMethodAttrValue', 'GET', null, function (response) {
 
+                                    //console.log(response);
+
                                     delAttrContent += '<select class="deliveryMethodAttr" data-id="' + attr.ID + '">';
 
                                     for (var x = 0; x < response.length; x++) {
-
+                                       //console.log(response[x].DelMethodAttrID_008);
+                                        //console.log("Attr" + attr.ID);
                                         if (response[x].DelMethodAttrID_008 === attr.ID) {
 
                                             delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
 
+                                            //console.log("Select Option Here !!!");
                                         }
 
                                     }
                                     delAttrContent += '</select>';
+
+                                    //console.log(delAttrContent);
                                 });
                             }
                             else {

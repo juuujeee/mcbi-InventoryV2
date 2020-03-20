@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<form action="#" method="post" name="StockEntryForm" autocomplete="off">
+<form action="#" method="post" name="StockEntryForm" autocomplete="off" onsubmit="fnSaveStockEntry(event)">
     <input type="hidden" name="ID" value="" />
 
     <div class="entrycontent">
@@ -43,7 +43,7 @@
                     <label>Search Here...</label>
                     <div>
                         <input type="text" name="name" value="" />
-                        <button><i class="fa fa-search"></i></button>
+                        <button type="button"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="entrsearchref__refno">
@@ -271,54 +271,40 @@
         DeliveryAttrMethod();
 
 
-        function fnAddStockEntryItem(event) {
+        //function fnAddStockEntryItem(event) {
 
-            var number = $('.stock__entry__tr').length;
+        //    var number = $('.stock__entry__tr').length;
 
-            $('.stock__entry__tbody__clone').find('tr').addClass('stock__entry__tr');
-            $('.stock__entry__tbody__clone').find('td.counter').eq(0).text(number + 1);
+        //    $('.stock__entry__tbody__clone').find('tr').addClass('stock__entry__tr');
+        //    $('.stock__entry__tbody__clone').find('td.counter').eq(0).text(number + 1);
 
-            $('.stock__entry__tbody').append(
-                $('.stock__entry__tbody__clone tbody').html()
-            );
+        //    $('.stock__entry__tbody').append(
+        //        $('.stock__entry__tbody__clone tbody').html()
+        //    );
 
-            $('.stock__entry__tbody__clone').find('tr').removeClass('stock__entry__tr');
-        }
-
-        function fnRemoveItemStockEntry(event) {
-            var el = event.target;
-            //console.log(el);
-
-            el.closest('tr').remove();
-
-            var countEl = document.querySelectorAll('.entrycontent .tableitem__table .counter');
-
-            //console.log(countEl.length);
-
-            if (countEl.length > 0) {
-
-                countEl.forEach((item, index) => {
-
-                    item.innerHTML = parseInt(index + 1);
-                });
-            }
-        }
+        //    $('.stock__entry__tbody__clone').find('tr').removeClass('stock__entry__tr');
+        //}
 
         //function fnRemoveItemStockEntry(event) {
-        //    var $this = $(event.target);
+        //    var el = event.target;
+        //    //console.log(el);
 
-        //    $this.closest('tr').remove();
+        //    el.closest('tr').remove();
 
-        //    var counter = $('.entrycontent .tableitem__table').find('td.counter').length;
+        //    var countEl = document.querySelectorAll('.entrycontent .tableitem__table .counter');
 
-        //    if (counter > 0) {
-        //        for (var i = 0; i < counter; i++) {
+        //    //console.log(countEl.length);
 
-        //            $('.entrycontent .tableitem__table').find('.counter').eq(i).text(i + 1);
-        //        }
+        //    if (countEl.length > 0) {
+
+        //        countEl.forEach((item, index) => {
+
+        //            item.innerHTML = parseInt(index + 1);
+        //        });
         //    }
         //}
 
+      
         (function() {
            // your page initialization code here
            // the DOM will be available here
@@ -344,7 +330,9 @@
                 }
 
                 autocomplete(document.getElementById("projects"), projects, true, "ID", "Value", (el, data) => {
+                    //document.getElementsByName("ProjectNumber")[0].value = ;
 
+                    console.log();
                 });
             });
         /*END PROJECTS*/
@@ -376,7 +364,7 @@
                 }
 
                 autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => {
-
+                    
                 });
             })
         /*END SUPPLIER*/
@@ -466,7 +454,13 @@
 
 
         //SAVE DATA
-        function fnSaveStockEntry(form) {
+        function fnSaveStockEntry(event) {
+
+            event.preventDefault();
+
+            console.log("Submit Stock Entry");
+
+            return;
 
             var stockEntryItem = [];
             var $this = $(form);
