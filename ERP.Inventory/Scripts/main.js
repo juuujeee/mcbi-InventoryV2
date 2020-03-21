@@ -78,7 +78,7 @@ function JsonRequest(url, method, data, fn, isJson = true) {
     };
 
     //console.log(window.location.origin + url);
-    xmlh.open(method, window.location.origin + url);
+    xmlh.open(method, window.location.origin + url, false);
     if (isJson)
         xmlh.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
 
