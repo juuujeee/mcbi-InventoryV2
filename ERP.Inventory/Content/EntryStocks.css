@@ -375,11 +375,13 @@
 
 .tableitem__table > tbody > tr > td:last-child > input {
     text-align: center;
+    cursor:pointer;
 }
 
 .tableitem__table > tfoot > tr:first-child td {
     background: #404040;
     border-top: 1px solid #888888;
+    color: #fff;
 }
 
 .tableitem__table tfoot tr:first-child td:first-child {
@@ -578,58 +580,6 @@
 }
 
 
-/*NEW CSS*/
-/*#region ITEM ATTRIBUTE CSS*/
-.has__attribute__container {
-    display: grid;
-    grid-template-areas: "item_name" "item_attribute" "footer";
-    grid-template-rows: auto;
-    grid-template-columns: 700px;
-    grid-row-gap: 10px;
-    display: none;
-}
-
-.item__name {
-    grid-area: item_name;
-    display: grid;
-    height: auto;
-    grid-column-gap: 15px;
-    grid-template-columns: 120px 1fr;
-    margin-bottom: 15px;
-}
-
-.item__attribute {
-    grid-area: item_attribute;
-    display: grid;
-    height: auto;
-    grid-column-gap: 15px;
-    grid-row-gap: 10px;
-    grid-template-columns: 120px 1fr 80px 1fr;
-    margin-bottom: 15px;
-}
-
-.has__attribute__footer {
-    grid-area: footer;
-}
-
-
-.has__attribute__container input,
-.has__attribute__container select {
-    font-size: .8em;
-    font-family: Lato;
-    font-weight: 500;
-    padding: 3px;
-    box-sizing: border-box;
-    border: .5px solid #C8C8C8;
-    border-radius: 4px;
-    /* background-color: #F0F0F0; */
-    width: 100%;
-    line-height: 23px;
-}
-
-/*#endregion ITEM ATTRIBUTE CSS*/
-
-
 /*Entry Stock Mobile Menu*/
 .entryStocks__menu__content {
     height: 0;
@@ -652,6 +602,106 @@
     right: 15px;
 }
 
+
+/*MODAL*/
+/* The Modal (background) */
+.item__attribute__modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+}
+
+/* Modal Content */
+.item__attribute__modal .modal__content {
+    background-color: #fefefe;
+    margin: auto;
+    width: 40%;
+    position: relative;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+.item__attribute__modal .modal__content .modal__body{
+    padding: 20px;
+}
+
+/* The Modal Header */
+.item__attribute__modal .modal__content .modal__header{
+    border-bottom: 1px solid gray;
+}
+.item__attribute__modal .modal__content .modal__header h2{
+    font-size: 20px;
+    padding:10px;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+/* The Close Button */
+.item__attribute__modal .modal__content .modal__body .close {
+    color: #aaaaaa;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    right: 6px;
+    top:7px;
+}
+
+.item__attribute__modal .modal__content .close:hover,
+.item__attribute__modal .modal__content .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal__body__content {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-row-gap: 5px;
+}
+
+.modal__body__content .form__content {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+    grid-row-gap: 10px;
+}
+.modal__body__content .form__content input {
+    font-size: .8em;
+    font-family: Lato;
+    font-weight: 500;
+    padding: 3px;
+    box-sizing: border-box;
+    border: .5px solid #C8C8C8;
+    border-radius: 4px;
+    width: 100%;
+    line-height: 23px;
+    font-family: Tahoma;
+    padding-left:8px;
+}
+.modal__body__content .form__content input:read-only {
+    pointer-events: none;
+    outline: none;
+    background: #e9ecef;
+}
+
+.modal__body__content hr {
+    border-top: 1px solid #808080a1;
+    width: 100%;
+}
 
 /*@media only screen and (max-width:736px) and (orientation:landscape) {
     

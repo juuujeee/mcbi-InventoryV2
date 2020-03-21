@@ -109,6 +109,8 @@ function DeliveryAttrMethod() {
     delMethod.onchange = function () {
         var val = this.value;
 
+       // console.log(val);
+
         var attrCounter = 0;
 
         var attr = null;
@@ -122,13 +124,16 @@ function DeliveryAttrMethod() {
         var delMethodAttrURL = '/Data/DelMethodAttribute';
 
         JsonRequest(delMethodAttrURL, 'GET', null, function (delMethodAttribute) {
+
+            //console.log(delMethodAttribute);
+
            
             if (delMethodAttribute.length > 0) {
                 for (var z = 0; z < delMethodAttribute.length; z++) {
 
                     attr = delMethodAttribute[z];
 
-                    //console.log(attr);
+                   // console.log(attr);
 
                     var delAttrContent = '';
 
@@ -336,7 +341,7 @@ function Logout(event) {
 /*SIDEBAR MENU JS*/
 function CollapsedSidebarMenu(event) {
 
-    console.log(event.target.getAttribute("data-target"));
+   // console.log(event.target.getAttribute("data-target"));
 
     var attr = event.target.getAttribute("data-target");
 
@@ -346,6 +351,16 @@ function CollapsedSidebarMenu(event) {
         var el = document.querySelectorAll(attr)[0];
         
         el.classList.toggle("d__none");
+
+        //console.log(event.target.classList.contains("open__menu"));
+
+        if (event.target.classList.contains("open__menu")) {
+            event.target.classList.remove("open__menu");
+        }
+        else {
+            
+            event.target.classList.add("open__menu");
+        }
 
         //event.target.className = "open__menu";
 
@@ -363,3 +378,26 @@ function CollapsedSidebarMenu(event) {
 }
 /*END SIDEBAR MENU JS*/
 
+
+/*FORMAT MONEY*/
+function formatMoney(number, decPlaces, decSep, thouSep) {
+    decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+        decSep = typeof decSep === "undefined" ? "." : decSep;
+    thouSep = typeof thouSep === "undefined" ? "," : thouSep;
+    var sign = number < 0 ? "-" : "";
+    var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+    var j = (j = i.length) > 3 ? j % 3 : 0;
+
+    return sign +
+        (j ? i.substr(0, j) + thouSep : "") +
+        i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
+        (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+}
+
+/*ACCEPT ONLY NUMBERS IN INPUT FIELD*/
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}

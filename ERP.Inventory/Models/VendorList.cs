@@ -17,6 +17,8 @@ namespace ERP.Inventory.Models
         public int ID { get; set; }
 
         public string BranchName { get; set; }
+
+        public string SeriesNo { get; set; }
     }
 
     public class VendorInfo
