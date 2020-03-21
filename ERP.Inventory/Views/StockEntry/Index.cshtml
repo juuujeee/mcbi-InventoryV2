@@ -66,7 +66,9 @@
                         </div>
                         <div class="content">
                             <label>SUP ID</label>
-                            <input type="text" name="SupplierID" readonly>
+                            <span class="autocomplete">
+                                <input type="text" name="SupplierID" id="supplierID">
+                            </span>
                         </div>
                         <div class="content">
                             <label>DOC NO</label>
@@ -87,12 +89,14 @@
                         <div class="content">
                             <label>PRJ NAME</label>
                             <span class="autocomplete">
-                                <input type="text" name="ProjectName" id="projects">
+                                <input type="text" name="ProjectName" id="projectName">
                             </span>
                         </div>
                         <div class="content">
                             <label>PRJ NO</label>
-                            <input type="text" name="ProjectNumber" readonly>
+                            <span class="autocomplete">
+                                <input type="text" name="ProjectNumber" id="projectNumber">
+                            </span>
                         </div>
                         <div class="content">
                             <label>LOCATION</label>
@@ -140,7 +144,7 @@
                     <tbody class="stock__entry__tbody">
                         @for (var i = 1; i <= 10; i++)
                         {
-                            <tr class="stock__entry__tr">
+                            <tr class="stock__entry__tr" oncontextmenu="return showContextMenu(event)">
                                 <td class="counter">@i</td>
                                 <td class="" style="position: relative"><input type="text" name="Items"></td>
                                 <td style="position:relative"><input type="text" name="Units"></td>
@@ -201,7 +205,7 @@
 </form>
 
 
-<!-- User Modal -->
+<!-- Item Attribute Modal -->
 <div class="item__attribute__modal" id="modal">
     <!-- Modal content -->
     <div class="modal__content">
@@ -224,6 +228,22 @@
     </div>
 </div>
 
+<div class="custom__context__menu" id="customContextMenu">
+    <div class="remove__stock__entry__wrapper">
+        <div class="header">
+            <h2>Remove Item</h2>
+            <i class="fa fa-close" onclick="return this.parentNode.parentNode.parentNode.style='none'"></i>
+        </div>
+        <div class="body">
+            <p>Are you sure you want to remove this item?</p>
+        </div>
+        <div class="footer">
+            <button type="button">Remove</button>
+            <button type="button" onclick="return this.parentNode.parentNode.parentNode.style='none'">Cancel</button>
+        </div>
+    </div>
+</div>
+
 
 @*<table style="display: none" class="stock__entry__tbody__clone">
     <tr class="">
@@ -239,9 +259,20 @@
     </tr>
 </table>*@
 
+
 @section Scripts{
 
     <script>
+        var contextMenu = document.getElementById('customContextMenu');
+        function showContextMenu(event) {
+            contextMenu.style.display = 'block';
+
+            //event.target.parentNode.parentNode.remove();
+
+            return false;
+        }
+
+
         DeliveryAttrMethod();
 
 
@@ -265,18 +296,20 @@
                     var newObj = {};
 
                     newObj.ID = data[i].ID;
-                    newObj.Value = data[i].ProjectName + ' - ' + data[i].ProjectNumber;
+                    newObj.ProjectName = data[i].ProjectName;
                     newObj.ProjectNumber = data[i].ProjectNumber;
 
                     projects.push(newObj);
                 }
 
-                autocomplete(document.getElementById("projects"), projects, true, "ID", "Value", (el, data) => {
-
-                    //console.log(el);
-
-                }, sel => {
+                autocomplete(document.getElementById("projectName"), projects, true, "ID", "ProjectName", (el, data) => { },
+                    sel => {
                     document.getElementsByName("ProjectNumber")[0].value = sel.data.ProjectNumber;
+                });
+
+                autocomplete(document.getElementById("projectNumber"), projects, true, "ID", "ProjectNumber", (el, data) => { },
+                    sel => {
+                    document.getElementsByName("ProjectName")[0].value = sel.data.ProjectName;
                 });
             });
             /*END PROJECTS*/
@@ -307,11 +340,16 @@
                     }
                 }
 
-                autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => {
-
-                }, sel => {
+                autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => { },
+                    sel => {
                     document.getElementsByName("SupplierID")[0].value = sel.data.SeriesNo;
                 });
+
+                autocomplete(document.getElementById("supplierID"), suppliers, true, "ID", "SeriesNo", (el, data) => { },
+                    sel => {
+                    document.getElementsByName("SupplierName")[0].value = sel.data.Value;
+                });
+
             })
             /*END SUPPLIER*/
 
@@ -347,66 +385,25 @@
 
             event.preventDefault();
 
-            console.log("Submit Stock Entry");
+            var el = event.target;
 
-            return;
+            var stockEntryItem = el.querySelectorAll(".stock__entry__tr");
+            var stockEntryItemJSON = [];
+            stockEntryItem.forEach((item, index) => {
 
-            var stockEntryItem = [];
-            var $this = $(form);
+                var obj = {
+                    ID: 0,
+                    DocEntryID_007: 0,
+                    ItemID_011: item.querySelector("input[name='Items']").getAttribute("data-id") || 0,
+                    UnitID_009: item.querySelector("input[name='Units']").getAttribute("data-id") || 0,
+                    ItemAttributes: '',
+                    ItemConditionID_018: item.querySelector("input[name='ItemCondition']").getAttribute("data-id") || 0,
+                    Quantity: item.querySelector("input[name='Qty']").value || 0,
+                    UnitPrice: item.querySelector("input[name='UnitPrice']").value || 0
+                };
 
-
-            //FOR STOCK ENTRY ITEM
-            $this.find('.stock__entry__tr').each(function () {
-
-                var itemID = $(this).find('input[name=Items]').attr('data-val') || 0;
-                var unitID = $(this).find('input[name=Units]').attr('data-val') || 0;
-                var itemConditionID = $(this).find('input[name=ItemCondition]').attr('data-val') || 0;
-                var quantity = $(this).find('input[name=Qty]').val() || 0;
-                var unitPrice = $(this).find('input[name=UnitPrice]').val() || 0;
-
-                var itemAttribute = [];
-
-                $(this).find('input[name=Items]').closest('td').find('span.item-attribute').each(function () {
-
-                    var itemAttrObj = {
-                        ID: 0,
-                        ItemID_011: itemID,
-                        AttID_006: $(this).attr('data-attribute-id'),
-                        AttributeValue: $(this).attr('data-attribute-value')
-                    };
-
-                    itemAttribute.push(itemAttrObj);
-                })
-
-                var obj = {};
-
-                if (itemAttribute.length > 0) {
-                    obj = {
-                        ID: 0,
-                        DocEntryID_007: 0,
-                        ItemID_011: itemID,
-                        UnitID_009: unitID,
-                        ItemAttributes: itemAttribute,
-                        ItemConditionID_018: itemConditionID,
-                        Quantity: quantity,
-                        UnitPrice: unitPrice
-                    };
-                }
-                else {
-                    obj = {
-                        ID: 0,
-                        DocEntryID_007: 0,
-                        ItemID_011: itemID,
-                        UnitID_009: unitID,
-                        ItemConditionID_018: itemConditionID,
-                        Quantity: quantity,
-                        UnitPrice: unitPrice
-                    };
-                }
-
-
-                if (obj.ItemID_011 !== 0) {
-                    stockEntryItem.push(obj);
+                if (obj.ItemID_011 > 0) {
+                    stockEntryItemJSON.push(obj);
                 }
 
             });
@@ -415,18 +412,17 @@
             let formatted_date = (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate() + "/" + current_datetime.getFullYear();
 
 
-
             //FOR DELIVERY ENTRY
-
             var DeliveryMethodEntryList = [];
-            $('.deliveryMethodAttr').each(function () {
+            var delMethodAttr = document.querySelectorAll(".deliveryMethodAttr");
+            delMethodAttr.forEach((item, index) => {
 
                 var obj = {
                     ID: 0,
                     DocEntryListID_007: 0,
-                    DelMethodAttrID_008: $(this).attr('data-id'),
+                    DelMethodAttrID_008: item.getAttribute('data-id'),
                     AttributeValueID_008a: 0,
-                    AttributeValue: $(this).val()
+                    AttributeValue: item.value
                 };
 
                 if (obj.AttributeValue !== "") {
@@ -434,13 +430,15 @@
                 }
             });
 
+            //return;
+
             var DeliveryMethod = {
 
-                // ID: $('.delMethodID').val(),
-                Name: $('.delMethodID').children('option:selected').text(),
+                ID: document.getElementsByClassName("delMethodID")[0].value,
+                Name: document.getElementsByClassName("delMethodID")[0].options[document.getElementsByClassName("delMethodID")[0].selectedIndex].text,
                 DelMethodAttribute: [{
                     ID: 0,
-                    DelMethodID_010: document.getElementsByClassName("delMethodID").value,
+                    DelMethodID_010: document.getElementsByClassName("delMethodID")[0].value,
                     MethodAttribute: 'N/A',
                     DeliveryMethodEntryList: DeliveryMethodEntryList
                 }]
@@ -451,21 +449,20 @@
             //FOR STOCK ENTRY HEADER
             var DocEntry = {
                 ID: 0,
-                SupID_VendorDB: $this.find('input[name=SupplierName]').attr('data-val') || 0,
-                ProjectID_EnggDB: $this.find('input[name=ProjectName]').attr('data-val') || 0,
-                DocumentNumber: $this.find('input[name=DocNumber]').val() || 0,
-                DeliveryDate: $this.find('input[name=DeliveryDate]').val() || 0,
+                SupID_VendorDB: el.querySelector('input[name=SupplierName]').getAttribute('data-id') || 0,
+                ProjectID_EnggDB: el.querySelector('input[name=ProjectName]').getAttribute('data-id') || 0,
+                DocumentNumber: el.querySelector('input[name=DocNumber]').value || 0,
+                //DeliveryDate: el.querySelector('input[name=DeliveryDate]').value || 0,
                 EntryDate: formatted_date,
-                ReceiverID_HRDB: $this.find('input[name=ReceivedBy]').attr('data-val') || 0,
-                ItemEntryList: stockEntryItem,
+                ReceiverID_HRDB: el.querySelector('input[name=ReceivedBy]').getAttribute('data-id') || 0,
+                ItemEntryList: stockEntryItemJSON,
                 DeliveryMethod: DeliveryMethod
             };
 
             //FOR ITEM ATTRIBUTE
-
             console.log(DocEntry);
 
-            //return;
+            return;
 
             JsonRequest('/Data/NewItemHeaderList', 'POST', DocEntry, function (response) {
 
