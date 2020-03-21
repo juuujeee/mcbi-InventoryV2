@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "User Account Page";
+}
+
+@section Styles{
+
+    <link href="~/Content/accountIndex.css" rel="stylesheet" />
+
+}
+
+<div class="user__page__wrapper">
+    <div class="page__header">
+        <div class="title">
+            <h1>User List</h1>
+        </div>
+        <div class="header__button">
+            <button class="new__entry open__modal" id="openModal" type="button">New User</button>
+            <!--<button class="clear__entry" type="button">Clear</button
+    <button class="edit__entry" type="button">Edit</button>>
+            <button class="ellipsis__btn" type="button">NEW USER</button>-->
+        </div>
+    </div>
+
+    <div class="page__body">
+        <table class="user__list__table">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Username</td>
+                    <td>Employee</td>
+                    <td>Role</td>
+                    <td>Level</td>
+                    <td>Active</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="userlistclone">
+                    <td>1</td>
+                    <td>admin</td>
+                    <td>Jose de Eagle</td>
+                    <td>Admin</td>
+                    <td>Default Level (Level 0)</td>
+                    <td>
+                        <select>
+                            <option>YES</option>
+                            <option>NO</option>
+                        </select>
+                    </td>
+                    <td><button>/...</button></td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <button>SAVE (ACTIVES ONLY)</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div class="user-modal" id="userModal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <div >
+            <div >
+                <div >
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    <h1>CREATE OR UPDATE USER</h1>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>Username : </label>
+                                </td>
+                                <td>
+                                    <input />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Password : </label>
+                                </td>
+                                <td>  <input type="password" /></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Mobile No. : </label>
+                                </td>
+                                <td>
+                                    <input />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Employee : </label>
+                                </td>
+                                <td>
+                                    <div class="autocomplete">
+                                        <input />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Role : </label>
+                                </td>
+                                <td>
+                                    <div class="autocomplete">
+                                        <input />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Level : </label>
+                                </td>
+                                <td>
+                                    <div class="autocomplete">
+                                        <input />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Active : </label>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option selected> YES </option>
+                                        <option>NO</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button>SAVE</button>
+                </div>
+            </div>
+            <div class="form__content">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    
+
+<script>
+
+    var userModal = document.getElementById('userModal');
+
+    var addBtn = document.getElementsByClassName('open__modal')[0];
+
+    addBtn.onclick = function () {
+        userModal.style.display = "block";
+    }
+
+    document.getElementById('closeModal').onclick = function () {
+        userModal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        console.log(event.target);
+    }
+
+</script>    
+    
+}

@@ -13,7 +13,7 @@ namespace ERP.Inventory.Controllers
     {
         public override object TempObject { get; set; }
 
-        public DataController() : base("http://mcbi-dev:90/api/") {
+        public DataController() : base("http://192.168.1.100/api/") {
 
 
         }
@@ -43,7 +43,7 @@ namespace ERP.Inventory.Controllers
         [Route("Test/Test")]
         public ActionResult Test()
         {
-            Helper.SynchronousRequest syncRequest = new Helper.SynchronousRequest("http://mcbi-dev:98/api/user/userroleaccess");
+            Helper.SynchronousRequest syncRequest = new Helper.SynchronousRequest("http://192.168.1.100:98/api/user/userroleaccess");
             syncRequest.httpClient.DefaultRequestHeaders.Add("UserID", "38");
             syncRequest.httpClient.DefaultRequestHeaders.Add("Token", "y65yK6eDALIfurzczhjZ7bK7D");
             string retval = syncRequest.HttpRequest("", "GET");

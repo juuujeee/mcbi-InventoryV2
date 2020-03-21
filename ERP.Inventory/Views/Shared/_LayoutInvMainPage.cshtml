@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" , initial="1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
+    <link href="~/Content/animate.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/datepicker.css" rel="stylesheet" />
+    @*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
+    <link rel="stylesheet" href="~/Content/autocomplete.css"/>
     <link href="~/Content/LayoutInventory.css" rel="stylesheet" />
     @RenderSection("Styles", false)
 </head>
@@ -20,9 +21,9 @@
             </div>
             <div class="header__sidetext">
                 <h4>IMS © copyright series 2020 @{Write("@");} version 1.0</h4>
-                <a href="javascript:void(0)" class="logout__btn">Logout</a>
+                <a href="javascript:void(0)" class="logout__btn logout" onclick="Logout(event)">Logout</a>
             </div>
-            <button class="mobile__menu__button">
+            <button class="mobile__menu__button" id="mobile-menu-btn" onclick="OpenMobileMenu(event)">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
@@ -40,14 +41,14 @@
                         </a>
                     </li>
                     <li class="has__menu">
-                        <a href="javascript:void(0)" class="sidebar__menu" data-target="#inventorySubMenu">
+                        <a href="javascript:void(0)" class="sidebar__menu" onclick="CollapsedSidebarMenu(event)" data-target="#inventorySubMenu">
                             <i class="fa fa-angle-right caret" style=""></i>
                             <i class="fa fa-tag fa-fw"></i>
                             INVENTORY
                         </a>
                         <ul id="inventorySubMenu" class="d__none animated" style="padding-left: 0">
                             <li class="">
-                                <a href="@Url.Action("StockEntry", "Stocks")" class="sidebar__menu sub__menu" style="position:relative">
+                                <a href="@Url.Action("Index", "StockEntry")" class="sidebar__menu sub__menu" style="position:relative">
                                     <i class="fa fa-circle fa-fw"></i>
                                     Stock Entry
                                 </a>
@@ -60,15 +61,15 @@
                                 </a>
                                 <ul id="stockFlowSubMenu" class="d__none" style="padding-left: 0">
                                     <li class="">
-                                        <a href="@Url.Action("TransferStock", "Stocks")" class="sidebar__menu child__sub__menu">Transfer Stocks</a>
+                                        <a href="@Url.Action("Index", "TransferStock")" class="sidebar__menu child__sub__menu">Transfer Stocks</a>
                                     </li>
                                     <li class="">
-                                        <a href="@Url.Action("ReleaseStock", "Stocks")" class="sidebar__menu child__sub__menu">Release Stocks</a>
+                                        <a href="#" class="sidebar__menu child__sub__menu">Release Stocks</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="@Url.Action("StockInquiry", "Stocks")" class="sidebar__menu sub__menu has__menu">
+                                <a href="@Url.Action("Index", "StockInquiry")" class="sidebar__menu sub__menu has__menu">
                                     <i class="fa fa-circle fa-fw"></i>
                                     Stock Inquiry
                                 </a>
@@ -104,6 +105,7 @@
                     </li>
                 </ul>
             </div>
+            <a href="javascript:void(0)" class="mobile__logout__btn logout" onclick="Logout(event)">Logout</a>
         </div>
         <div class="wrapper__maincontent">
             @RenderBody()
@@ -143,7 +145,6 @@
             overflow: auto; /* Enable scroll if needed */
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            
         }
 
         /* Modal Content */
@@ -172,23 +173,31 @@
     </style>
 
     <!-- The Modal -->
-    
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        
+        <h2> Category</h2>
+        <form action="/action_page.php">
+            <label for="DT">Display Title:</label>
+            <input style="width:100%" type="text" id="DT" name="DT"><br><br>
+            <label for="Des">Description:</label>
+            <input style="height:200px; width:100%" type="text" id="Des" name="Des"><br><br>
+            <div class="fieldset__footer">
+                <button>Save</button>
+            </div>
+        </form>
+    </div>
+
+</div>
 
 
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery-ui.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/datepicker.js"></script>
+   
+    <script src="~/Scripts/autocomplete.js"></script>
     <script src="~/Scripts/sweetalert2.all.js"></script>
-    <script src="~/Scripts/jquery.cookie.js"></script>
-    <script src="~/Scripts/custom.js"></script>
+    <script src="~/Scripts/main.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
-
-@section scripts{
-    <script>
-
-        
-    </script>
-}

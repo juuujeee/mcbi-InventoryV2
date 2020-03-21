@@ -1,0 +1,603 @@
+﻿
+
+@{
+    ViewBag.Title = "Entry Stocks Page";
+}
+
+@section Styles{
+    <link href="~/Content/EntryStocks.css" rel="stylesheet">
+}
+
+<div class="entryStocks__menu__button">
+    <i class="fa fa-ellipsis-v" id="mobileMenuBtn"></i>
+</div>
+<div class="entryStocks__menu__content">
+    <div class="entrycontent__searchRef">
+        <small>* You can search and enter reference no. to retrieved previous transaction here...</small>
+    </div>
+</div>
+
+<form action="#" method="post" name="StockEntryForm" autocomplete="off" onsubmit="fnSaveStockEntry(event)">
+    <input type="hidden" name="ID" value="" />
+
+    <div class="entrycontent">
+        <div class="entrycontent__entryheadertitle">
+            <div class="entryheadertitle__entrylabel">
+                <h1> Entry Stocks</h1>
+            </div>
+            <div class="entryheadertitle__entrymenubutton">
+                <button class="entrymenubutton__nce new__entry" type="button">New</button>
+                <button class="entrymenubutton__nce clear__entry" type="button">Clear</button>
+                <button class="entrymenubutton__nce edit__entry" type="button">Edit</button>
+                <button class="entrymenubutton__ell" type="button">...</button>
+            </div>
+        </div>
+
+        <div class="entrycontent__insidewrapper">
+            <!--Search and Reference Number-->
+            <div class="entrycontent__entrsearchref">
+                <div class="entrsearchref__notes">
+                    <small>* You can search and enter reference no. to retrieved previous transaction here...</small>
+                </div>
+                <div class="entrsearchref_search">
+                    <label>Search Here...</label>
+                    <div>
+                        <input type="text" name="name" value="" />
+                        <button type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="entrsearchref__refno">
+                    <label>Reference No.</label>
+                    <div>
+                        <input />
+                    </div>
+                </div>
+            </div>
+
+            <div class="entrycontent__route">
+                <fieldset id="supplier__fieldset">
+                    <legend class="fieldset__title">SUPPLIER</legend>
+                    <div class="fieldset__content">
+                        <div class="content">
+                            <label>SUPPLIER</label>
+                            <span class="autocomplete">
+                                <input type="text" name="SupplierName" id="suppliers">
+                            </span>
+                        </div>
+                        <div class="content">
+                            <label>SUP ID</label>
+                            <span class="autocomplete">
+                                <input type="text" name="SupplierID" id="supplierID">
+                            </span>
+                        </div>
+                        <div class="content">
+                            <label>DOC NO</label>
+                            <input type="text" name="DocNumber">
+                        </div>
+                        <div class="content">
+                            <label>RCV BY</label>
+                            <span class="autocomplete">
+                                <input type="text" name="ReceivedBy" id="receivedBy">
+                            </span>
+
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset id="project__fieldset">
+                    <legend class="fieldset__title">PROJECT</legend>
+                    <div class="fieldset__content">
+                        <div class="content">
+                            <label>PRJ NAME</label>
+                            <span class="autocomplete">
+                                <input type="text" name="ProjectName" id="projectName">
+                            </span>
+                        </div>
+                        <div class="content">
+                            <label>PRJ NO</label>
+                            <span class="autocomplete">
+                                <input type="text" name="ProjectNumber" id="projectNumber">
+                            </span>
+                        </div>
+                        <div class="content">
+                            <label>LOCATION</label>
+                            <input type="text" name="ProjectLocation" readonly>
+                        </div>
+                        <div class="content autocomplete">
+                            <label>INCHARGE</label>
+                            @*<input type="date" name="DeliveryDate" class="">*@
+                            <input type="text" name="WarehouseInCharge" />
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset id="delMethod__fieldset">
+                    <legend class="fieldset__title">DELIVERY</legend>
+                    <div class="fieldset__content delMethod__content">
+                        <div class="content">
+                            <label>METHOD</label>
+                            <select class="delMethodID">
+                                <option value="1">DELIVERY TRUCK</option>
+                                <option value="2">COURIER</option>
+                                <option value="3">MESSENGER</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="entrycontent__tabletitle">
+                <h1>Enter new stock here...</h1>
+            </div>
+            <div class="entrycontent__tableitem">
+
+                <table class="tableitem__table">
+                    <thead>
+                        <tr>
+                            <td>NO</td>
+                            <td>DESCRIPTION</td>
+                            <td>UNITS</td>
+                            <td>QTY</td>
+                            <td>PRICE</td>
+                            <td>TOTAL AMOUNT</td>
+                            <td>COND</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody class="stock__entry__tbody">
+                        @for (var i = 1; i <= 10; i++)
+                        {
+                            <tr class="stock__entry__tr" oncontextmenu="return showContextMenu(event)">
+                                <td class="counter">@i</td>
+                                <td class="" style="position: relative"><input type="text" name="Items"></td>
+                                <td style="position:relative"><input type="text" name="Units"></td>
+                                <td><input type="text" name="Qty" class="quantity" onkeypress="return isNumberKey(event)"></td>
+                                <td><input type="text" name="UnitPrice" class="unitPrice" onkeypress="return isNumberKey(event)"></td>
+                                <td class="totalAmount"></td>
+                                <td style="position:relative">
+                                    <input type="text" name="ItemCondition">
+                                </td>
+                                <td class="position__relative">
+                                    <input type="button" value="..." class="item__attribute__btn" onclick="fnShowItemAttribute(event)" />
+                                    @*<i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>*@
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5"><h3>Total Amount :</h3></td>
+                            <td id="overAllTotalAmount"></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+                @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
+            </div>
+            <div class="entrycontent__footer">
+                <div class="footer__labelupperright">
+                    <hr>
+                    <label>* Select and Upload attachement</label> <br>
+                </div>
+                <div class="footer__upload">
+                    <label class="upload__label" for="file"> Select File</label>
+                    <span class="upload__span">No file selected...</span>
+                    <button class="upload__button" type="button">Upload</button>
+                    <input id="file" type="file" hidden="hidden">
+                </div>
+                <div class="footer__progressbar">
+                    <div class="progressbardiv__progress">
+                        <small>60% complete</small>
+                    </div>
+                </div>
+                <div class="footer__notes">
+                    <small>* Complete all neccessary fields and uploads before clicking save button...</small>
+                </div>
+                <div class="footer__save">
+                    <button class="save__buttonright save__btn" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<!-- Item Attribute Modal -->
+<div class="item__attribute__modal" id="modal">
+    <!-- Modal content -->
+    <div class="modal__content">
+        <div class="modal__header">
+            <h2>Item Attribute</h2>
+        </div>
+        <div class="modal__body">
+            <span class="close" id="closeModal" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">&times;</span>
+            <div class="modal__body__content">
+                <div class="form__content">
+                    <label>Item Name:</label>
+                    <input type="text" name="ItemName" readonly />
+                </div>
+                <hr />
+                <div class="attribute__wrapper">
+                    <small>Attributes: </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="custom__context__menu" id="customContextMenu">
+    <div class="remove__stock__entry__wrapper">
+        <div class="header">
+            <h2>Remove Item</h2>
+            <i class="fa fa-close" onclick="return this.parentNode.parentNode.parentNode.style='none'"></i>
+        </div>
+        <div class="body">
+            <p>Are you sure you want to remove this item?</p>
+        </div>
+        <div class="footer">
+            <button type="button">Remove</button>
+            <button type="button" onclick="return this.parentNode.parentNode.parentNode.style='none'">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+@*<table style="display: none" class="stock__entry__tbody__clone">
+    <tr class="">
+        <td class="counter"></td>
+        <td><input type="text" name="Items"></td>
+        <td><input type="text" name="Units"></td>
+        <td><input type="text" name="Qty"></td>
+        <td><input type="text" name="UnitPrice"></td>
+        <td class="totalAmount"></td>
+        <td class="position__relative">
+            <input type="text" name="ItemCondition">
+        </td>
+    </tr>
+</table>*@
+
+
+@section Scripts{
+
+    <script>
+        var contextMenu = document.getElementById('customContextMenu');
+        function showContextMenu(event) {
+            contextMenu.style.display = 'block';
+
+            //event.target.parentNode.parentNode.remove();
+
+            return false;
+        }
+
+
+        DeliveryAttrMethod();
+
+
+        (function () {
+            // your page initialization code here
+            // the DOM will be available here
+            //Disable All and Input and Select Field
+
+            var delMethodEl = document.getElementsByClassName("delMethodID")[0];
+            var event = new Event('change');
+            delMethodEl.dispatchEvent(event);
+
+
+            /*FOR PROJECTS*/
+            var projects = [];
+            var projectURL = '/Data/ENGProjectList';
+
+            JsonRequest(projectURL, 'GET', null, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+                    var newObj = {};
+
+                    newObj.ID = data[i].ID;
+                    newObj.ProjectName = data[i].ProjectName;
+                    newObj.ProjectNumber = data[i].ProjectNumber;
+
+                    projects.push(newObj);
+                }
+
+                autocomplete(document.getElementById("projectName"), projects, true, "ID", "ProjectName", (el, data) => { },
+                    sel => {
+                    document.getElementsByName("ProjectNumber")[0].value = sel.data.ProjectNumber;
+                });
+
+                autocomplete(document.getElementById("projectNumber"), projects, true, "ID", "ProjectNumber", (el, data) => { },
+                    sel => {
+                    document.getElementsByName("ProjectName")[0].value = sel.data.ProjectName;
+                });
+            });
+            /*END PROJECTS*/
+
+            /*============================================================================================================*/
+
+            /*FOR SUPPLIER*/
+            var suppliers = [];
+            var supplierURL = '/StockEntry/GetSupplier';
+
+
+            JsonRequest(supplierURL, 'GET', null, function (data) {
+                for (var i = 0; i < data.length; i++) {
+
+                    supplierName = data[i].VendorSupplier.SupplierName;
+
+                    for (var z = 0; z < data[i].VendorBranch.length; z++) {
+
+                        var branchName = data[i].VendorBranch[z].BranchName;
+
+                        var newObj = {};
+
+                        newObj.ID = data[i].VendorBranch[z].ID;
+                        newObj.Value = supplierName + ' - ' + branchName;
+                        newObj.SeriesNo = data[i].VendorBranch[z].SeriesNo;
+
+                        suppliers.push(newObj);
+                    }
+                }
+
+                autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => { },
+                    sel => {
+                    document.getElementsByName("SupplierID")[0].value = sel.data.SeriesNo;
+                });
+
+                autocomplete(document.getElementById("supplierID"), suppliers, true, "ID", "SeriesNo", (el, data) => { },
+                    sel => {
+                    document.getElementsByName("SupplierName")[0].value = sel.data.Value;
+                });
+
+            })
+            /*END SUPPLIER*/
+
+            /*================================================================================================*/
+
+            /*FOR RECEIVED BY*/
+            var receivedBy = [];
+            var receivedByURL = '/Data/HRMSEmployeeList/';
+            JsonRequest(receivedByURL, 'GET', null, function (data) {
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var obj = {};
+                    obj.ID = data[i].ID;
+                    obj.Value = data[i].FirstName + ' ' + data[i].LastName;
+
+                    receivedBy.push(obj);
+                }
+
+                autocomplete(document.getElementById("receivedBy"), receivedBy, true, "ID", "Value", (el, data) => {
+
+                });
+            })
+
+            /*END RECEIVED BY*/
+            /*==============================================================================================*/
+
+        })();
+
+
+        //STOCK ENTRY SAVE DATA
+        function fnSaveStockEntry(event) {
+
+            event.preventDefault();
+
+            var el = event.target;
+
+            var stockEntryItem = el.querySelectorAll(".stock__entry__tr");
+            var stockEntryItemJSON = [];
+            stockEntryItem.forEach((item, index) => {
+
+                var obj = {
+                    ID: 0,
+                    DocEntryID_007: 0,
+                    ItemID_011: item.querySelector("input[name='Items']").getAttribute("data-id") || 0,
+                    UnitID_009: item.querySelector("input[name='Units']").getAttribute("data-id") || 0,
+                    ItemAttributes: '',
+                    ItemConditionID_018: item.querySelector("input[name='ItemCondition']").getAttribute("data-id") || 0,
+                    Quantity: item.querySelector("input[name='Qty']").value || 0,
+                    UnitPrice: item.querySelector("input[name='UnitPrice']").value || 0
+                };
+
+                if (obj.ItemID_011 > 0) {
+                    stockEntryItemJSON.push(obj);
+                }
+
+            });
+
+            let current_datetime = new Date();
+            let formatted_date = (current_datetime.getMonth() + 1) + "/" + current_datetime.getDate() + "/" + current_datetime.getFullYear();
+
+
+            //FOR DELIVERY ENTRY
+            var DeliveryMethodEntryList = [];
+            var delMethodAttr = document.querySelectorAll(".deliveryMethodAttr");
+            delMethodAttr.forEach((item, index) => {
+
+                var obj = {
+                    ID: 0,
+                    DocEntryListID_007: 0,
+                    DelMethodAttrID_008: item.getAttribute('data-id'),
+                    AttributeValueID_008a: 0,
+                    AttributeValue: item.value
+                };
+
+                if (obj.AttributeValue !== "") {
+                    DeliveryMethodEntryList.push(obj);
+                }
+            });
+
+            //return;
+
+            var DeliveryMethod = {
+
+                ID: document.getElementsByClassName("delMethodID")[0].value,
+                Name: document.getElementsByClassName("delMethodID")[0].options[document.getElementsByClassName("delMethodID")[0].selectedIndex].text,
+                DelMethodAttribute: [{
+                    ID: 0,
+                    DelMethodID_010: document.getElementsByClassName("delMethodID")[0].value,
+                    MethodAttribute: 'N/A',
+                    DeliveryMethodEntryList: DeliveryMethodEntryList
+                }]
+
+            };
+
+
+            //FOR STOCK ENTRY HEADER
+            var DocEntry = {
+                ID: 0,
+                SupID_VendorDB: el.querySelector('input[name=SupplierName]').getAttribute('data-id') || 0,
+                ProjectID_EnggDB: el.querySelector('input[name=ProjectName]').getAttribute('data-id') || 0,
+                DocumentNumber: el.querySelector('input[name=DocNumber]').value || 0,
+                //DeliveryDate: el.querySelector('input[name=DeliveryDate]').value || 0,
+                EntryDate: formatted_date,
+                ReceiverID_HRDB: el.querySelector('input[name=ReceivedBy]').getAttribute('data-id') || 0,
+                ItemEntryList: stockEntryItemJSON,
+                DeliveryMethod: DeliveryMethod
+            };
+
+            //FOR ITEM ATTRIBUTE
+            console.log(DocEntry);
+
+            return;
+
+            JsonRequest('/Data/NewItemHeaderList', 'POST', DocEntry, function (response) {
+
+                if (response.RetVal === 1) {
+                    swal.fire('Success', response.Message, 'success');
+
+                    //Disable All and Input and Select Field
+                    var tableInputs = document.querySelectorAll(".tableitem__table input");
+                    tableInputs.forEach((item, index) => {
+                        item.setAttribute("disabled", true);
+                    });
+                    var headerInputs = document.querySelectorAll(".entrycontent__route input, .entrycontent__route select");
+                    headerInputs.forEach((item, index) => {
+                        item.setAttribute("disabled", true);
+                    });
+
+                    //Disable Table
+                    document.getElementsByClassName("entrycontent__tableitem")[0].style.pointerEvents = "none";
+
+                    //Disable Button
+                    document.getElementsByClassName("save__btn")[0].style.pointerEvents = "none";
+
+                    //Assign ID in hidden input[name=ID]
+                    document.querySelectorAll('input[name=ID]').val(response.DataID);
+                }
+                else {
+                    swal.fire('Error', response.Message, 'error');
+                }
+
+            });
+
+        }
+
+        /*======================CLEAR ENTRY========================*/
+        var clearEntry = document.getElementsByClassName("clear__entry")[0];
+        clearEntry.onclick = function () {
+            document.getElementsByName("StockEntryForm")[0].reset();
+        }
+        /*=====================CLEAR ENTRY END========================*/
+
+
+        /*============================EDIT ENTRY==========================*/
+        var editEntry = document.getElementsByClassName("edit__entry")[0];
+        editEntry.onclick = function () {
+            //Enable All and Input and Select Field
+            var tableInputs = document.querySelectorAll(".tableitem__table input");
+            tableInputs.forEach((item, index) => {
+                item.removeAttribute("disabled");
+            });
+            var headerInputs = document.querySelectorAll(".entrycontent__route input, .entrycontent__route select");
+            headerInputs.forEach((item, index) => {
+                item.removeAttribute("disabled");
+            });
+
+            //Enable Table
+            document.getElementsByClassName("entrycontent__tableitem")[0].removeAttribute("style");
+
+            //Enable Button
+            document.getElementsByClassName("save__btn")[0].removeAttribute("style");
+        };
+        /*============================EDIT ENTRY END=========================*/
+
+
+        /*===========================NEW ENTRY================================*/
+        var newEntry = document.getElementsByClassName("new__entry")[0];
+        newEntry.onclick = function () {
+            console.log("New Entry");
+        };
+        /*===========================NEW ENTRY END============================*/
+
+
+        /*COMPUTE TOTAL PRICE*/
+        var totalAmount = document.getElementsByClassName("totalAmount");
+        var overallTotalPrice = document.getElementById("overAllTotalAmount");
+
+        //onchange qty
+        document.querySelectorAll(".quantity").forEach((item, index) => {
+            item.onchange = function () {
+                if (!(isNaN(item.value))) {
+
+                    var computedPrice = item.value * document.getElementsByClassName("unitPrice")[index].value || 0;
+                    totalAmount[index].innerHTML = computedPrice;
+
+                    GetOverallTotalAmount();
+                }
+            };
+        });
+
+
+        //onchange unit price
+        document.querySelectorAll(".unitPrice").forEach((item, index) => {
+            item.onchange = function () {
+                if (!(isNaN(item.value))) {
+
+                    var computedPrice = item.value * document.getElementsByClassName("quantity")[index].value || 0;
+                    totalAmount[index].innerHTML = computedPrice; //formatMoney(computedPrice);
+
+                    GetOverallTotalAmount();
+
+                }
+            };
+        });
+
+
+        //onchange total amount
+        function GetOverallTotalAmount() {
+            var amount = 0;
+            document.querySelectorAll(".totalAmount").forEach((item, index) => {
+
+                if (parseInt(item.innerHTML) > 0) {
+                    amount += parseInt(item.innerHTML);
+                }
+
+                if (parseInt(item.innerHTML) === 0) {
+                    item.innerHTML = '';
+                }
+
+            });
+
+            overallTotalPrice.innerHTML = formatMoney(amount);
+        }
+
+
+        /*ITEM ATTRIBUTE*/
+        function fnShowItemAttribute(event) {
+            //console.log(event.currentTarget.parentNode.parentNode.querySelector(".counter").textContent);
+
+            var modal = document.getElementsByClassName("item__attribute__modal")[0];
+
+            modal.style.display = "block";
+
+            modal.querySelector("input[name='ItemName']").value = event.currentTarget.parentNode.parentNode.querySelector("input[name='Items']").value;
+
+        }
+
+    </script>
+
+}

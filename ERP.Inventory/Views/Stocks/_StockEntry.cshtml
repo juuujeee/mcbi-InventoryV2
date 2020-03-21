@@ -84,6 +84,7 @@
             <h1>Enter new stock here...</h1>
         </div>
         <div class="entrycontent__tableitem">
+
             <table class="tableitem__table">
                 <thead>
                     <tr>
@@ -92,40 +93,65 @@
                         <td>UNITS</td>
                         <td>QTY</td>
                         <td>PRICE</td>
+                        <td>TOTAL AMOUNT</td>
                         <td>COND</td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody class="stock__entry__tbody">
                     @for (var i = 1; i <= 10; i++)
                     {
                         <tr class="stock__entry__tr">
-                            <td class="counter">@i</td>
+                            <td class="counter"><input type="text" disabled value="@i"/></td>
                             <td><input type="text" name="Items" onkeypress="fnGetItems(event)"></td>
                             <td><input type="text" name="Units" onkeypress="fnGetUnits(event)"></td>
                             <td><input type="text" name="Qty"></td>
                             <td><input type="text" name="UnitPrice"></td>
-                            <td class="position__relative">
+                            <td><input type="text" name="TotalAmount"/></td>
+                            <td>
                                 <input type="text" name="ItemCondition" onkeypress="fnGetItemCondition(event)">
+                            </td>
+                            <td class="position__relative">
+                                <input type="button" value="..." />
                                 <i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>
                             </td>
                         </tr>
+
                     }
 
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5"><h3>Total Amount :</h3></td>
+                        <td><input type="text" disabled="disabled" /></td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
+                    </tr>
+                </tfoot>
+
             </table>
-            <a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>
+         
+            @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
         </div>
         <div class="entrycontent__footer">
-            <div class="footer__upload">
-                <label for="file"> Upload Support Docs</label>
-                <input id="file" type="file" value="Upload Attachment">
+            <div class="footer__labelupperright">
+                <hr>
+                <label> Upload attachement</label> <br>
             </div>
+            <div class="footer__upload">
+                <label class="upload__label" for="file"> Select File</label>
+                <span class="upload__span">No file selected...</span>
+                <button class="upload__button" type="button">Upload</button>
+                <input id="file" type="file" hidden="hidden">
+            </div>
+            <div class="footer__progressbar"></div>
             <div class="footer__save">
-                <button type="submit" class="save__btn">Save</button>
+                <button class="save__buttonright save__btn" type="submit">Save</button>
             </div>
         </div>
     </div>
-
 </form>
 
 
@@ -284,8 +310,9 @@
 
             //FOR SUPPLIER
             var suppliers = [];
-            var supplierURL = '/Data/VendorList';
-
+            var supplierURL = '/Data/VendorList/';
+            var supplierName = '';
+           
             $.getJSON(supplierURL, function (data) {
 
                 //console.log(data);
@@ -293,14 +320,27 @@
                 if (!(data === null || data === '[]')) {
                     for (var i = 0; i < data.length; i++) {
 
-                        var newObj = {};
+                        //console.log(data[i]);
 
-                        newObj.id = data[i].SupplierID;
-                        newObj.value = data[i].SupplierName;
-                        newObj.label = data[i].SupplierName;
+                        supplierName = data[i].VendorSupplier.SupplierName;
 
-                        suppliers.push(newObj);
+                        for (var z = 0; z < data[i].VendorBranch.length; z++) {
+
+                            var branchName = data[i].VendorBranch[z].branchName;
+
+                            var newObj = {};
+
+                            newObj.id = data[i].VendorBranch[z].ID;
+                            newObj.value = supplierName + ' - ' + branchName;
+                            newObj.label = supplierName + ' - ' + branchName;
+
+                            suppliers.push(newObj);
+
+                        }
+
                     }
+
+                    //console.log(suppliers);
 
                     $("input[name=SupplierName]").autocomplete({
                         source: suppliers,

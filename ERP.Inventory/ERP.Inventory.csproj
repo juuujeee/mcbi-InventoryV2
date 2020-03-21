@@ -66,6 +66,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -131,21 +134,27 @@
     <Compile Include="Controllers\ApiHelper\DataController.cs" />
     <Compile Include="Controllers\ApiHelper\LoginController.cs" />
     <Compile Include="Controllers\ApiHelper\UserRoleAccess.cs" />
+    <Compile Include="Controllers\FileUpload.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\ItemMasterlistController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Controllers\StocksController.cs" />
+    <Compile Include="Controllers\StockEntryController.cs" />
+    <Compile Include="Controllers\StockInquiryController.cs" />
+    <Compile Include="Controllers\StockTransferController.cs" />
     <Compile Include="Controllers\UserRoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\VendorList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\accountIndex.css" />
     <Content Include="Content\animate.css" />
+    <Content Include="Content\autocomplete.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\EntryStocks.css" />
     <Content Include="Content\font-awesome.css" />
@@ -162,11 +171,12 @@
     <Content Include="Content\Images\ui-icons_777777_256x240.png" />
     <Content Include="Content\Images\ui-icons_cc0000_256x240.png" />
     <Content Include="Content\Images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\itemMasterList.css" />
     <Content Include="Content\LayoutInventory.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\overlayscrollbar.css" />
     <Content Include="Content\settings.css" />
+    <Content Include="Content\StockInquiry.css" />
     <Content Include="Content\TransferStock.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -177,6 +187,7 @@
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\datepicker.js" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -187,9 +198,9 @@
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\overlayscrollbar.js" />
@@ -222,28 +233,23 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\Index.cshtml" />
     <Content Include="Views\ItemMasterlist\_Create.cshtml" />
-    <Content Include="Views\Stocks\_ReleaseStock.cshtml" />
-    <Content Include="Views\Stocks\_IssuedStock.cshtml" />
-    <Content Include="Views\Stocks\Print\_PrintTransferStock.cshtml" />
-    <Content Include="Views\Stocks\_StockInquiry.cshtml" />
-    <Content Include="Views\Stocks\_StockEntry1.cshtml" />
-    <Content Include="Views\Shared\_LayoutInvMainPage2.cshtml" />
-    <Content Include="Views\Stocks\_TransferStock.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutInvMainPage.cshtml" />
-    <Content Include="Views\Stocks\_StockEntry.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\Advance.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\Item.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\StockEntry\Index.cshtml" />
+    <Content Include="Views\StockTransfer\Index.cshtml" />
+    <Content Include="Views\StockInquiry\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filter\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>

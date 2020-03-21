@@ -7,7 +7,7 @@ $.ajaxSetup({
     }
 });
 
-$('.logout__btn').click(function (e) {
+$('.logout').click(function (e) {
 
     e.preventDefault();
 
@@ -51,137 +51,281 @@ var crud = {
 
 
 //FIT THE CONTAINER OF JQUERY AUTOCOMPLETE IN THE ELEMENT
-$.extend($.ui.autocomplete.prototype.options, {
-    open: function (event, ui) {
-        $(this).autocomplete("widget").css({
-            "width": ($(this).width() + "px")
-        });
-    }
-});
+//$.extend($.ui.autocomplete.prototype.options, {
+//    open: function (event, ui) {
+//        $(this).autocomplete("widget").css({
+//            "width": ($(this).width() + "px")
+//        });
+//    }
+//});
 
 
 //FOR DELIVERY METHOD ONCHANGE
-$('.delMethodID').on('change', function (e) {
 
-    var $this = $(this);
+function DeliveryAttrMethod() {
+    var delMethod = document.getElementsByClassName("delMethodID")[0];
 
-    var attrCounter = 0;
+    delMethod.onchange = function () {
+        var val = this.value;
 
-    //var $delMethodAttributeEl = $('.delMethodAttribute');
-    //$delMethodAttributeEl.html('');
+        var attrCounter = 0;
 
-    var $delContent = $('.delMethod__content');
-    $delContent.find('.delMethod__can__remove').remove();
+        var attr = null;
 
-    var delMethodAttrURL = '/Data/DelMethodAttribute';
+        var removable = document.querySelectorAll(".delMethod__content .delMethod__can__remove");
 
-    $.ajaxSetup({
-        async: false
-    });
+        removable.forEach((item, index) => {
+            item.remove();
+        });
 
-    $.getJSON(delMethodAttrURL, function (delMethodAttribute) {
+        var delMethodAttrURL = '/Data/DelMethodAttribute';
 
-        for (var z = 0; z < delMethodAttribute.length; z++) {
+        JsonRequest(delMethodAttrURL, 'GET', null, function (delMethodAttribute) {
+            //console.log(delMethodAttribute);
 
-            var delAttrContent = '';
+            if (delMethodAttribute.length > 0) {
+                for (var z = 0; z < delMethodAttribute.length; z++) {
 
-            if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
+                    attr = delMethodAttribute[z];
 
-                //delAttrContent += '<div style="display:flex">';
-                delAttrContent += '<div class="content delMethod__can__remove">';
-                delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute.toUpperCase() + '</label>';
+                    var delAttrContent = '';
 
-                if (parseInt($this.val()) === 1) {
-                    if (attrCounter === 2) {
+                    if (delMethodAttribute[z].DelMethodID_010 === parseInt(val)) {
 
-                        $.getJSON('/Data/DelMethodAttrValue', function (response) {
 
-                            //console.log(response);
-                            delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                        delAttrContent += '<div class="content delMethod__can__remove">';
+                        delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute.toUpperCase() + '</label>';
 
-                            for (var x = 0; x < response.length; x++) {
+                        if (parseInt(val) === 1) {
+                            if (attrCounter === 2) {
+                                JsonRequest('/Data/DelMethodAttrValue', 'GET', null, function (response) {
 
-                                if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
+                                    delAttrContent += '<select class="deliveryMethodAttr" data-id="' + attr.ID + '">';
 
-                                    delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
+                                    for (var x = 0; x < response.length; x++) {
 
-                                }
+                                        if (response[x].DelMethodAttrID_008 === attr.ID) {
 
+                                            delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
+
+                                        }
+
+                                    }
+                                    delAttrContent += '</select>';
+                                });
                             }
-                            delAttrContent += '</select>';
-
-                        });
-                    }
-                    else {
-                        delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
-                    }
-
-                }
-
-                if (parseInt($this.val()) === 2) {
-                    if (attrCounter === 0) {
-
-                        $.getJSON('/Data/DelMethodAttrValue', function (response) {
-
-                            delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
-
-                            for (var x = 0; x < response.length; x++) {
-
-                                if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
-
-                                    delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
-
-                                }
-
+                            else {
+                                delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + attr.ID + '">';
                             }
-                            delAttrContent += '</select>';
+                        }
+                        if (parseInt(val) === 2) {
+                            if (attrCounter === 0) {
+                                JsonRequest('/Data/DelMethodAttrValue', 'GET', null, function (response) {
 
-                        });
+                                    delAttrContent += '<select class="deliveryMethodAttr" data-id="' + attr.ID + '">';
+
+                                    for (var x = 0; x < response.length; x++) {
+
+                                        if (response[x].DelMethodAttrID_008 === attr.ID) {
+
+                                            delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
+
+                                        }
+
+                                    }
+                                    delAttrContent += '</select>';
+
+                                });
+                            }
+                            else {
+                                delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + attr.ID + '">';
+                            }
+                        }
+                        if (parseInt(val) === 3) {
+                            delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + attr.ID + '">';
+                        }
+
+                        delAttrContent += '</div>';
+
+                        //Append html Element
+
+                        //console.log(delAttrContent);
+
+                        document.getElementsByClassName("delMethod__content")[0].insertAdjacentHTML('beforeend', delAttrContent);
+
+                        attrCounter++;
                     }
-                    else {
-                        delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
-                    }
-
                 }
-
-                if (parseInt($this.val()) === 3) {
-                    delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
-                    
-                }
-                delAttrContent += '</div>';
-
-                //$delMethodAttributeEl.eq(attrCounter).append(delAttrContent);
-
-                $delContent.append(delAttrContent);
-
-                attrCounter++;
             }
 
-        }
-    });
+        });
 
-    $.ajaxSetup({
-        async: true
-    });
+    };
 
-});
+}
+
+
+//$('.delMethodID').on('change', function (e) {
+
+//    var $this = $(this);
+
+//    var attrCounter = 0;
+
+//    //var $delMethodAttributeEl = $('.delMethodAttribute');
+//    //$delMethodAttributeEl.html('');
+
+//    var $delContent = $('.delMethod__content');
+//    $delContent.find('.delMethod__can__remove').remove();
+
+//    var delMethodAttrURL = '/Data/DelMethodAttribute';
+
+//    $.ajaxSetup({
+//        async: false
+//    });
+
+//    $.getJSON(delMethodAttrURL, function (delMethodAttribute) {
+
+//        for (var z = 0; z < delMethodAttribute.length; z++) {
+
+//            var delAttrContent = '';
+
+//            if (delMethodAttribute[z].DelMethodID_010 === parseInt($this.val())) {
+
+//                //delAttrContent += '<div style="display:flex">';
+//                delAttrContent += '<div class="content delMethod__can__remove">';
+//                delAttrContent += '<label>' + delMethodAttribute[z].MethodAttribute.toUpperCase() + '</label>';
+
+//                if (parseInt($this.val()) === 1) {
+//                    if (attrCounter === 2) {
+
+//                        $.getJSON('/Data/DelMethodAttrValue', function (response) {
+
+//                            //console.log(response);
+//                            delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+
+//                            for (var x = 0; x < response.length; x++) {
+
+//                                if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
+
+//                                    delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
+
+//                                }
+
+//                            }
+//                            delAttrContent += '</select>';
+
+//                        });
+//                    }
+//                    else {
+//                        delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+//                    }
+
+//                }
+
+//                if (parseInt($this.val()) === 2) {
+//                    if (attrCounter === 0) {
+
+//                        $.getJSON('/Data/DelMethodAttrValue', function (response) {
+
+//                            delAttrContent += '<select class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+
+//                            for (var x = 0; x < response.length; x++) {
+
+//                                if (response[x].DelMethodAttrID_008 === delMethodAttribute[z].ID) {
+
+//                                    delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
+
+//                                }
+
+//                            }
+//                            delAttrContent += '</select>';
+
+//                        });
+//                    }
+//                    else {
+//                        delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+//                    }
+
+//                }
+
+//                if (parseInt($this.val()) === 3) {
+//                    delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + delMethodAttribute[z].ID + '">';
+                    
+//                }
+//                delAttrContent += '</div>';
+
+//                //$delMethodAttributeEl.eq(attrCounter).append(delAttrContent);
+
+//                $delContent.append(delAttrContent);
+
+//                attrCounter++;
+//            }
+
+//        }
+//    });
+
+//    $.ajaxSetup({
+//        async: true
+//    });
+
+//});
+
 
 
 
 //FOR ITEMS AUTOCOMPLETE
+var items = [];
+var itemURL = '/Data/ItemsMasterlist';
+
+
+JsonRequest(itemURL, 'GET', null, function (data) {
+
+   // console.log(data);
+
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+
+            var newObj = {};
+
+            if (data[i].ItemFullNameInfo !== null) {
+
+                newObj.id = data[i].ID;
+                newObj.value = data[i].ItemFullNameInfo.Name;
+                newObj.label = data[i].ItemFullNameInfo.Name;
+                newObj.hasAttribute = data[i].Category3.hasAttribute;
+
+                items.push(newObj);
+            }
+
+        }
+    }
+    
+    //finding class and filter it the autocompelete
+    //1. Get input elements for items
+    var itemsList = document.getElementsByClassName('stockitem');
+
+    for (var i = 0; i < itemsList.length; i++) {
+
+
+        autocomplete(itemsList[i], items, true, "id", "value", (el, data) => {
+
+        });
+    }
+    console.log("Hello");
+
+
+});
+
+
 function fnGetItems(event) {
 
     var $this = $(event.target);
-    var items = [];
-    var itemURL = '/Data/ItemsMasterlist';
 
     $this.autocomplete({
         source: items,
         select: function (event, ui) {
 
-            var $this = $(this);
-
-           //console.log(ui.item.hasAttribute);
+            var $this = this;
 
             if (ui.item.hasAttribute) {
                 $('.has__attribute__container').dialog({
@@ -204,10 +348,10 @@ function fnGetItems(event) {
                                 $this.closest('td').append('<span class="item-attribute" data-attribute-id="' + $(this).find('select[name=ItemAttribute]').val() + '" data-attribute-value="' + $(this).find('input[name=Value]').val() + '"></span>');
                             });
 
-                            
+
 
                             $(this).dialog("close");
-                            
+
                         },
                         Cancel: function () {
                             $(this).dialog("close");
@@ -222,38 +366,16 @@ function fnGetItems(event) {
         }
     });
 
-    $.getJSON(itemURL, function (data) {
-
-        if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-
-                console.log(data[i].ItemFullNameInfo.Name);
-
-                var newObj = {};
-
-                if (data[i].ItemFullNameInfo !== null) {
-
-                    newObj.id = data[i].ID;
-                    newObj.value = data[i].ItemFullNameInfo.Name;
-                    newObj.label = data[i].ItemFullNameInfo.Name;
-                    newObj.hasAttribute = data[i].Category3.hasAttribute;
-
-                    items.push(newObj);
-                }
-
-            }
-        }
-
-    });
 }
+
+
+
+
 
 function fnGetItemsByProj(event) {
 
     var $this = $(event.target);
-
     var projectID = $this.parents('.Transcontent').find('input[name=OriginProjectID]').val();
-
-   // console.log(projectID);
 
     if (projectID === null || projectID === '') {
         swal.fire('Warning', 'Select Origin Project', 'warning');
@@ -262,16 +384,6 @@ function fnGetItemsByProj(event) {
 
         var items = [];
         var itemURL = '/Data/ItemsMasterList/ItemsbyProjects/' + projectID;
-
-        $this.autocomplete({
-            source: items,
-            select: function (event, ui) {
-
-                $(this).attr('data-val', ui.item.id);
-                $(this).closest('tr').find('input[name=Units]').val(ui.item.units).attr('data-val', ui.item.unitID);
-                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).attr('data-limit', ui.item.quantity).removeAttr('disabled');
-            }
-        });
 
         $.getJSON(itemURL, function (data) {
 
@@ -290,6 +402,8 @@ function fnGetItemsByProj(event) {
                         if (proj.ProjectID === parseInt(projectID)) {
 
                             qty += proj.Quantity;
+
+                            //console.log(proj.Quantity);
                         }
                     }
 
@@ -310,17 +424,48 @@ function fnGetItemsByProj(event) {
             }
 
         });
+
+
+        $this.autocomplete({
+            source: items,
+            select: function (event, ui) {
+
+                $(this).attr('data-val', ui.item.id);
+                $(this).closest('tr').find('input[name=Units]').val(ui.item.units).attr('data-val', ui.item.unitID);
+                $(this).closest('tr').find('input[name=Qty]').val(ui.item.quantity).attr('data-limit', ui.item.quantity).removeAttr('disabled');
+            }
+        });
+
     }
 
 }
 
 
 //FOR UNITS AUTOCOMPLETE
+var units = [];
+var unitsURL = '/Data/units';
+
+
+JsonRequest(unitsURL, 'GET', null, function (data) {
+
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var obj = {};
+
+            obj.id = data[i].ID;
+            obj.value = data[i].ShortName;
+            obj.label = data[i].ShortName;
+            obj.fullname = data[i].FullName;
+
+            units.push(obj);
+        }
+    }
+
+});
+
 function fnGetUnits(event) {
 
     var $this = $(event.target);
-    var units = [];
-    var unitsURL = '/Data/units';
 
     $this.autocomplete({
         source: units,
@@ -333,42 +478,17 @@ function fnGetUnits(event) {
         }
     });
 
-    $.getJSON(unitsURL, function (data) {
-
-        for (var i = 0; i < data.length; i++) {
-            var obj = {};
-
-            obj.id = data[i].ID;
-            obj.value = data[i].ShortName;
-            obj.label = data[i].ShortName;
-            obj.fullname = data[i].FullName;
-
-            units.push(obj);
-        }
-
-    });
 }
 
 
 // FOR ITEM CONDITION
-function fnGetItemCondition(event) {
+var itemCondition = [];
+var itemConditionURL = '/Data/ItemCondition';
 
-    var $this = $(event.target);
-    var itemCondition = [];
-    var itemConditionURL = '/Data/ItemCondition';
 
-    $this.autocomplete({
-        source: itemCondition,
-        select: function (event, ui) {
+JsonRequest(itemConditionURL, 'GET', null, function (data) {
 
-            var $this = $(this);
-
-            $this.attr('data-val', ui.item.id);
-        }
-    });
-
-    $.getJSON(itemConditionURL, function (data) {
-
+    if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
             var obj = {};
 
@@ -377,6 +497,22 @@ function fnGetItemCondition(event) {
             obj.label = data[i].StatusName;
 
             itemCondition.push(obj);
+        }
+    }
+  
+});
+
+function fnGetItemCondition(event) {
+
+    var $this = $(event.target);
+
+    $this.autocomplete({
+        source: itemCondition,
+        select: function (event, ui) {
+
+            var $this = $(this);
+
+            $this.attr('data-val', ui.item.id);
         }
     });
 }
@@ -480,23 +616,8 @@ $('.sidebar__menu').on('click', function (e) {
 
 $('#mobile-menu-btn').on('click', function (e) {
 
-    var $leftSidebar = $('.left-sidebar');
+    var $leftSidebar = $('.wrapper__leftmenu');
 
-    if ($leftSidebar.hasClass('slideInLeft')) {
-
-        $leftSidebar.removeClass('slideInLeft');
-        $leftSidebar.addClass('slideOutLeft');
-
-        //$leftSidebar.removeClass('mobile-menu-open');
-
-    }
-    else {
-
-        $leftSidebar.removeClass('slideOutLeft');
-        $leftSidebar.addClass('slideInLeft');
-
-        $leftSidebar.addClass('mobile-menu-open');
-    }
-
+    $leftSidebar.toggleClass('open__menu');
 
 });
