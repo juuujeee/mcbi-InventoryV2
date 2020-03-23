@@ -17,9 +17,8 @@
     </div>
 </div>
 
-<form action="#" method="post" name="StockEntryForm" autocomplete="off" onsubmit="fnSaveStockEntry(event)">
+<form action="#" method="post" name="StockEntryForm" autocomplete="off" onkeypress="return NoEnter()" onsubmit="fnSaveStockEntry(event)">
     <input type="hidden" name="ID" value="" />
-
     <div class="entrycontent">
         <div class="entrycontent__entryheadertitle">
             <div class="entryheadertitle__entrylabel">
@@ -147,7 +146,7 @@
                             <tr class="stock__entry__tr" oncontextmenu="return showContextMenu(event)">
                                 <td class="counter">@i</td>
                                 <td class="" style="position: relative"><input type="text" name="Items"></td>
-                                <td style="position:relative"><input type="text" name="Units"></td>
+                                <td style="position:relative"><input type="text" name="Units" readonly></td>
                                 <td><input type="text" name="Qty" class="quantity" onkeypress="return isNumberKey(event)"></td>
                                 <td><input type="text" name="UnitPrice" class="unitPrice" onkeypress="return isNumberKey(event)"></td>
                                 <td class="totalAmount"></td>
@@ -263,6 +262,12 @@
 @section Scripts{
 
     <script>
+
+        function NoEnter() {
+            return !(window.event && window.event.keyCode == 13);
+           
+        }
+
         var contextMenu = document.getElementById('customContextMenu');
         function showContextMenu(event) {
             contextMenu.style.display = 'block';
@@ -588,8 +593,6 @@
 
         /*ITEM ATTRIBUTE*/
         function fnShowItemAttribute(event) {
-            //console.log(event.currentTarget.parentNode.parentNode.querySelector(".counter").textContent);
-
             var modal = document.getElementsByClassName("item__attribute__modal")[0];
 
             modal.style.display = "block";

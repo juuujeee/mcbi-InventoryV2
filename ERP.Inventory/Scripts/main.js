@@ -44,7 +44,7 @@ function UrlRequest() {
     }
 }
 
-function JsonRequest(url, method, data, fn, isJson = true) {
+function JsonRequest(url, method, data, fn, async = true, isJson = true) {
 
     var xmlh = UrlRequest();
     var user = getCookie('UserID');
@@ -77,8 +77,7 @@ function JsonRequest(url, method, data, fn, isJson = true) {
         }
     };
 
-    //console.log(window.location.origin + url);
-    xmlh.open(method, window.location.origin + url, false);
+    xmlh.open(method, window.location.origin + url, async);
     if (isJson)
         xmlh.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
 
@@ -86,7 +85,6 @@ function JsonRequest(url, method, data, fn, isJson = true) {
     xmlh.setRequestHeader('Token', token);
     if (data !== null && data !== undefined) {
 
-        //console.log(JSON.stringify(data));
         if (isJson)
             xmlh.send(JSON.stringify(data));
         else
@@ -109,8 +107,6 @@ function DeliveryAttrMethod() {
     delMethod.onchange = function () {
         var val = this.value;
 
-       // console.log(val);
-
         var attrCounter = 0;
 
         var attr = null;
@@ -125,15 +121,11 @@ function DeliveryAttrMethod() {
 
         JsonRequest(delMethodAttrURL, 'GET', null, function (delMethodAttribute) {
 
-            //console.log(delMethodAttribute);
-
            
             if (delMethodAttribute.length > 0) {
                 for (var z = 0; z < delMethodAttribute.length; z++) {
 
                     attr = delMethodAttribute[z];
-
-                   // console.log(attr);
 
                     var delAttrContent = '';
 
@@ -146,25 +138,20 @@ function DeliveryAttrMethod() {
                             if (attrCounter === 2) {
                                 JsonRequest('/Data/DelMethodAttrValue', 'GET', null, function (response) {
 
-                                    //console.log(response);
-
                                     delAttrContent += '<select class="deliveryMethodAttr" data-id="' + attr.ID + '">';
 
                                     for (var x = 0; x < response.length; x++) {
-                                       //console.log(response[x].DelMethodAttrID_008);
-                                        //console.log("Attr" + attr.ID);
+                                      
                                         if (response[x].DelMethodAttrID_008 === attr.ID) {
 
                                             delAttrContent += '<option value="' + response[x].ID + '">' + response[x].AttrValueName + '</option>';
 
-                                            //console.log("Select Option Here !!!");
                                         }
 
                                     }
                                     delAttrContent += '</select>';
 
-                                    //console.log(delAttrContent);
-                                });
+                                }, false);
                             }
                             else {
                                 delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" class="deliveryMethodAttr" data-id="' + attr.ID + '">';
@@ -187,7 +174,7 @@ function DeliveryAttrMethod() {
                                     }
                                     delAttrContent += '</select>';
 
-                                });
+                                }, false);
                             }
                             else {
                                 delAttrContent += '<input type="text" name="DeliveryMethodAttr[' + attrCounter + ']" value="" class="deliveryMethodAttr" data-id="' + attr.ID + '">';
@@ -200,9 +187,6 @@ function DeliveryAttrMethod() {
                         delAttrContent += '</div>';
 
                         //Append html Element
-
-                        //console.log(delAttrContent);
-
                         document.getElementsByClassName("delMethod__content")[0].insertAdjacentHTML('beforeend', delAttrContent);
 
                         attrCounter++;
@@ -210,7 +194,7 @@ function DeliveryAttrMethod() {
                 }
             }
 
-        });
+        }, false);
 
     };
 
@@ -220,65 +204,104 @@ function DeliveryAttrMethod() {
 /*============================================================================================================================*/
 
 /*GET ITEMS AUTOCOMPLETE*/
-var itemsData = [];
-var itemURL = '/Data/ItemsMasterlist';
-JsonRequest(itemURL, 'GET', null, function (data) {
 
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-
-            var newObj = {};
-
-            if (data[i].ItemFullNameInfo !== null) {
-
-                newObj.ID = data[i].ID;
-                newObj.Value = data[i].ItemFullNameInfo.Name;
-                newObj.hasAttribute = data[i].Category3.hasAttribute;
-
-                itemsData.push(newObj);
-            }
-
-        }
-    }
-
-    var el = document.getElementsByName("Items");
-
-    el.forEach((item, index) => {
-        
-        autocomplete(item, itemsData, true, "ID", "Value", (el, data) => {
-        });
-    });
-
+document.body.addEventListener('click', event => {
+    
+    if (event.target.getAttribute('name') !== 'Items')
+        return;
+    
+    GetItems();
 });
+
+function GetItems() {
+
+    var itemsData = [];
+    var itemURL = '/Data/ItemsMasterlist';
+    JsonRequest(itemURL, 'GET', null, function (data) {
+
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+
+                var newObj = {};
+
+                if (data[i].ItemFullNameInfo !== null) {
+
+                    newObj.ID = data[i].ID;
+                    newObj.Value = data[i].ItemFullNameInfo.Name;
+                    newObj.hasAttribute = data[i].Category3.hasAttribute;
+                    newObj.Units = data[i].Units !== null ? data[i].Units.ShortName : '';
+                    newObj.UnitID = data[i].Units !== null ? data[i].Units.ID : '';
+
+                    itemsData.push(newObj);
+                }
+
+            }
+        }
+
+        var itemEl = document.getElementsByName("Items");
+
+        itemEl.forEach((item, index) => {
+
+            autocomplete(item, itemsData, true, "ID", "Value", (el, data) => { },
+                sel => {
+                    item.parentNode.parentNode.querySelector("input[name='Units']").value = sel.data.Units;
+                    item.parentNode.parentNode.querySelector("input[name='Units']").setAttribute("data-id", sel.data.UnitID);
+
+                    if (index === (item.parentNode.parentNode.parentNode.querySelectorAll("tr").length - 1)) {
+
+                        //Get The Parent Element
+                        let tbody = item.parentNode.parentNode.parentNode;
+                        
+                        //Clone TR Element
+                        let cloneElement = item.parentNode.parentNode.parentNode.querySelector("tr:first-child").cloneNode(true);
+
+                        //Clear Clone Element
+                        cloneElement.querySelectorAll("input[type='text']").forEach((item, index) => {
+                            item.value = '';
+                        });
+                        let countTR = item.parentNode.parentNode.parentNode.querySelectorAll("tr").length;
+                        cloneElement.querySelector("td.counter").textContent = countTR + 1;
+
+                        //Append Clone Element to Table Body
+                        tbody.append(cloneElement);
+
+                    }
+
+                });
+        });
+
+    });
+}
+
 /*END GET ITEMS AUTOCOMPLETE*/
 
 /*===========================================================================================================================*/
 
 /*GET UNITS AUTOCOMPLETE*/
-var unitsData = [];
-var unitsURL = '/Data/units';
-JsonRequest(unitsURL, 'GET', null, function (data) {
+//var unitsData = [];
+//var unitsURL = '/Data/units';
+//JsonRequest(unitsURL, 'GET', null, function (data) {
 
-    if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var obj = {};
+//    if (data.length > 0) {
+//        for (var i = 0; i < data.length; i++) {
+//            var obj = {};
 
-            obj.ID = data[i].ID;
-            obj.Value = data[i].ShortName;
+//            obj.ID = data[i].ID;
+//            obj.Value = data[i].ShortName;
 
-            unitsData.push(obj);
-        }
-    }
+//            unitsData.push(obj);
+//        }
+//    }
 
-    var el = document.getElementsByName("Units");
+//    var el = document.getElementsByName("Units");
 
-    el.forEach((item, index) => {
-        autocomplete(item, unitsData, true, "ID", "Value", (el, data) => {
+//    el.forEach((item, index) => {
+//        autocomplete(item, unitsData, true, "ID", "Value", (el, data) => {
 
-        });
-    });
+//        });
+//    });
 
-});
+//});
 /*END UNITS AUTOCOMPLETE*/
 
 /*================================================================================================================================*/
@@ -324,7 +347,7 @@ function OpenMobileMenu(event) {
 /*LOGOUT BUTTON JS*/
 function Logout(event) {
 
-    console.log(event.target);
+    //console.log(event.target);
 
     event.preventDefault();
 
@@ -341,8 +364,6 @@ function Logout(event) {
 /*SIDEBAR MENU JS*/
 function CollapsedSidebarMenu(event) {
 
-   // console.log(event.target.getAttribute("data-target"));
-
     var attr = event.target.getAttribute("data-target");
 
     if (typeof attr !== typeof undefined && attr !== false) {
@@ -352,8 +373,6 @@ function CollapsedSidebarMenu(event) {
         
         el.classList.toggle("d__none");
 
-        //console.log(event.target.classList.contains("open__menu"));
-
         if (event.target.classList.contains("open__menu")) {
             event.target.classList.remove("open__menu");
         }
@@ -362,17 +381,6 @@ function CollapsedSidebarMenu(event) {
             event.target.classList.add("open__menu");
         }
 
-        //event.target.className = "open__menu";
-
-        //console.log(event.target.className.toggle("open__menu"));
-        
-
-        //if (attr.classList.contains("open__menu")) {
-        //    event.target.classList.remove("open__menu");
-        //}
-        //else {
-        //    document.event.target.classList.add("open__menu");
-        //}
     }
 
 }
