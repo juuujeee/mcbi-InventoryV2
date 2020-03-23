@@ -22,8 +22,7 @@ function setModal() {
 
     // When the user clicks the button, open the modal 
     //console.log($('#' + el + ' .open-dialog').html());
-
-    $('.open-dialog').click(function () {
+    document.getElementsByClassName('open-dialog')[0].onclick =  function () {
     window.modal = document.getElementById("myModal");
         window.modal.style.display = "block";
         var getID = $(this).parents('.content').find('input[type=radio]').val();
@@ -51,7 +50,7 @@ function setModal() {
 
 
 
-    });
+    };
 
     // When the user clicks on <span> (x), close the modal
 
@@ -85,7 +84,7 @@ function actionModal() {
     
     // When the user clicks the button, open the modal 
 
-    $('.open-dialog1').on("click", function () {
+    document.getElementsByClassName('open-dialog1')[0].onclick = function () {
     window.modal = document.getElementById("myModalactions");
         window.modal.style.display = "block";
 
@@ -125,7 +124,7 @@ function actionModal() {
 
 
 
-    });
+    };
 
     // When the user clicks on <span> (x), close the modal
     // Get the <span> element that closes the modal
