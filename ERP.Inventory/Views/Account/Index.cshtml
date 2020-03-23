@@ -15,7 +15,7 @@
             <h1>User List</h1>
         </div>
         <div class="header__button">
-            <button class="new__entry open__modal" id="openModal" type="button">New User</button>
+            <button class="new__entry open__modal" id="openModal" type="button" >New User</button>
             <!--<button class="clear__entry" type="button">Clear</button
     <button class="edit__entry" type="button">Edit</button>>
             <button class="ellipsis__btn" type="button">NEW USER</button>-->
@@ -48,7 +48,7 @@
                             <option>NO</option>
                         </select>
                     </td>
-                    <td><button>/...</button></td>
+                    <td><button onclick="ViewEditUser()">/...</button></td>
                 </tr>
 
             </tbody>
@@ -72,7 +72,12 @@
         <div >
             <div >
                 <div >
-                    <table>
+                    <style>
+                        .user_table td {
+                            vertical-align: text-top;
+                        }
+                    </style>
+                    <table class="user_table" >
                         <thead>
                             <tr>
                                 <th colspan="2">
@@ -86,21 +91,21 @@
                                     <label>Username : </label>
                                 </td>
                                 <td>
-                                    <input />
+                                    <input class="user_username" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Password : </label>
                                 </td>
-                                <td>  <input type="password" /></td>
+                                <td>  <input class="user_password" type="password" /></td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>Mobile No. : </label>
                                 </td>
                                 <td>
-                                    <input />
+                                    <input class="user_mobileno" />
                                 </td>
                             </tr>
                             <tr>
@@ -109,7 +114,7 @@
                                 </td>
                                 <td>
                                     <div class="autocomplete">
-                                        <input />
+                                        <input class="user_info" />
                                     </div>
                                 </td>
                             </tr>
@@ -119,7 +124,7 @@
                                 </td>
                                 <td>
                                     <div class="autocomplete">
-                                        <input />
+                                        <input class="user_role" />
                                     </div>
                                 </td>
                             </tr>
@@ -129,7 +134,7 @@
                                 </td>
                                 <td>
                                     <div class="autocomplete">
-                                        <input />
+                                        <input class="user_level" />
                                     </div>
                                 </td>
                             </tr>
@@ -138,19 +143,54 @@
                                     <label>Active : </label>
                                 </td>
                                 <td>
-                                    <select>
+                                    <select class="user_active">
                                         <option selected> YES </option>
                                         <option>NO</option>
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <td  style="vertical-align:text-top;">
+                                    <label>isCustom : </label>
+                                </td>
+                                <td>
+                                    <select class="user_active" onchange="Toggle(event)" onclick="event.stopPropagation();">
+                                        <option value="YES" > YES </option>
+                                        <option value="NO" selected>NO</option>
+                                    </select>
+                                    <br/>
+                                    <table class="user_roleaccess">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Control Name
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>SAMPLE</td>
+                                                <td>
+                                                    <input type="checkbox" /> INSERT<br />
+                                                    <input type="checkbox" /> UPDATE <br />
+                                                    <input type="checkbox" /> DELETE <br />
+                                                    <input type="checkbox" /> SELECT <br />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                    <button>SAVE</button>
-                </div>
-            </div>
-            <div class="form__content">
+                    <button onclick="SavingUser()">SAVE</button>
+                    <script>
+                        
 
+
+                    </script>
+                </div>
             </div>
         </div>
     </div>
@@ -167,6 +207,8 @@
 
     addBtn.onclick = function () {
         userModal.style.display = "block";
+        document.getElementsByClassName('user_table')[0].setAttribute('data-id', 0);
+
     }
 
     document.getElementById('closeModal').onclick = function () {
@@ -176,6 +218,40 @@
     window.onclick = function (event) {
         console.log(event.target);
     }
+
+
+    function ViewEditUser() {
+        userModal.style.display = "block";
+        document.getElementsByClassName('user_table')[0].setAttribute('data-id', 1);
+    }
+
+
+    function SavingUser() {
+        var userInfo = document.getElementsByClassName('user_table');
+        var getID = userInfo[0].getAttribute('data-id');
+
+        var username = document.getElementsByClassName('user_username')[0].value;
+        var userpass = document.getElementsByClassName('user_password')[0].value;
+        var mobileno = document.getElementsByClassName('user_mobileno')[0].value;
+        var userinfo = document.getElementsByClassName('user_info')[0].getAttribute('data-id');
+        var userrole = document.getElementsByClassName('user_role')[0].getAttribute('data-id');
+        var userlevel = document.getElementsByClassName('user_level')[0].getAttribute('data-id');
+        var useractive = document.getElementsByClassName('user_active').value;
+
+        
+
+    }
+
+    function Toggle(event) {
+
+        var b = event.target.value;
+        //if (b == 'YES') {}
+        console.log(b);
+        event.stopPropagation();
+        //var user_roleaccess = document.getElementsByClassName('user_roleaccess')[0];
+        //user_roleaccess.style.display = (b == 'YES' ? '' : 'none');
+    }
+
 
 </script>    
     
