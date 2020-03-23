@@ -44,7 +44,7 @@ function UrlRequest() {
     }
 }
 
-function JsonRequest(url, method, data, fn, isJson = true) {
+function JsonRequest(url, method, data, fn, isJson = true, isExternal = false) {
 
     var xmlh = UrlRequest();
     var user = getCookie('UserID');
@@ -78,7 +78,14 @@ function JsonRequest(url, method, data, fn, isJson = true) {
     };
 
     //console.log(window.location.origin + url);
-    xmlh.open(method, window.location.origin + url);
+    
+    if (isExternal == false) {
+        url = window.location.origin + url;
+    }
+    
+
+
+    xmlh.open(method, url);
     if (isJson)
         xmlh.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
 
