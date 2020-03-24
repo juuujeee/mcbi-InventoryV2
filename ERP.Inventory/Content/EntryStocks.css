@@ -201,7 +201,7 @@
 .fieldset__content .content input,
 .fieldset__content .content select {
     font-size: .8em;
-    font-family: Lato;
+    /*font-family: Lato;*/
     font-weight: 500;
     padding: 3px;
     box-sizing: border-box;

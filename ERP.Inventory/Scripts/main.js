@@ -256,8 +256,14 @@ function GetItems() {
                         let cloneElement = item.closest("tbody").querySelector("tr:first-child").cloneNode(true);
 
                         //Clear Clone Element
-                        cloneElement.querySelectorAll("input[type='text']").forEach((item, index) => {
-                            item.value = '';
+                        cloneElement.querySelectorAll("input[type='text'], .totalAmount").forEach((item, index) => {
+                             
+                            if (item.value) {
+                                item.value = '';
+                            }
+                            else {
+                                item.textContent = '';
+                            }
                         });
                         let countTR = item.closest("tbody").querySelectorAll("tr").length;
                         cloneElement.querySelector("td.counter").textContent = countTR + 1;

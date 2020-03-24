@@ -171,7 +171,6 @@
                             <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
                         </tr>
                     </tfoot>
-
                 </table>
 
                 @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
@@ -228,20 +227,20 @@
 </div>
 
 @*<div class="custom__context__menu" id="customContextMenu">
-    <div class="remove__stock__entry__wrapper">
-        <div class="header">
-            <h2>Remove Item</h2>
-            <i class="fa fa-close" onclick="return this.closest('#customContextMenu').style='none'"></i>
+        <div class="remove__stock__entry__wrapper">
+            <div class="header">
+                <h2>Remove Item</h2>
+                <i class="fa fa-close" onclick="return this.closest('#customContextMenu').style='none'"></i>
+            </div>
+            <div class="body">
+                <p>Are you sure you want to remove this item?</p>
+            </div>
+            <div class="footer">
+                <button type="button">Remove</button>
+                <button type="button" onclick="return this.closest('#customContextMenu').style='none'">Cancel</button>
+            </div>
         </div>
-        <div class="body">
-            <p>Are you sure you want to remove this item?</p>
-        </div>
-        <div class="footer">
-            <button type="button">Remove</button>
-            <button type="button" onclick="return this.closest('#customContextMenu').style='none'">Cancel</button>
-        </div>
-    </div>
-</div>*@
+    </div>*@
 
 <div id="customContextMenu">
     <ul id="items">
@@ -253,18 +252,18 @@
 
 
 @*<table style="display: none" class="stock__entry__tbody__clone">
-    <tr class="">
-        <td class="counter"></td>
-        <td><input type="text" name="Items"></td>
-        <td><input type="text" name="Units"></td>
-        <td><input type="text" name="Qty"></td>
-        <td><input type="text" name="UnitPrice"></td>
-        <td class="totalAmount"></td>
-        <td class="position__relative">
-            <input type="text" name="ItemCondition">
-        </td>
-    </tr>
-</table>*@
+        <tr class="">
+            <td class="counter"></td>
+            <td><input type="text" name="Items"></td>
+            <td><input type="text" name="Units"></td>
+            <td><input type="text" name="Qty"></td>
+            <td><input type="text" name="UnitPrice"></td>
+            <td class="totalAmount"></td>
+            <td class="position__relative">
+                <input type="text" name="ItemCondition">
+            </td>
+        </tr>
+    </table>*@
 
 
 @section Scripts{
@@ -298,10 +297,10 @@
 
                 });
 
+                GetOverallTotalAmount(document.getElementById("overAllTotalAmount"));
+
             };
 
-            //event.target.closest("tr").remove();
-          
             return false;
         }
 
@@ -510,7 +509,8 @@
             JsonRequest('/Data/NewItemHeaderList', 'POST', DocEntry, function (response) {
 
                 if (response.RetVal === 1) {
-                    swal.fire('Success', response.Message, 'success');
+                    //swal.fire('Success', response.Message, 'success');
+                    alert(response.Message);
 
                     //Disable All and Input and Select Field
                     var tableInputs = document.querySelectorAll(".tableitem__table input");
@@ -577,41 +577,59 @@
         /*===========================NEW ENTRY END============================*/
 
 
-        /*COMPUTE TOTAL PRICE*/
-        var totalAmount = document.getElementsByClassName("totalAmount");
-        var overallTotalPrice = document.getElementById("overAllTotalAmount");
+        document.body.addEventListener('click', event => {
 
-        //onchange qty
-        document.querySelectorAll(".quantity").forEach((item, index) => {
-            item.onchange = function () {
-                if (!(isNaN(item.value))) {
+            //if (event.target.getAttribute('name') !== 'UnitPrice') {
+            //     return;
+            //}
+            
+            ////if (event.target.getAttribute('name') !== 'UnitPrice') {
+            ////    return;
+            ////}
+               
 
-                    var computedPrice = item.value * document.getElementsByClassName("unitPrice")[index].value || 0;
-                    totalAmount[index].innerHTML = computedPrice;
-
-                    GetOverallTotalAmount();
-                }
-            };
+            ComputePricePerRow();
         });
 
+        function ComputePricePerRow() {
+            /*COMPUTE TOTAL PRICE*/
+            var totalAmount = document.getElementsByClassName("totalAmount");
+            var overallTotalPrice = document.getElementById("overAllTotalAmount");
 
-        //onchange unit price
-        document.querySelectorAll(".unitPrice").forEach((item, index) => {
-            item.onchange = function () {
-                if (!(isNaN(item.value))) {
+            //onchange qty
+            document.querySelectorAll(".quantity").forEach((item, index) => {
+                item.onchange = function () {
+                    if (!(isNaN(item.value))) {
 
-                    var computedPrice = item.value * document.getElementsByClassName("quantity")[index].value || 0;
-                    totalAmount[index].innerHTML = computedPrice; //formatMoney(computedPrice);
+                        var computedPrice = item.value * item.closest("tr").querySelector(".unitPrice").value || 0;
 
-                    GetOverallTotalAmount();
+                        item.closest("tr").querySelector(".totalAmount").innerHTML = computedPrice;
 
-                }
-            };
-        });
+                        GetOverallTotalAmount(overallTotalPrice);
+                    }
+                };
+            });
 
+
+            //onchange unit price
+            document.querySelectorAll(".unitPrice").forEach((item, index) => {
+                item.onchange = function () {
+                    if (!(isNaN(item.value))) {
+
+                        var computedPrice = item.value * item.closest("tr").querySelector(".quantity").value || 0;
+
+                        item.closest("tr").querySelector(".totalAmount").innerHTML = computedPrice;
+
+                        GetOverallTotalAmount(overallTotalPrice);
+
+                    }
+                };
+            });
+
+        }
 
         //onchange total amount
-        function GetOverallTotalAmount() {
+        function GetOverallTotalAmount(overallTotalPrice) {
             var amount = 0;
             document.querySelectorAll(".totalAmount").forEach((item, index) => {
 
