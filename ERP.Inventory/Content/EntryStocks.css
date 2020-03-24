@@ -568,6 +568,9 @@
     top: 4px;
 }
 
+input[name=Units]:read-only{
+    pointer-events:none;
+}
 
 
 /*JQUERY VALIDATION*/

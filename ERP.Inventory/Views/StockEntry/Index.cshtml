@@ -321,7 +321,6 @@
         (function () {
             // your page initialization code here
             // the DOM will be available here
-            //Disable All and Input and Select Field
 
             var delMethodEl = document.getElementsByClassName("delMethodID")[0];
             var event = new Event('change');
@@ -649,9 +648,26 @@
 
         /*ITEM ATTRIBUTE*/
         function fnShowItemAttribute(event) {
-            var modal = document.getElementsByClassName("item__attribute__modal")[0];
+            let modal = document.getElementsByClassName("item__attribute__modal")[0];
 
             modal.style.display = "block";
+
+            let itemID = event.target.closest("tr").querySelector("input[name='Items']").getAttribute("data-id") || 0;
+
+            if (itemID > 0) {
+                
+                let itemURL = '/Data/ItemsMasterList/' + itemID;
+
+                JsonRequest(itemURL, 'GET', null, function (data) {
+                    //console.log(data);
+
+                    let attr = data.ItemAttribute;
+
+                    console.log(attr);
+
+                });
+
+            }
 
             modal.querySelector("input[name='ItemName']").value = event.currentTarget.closest("tr").querySelector("input[name='Items']").value;
 
