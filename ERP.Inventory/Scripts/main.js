@@ -244,22 +244,22 @@ function GetItems() {
 
             autocomplete(item, itemsData, true, "ID", "Value", (el, data) => { },
                 sel => {
-                    item.parentNode.parentNode.querySelector("input[name='Units']").value = sel.data.Units;
-                    item.parentNode.parentNode.querySelector("input[name='Units']").setAttribute("data-id", sel.data.UnitID);
+                    item.closest("tr").querySelector("input[name='Units']").value = sel.data.Units;
+                    item.closest("tr").querySelector("input[name='Units']").setAttribute("data-id", sel.data.UnitID);
 
-                    if (index === (item.parentNode.parentNode.parentNode.querySelectorAll("tr").length - 1)) {
+                    if (index === (item.closest("tbody").querySelectorAll("tr").length - 1)) {
 
                         //Get The Parent Element
-                        let tbody = item.parentNode.parentNode.parentNode;
+                        let tbody = item.closest("tbody");
                         
                         //Clone TR Element
-                        let cloneElement = item.parentNode.parentNode.parentNode.querySelector("tr:first-child").cloneNode(true);
+                        let cloneElement = item.closest("tbody").querySelector("tr:first-child").cloneNode(true);
 
                         //Clear Clone Element
                         cloneElement.querySelectorAll("input[type='text']").forEach((item, index) => {
                             item.value = '';
                         });
-                        let countTR = item.parentNode.parentNode.parentNode.querySelectorAll("tr").length;
+                        let countTR = item.closest("tbody").querySelectorAll("tr").length;
                         cloneElement.querySelector("td.counter").textContent = countTR + 1;
 
                         //Append Clone Element to Table Body

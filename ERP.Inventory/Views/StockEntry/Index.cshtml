@@ -212,7 +212,7 @@
             <h2>Item Attribute</h2>
         </div>
         <div class="modal__body">
-            <span class="close" id="closeModal" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">&times;</span>
+            <span class="close" id="closeModal" onclick="this.closest('#modal').style.display = 'none'">&times;</span>
             <div class="modal__body__content">
                 <div class="form__content">
                     <label>Item Name:</label>
@@ -231,32 +231,32 @@
     <div class="remove__stock__entry__wrapper">
         <div class="header">
             <h2>Remove Item</h2>
-            <i class="fa fa-close" onclick="return this.parentNode.parentNode.parentNode.style='none'"></i>
+            <i class="fa fa-close" onclick="return this.closest('#customContextMenu').style='none'"></i>
         </div>
         <div class="body">
             <p>Are you sure you want to remove this item?</p>
         </div>
         <div class="footer">
             <button type="button">Remove</button>
-            <button type="button" onclick="return this.parentNode.parentNode.parentNode.style='none'">Cancel</button>
+            <button type="button" onclick="return this.closest('#customContextMenu').style='none'">Cancel</button>
         </div>
     </div>
 </div>
 
 
 @*<table style="display: none" class="stock__entry__tbody__clone">
-    <tr class="">
-        <td class="counter"></td>
-        <td><input type="text" name="Items"></td>
-        <td><input type="text" name="Units"></td>
-        <td><input type="text" name="Qty"></td>
-        <td><input type="text" name="UnitPrice"></td>
-        <td class="totalAmount"></td>
-        <td class="position__relative">
-            <input type="text" name="ItemCondition">
-        </td>
-    </tr>
-</table>*@
+        <tr class="">
+            <td class="counter"></td>
+            <td><input type="text" name="Items"></td>
+            <td><input type="text" name="Units"></td>
+            <td><input type="text" name="Qty"></td>
+            <td><input type="text" name="UnitPrice"></td>
+            <td class="totalAmount"></td>
+            <td class="position__relative">
+                <input type="text" name="ItemCondition">
+            </td>
+        </tr>
+    </table>*@
 
 
 @section Scripts{
@@ -265,15 +265,15 @@
 
         function NoEnter() {
             return !(window.event && window.event.keyCode == 13);
-           
+
         }
 
         var contextMenu = document.getElementById('customContextMenu');
         function showContextMenu(event) {
             contextMenu.style.display = 'block';
 
-            //event.target.parentNode.parentNode.remove();
-
+            //event.target.closest("tr").remove();
+          
             return false;
         }
 
@@ -309,13 +309,13 @@
 
                 autocomplete(document.getElementById("projectName"), projects, true, "ID", "ProjectName", (el, data) => { },
                     sel => {
-                    document.getElementsByName("ProjectNumber")[0].value = sel.data.ProjectNumber;
-                });
+                        document.getElementsByName("ProjectNumber")[0].value = sel.data.ProjectNumber;
+                    });
 
                 autocomplete(document.getElementById("projectNumber"), projects, true, "ID", "ProjectNumber", (el, data) => { },
                     sel => {
-                    document.getElementsByName("ProjectName")[0].value = sel.data.ProjectName;
-                });
+                        document.getElementsByName("ProjectName")[0].value = sel.data.ProjectName;
+                    });
             });
             /*END PROJECTS*/
 
@@ -347,13 +347,13 @@
 
                 autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => { },
                     sel => {
-                    document.getElementsByName("SupplierID")[0].value = sel.data.SeriesNo;
-                });
+                        document.getElementsByName("SupplierID")[0].value = sel.data.SeriesNo;
+                    });
 
                 autocomplete(document.getElementById("supplierID"), suppliers, true, "ID", "SeriesNo", (el, data) => { },
                     sel => {
-                    document.getElementsByName("SupplierName")[0].value = sel.data.Value;
-                });
+                        document.getElementsByName("SupplierName")[0].value = sel.data.Value;
+                    });
 
             })
             /*END SUPPLIER*/
@@ -597,7 +597,7 @@
 
             modal.style.display = "block";
 
-            modal.querySelector("input[name='ItemName']").value = event.currentTarget.parentNode.parentNode.querySelector("input[name='Items']").value;
+            modal.querySelector("input[name='ItemName']").value = event.currentTarget.closest("tr").querySelector("input[name='Items']").value;
 
         }
 
