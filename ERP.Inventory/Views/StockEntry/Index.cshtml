@@ -227,7 +227,7 @@
     </div>
 </div>
 
-<div class="custom__context__menu" id="customContextMenu">
+@*<div class="custom__context__menu" id="customContextMenu">
     <div class="remove__stock__entry__wrapper">
         <div class="header">
             <h2>Remove Item</h2>
@@ -241,22 +241,30 @@
             <button type="button" onclick="return this.closest('#customContextMenu').style='none'">Cancel</button>
         </div>
     </div>
+</div>*@
+
+<div id="customContextMenu">
+    <ul id="items">
+        <li id="deleteRow">Delete(<small>row</small>)</li>
+        <li>Other Opt</li>
+        <li>Other Opt</li>
+    </ul>
 </div>
 
 
 @*<table style="display: none" class="stock__entry__tbody__clone">
-        <tr class="">
-            <td class="counter"></td>
-            <td><input type="text" name="Items"></td>
-            <td><input type="text" name="Units"></td>
-            <td><input type="text" name="Qty"></td>
-            <td><input type="text" name="UnitPrice"></td>
-            <td class="totalAmount"></td>
-            <td class="position__relative">
-                <input type="text" name="ItemCondition">
-            </td>
-        </tr>
-    </table>*@
+    <tr class="">
+        <td class="counter"></td>
+        <td><input type="text" name="Items"></td>
+        <td><input type="text" name="Units"></td>
+        <td><input type="text" name="Qty"></td>
+        <td><input type="text" name="UnitPrice"></td>
+        <td class="totalAmount"></td>
+        <td class="position__relative">
+            <input type="text" name="ItemCondition">
+        </td>
+    </tr>
+</table>*@
 
 
 @section Scripts{
@@ -268,18 +276,48 @@
 
         }
 
+        window.onclick = hideContextMenu;
+        window.onkeydown = listenKeys;
         var contextMenu = document.getElementById('customContextMenu');
         function showContextMenu(event) {
             contextMenu.style.display = 'block';
+            contextMenu.style.left = event.clientX + 'px';
+            contextMenu.style.top = event.clientY + 'px';
+
+            contextMenu.querySelector("#deleteRow").onclick = function () {
+                event.target.closest("tr").remove();
+
+                var rowCounter = document.querySelectorAll(".stock__entry__tr .counter");
+
+                //console.log(rowCounter);
+
+                rowCounter.forEach((item, index) => {
+                    let count = index + 1;
+
+                    item.textContent = count;
+
+                });
+
+            };
 
             //event.target.closest("tr").remove();
           
             return false;
         }
 
+        function hideContextMenu() {
+            contextMenu.style.display = 'none';
+        }
+
+        function listenKeys(event) {
+            var keyCode = event.which || event.keyCode;
+
+            if (keyCode === 27) {
+                hideContextMenu();
+            }
+        }
 
         DeliveryAttrMethod();
-
 
         (function () {
             // your page initialization code here

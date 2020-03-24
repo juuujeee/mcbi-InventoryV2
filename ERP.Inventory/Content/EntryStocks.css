@@ -711,7 +711,48 @@
 
 /*Remove Stock Entry CSS*/
 
-.custom__context__menu {
+#customContextMenu #items {
+    list-style: none;
+    margin: 0px;
+    margin-top: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+    font-size: 17px;
+    color: #333333; 
+}
+
+#customContextMenu hr {
+    width: 85%;
+    background-color: #E4E4E4;
+    border-color: #E4E4E4;
+    color: #E4E4E4;
+}
+
+#customContextMenu {
+    display: none;
+    position: fixed;
+    border: 1px solid #B2B2B2;
+    width: 150px;
+    background: #F9F9F9;
+    box-shadow: 3px 3px 2px #E9E9E9;
+    border-radius: 4px;
+    z-index: 100;
+}
+
+#customContextMenu #items li {
+    padding: 3px;
+    padding-left: 10px;
+    cursor:default;
+}
+
+#customContextMenu #items :hover {
+    color: white;
+    background: #284570;
+    border-radius: 2px;
+}
+
+/*.custom__context__menu {
     display: none;
     position: fixed;
     width: 100%;
@@ -727,9 +768,7 @@
 .remove__stock__entry__wrapper{
     margin:auto;
     background: #fff;
-    /*border:1px solid gray;*/
     width:35%;
-    /*box-shadow: 0 0 20px 0 #ccc;*/
 }
 .remove__stock__entry__wrapper .header,
 .remove__stock__entry__wrapper .body,
@@ -773,7 +812,9 @@
 }
 .remove__stock__entry__wrapper .footer button:hover {
     background: #cacbcd;
-}
+}*/
+
+
 
 /*@media only screen and (max-width:736px) and (orientation:landscape) {
     
