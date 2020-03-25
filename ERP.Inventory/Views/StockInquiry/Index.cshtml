@@ -9,69 +9,79 @@
 }
 
 <div class="stock__inquiry__wrapper">
-    <div class="stock__inquiry__header">
-        <h1>Stock Inquiry</h1>
-    </div>
-    <fieldset>
-        <legend>Select Parameters</legend>
-        <div class="stock__inquiry__filter">
-            <div>
-                <label>Project Name</label>
-                <input type="text" name="name" value="" />
-            </div>
-            <div>
-                <label>Project No</label>
-                <input type="text" name="name" value="" />
-            </div>
-            <div>
-                <label>Items Category</label>
-                <input type="text" name="name" value="" />
-            </div>
-            <div>
-                <label>Supplier</label>
-                <input type="text" name="name" value="" />
-            </div>
-            <div>
-                <label>Condition</label>
-                <input type="text" name="name" value="" />
-            </div>
-        </div>
-        <div class="stock__inquiry__items">
-            <label>Select Items</label>
-            <input type="text" name="name" value="" />
-        </div>
-    </fieldset>
-   
-    <div class="stock__inquiry__tabletitle">
-        <h1>Item Results</h1>
-    </div>
-    <div class="stock__inquiry__tableitem">
-        <table>
-            <thead>
-                <tr>
-                    <td>NO.</td>
-                    <td>DESCRIPTION</td>
-                    <td>UNITS</td>
-                    <td>QTY</td>
-                    <td>PROJECT</td>
-                    <td>COND</td>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 1; i <= 10; i++)
-                {
-                    <tr>
-                        <td>@i</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                }
 
-            </tbody>
-        </table>
+    <div class="stock__inquiry__header">
+        <div class="inquiry__label">
+            <h1>Stock Inquiry</h1>
+        </div>
+        <div class="inquiry__button">
+            <button class="default__button new__entry" type="button">New</button>
+            <button class="default__button clear__entry" type="button">Clear</button>
+            <button class="default__button edit__entry" type="button">Edit</button>
+            <button class="ell__button" type="button">...</button>
+        </div>
     </div>
-    <div class="stock__inquiry__footer"></div>
+    <div class="stock__inquiry__insideWrapper">
+        <fieldset>
+            <legend>Select Parameters</legend>
+            <div class="stock__inquiry__filter">
+                <div class="filters">
+                    <label>ProjectName</label>
+                    <input type="text" name="ProjectName" value="" />
+                </div>
+                <div class="filters">
+                    <label>Project No</label>
+                    <input type="text" name="ProjectNo" value="" />
+                </div>
+                <div class="filters">
+                    <label>Items Category</label>
+                    <input type="text" name="Category" value="" />
+                </div>
+                <div class="filters">
+                    <label>Supplier</label>
+                    <input type="text" name="Suppliers" value="" />
+                </div>
+                <div class="filters">
+                    <label>Condition</label>
+                    <input type="text" name="ItemCondition" value="" />
+                </div>
+            </div>
+            <div class="stock__inquiry__filters__item">
+                <label>Select Items</label>
+                <input type="text" name="Item" value="" />
+            </div>
+        </fieldset>
+        
+        <div class="stock__inquiry__tabletitle">
+            <h2>Search Results</h2>
+        </div>
+        <div class="stock__inquiry__tableitem">
+            <table>
+                <thead>
+                    <tr>
+                        <td>NO.</td>
+                        <td>DESCRIPTION</td>
+                        <td>UNITS</td>
+                        <td>QTY</td>
+                        <td>PROJECT</td>
+                        <td>COND</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 1; i <= 10; i++)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
 </div>

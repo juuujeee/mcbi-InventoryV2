@@ -5,9 +5,7 @@
 @section Styles{
 
     <link rel="stylesheet" href="~/Content/itemMasterList.css" />
-
 }
-
 
 <form action="#" name="ItemMasterlistForm" onsubmit="fnSaveItemMasterList(event)" method="post" autocomplete="off">
     <div class="item__masterlist">
@@ -18,11 +16,11 @@
             </div>
             <div class="form__content">
                 <label>Name:</label>
-                <input type="text" name="Name" value="" required/>
+                <input type="text" name="Name" value="" required />
             </div>
             <div class="form__content">
                 <label>Code:</label>
-                <input type="text" name="Code" value="" required/>
+                <input type="text" name="Code" value="" required />
             </div>
             <div class="form__content">
                 <label>Tag:</label>
@@ -77,7 +75,7 @@
             HasAttribute(event);
         });
 
-        
+
 
 
         function fnSaveItemMasterList(event) {
@@ -91,7 +89,7 @@
             document.querySelectorAll("input[name=AttributeName]").forEach((item, index) => {
 
                 if (item.checked) {
-                    
+
                     var obj = {
                         ID: 0,
                         Cat3ID_003: 0,

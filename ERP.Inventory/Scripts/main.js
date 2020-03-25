@@ -67,6 +67,7 @@ function JsonRequest(url, method, data, fn, async = true, isJson = true) {
                 if (json.Message === 'Request Invalidated.' || json.Message === 'Search Invalidated.') {
                     //LoginPopUp();
                     //redirect to login page
+                    window.location.href = '/Account/Login';
                 }
                 else
                     fn(json);
@@ -235,6 +236,11 @@ function GetItems() {
                     itemsData.push(newObj);
                 }
 
+                //if (data[i].Category3.hasAttribute) {
+                //    console.log("It has Attribute");
+                //    console.log(data[i].ItemFullNameInfo.Name);
+                //}
+
             }
         }
 
@@ -271,6 +277,15 @@ function GetItems() {
                         //Append Clone Element to Table Body
                         tbody.append(cloneElement);
 
+                    }
+
+                    let pageName = window.location.pathname.split('/').pop();
+                    if (pageName === 'StockEntry') {
+                        
+                        if (sel.data.hasAttribute) {
+                            item.closest("tr").querySelector(".item__attribute__btn").removeAttribute('style');
+                        }
+                        //console.log(sel.data);
                     }
 
                 });
