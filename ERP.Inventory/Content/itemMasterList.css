@@ -1,47 +1,104 @@
-﻿body {
+﻿
+
+.masterlist__wrapper {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    margin: 15px;
+    height: 100%;
+    padding: 0;
+    background: #D8D8D8;
 }
 
-.item__masterlist {
+.masterlist__wrapper .masterlist__header {
+    height: 60px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #404040;
+    color: white;
+    display: grid;
+    grid-template-columns: minmax(400px,auto) 290px;
+}
+
+.masterlist__wrapper .masterlist__header .masterlist__header__label {
+    padding: 10px;
+    display: flex;
+    align-items: flex-end;
+}
+.masterlist__header__label h1 {
+    margin: 0;
+    margin-left: 30px;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.masterlist__wrapper .masterlist__header .masterlist__header__button {
+    padding: 5px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.masterlist__header__button button {
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    height: 30px;
+    background: none;
+    border: 1px solid gray;
+    border-radius: 4px;
+}
+.masterlist__header__button button:hover {
+    background: #707070;
+}
+.masterlist__header__button .default__button {
+    width: 75px;
+}
+.masterlist__header__button .ell__button {
+    width: 30px;
+}
+
+
+.masterlist__insideWrapper {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "content ..";
     grid-row-gap: 15px;
+    padding: 15px;
 }
 
-.item__masterList__wrapper{
-   grid-area: content;
+
+.content__wrapper{
    display:grid;
    grid-template-columns: 100%;
    grid-template-rows: auto;
 }
 
-.item__masterList__wrapper .form__content{
+.content__wrapper .form__content{
     display:grid;
     grid-template-columns: 80px auto;
     grid-gap:15px;
     margin-bottom:15px;
 }
 
-.item__masterList__wrapper .form__content__checkbox{
+.content__wrapper .form__content__checkbox{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 10px;
     grid-template-rows: 100%;
 }
 
-.item__masterList__wrapper .form__content__checkbox .checkbox__content{
+.content__wrapper .form__content__checkbox .checkbox__content{
     display:grid;
     grid-template-columns:25px auto;
     grid-template-rows: 100%;
 }
 
-.item__masterList__wrapper .button__content__footer{
+.content__wrapper .button__content__footer{
     text-align:right;
     padding-top:30px;
 }
 
-.item__masterList__wrapper .button__content__footer button {
+.content__wrapper .button__content__footer button {
     background-color: forestgreen;
     font-size: 1em;
     font-weight: 500;
@@ -54,27 +111,29 @@
     transition: all .3s linear;
 }
 
-.item__masterList__wrapper .button__content__footer button:hover {
+.content__wrapper .button__content__footer button:hover {
     background: #196d19;
 }
 
-.item__masterList__wrapper .form__content__attribute {
-    margin-top: 15px;
-    display:grid;
-    grid-template-rows:auto;
-    grid-template-columns: 100%;
+.content__attribute__wrapper {
+    display: flex;
+    flex-direction:column;
+    margin-left: 60px;
+    margin-right: 60px;
 }
-.item__masterList__wrapper .form__content__attribute hr {
-    width:100%;
-    border-top: 1px solid e2e2e2;
+
+.content__attribute__wrapper label{
+    margin-bottom: 15px;
+    text-transform:uppercase;
 }
-.item__masterList__wrapper .form__content__attribute .content__attribute {
+
+.content__attribute__wrapper .content__attribute {
     display:grid;
     grid-template-rows:auto;
     grid-template-columns: 1fr 1fr;
     grid-row-gap: 10px;
 }
-.item__masterList__wrapper .form__content__attribute .content__attribute .content {
+.content__attribute__wrapper .content__attribute .content {
     display:grid;
     grid-template-rows: 100%;
     grid-template-columns: 30px auto;
@@ -82,8 +141,8 @@
 }
 
 /*FORM INPUTS*/
-.item__masterList__wrapper input,
-.item__masterList__wrapper select {
+.content__wrapper input,
+.content__wrapper select {
     font-size: .9em;
     font-family: Lato;
     font-weight: 500;
@@ -95,7 +154,7 @@
     line-height: 23px;
 }
 
-.item__masterList__wrapper select{
+.content__wrapper select{
     font-size: .9em;
 }
 

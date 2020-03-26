@@ -7,58 +7,71 @@
     <link rel="stylesheet" href="~/Content/itemMasterList.css" />
 }
 
-<form action="#" name="ItemMasterlistForm" onsubmit="fnSaveItemMasterList(event)" method="post" autocomplete="off">
-    <div class="item__masterlist">
-        <div class="item__masterList__wrapper">
-            <div class="form__content">
-                <label>Category:</label>
-                <select class="category2__wrapper" name="Category2"></select>
+
+<div class="masterlist__wrapper">
+    <form action="#" name="ItemMasterlistForm" onsubmit="fnSaveItemMasterList(event)" method="post" autocomplete="off">
+
+        <div class="masterlist__header">
+            <div class="masterlist__header__label">
+                <h1>Add Item Masterlist</h1>
             </div>
-            <div class="form__content">
-                <label>Name:</label>
-                <input type="text" name="Name" value="" required />
+            <div class="masterlist__header__button">
+                <button class="default__button edit__entry" type="submit">Save</button>
+                <button class="default__button new__entry" type="button">New</button>
+                <button class="default__button clear__entry" type="button">Clear</button>
+                <button class="ell__button" type="button">...</button>
             </div>
-            <div class="form__content">
-                <label>Code:</label>
-                <input type="text" name="Code" value="" required />
-            </div>
-            <div class="form__content">
-                <label>Tag:</label>
-                <input type="text" name="Tag" class="" value="" />
-            </div>
-            <div class="form__content__checkbox">
-                <div class="checkbox__content">
-                    <input type="checkbox" name="HasAccountability" value="" />
-                    <label>Has Accountability</label>
+        </div>
+        <div class="masterlist__insideWrapper">
+
+            <div class="content__wrapper">
+                <div class="form__content">
+                    <label>Category:</label>
+                    <select class="category2__wrapper" name="Category2"></select>
                 </div>
-                <div class="checkbox__content">
-                    <input type="radio" name="Attribute" id="has__attribute" value="" />
-                    <label>Has Attribute</label>
+                <div class="form__content">
+                    <label>Name:</label>
+                    <input type="text" name="Name" value="" required />
                 </div>
-                <div class="checkbox__content">
-                    <input type="radio" name="Attribute" id="no__attribute" value="" />
-                    <label>No Attribute</label>
+                <div class="form__content">
+                    <label>Code:</label>
+                    <input type="text" name="Code" value="" required />
+                </div>
+                <div class="form__content">
+                    <label>Tag:</label>
+                    <input type="text" name="Tag" class="" value="" />
+                </div>
+                <div class="form__content__checkbox">
+                    <div class="checkbox__content">
+                        <input type="checkbox" name="HasAccountability" value="" />
+                        <label>Has Accountability</label>
+                    </div>
+                    <div class="checkbox__content">
+                        <input type="radio" name="Attribute" id="has__attribute" value="" />
+                        <label>Has Attribute</label>
+                    </div>
+                    <div class="checkbox__content">
+                        <input type="radio" name="Attribute" id="no__attribute" value="" />
+                        <label>No Attribute</label>
+                    </div>
                 </div>
             </div>
-            <div class="form__content__attribute" id="attribute__name__wrapper" style="display:none">
-                <hr />
-                <label>Attribute: </label>
+            <div class="content__attribute__wrapper" id="attribute__name__wrapper" style="display:none">
+                <label>Select Default Attribute: </label>
                 <div class="content__attribute">
 
                 </div>
             </div>
-            <div class="button__content__footer">
-                <button type="submit">Save</button>
-            </div>
+
         </div>
-    </div>
-</form>
+    </form>
+
+</div>
 
 <div class="content__clone" style="display:none;">
     <input type="checkbox" name="AttributeName" value="" />
     <label></label>
 </div>
-
 
 
 @section Scripts{
@@ -74,10 +87,7 @@
 
             HasAttribute(event);
         });
-
-
-
-
+        0
         function fnSaveItemMasterList(event) {
 
             event.preventDefault();
