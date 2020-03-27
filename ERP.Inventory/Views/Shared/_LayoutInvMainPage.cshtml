@@ -74,15 +74,16 @@
                                     Stock Inquiry
                                 </a>
                             </li>
-                            <li class="" style="cursor: no-drop">
-                                <a style="position:relative; pointer-events:none" href="javascript:void(0)" data-target="#stockDataSubMenu" class="sidebar__menu sub__menu">
+                            <li class="" @*style="cursor: no-drop"*@>
+                                @**@
+                                <a style="position:relative;" href="javascript:void(0)" onclick="CollapsedSidebarMenu(event)" data-target="#stockDataSubMenu" class="sidebar__menu sub__menu">
                                     <i class="fa fa-angle-right caret" style=""></i>
                                     <i class="fa fa-circle fa-fw"></i>
                                     Stock Data
                                 </a>
                                 <ul id="stockDataSubMenu" class="d__none" style="padding-left: 0">
                                     <li class="">
-                                        <a href="#" class="sidebar__menu child__sub__menu">New Item Data</a>
+                                        <a href="@Url.Action("Create", "ItemMasterlist")" class="sidebar__menu child__sub__menu">New Item Data</a>
                                     </li>
                                     <li class="">
                                         <a href="#" class="sidebar__menu child__sub__menu">Update Item Data</a>
@@ -172,10 +173,7 @@
             }
     </style>
 
-
-   
     <script src="~/Scripts/autocomplete.js"></script>
-    <script src="~/Scripts/sweetalert2.all.js"></script>
     <script src="~/Scripts/main.js"></script>
     <script src="~/Scripts/modal.js"></script>
 

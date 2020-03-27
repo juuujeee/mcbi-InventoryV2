@@ -148,6 +148,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeList.cs" />
     <Compile Include="Models\VendorList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -155,7 +156,6 @@
     <Content Include="Content\accountIndex.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\autocomplete.css" />
-    <Content Include="Content\datepicker.css" />
     <Content Include="Content\EntryStocks.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Images\IT_Logo.png" />
@@ -189,7 +189,6 @@
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\custom.js" />
-    <Content Include="Scripts\datepicker.js" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -197,14 +196,9 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery.cookie.js" />
-    <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modal.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\overlayscrollbar.js" />
-    <Content Include="Scripts\sweetalert2.all.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
