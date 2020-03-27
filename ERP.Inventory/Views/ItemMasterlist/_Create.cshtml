@@ -4,105 +4,106 @@
 
 @section Styles{
 
-    <link rel="stylesheet" href="~/Content/itemMasterList.css"/>
-    
+    <link rel="stylesheet" href="~/Content/itemMasterList.css" />
 }
 
 
-<form action="#" name="ItemMasterlistForm" method="post" autocomplete="off">
-    <div class="item__masterlist">
-        <div class="item__masterList__wrapper">
-            <div class="form__content">
-                <label>Category:</label>
-                <select class="category2__wrapper" name="Category2"></select>
+<div class="masterlist__wrapper">
+    <form action="#" name="ItemMasterlistForm" onsubmit="fnSaveItemMasterList(event)" method="post" autocomplete="off">
+
+        <div class="masterlist__header">
+            <div class="masterlist__header__label">
+                <h1>Add Item Masterlist</h1>
             </div>
-            <div class="form__content">
-                <label>Name:</label>
-                <input type="text" name="Name" value="" />
-            </div>
-            <div class="form__content">
-                <label>Code:</label>
-                <input type="text" name="Code" value="" />
-            </div>
-            <div class="form__content">
-                <label>Tag:</label>
-                <input type="text" name="Tag" class="" value="" />
-            </div>
-            <div class="form__content__checkbox">
-                <div class="checkbox__content">
-                    <input type="checkbox" name="HasAccountability" value="" />
-                    <label>Has Accountability</label>
-                </div>
-                <div class="checkbox__content">
-                    <input type="radio" name="Attribute" id="has__attribute" value="" />
-                    <label>Has Attribute</label>
-                </div>
-                <div class="checkbox__content">
-                    <input type="radio" name="Attribute" id="no__attribute" value="" />
-                    <label>No Attribute</label>
-                </div>
-            </div>
-            <div class="form__content__attribute" id="attribute__name__wrapper" style="display:none">
-                <hr />
-                <label>Attribute: </label>
-                <div class="content__attribute">
-                   
-                </div>
-            </div>
-            <div class="button__content__footer">
-                <button type="submit">Save</button>
+            <div class="masterlist__header__button">
+                <button class="default__button edit__entry" type="submit">Save</button>
+                <button class="default__button new__entry" type="button">New</button>
+                <button class="default__button clear__entry" type="button">Clear</button>
+                <button class="ell__button" type="button">...</button>
             </div>
         </div>
-    </div>
-</form>
+        <div class="masterlist__insideWrapper">
+
+            <div class="content__wrapper">
+                <div class="form__content">
+                    <label>Category:</label>
+                    <select class="category2__wrapper" name="Category2"></select>
+                </div>
+                <div class="form__content">
+                    <label>Name:</label>
+                    <input type="text" name="Name" value="" required />
+                </div>
+                <div class="form__content">
+                    <label>Code:</label>
+                    <input type="text" name="Code" value="" required />
+                </div>
+                <div class="form__content">
+                    <label>Tag:</label>
+                    <input type="text" name="Tag" class="" value="" />
+                </div>
+                <div class="form__content__checkbox">
+                    <div class="checkbox__content">
+                        <input type="checkbox" name="HasAccountability" value="" />
+                        <label>Has Accountability</label>
+                    </div>
+                    <div class="checkbox__content">
+                        <input type="radio" name="Attribute" id="has__attribute" value="" />
+                        <label>Has Attribute</label>
+                    </div>
+                    <div class="checkbox__content">
+                        <input type="radio" name="Attribute" id="no__attribute" value="" />
+                        <label>No Attribute</label>
+                    </div>
+                </div>
+            </div>
+            <div class="content__attribute__wrapper" id="attribute__name__wrapper" style="display:none">
+                <label>Select Default Attribute: </label>
+                <div class="content__attribute">
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>
 
 <div class="content__clone" style="display:none;">
-    <div class="content">
-        <input type="checkbox" name="AttributeName" value="" />
-        <label></label>
-    </div>
+    <input type="checkbox" name="AttributeName" value="" />
+    <label></label>
 </div>
 
 
 @section Scripts{
     <script>
 
-        $('form[name=ItemMasterlistForm]').validate({
+        DisplayCategory2();
 
-            rules: {
-                Name: "required",
-                //Code: "required",
-                //Tag: "required"
-            },
-            errorPlacement: function () {
-                return false;
-            },
-            submitHandler: function (form, event) {
-                event.preventDefault();
+        document.body.addEventListener('click', event => {
 
-                fnSaveItemMasterList(form);
+            if (event.target.getAttribute("name") !== "Attribute") {
+                return;
             }
 
+            HasAttribute(event);
         });
-
-        function fnSaveItemMasterList(form) {
+        0
+        function fnSaveItemMasterList(event) {
 
             event.preventDefault();
 
-            var $this = $(form);
+            let el = event.target;
 
             var cat3 = [];
 
-            $this.find('input[name=AttributeName]').each(function () {
+            document.querySelectorAll("input[name=AttributeName]").forEach((item, index) => {
 
-                if ($(this).is(":checked")) {
-
-                    //console.log($(this).val());
+                if (item.checked) {
 
                     var obj = {
                         ID: 0,
                         Cat3ID_003: 0,
-                        AttrId_006: $(this).val(),
+                        AttrId_006: item.value,
                         isRequired: true
                     }
 
@@ -113,106 +114,121 @@
 
             });
 
+
+
             var itemData = {
                 ID: 0,
-                Cat2ID_002: $this.find('select[name=Category2]').val(),
-                Name: $this.find('input[name=Name]').val(),
-                hasAttribute: $this.find('input#has__attribute').is(":checked") ? true : false,
+                Cat2ID_002: el.querySelector('select[name=Category2]').value,
+                Name: el.querySelector('input[name=Name]').value,
+                hasAttribute: el.querySelector('input#has__attribute').checked,
                 Category3Defaults: cat3,
                 ItemsMasterListInfo: {
-                    Code: $this.find('input[name=Code]').val(),
-                    Tag: $this.find('input[name=Tag]').val(),
-                    hasAccountability: $this.find('input[name=HasAccountability]').is(":checked") ? true : false
+                    Code: el.querySelector('input[name=Code]').value,
+                    Tag: el.querySelector('input[name=Tag]').value,
+                    hasAccountability: el.querySelector('input[name=HasAccountability]').checked
                 }
             };
 
-            //console.log(itemData);
+            console.log(itemData);
 
-            $.ajax({
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json"
-                },
-                type: 'post',
-                url: '/Data/ItemFullName',
-                dataType: 'json',
-                data: JSON.stringify(itemData),
-                contentType: "application/json",
-                success: function (response) {
+            return;
 
-                    if (response.RetVal === 1) {
-                        swal.fire('Success', response.Message, 'success');
-                    }
-                    else {
-                        swal.fire('Error', response.Message, 'error');
-                    }
-                },
-                error: function (jqXHR, exception) {
+            JsonRequest('/Data/ItemFullName', 'POST', itemData, function (response) {
 
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
+                if (response.RetVal === 1) {
+                    alert(response.Message);
+                }
+                else {
+                    alert(response.Message);
+                }
+            });
 
-                    swal.fire('Error', msg, 'error');
-                },
-            })
         }
 
-        $('input[name=Attribute]').on('click', function () {
+        function HasAttribute(event) {
+            let attrWrapper = document.getElementById("attribute__name__wrapper");
+            let contentAttr = document.getElementsByClassName("content__attribute")[0];
 
-            if ($(this).attr('id') === 'has__attribute') {
-                $('#attribute__name__wrapper').removeAttr('style');
+            //console.log(event.target);
 
-                $.getJSON('/Data/Attribute/', function (data) {
+            if (event.target.getAttribute('id') === 'has__attribute') {
+                attrWrapper.removeAttribute('style');
+
+                JsonRequest('/Data/Attribute', 'GET', null, function (data) {
+
                     //console.log(data);
 
                     if (data.length > 0) {
 
-                        $('.content__attribute').html('');
+                        contentAttr.innerHTML = '';
 
                         for (var i = 0; i < data.length; i++) {
 
-                            $('.content__clone').find('label').text(data[i].AttributeName);
-                            $('.content__clone').find('input').val(data[i].ID);
+                            let contentClone = document.getElementsByClassName("content__clone")[0].cloneNode(true);
+                            contentClone.querySelector("label").textContent = data[i].AttributeName;
+                            contentClone.querySelector("input").value = data[i].ID;
+                            contentClone.removeAttribute('style');
+                            contentClone.classList.add("content");
 
-                          
-                            $('.content__attribute').append($('.content__clone').html());
+                            contentAttr.append(contentClone);
+
                         }
                     }
                 });
             }
             else {
+                attrWrapper.style.display = 'none';
 
-                $('#attribute__name__wrapper').css({ "display": "none" });
-
-                $('.content__attribute').html('');
+                contentAttr.innerHTML = '';
             }
 
-        });
+        }
 
-        //Category 2
-         $.getJSON('/Data/Category2/', function (data) {
-             //console.log(data);
+        //$('input[name=Attribute]').on('click', function () {
 
-             if (data.length > 0) {
-                 for (var i = 0; i < data.length; i++) {
-                     $('.category2__wrapper').append(new Option(data[i].Name, data[i].ID));
-                 }
-             }
-        });
+        //    if ($(this).attr('id') === 'has__attribute') {
+        //        $('#attribute__name__wrapper').removeAttr('style');
+
+        //        $.getJSON('/Data/Attribute/', function (data) {
+        //            //console.log(data);
+
+        //            if (data.length > 0) {
+
+        //                $('.content__attribute').html('');
+
+        //                for (var i = 0; i < data.length; i++) {
+
+        //                    $('.content__clone').find('label').text(data[i].AttributeName);
+        //                    $('.content__clone').find('input').val(data[i].ID);
+
+
+        //                    $('.content__attribute').append($('.content__clone').html());
+        //                }
+        //            }
+        //        });
+        //    }
+        //    else {
+
+        //        $('#attribute__name__wrapper').css({ "display": "none" });
+
+        //        $('.content__attribute').html('');
+        //    }
+
+        //});
+
+        function DisplayCategory2() {
+            JsonRequest('/Data/Category2/', 'GET', null, function (data) {
+
+                //console.log(data);
+
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        document.getElementsByClassName("category2__wrapper")[0].append(new Option(data[i].Name, data[i].ID));
+                    }
+                }
+            });
+        }
+
 
     </script>
 }

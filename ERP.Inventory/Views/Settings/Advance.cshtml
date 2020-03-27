@@ -33,7 +33,7 @@
                             </span>
                             @*<div>*@
                             <input class="control_data_icb" style="float:right" type="checkbox" name="name" value="" />
-                            <button style="float:right" class="open-dialog"><i class="fa fa-angle-double-right"></i></button>
+                            <button style="float:right" class="open-dialog"><i class="fa fa-angle-double-right open-dialog"></i></button>
                                 
                             @*</div>*@
                         </div>
@@ -148,6 +148,12 @@
         </div>
     </fieldset>
 
+
+
+
+
+
+
     <fieldset class="settings__fieldset" id="fieldset__content__wrapper4">
         <legend class="fieldset__title">ROLE LEVEL DEFAULT</legend>
         <div class="fieldset__table__content rolecontainer">
@@ -231,13 +237,32 @@
     <script src="~/Scripts/modal.js"></script>
     <script>
         window.RoleLevelCount = 0;
-        actionModal();
+        //actionModal();
 
+        //setModal();
+
+
+         // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+
+            //console.log(event.target.classList.contains('open-dialog'));
+
+            if (event.target == window.modal) {
+                window.modal.style.display = "none";
+            }
+
+            if (event.target.classList.contains('open-dialog')) {
+                setModal(event);
+                //console.log("Trigger Modal");
+            }
+
+        }
+/*
         
         //LevelControlAccess Get data by Level ID
         document.onload = function () {
-            $('.dropdown_level_data1').change(function () {
-                var test = $(this).val();
+            document.getElementsByClassName('dropdown_level_data1').onchange = function () {
+                var test = this.value;
                 console.log(test);
 
                 window.testlevel = test;
@@ -248,85 +273,84 @@
                 // sys =  getSysName.Option[getSysName.selectedIndex].value;
                 // var  sys = $( '.systeminfo' ).val();
                 // console.log(sys);
-                $.getJSON('http://192.168.1.100:98/api/rolelevelcontrolaccess/?levelID=' + test + '&systemName=' + sys + '&roleID=' + 0, function (data11) {
+
+                JsonRequest('http://192.168.1.100:98/api/rolelevelcontrolaccess/?levelID=' + test + '&systemName=' + sys + '&roleID=' + 0, 'GET', null, data11 => {
                     for (var x = 0; x < data11.length; x++) {
                         if (data11[x].RoleLevelControlAccess != null) {
                             for (var c = 0; c < data11[x].RoleLevelControlAccess.length; c++) {
                                 console.log(data11[x].RoleLevelControlAccess[c].isAllowed);
 
-                                $('.level_value_check[value=' + data11[x].RoleLevelControlAccess[c].ControlAccessID + ']').attr('checked', data11[x].RoleLevelControlAccess[c].isAllowed);
+                                document.getElementsByClassName('.level_value_check[value=' + data11[x].RoleLevelControlAccess[c].ControlAccessID + ']').setAttribute('checked', data11[x].RoleLevelControlAccess[c].isAllowed);
 
                             }
                         }
                     }
-                });
-            });
+                }, true, true);
 
 
-            $(".control_data_icb").click(function () {
-                $all = $(this);
+                document.getElementsByClassName("control_data_icb").onclick = function () {
+                    all = this;
 
-                var testing = $all.val();
-                console.log(testing);
-            });
-
-
+                    var testing = all.value;
+                    console.log(testing);
+                };
 
 
-               $(".control_data_input").click(function () {
-                //window.ControlAccess for refcontrolaccesslist
-                //window.ActionList for refaccesslist
-
-                //Uncheck all Access
-                $('.ccheck').attr('checked', false);
-
-                $le = $(this);
-                var test = $le.val();
-                window.tester = test;
-                //console.log(test);
 
 
-                var AL = window.ActionList;
-                var CA = window.ControlAccess;
+                document.getElementsByClassName("control_data_input").onclick = function () {
+                    //window.ControlAccess for refcontrolaccesslist
+                    //window.ActionList for refaccesslist
 
-                for (var c1 = 0; c1 < CA.length; c1++) {
-                    var CACI = CA[c1];
-                    if (test == CACI.controlID) {
-                        for (var a1 = 0; a1 < AL.length; a1++) {
-                            var ALAI = AL[a1];
-                            if (ALAI.ID == CACI.accessID) {
-                                //$('.ccheck').attr('checked', CACI.isDeleted.isActive);
-                                //QUERY CHECK THAT HAS A VALUE
-                                $('.ccheck[value=' + CACI.accessID + ']').attr('checked', !CACI.isDeleted);
+                    //Uncheck all Access
+                    document.getElementsByClassName('ccheck').setAttribute('checked', false);
+
+                    le = this;
+                    var test = le.value;
+                    window.tester = test;
+                    //console.log(test);
 
 
+                    var AL = window.ActionList;
+                    var CA = window.ControlAccess;
+
+                    for (var c1 = 0; c1 < CA.length; c1++) {
+                        var CACI = CA[c1];
+                        if (test == CACI.controlID) {
+                            for (var a1 = 0; a1 < AL.length; a1++) {
+                                var ALAI = AL[a1];
+                                if (ALAI.ID == CACI.accessID) {
+                                    //$('.ccheck').attr('checked', CACI.isDeleted.isActive);
+                                    //QUERY CHECK THAT HAS A VALUE
+                                    document.getElementsByClassName('.ccheck[value=' + CACI.accessID + ']').setAttribute('checked', !CACI.isDeleted);
+
+
+                                }
                             }
                         }
                     }
-                }
-            });
-
-        };
-
+                };
+            };
+        }
         
 
 
 
         //Controls get data by ID of radioButton
-        /*
+        *//*
         $(document).on('click', '.control_data_input', function () {
             var ClickRadio = $(this).val();
             window.ControlDataInput = ClickRadio;
             $('.AMA').attr('ControlIDIS', ClickRadio);
         });
-        */
+        *//*
 
         var controlButtons = document.getElementsByClassName('control_data_input');
         for (var i = 0; i < controlButtons.length; i++) {
             controlButtons[i].onclick = function () {
-                var ClickRadio = $(this).val();
+                var ClickRadio = this.value;
                 window.ControlDataInput = ClickRadio;
-                $('.AMA').attr('ControlIDIS', ClickRadio);
+                document.getElementsByClassName('AMA').setAttribute('ControlIDIS', ClickRadio);
             };
         }
 
@@ -361,7 +385,7 @@
 
 
 
-            $.ajax({
+           *//* $.ajax({
                 // contentType: "application/json",
                 type: 'put',
                 dataType: 'json',
@@ -372,7 +396,7 @@
                     //Updating the current Global
                 }
             });
-
+            *//*
         };
 
 
@@ -406,6 +430,7 @@
 
             console.log(urll);
 
+            *//*
             $.ajax({
                 type: 'put',
                 url: urll,
@@ -415,6 +440,7 @@
                     //Updating the current Global
                 }
             });
+            *//*
 
         };
 
@@ -432,7 +458,7 @@
             console.log(getlevel);
 
             var getunc = '';
-            var ele = document.querySelectorAll('.levelrows .level_value_check'); // document.getElementsByClassName('level_value_check');
+            var ele = document.querySelectorAll('levelrows .level_value_check'); // document.getElementsByClassName('level_value_check');
 
             for (var x = 0; x < ele.length; x++) {
                 
@@ -450,7 +476,7 @@
             var urlurl = 'http://192.168.1.100:98/api/RoleLevelControlAccess/Toggle/' + '0' + '?levelID=' + getlevel + '&roleID=' + '0';
 
 
-            $.ajax({
+            *//*$.ajax({
                 type: 'put',
                 url: urlurl,
                 data: '"'+getunc+'"',
@@ -459,7 +485,7 @@
                     //Updating the current Global
                 }
 
-            });
+            });*//*
         };
 
 
@@ -488,26 +514,26 @@
                     getIDs += elements[i].value;
                 }
             }
-            /*
+            *//*
             $('.ccheck:unchecked').each(function () {
                 if (getIDs1 != '')
                     getIDs1 += ',';
                 getIDs1 += $(this).val();
-            });*/
+            });*//*
 
             //POST THIS TO CONTROLACCESSLIST
 
-            /*var jsonData = {
+            *//*var jsonData = {
                 ID: 0,
                 controlID: getcontrolid,
                 accessID: getIDs,
-            }*/
+            }*//*
             console.log('"'+getIDs+'"');
 
 
             var refControlListURL2 = 'http://192.168.1.100:98/api/RefControlAccessList/Toggle/' + getcontrolid;
 
-            $.ajax({
+           *//* $.ajax({
                 type: 'put',
                 url: refControlListURL2,
                 data: '"'+getIDs+'"',
@@ -515,7 +541,7 @@
                     window.location.reload();
                     //Updating the current Global
                 }
-            });
+            });*//*
         };
 
 
@@ -531,21 +557,22 @@
 
             e.preventDefault();
 
-            var $el = $(this);
+            var el = this;
+            console.log(el);
 
-            var ActionAct = $el.parents('.modal').find('.Action_Action').val();
-            var ActionTittle = $el.parents('.modal').find('.Action_Tittle').val();
-            var ActionDes = $el.parents('.modal').find('.Action_Des').val();
-            var ActionCustomEl = $el.parents('.modal').find('.Action_CustomEl').val();
-            var CheckDisable = $el.parents('.modal').find('.CheckDisable').val();
+            var ActionAct = el.parents('.modal').querySelector('.Action_Action').value;
+            var ActionTittle = el.parents('.modal').querySelector('.Action_Tittle').value;
+            var ActionDes = el.parents('.modal').querySelector('.Action_Des').value;
+            var ActionCustomEl = el.parents('.modal').querySelector('.Action_CustomEl').value;
+            var CheckDisable = el.parents('.modal').querySelector('.CheckDisable').value;
 
 
             //console.log(ctrlName);
             //console.log(ctrlDescription);
 
             //var x1 = $('.controlclone').find('input').val(data1[x].ID);
-            var IDdata = $el.parents('#myModalactions').attr('data_id_actions');
-            var DIControl = $el.parents('#myModalactions').attr('ControlID');
+            var IDdata = el.parents('#myModalactions').setAttribute('data_id_actions');
+            var DIControl = el.parents('#myModalactions').setAttribute('ControlID');
 
             //console.log(DIControl);
             //console.log(IDdata);
@@ -571,9 +598,10 @@
 
             //console.log(jsonData1);
 
-            /*SAVING ITEMS HERE TO API */
+            *//*SAVING ITEMS HERE TO API *//*
 
             var refControlListURL2 = 'http://192.168.1.100:98/api/RefControlAccessList/' + IDdata;
+            *//*
             $.ajax({
                 type: 'put',
                 dataType: 'json',
@@ -605,59 +633,62 @@
 
                 }
             });
+            *//*
             modalClose();
         };
 
 
-
+    */
 
 
         //--------------------------------------Add Actions--------------------------------------
         //Add Actions for AMA
         document.getElementsByClassName('save_access')[0].onclick = function () {
 
-            var $ral = $(this);
+            var ral = this;
 
-            var accessName = $ral.parents('.butang1').find('input').val();
+            var accessName = ral.closest('.butang1').querySelector('input').value;
 
             var jsonData1 = {
-            ID: 0,
-            controlID: 0,
-            accessID: 0,
-            controlAccessDisplayTitle: '',
-            controlAccessDescription: '',
-            customElement: '',
-            isHideifDisabled: false,
-            Action: accessName
+                ID: 0,
+                controlID: 0,
+                accessID: 0,
+                controlAccessDisplayTitle: '',
+                controlAccessDescription: '',
+                customElement: '',
+                isHideifDisabled: false,
+                Action: accessName
             }
+            
+            //var refaccessURL = 'http://192.168.1.100:98/api/RefControlAccessList';
 
-            //console.log(jsonData1);
-
-            var refaccessURL = 'http://192.168.1.100:98/api/RefControlAccessList';
-
-            $.ajax({
+            /*$.ajax({
                 type: 'post',
                 dataType: 'json',
                 url: refaccessURL,
                 data: JSON.stringify(jsonData1),
-                success: function (data) {
-                    //console.log(data);
+                success: function (data) {*/
 
-                    //console.log(jsonData1);
+            JsonRequest('http://192.168.1.100:98/api/RefControlAccessList', 'POST', jsonData1, data => {
+                console.log('awts');
+            }, true, true);
+            return;
+                    document.getElementsByClassName('.actions_clone')[0].querySelector('actions_data').textContent = accessName;
 
-                    $('.actions_clone').find('.actions_data').text(accessName);
+            let content = document.createElement("div");
+            content.setAttribute("class", "content");
+            content.innerHTML = document.document.getElementsByClassName('actions_clone')[0].innerHTML;
 
-                    $('.actions_container').append('<div class="content">' + $('.actions_clone').html() + '</div>');
+            document.getElementsByClassName('actions_container')[0].appendChild(content);
+                    //document.getElementsByClassName('.actions_container')[0].append('<div class="content">' + document.getElementsByClassName('actions_clone').innerHTML() + '</div>');
 
-                    $ral.parents('.butang1').find('input').val('');
+                    ral.closest('.butang1').querySelector('input').value = '';
 
-                }
-            });
         };
 
 
 
-
+    
 
 
 
@@ -666,17 +697,13 @@
 
             e.preventDefault();
 
-            var $el = $(this);
+            var el = this;
 
-            var ctrlName = $el.parents('.modal').find('.control-modal-display-title').val();
-            var ctrlDescription = $el.parents('.modal').find('.control-modal-display-description').val();
+            var ctrlName = el.closest('.modal').querySelector('.control-modal-display-title').value;
+            var ctrlDescription = el.closest('.modal').querySelector('.control-modal-display-description').value;
 
 
-            
-            var IDdata = $el.parents('#myModal').attr('data-id');
-
-            //console.log(IDdata);
-
+            var IDdata = el.closest('#myModal').getAttribute('data-id');
 
 
             var jsonData = {
@@ -695,19 +722,19 @@
                 }
             }
 
-            //console.log(jsonData);
-
             /*SAVING ITEMS HERE TO API */
 
-            var refControlListURL2 = 'http://192.168.1.100:98/api/refcontrollist/' + IDdata;
-            $.ajax({
+            //var refControlListURL2 = 'http://192.168.1.100:98/api/refcontrollist/' + IDdata;
+
+            
+            /*$.ajax({
                 type: 'put',
                 dataType: 'json',
                 url: refControlListURL2,
                 data: JSON.stringify(jsonData),
-                success: function (data) {
-                    //console.log(data);
-
+                success: function (data) {*/
+            //console.log(data);
+            JsonRequest('http://192.168.1.100:98/api/refcontrollist/' + IDdata, 'PUT', jsonData, data => {
                     //Updating the current Global
                     for (var i = 0; i < window.ControlList.length; i++) {
                         var ss = window.ControlList[i];
@@ -717,26 +744,32 @@
                         }
 
                     }
+            }, true, true);
+            return;
+
+                    
 
 
                     //console.log(jsonData);
 
 
 
-                }
-            });
+                /*}
+            });*/
+            
 
         };
 
 
-
+    
 
         //--------------------------------------ADD Control--------------------------------------
         document.getElementsByClassName('save_control')[0].onclick = function () {
 
-            var $el = $(this);
+            var el = this;
 
-            var ctrlName = $el.parents('.butang').find('input').val();
+            var ctrlName = document.getElementsByClassName('butang')[0].querySelector('input').value;
+
 
             var jsonData = {
                 ID: 0,
@@ -754,27 +787,31 @@
                 }
             }
 
+            //var refControlListURL = 'http://192.168.1.100:98/api/refcontrollist';
 
-            var refControlListURL = 'http://192.168.1.100:98/api/refcontrollist';
-
-            $.ajax({
+            
+            /*$.ajax({
                 type: 'post',
                 dataType: 'json',
                 url: refControlListURL,
                 data: JSON.stringify(jsonData),
-                success: function (data) {
-                    //console.log(data);
+                success: function (data) {*/
+            JsonRequest('http://192.168.1.100:98/api/refcontrollist', 'POST', jsonData, data => {
 
 
-                    $('.controlclone').find('.controller_data').text(ctrlName);
+                document.getElementsByClassName('controlclone')[0].querySelector('.controller_data').textContent = ctrlName;
 
-                    $('.controlcontainer').append('<div class="content">' + $('.controlclone').html() + '</div>');
+                let content = document.createElement("div");
+                content.setAttribute("class", "content");
+                content.innerHTML = document.getElementsByClassName('controlclone')[0].innerHTML;
 
-                    $el.parents('.butang').find('input').val('');
+                document.getElementsByClassName('controlcontainer')[0].appendChild(content);
 
-                }
-            });
+                //document.getElementsByClassName('controlcontainer').append('<div class="content">' + document.getElementsByClassName('controlclone').innerHTML() + '</div>');
 
+                document.getElementsByClassName('butang')[0].querySelector('input').value = '';
+
+            }, true, true);
         };
 
 
@@ -782,8 +819,12 @@
 
 
 
-        
-        //$('.privilege__clone').find('input').attr('checked', data3[v].RoleLevelControlAccess[t].isAllowed);
+
+
+
+
+
+
 
 
 
@@ -792,8 +833,7 @@
         JsonRequest('http://192.168.1.100:98/api/refsystem', 'GET', null, data => {
 
             for (var i = 0; i < data.length; i++) {
-                $('.system_data').append(new Option(data[i].SystemTitle, data[i].SystemName));
-
+                document.getElementsByClassName('system_data')[0].append(new Option(data[i].SystemTitle, data[i].SystemName));
             }
         }, true, true);
 
@@ -803,11 +843,11 @@
             
             for (var a = 0; a < data5.length; a++) {
                 //console.log(data5[a]);
-                $('.dropdown_level_data').append(new Option(data5[a].Level, data5[a].ID));
-                $('.dropdown_level_data1').append(new Option(data5[a].Level, data5[a].ID));
+                document.getElementsByClassName('dropdown_level_data')[0].append(new Option(data5[a].Level, data5[a].ID));
+                document.getElementsByClassName('dropdown_level_data1')[0].append(new Option(data5[a].Level, data5[a].ID));
                 
             }
-            LevelLoaded();
+           LevelLoaded();
 
         }, true, true)
 
@@ -818,7 +858,7 @@
         JsonRequest('http://192.168.1.100:98/api/refroleslist', 'GET', null, data7 => {
 
             for (var d = 0; d < data7.length; d++) {
-                $('.dropdown_role_data').append(new Option(data7[d].RoleName, data7[d].ID));
+                document.getElementsByClassName('dropdown_role_data')[0].append(new Option(data7[d].RoleName, data7[d].ID));
 
             }
         }, true, true)
@@ -839,31 +879,53 @@
         JsonRequest('http://192.168.1.100:98/api/refcontrollist', 'GET', null, data1 => {
 
             //SET THE GLOBAL
-            //console.log(jsonData);
             window.ControlList = data1;
 
-
             for (var x = 0; x < data1.length; x++) {
-                //console.log(data1[x]);
+
+                //console.log(data1[x].ID);
 
                 //CLONE CONTROL HERE
-                var clone = $('.controlclone');
+                var clone = document.getElementsByClassName('controlclone')[0];
 
                 //MODIFY
-                clone.find('.controller_data').html(data1[x].controlName);
+                clone.querySelector('.controller_data').textContent = data1[x].controlName;
 
-                var x1 = $('.controlclone').find('input').val(data1[x].ID);
-                var x2 = $('.control_data_icb[value=' + data1[x].ID + ']').attr('checked', data1[x].allowControl);
+                var x1 = clone.querySelector('.control_data_input').value = data1[x].ID;
+                var x1 = clone.querySelector('.control_data_icb').value = data1[x].ID;
+
+                //console.log(x1);
+
+                //if(data1[x].ID == )
+                //var x2 = document.querySelector('.control_data_icb[value=' + data1[x].ID + ']').setAttribute('checked', data1[x].allowControl);
+
+                var controldata = document.querySelector('.control_data_icb').value;
+
+                for (var i = 0; i < controldata.length; i++) {
+
+                    if (controldata[i].value == data1[x].ID) {
+                        controldata[i].setAttribute('checked', data1[x].allowControl);
+                    }
+
+                }
 
                 window.ControlID = x1;
-                //var IDdata = $el.parents('#myModalactions').attr('data_id_actions');
                 
-
+                /*var element =  document.createElement("DIV");
+                element.addClass = 'content';
+                element.innerHTML = clone.innerHTML;*/
                 //APPEND HERE
-                $('.controlcontainer').append('<div class="content">' + clone.html() + '</div>');
-            }
-            setModal();
 
+                let content = document.createElement("div");
+                content.setAttribute("class", "content");
+                content.innerHTML = clone.innerHTML;
+
+                //console.log(content);
+
+                document.getElementsByClassName('controlcontainer')[0].appendChild(content);
+                /*document.querySelector('.controlcontainer').appendChild(element);*/
+            }
+            
         }, true, true)
 
 
@@ -879,13 +941,22 @@
 
                 window.ActionList = data2;
 
-                var cloneactions = $('.actions_clone')
+                var cloneactions = document.getElementsByClassName('actions_clone')[0].cloneNode(true);
 
-                cloneactions.find('.actions_data').html(data2[z].Action2);
+                var a = cloneactions.getElementsByClassName('actions_data')[0].append(data2[z].Action2);
+                //console.log(a);
+               // var x1 = document.getElementsByClassName('actions_clone').querySelector('input').value = data2[z].ID;
 
-                var x1 = $('.actions_clone').find('input').val(data2[z].ID);
+                //console.log(x1);
 
-                $('.actions_container').append('<div class="content">' + cloneactions.html() + '</div>')
+                //JQuery code 
+                //document.getElementsByClassName('actions_container').append('<div class="content">' + cloneactions.innerHTML() + '</div>')
+                //convert to JavaScript
+                let content = document.createElement("div");
+                content.setAttribute("class", "content");
+                content.innerHTML = cloneactions.innerHTML;
+
+                document.getElementsByClassName('actions_container')[0].appendChild(content);
             }
             actionModal();
         }, true, true)
@@ -919,29 +990,48 @@
                 //console.log(window.idid);
 
                 //CLONE CONTROL HERE
-                var clonecontrols = $('.level_clone');
+                var clonecontrols = document.getElementsByClassName('level_clone')[0].cloneNode(true);
                 //clear
-                clonecontrols.find('.privilege__wrapper .priviledge').remove();
+                clonecontrols.querySelector('.privilege__wrapper').innerHTML = '';
                 //MODIFY
-                clonecontrols.find('.level_data').html(data3[v].controlName);
-                clonecontrols.find('.level_data').attr('data_data', data3[v].ID);
+                clonecontrols.getElementsByClassName('level_data')[0].append(data3[v].controlName);
+                clonecontrols.getElementsByClassName('level_data')[0].setAttribute('data_data', data3[v].ID);
+
                 if (data3[v].RoleLevelControlAccess != null) {
                     for (var t = 0; t < data3[v].RoleLevelControlAccess.length; t++) {
 
-                        $('.privilege__clone').find('span').text(data3[v].RoleLevelControlAccess[t].ControlAccessDisplayTitle);
-                        $('.privilege__clone').find('input').val(data3[v].RoleLevelControlAccess[t].ControlAccessID);
-                        $('.privilege__clone').find('input').attr('checked', data3[v].RoleLevelControlAccess[t].isAllowed);
+                        var cc = document.getElementsByClassName('privilege__clone')[0].cloneNode(true);
 
-                        // console.log(data3[v].RoleLevelControlAccess[t].ControlAccessDiplayTitle);
-                        
-                        clonecontrols.find('.privilege__wrapper').append('<div class="priviledge">' + $('.privilege__clone').html() + '</div>');
+                        //console.log(data3[v].RoleLevelControlAccess[t]);
+
+                        //console.log(cc);
+                        cc.removeAttribute('style');
+                        cc.querySelector('span').textContent = data3[v].RoleLevelControlAccess[t].ControlAccessDisplayTitle;
+                        cc.querySelector('input').value = data3[v].RoleLevelControlAccess[t].ControlAccessID;
+
+
+                        clonecontrols.querySelector(".privilege__wrapper").append(cc);
+
+
+                        //FOR DISPLAYING
+                        if (data3[v].RoleLevelControlAccess[t].isAllowed)
+                            cc.querySelector('input').setAttribute('checked', data3[v].RoleLevelControlAccess[t].isAllowed);
+
+                        //clonecontrols.querySelector('.privilege__wrapper').append('<div class="priviledge">' + document.getElementsByClassName('privilege__clone').innerHTML() + '</div>');
                     }
                 }
+                //console.log(clonecontrols);
+
+                let content1 = document.createElement("tr");
+                content1.setAttribute("class", "levelrows");
+                content1.innerHTML = clonecontrols.innerHTML;
+
+                document.getElementsByClassName('level_container')[0].appendChild(content1);
 
                 //APPEND HERE
-                $('.level_container').append('<tr class="levelrows">' +clonecontrols.html() + '</tr>');
+                //document.getElementsByClassName('level_container').append('<tr class="levelrows">' + clonecontrols.innerHTML() + '</tr>');
             }
-            $('.levelrows .privilege__clone').remove();
+            document.getElementsByClassName('privilege__clone')[0].innerHTML = '';
         }, true, true)
 
         
@@ -960,22 +1050,92 @@
                     //console.log(data6[b]);
 
                     //CLONE CONTROL HERE
-                    var clonerole = $('.roleclone');
+                    //var clonerole = $('.');
+                    var clonerole = document.querySelector(".roleclone");
+
+                    //console.log(clonerole);
 
                     //MODIFY
-                    clonerole.find('.role_data').html(data6[b].RoleName);
-                    clonerole.find('.role_data').attr('data_id_level', data6[b].ID)
-                    clonerole.find('.dropdown_level_data').attr('data-roleid', data6[b].ID);
+                    clonerole.querySelector('.role_data').textContent = data6[b].RoleName;
+                    clonerole.querySelector('.role_data').setAttribute('data_id_level', data6[b].ID)
+                    clonerole.querySelector('.dropdown_level_data').setAttribute('data-roleid', data6[b].ID);
+
                     //clonerole.attr("data-role-id", );
-                    var cc = $('<div>' + clonerole.html() + '</div>');
-                    cc.find('.dropdown_level_data').addClass('roleleveldata');
-                    var p = $('<div class="content" data-role-id="' + data6[b].ID + '">' + cc.html() + '</div>');
+                    //var cc = document.getElementsByClassName('<div>' + clonerole.innerHTML + '</div>');
+
+                    //console.log(clonerole);
+                    /*
+                    let content1 = document.createElement("div");
+                    content1.innerHTML = clonerole.innerHTML;
+                    
+                                        
+                    
+                    cc.querySelector('.dropdown_level_data').classList.add('roleleveldata');
+                    
+                    var a = document.getElementById('#data-role-id').value;
+                    
+                    if (data6[b].ID == a)
+                        //var p = document.append('<div class="content" data-role-id="' + data6[b].ID + '">' + cc.innerHTML + '</div>');
+                        let content = document.createElement("div");
+                    content.setAttribute("class", "content");
+                    content.innerHTML = content1.innerHTML;
                     //APPEND HERE
-                    $('.rolecontainer').append(p);
-                    p.find('.dropdown_level_data').val(data6[b].DefaultLevel);
+                    document.getElementsByClassName('.rolecontainer').append(content);
+                    p.querySelector('.dropdown_level_data').value = data6[b].Defaulx`tLevel;*/
+
+
+                    var a = document.querySelector('.dropdown_level_data').getAttribute('data-roleid');
+                    //console.log(a);
+
+                    let content = document.createElement("div");
+                    content.setAttribute("class", "content");
+                    content.innerHTML = clonerole.innerHTML;
+
+                    //content.querySelector(".dropdown_level_data").options[data6[b].DefaultLevel].selected = true;
+
+                    //console.log();
+
+                    content.querySelectorAll(".dropdown_level_data option").forEach((item, index) => {
+                        //console.log(item);
+                        if (parseInt(item.value) === data6[b].DefaultLevel) {
+                            item.setAttribute("selected", "selected");
+                        }
+                    });
+
+
+                    document.getElementsByClassName('rolecontainer')[0].appendChild(content);
+
+
+                    //console.log(clonerole);
+
+                    //if (data6[b].ID = a) {
+
+                        /*var p = document.getElementsByClassName('dropdown_level_data')[0].cloneNode(true);
+                        p.querySelector('input').value = data6[b].DefaultLevel;
+
+                        clonerole.querySelector('.content').append(p);*/
+
+                        //clonerole.querySelector('.dropdown_level_data').selectedIndex = 5;
+
+                        //console.log(a);
+
+                    //}
+
+
+                  //console.log();
+
                 }
             }, true, true)
         }
+
+
+
+
+
+
+
+
+
 /*
                     $.getJSON('http://192.168.1.100:98/api/refcontrollist', function (data8) {
                         for (var g = 0; g < data8.length; g++) {
@@ -986,7 +1146,12 @@
                         }
                     })
 
-        */
+        
+*/
+
+
+
+
     </script>
 
 

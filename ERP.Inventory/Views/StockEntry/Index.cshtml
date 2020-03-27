@@ -17,9 +17,8 @@
     </div>
 </div>
 
-<form action="#" method="post" name="StockEntryForm" autocomplete="off" onsubmit="fnSaveStockEntry(event)">
+<form action="#" method="post" name="StockEntryForm" autocomplete="off" onkeypress="return NoEnter()" onsubmit="fnSaveStockEntry(event)">
     <input type="hidden" name="ID" value="" />
-
     <div class="entrycontent">
         <div class="entrycontent__entryheadertitle">
             <div class="entryheadertitle__entrylabel">
@@ -147,15 +146,15 @@
                             <tr class="stock__entry__tr" oncontextmenu="return showContextMenu(event)">
                                 <td class="counter">@i</td>
                                 <td class="" style="position: relative"><input type="text" name="Items"></td>
-                                <td style="position:relative"><input type="text" name="Units"></td>
-                                <td><input type="text" name="Qty" class="quantity" onkeypress="return isNumberKey(event)"></td>
-                                <td><input type="text" name="UnitPrice" class="unitPrice" onkeypress="return isNumberKey(event)"></td>
+                                <td style="position:relative"><input type="text" name="Units" readonly></td>
+                                <td><input type="text" name="Qty" class="quantity compute__price" onkeypress="return isNumberKey(event)"></td>
+                                <td><input type="text" name="UnitPrice" class="unitPrice compute__price" onkeypress="return isNumberKey(event)"></td>
                                 <td class="totalAmount"></td>
                                 <td style="position:relative">
                                     <input type="text" name="ItemCondition">
                                 </td>
                                 <td class="position__relative">
-                                    <input type="button" value="..." class="item__attribute__btn" onclick="fnShowItemAttribute(event)" />
+                                    <input type="button" value="..." class="item__attribute__btn" style="display:none" onclick="fnShowItemAttribute(event)" />
                                     @*<i class="fa fa-remove remove__btn" onclick="fnRemoveItemStockEntry(event)"></i>*@
                                 </td>
                             </tr>
@@ -172,7 +171,6 @@
                             <td colspan="8"><h5> Note: Enter only one (1) document at a time and upload it. Upload attachment is neccessary to complete transaction...</h5></td>
                         </tr>
                     </tfoot>
-
                 </table>
 
                 @*<a href="javascript:void(0)" class="add__new_item__stockEntry" onclick="fnAddStockEntryItem(event)">Add New Item</a>*@
@@ -213,7 +211,7 @@
             <h2>Item Attribute</h2>
         </div>
         <div class="modal__body">
-            <span class="close" id="closeModal" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">&times;</span>
+            <span class="close" id="closeModal" onclick="this.closest('#modal').style.display = 'none'">&times;</span>
             <div class="modal__body__content">
                 <div class="form__content">
                     <label>Item Name:</label>
@@ -228,58 +226,86 @@
     </div>
 </div>
 
-<div class="custom__context__menu" id="customContextMenu">
-    <div class="remove__stock__entry__wrapper">
-        <div class="header">
-            <h2>Remove Item</h2>
-            <i class="fa fa-close" onclick="return this.parentNode.parentNode.parentNode.style='none'"></i>
+@*<div class="custom__context__menu" id="customContextMenu">
+        <div class="remove__stock__entry__wrapper">
+            <div class="header">
+                <h2>Remove Item</h2>
+                <i class="fa fa-close" onclick="return this.closest('#customContextMenu').style='none'"></i>
+            </div>
+            <div class="body">
+                <p>Are you sure you want to remove this item?</p>
+            </div>
+            <div class="footer">
+                <button type="button">Remove</button>
+                <button type="button" onclick="return this.closest('#customContextMenu').style='none'">Cancel</button>
+            </div>
         </div>
-        <div class="body">
-            <p>Are you sure you want to remove this item?</p>
-        </div>
-        <div class="footer">
-            <button type="button">Remove</button>
-            <button type="button" onclick="return this.parentNode.parentNode.parentNode.style='none'">Cancel</button>
-        </div>
-    </div>
+    </div>*@
+
+<div id="customContextMenu">
+    <ul id="items">
+        <li id="deleteRow">Delete(<small>row</small>)</li>
+        <li>Other Opt</li>
+        <li>Other Opt</li>
+    </ul>
 </div>
-
-
-@*<table style="display: none" class="stock__entry__tbody__clone">
-    <tr class="">
-        <td class="counter"></td>
-        <td><input type="text" name="Items"></td>
-        <td><input type="text" name="Units"></td>
-        <td><input type="text" name="Qty"></td>
-        <td><input type="text" name="UnitPrice"></td>
-        <td class="totalAmount"></td>
-        <td class="position__relative">
-            <input type="text" name="ItemCondition">
-        </td>
-    </tr>
-</table>*@
 
 
 @section Scripts{
 
     <script>
+
+        function NoEnter() {
+            return !(window.event && window.event.keyCode == 13);
+
+        }
+
+        window.onclick = hideContextMenu;
+        window.onkeydown = listenKeys;
         var contextMenu = document.getElementById('customContextMenu');
         function showContextMenu(event) {
             contextMenu.style.display = 'block';
+            contextMenu.style.left = event.clientX + 'px';
+            contextMenu.style.top = event.clientY + 'px';
 
-            //event.target.parentNode.parentNode.remove();
+            contextMenu.querySelector("#deleteRow").onclick = function () {
+                event.target.closest("tr").remove();
+
+                var rowCounter = document.querySelectorAll(".stock__entry__tr .counter");
+
+                //console.log(rowCounter);
+
+                rowCounter.forEach((item, index) => {
+                    let count = index + 1;
+
+                    item.textContent = count;
+
+                });
+
+                GetOverallTotalAmount(document.getElementById("overAllTotalAmount"));
+
+            };
 
             return false;
         }
 
+        function hideContextMenu() {
+            contextMenu.style.display = 'none';
+        }
+
+        function listenKeys(event) {
+            var keyCode = event.which || event.keyCode;
+
+            if (keyCode === 27) {
+                hideContextMenu();
+            }
+        }
 
         DeliveryAttrMethod();
-
 
         (function () {
             // your page initialization code here
             // the DOM will be available here
-            //Disable All and Input and Select Field
 
             var delMethodEl = document.getElementsByClassName("delMethodID")[0];
             var event = new Event('change');
@@ -304,13 +330,13 @@
 
                 autocomplete(document.getElementById("projectName"), projects, true, "ID", "ProjectName", (el, data) => { },
                     sel => {
-                    document.getElementsByName("ProjectNumber")[0].value = sel.data.ProjectNumber;
-                });
+                        document.getElementsByName("ProjectNumber")[0].value = sel.data.ProjectNumber;
+                    });
 
                 autocomplete(document.getElementById("projectNumber"), projects, true, "ID", "ProjectNumber", (el, data) => { },
                     sel => {
-                    document.getElementsByName("ProjectName")[0].value = sel.data.ProjectName;
-                });
+                        document.getElementsByName("ProjectName")[0].value = sel.data.ProjectName;
+                    });
             });
             /*END PROJECTS*/
 
@@ -342,13 +368,13 @@
 
                 autocomplete(document.getElementById("suppliers"), suppliers, true, "ID", "Value", (el, data) => { },
                     sel => {
-                    document.getElementsByName("SupplierID")[0].value = sel.data.SeriesNo;
-                });
+                        document.getElementsByName("SupplierID")[0].value = sel.data.SeriesNo;
+                    });
 
                 autocomplete(document.getElementById("supplierID"), suppliers, true, "ID", "SeriesNo", (el, data) => { },
                     sel => {
-                    document.getElementsByName("SupplierName")[0].value = sel.data.Value;
-                });
+                        document.getElementsByName("SupplierName")[0].value = sel.data.Value;
+                    });
 
             })
             /*END SUPPLIER*/
@@ -467,7 +493,8 @@
             JsonRequest('/Data/NewItemHeaderList', 'POST', DocEntry, function (response) {
 
                 if (response.RetVal === 1) {
-                    swal.fire('Success', response.Message, 'success');
+                    //swal.fire('Success', response.Message, 'success');
+                    alert(response.Message);
 
                     //Disable All and Input and Select Field
                     var tableInputs = document.querySelectorAll(".tableitem__table input");
@@ -534,41 +561,54 @@
         /*===========================NEW ENTRY END============================*/
 
 
-        /*COMPUTE TOTAL PRICE*/
-        var totalAmount = document.getElementsByClassName("totalAmount");
-        var overallTotalPrice = document.getElementById("overAllTotalAmount");
+        document.body.addEventListener('click', event => {
 
-        //onchange qty
-        document.querySelectorAll(".quantity").forEach((item, index) => {
-            item.onchange = function () {
-                if (!(isNaN(item.value))) {
+            if (!(event.target.classList.contains('compute__price'))) {
 
-                    var computedPrice = item.value * document.getElementsByClassName("unitPrice")[index].value || 0;
-                    totalAmount[index].innerHTML = computedPrice;
+                return;
+            }
 
-                    GetOverallTotalAmount();
-                }
-            };
+            ComputePricePerRow();
         });
 
+        function ComputePricePerRow() {
+            /*COMPUTE TOTAL PRICE*/
+            var overallTotalPrice = document.getElementById("overAllTotalAmount");
 
-        //onchange unit price
-        document.querySelectorAll(".unitPrice").forEach((item, index) => {
-            item.onchange = function () {
-                if (!(isNaN(item.value))) {
+            //onchange qty
+            document.querySelectorAll(".quantity").forEach((item, index) => {
+                item.onchange = function () {
+                    if (!(isNaN(item.value))) {
 
-                    var computedPrice = item.value * document.getElementsByClassName("quantity")[index].value || 0;
-                    totalAmount[index].innerHTML = computedPrice; //formatMoney(computedPrice);
+                        var computedPrice = item.value * item.closest("tr").querySelector(".unitPrice").value || 0;
 
-                    GetOverallTotalAmount();
+                        item.closest("tr").querySelector(".totalAmount").innerHTML = computedPrice;
 
-                }
-            };
-        });
+                        GetOverallTotalAmount(overallTotalPrice);
+                    }
+                };
+            });
 
+
+            //onchange unit price
+            document.querySelectorAll(".unitPrice").forEach((item, index) => {
+                item.onchange = function () {
+                    if (!(isNaN(item.value))) {
+
+                        var computedPrice = item.value * item.closest("tr").querySelector(".quantity").value || 0;
+
+                        item.closest("tr").querySelector(".totalAmount").innerHTML = computedPrice;
+
+                        GetOverallTotalAmount(overallTotalPrice);
+
+                    }
+                };
+            });
+
+        }
 
         //onchange total amount
-        function GetOverallTotalAmount() {
+        function GetOverallTotalAmount(overallTotalPrice) {
             var amount = 0;
             document.querySelectorAll(".totalAmount").forEach((item, index) => {
 
@@ -582,20 +622,41 @@
 
             });
 
-            overallTotalPrice.innerHTML = formatMoney(amount);
+            if (amount > 0) {
+                overallTotalPrice.innerHTML = formatMoney(amount);
+            }
+            else {
+                overallTotalPrice.innerHTML = '';
+            }
+            
         }
 
 
         /*ITEM ATTRIBUTE*/
         function fnShowItemAttribute(event) {
-            //console.log(event.currentTarget.parentNode.parentNode.querySelector(".counter").textContent);
-
-            var modal = document.getElementsByClassName("item__attribute__modal")[0];
+            let modal = document.getElementsByClassName("item__attribute__modal")[0];
 
             modal.style.display = "block";
 
-            modal.querySelector("input[name='ItemName']").value = event.currentTarget.parentNode.parentNode.querySelector("input[name='Items']").value;
+            let itemID = event.target.closest("tr").querySelector("input[name='Items']").getAttribute("data-id") || 0;
 
+            if (itemID > 0) {
+
+                let itemURL = '/Data/ItemsMasterList/' + itemID;
+
+                JsonRequest(itemURL, 'GET', null, function (data) {
+                    //console.log(data);
+
+                    let attr = data.ItemAttribute;
+
+                    console.log(data);
+
+                });
+
+                modal.querySelector("input[name='ItemName']").value = event.currentTarget.closest("tr").querySelector("input[name='Items']").value;
+
+            }
+         
         }
 
     </script>

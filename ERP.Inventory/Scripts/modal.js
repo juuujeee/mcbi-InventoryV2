@@ -14,7 +14,8 @@
         $modalEl.modal({ show: true});
         //$modalEl.addClass('modal-static');
 })*/
-function setModal() {
+
+function setModal(event) {
 
     // Get the button that opens the moda
     //var btn = document.getElementById(".open-dialog");
@@ -22,35 +23,41 @@ function setModal() {
 
     // When the user clicks the button, open the modal 
     //console.log($('#' + el + ' .open-dialog').html());
-    document.getElementsByClassName('open-dialog')[0].onclick =  function () {
-    window.modal = document.getElementById("myModal");
-        window.modal.style.display = "block";
-        var getID = $(this).parents('.content').find('input[type=radio]').val();
 
-        window.modal.setAttribute('data-id', getID);
+    //document.getElementsByClassName('open-dialog')[0].onclick =  function () {
+    let modal = document.getElementById("myModal"); 
 
-        //console.log(getID);
-        //console.log(window.ControlList);
+   // console.log(modal);
 
-        //return;
-        if (window.ControlList != undefined) {
 
-            for (var i = 0; i < window.ControlList.length; i++) {
-                if (window.ControlList[i].ID == getID) {
+    //return;
+    modal.style.display = "block";
+    var getID = event.target.closest('.content').querySelector('input').value;
 
-                    //console.log(window.ControlList[i]);
-                    $(window.modal).find('h2').html(window.ControlList[i].controlName);
-                    $(window.modal).find('.control-modal-display-title').val(window.ControlList[i].title);
-                    $(window.modal).find('.control-modal-display-description').val(window.ControlList[i].description);
+    //console.log(getID);
 
-                }
+    modal.setAttribute('data-id', getID);
+
+    //console.log(getID);
+    //console.log(window.ControlList);
+
+    //return;
+    if (window.ControlList != undefined) {
+
+        for (var i = 0; i < window.ControlList.length; i++) {
+            if (window.ControlList[i].ID == getID) {
+
+                //console.log(window.ControlList[i]);
+                modal.querySelector('h2').innerHTML = window.ControlList[i].controlName;
+                modal.querySelector('.control-modal-display-title').value = window.ControlList[i].title;
+                modal.querySelector('.control-modal-display-description').value = window.ControlList[i].description;
+
             }
-
         }
 
+    }
 
-
-    };
+    //};
 
     // When the user clicks on <span> (x), close the modal
 
@@ -59,17 +66,25 @@ function setModal() {
 
     for (var i = 0; i < span.length; i++) {
         span[i].onclick = function () {
-            window.modal.style.display = "none";
+            modal.style.display = "none";
             //console.log('hide1');
         }
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == window.modal) {
-            window.modal.style.display = "none";
-        }
-    }
+   // window.onclick = function (event) {
+
+       // console.log(event);
+
+       // if (event.target == window.modal) {
+            //window.modal.style.display = "none";
+       // }
+
+
+       // if (event.target.classList.contains('open-dialog')) {
+        //    this.setModal();
+        //}
+   // }
 }
 
 
@@ -84,63 +99,60 @@ function actionModal() {
     
     // When the user clicks the button, open the modal 
 
-    document.getElementsByClassName('open-dialog1')[0].onclick = function () {
-    window.modal = document.getElementById("myModalactions");
-        window.modal.style.display = "block";
+    //document.getElementsByClassName('open-dialog1')[0].onclick = function () {
+    //let modal = document.getElementById("myModalactions")[0];
+       //modal.style.display = "block";
 
-        var getID = $(this).parents('.content').find('input[type=checkbox]').val();
-        window.modal.setAttribute('data_id_actions', getID);
+        //var getID = this.parents('.content').querySelector('input[type=checkbox]').value;
+        //modal.setAttribute('data_id_actions', getID);
 
-        var v = window.ActionList;
-        var b = window.ControlAccess;
-        var c = window.ControlDataInput;
-        window.modal.setAttribute('ControlID', c);
+        //var v = window.ActionList;
+        //var b = window.ControlAccess;
+        //var c = window.ControlDataInput;
+       // window.modal.setAttribute('ControlID', c);
 
-
-        console.log(c);
 
         //return;
-        if (window.ActionList != undefined) {
+        //if (window.ActionList != undefined) {
 
-            for (var i = 0; i < window.ActionList.length; i++) {
-                for (var m = 0; m < window.ControlAccess.length; m++) {
-                    if (window.ActionList[i].ID == getID || window.ControlAccess[m].ID == getID) {
-                        if (c == window.ControlAccess[m].controlID) {
+            //for (var i = 0; i < window.ActionList.length; i++) {
+               // for (var m = 0; m < window.ControlAccess.length; m++) {
+                  //  if (window.ActionList[i].ID == getID || window.ControlAccess[m].ID == getID) {
+                    //    if (c == window.ControlAccess[m].controlID) {
 
                             //console.log(window.ControlAccess[m].controlID);
 
-                            $(modal).find('h2').html(window.ControlAccess[m].Action2);
-                            $(modal).find('.Action_Action').val(window.ControlAccess[m].Action);
-                            $(modal).find('.Action_Tittle').val(window.ControlAccess[m].controlAccessDisplayTitle);
-                            $(modal).find('.Action_Des').val(window.ControlAccess[m].controlAccessDescription);
-                            $(modal).find('.Action_CustomEl').val(window.ControlAccess[m].customElement);
-                            $(modal).find('.CheckDisable').val(window.ControlAccess[m].isHideifDisabled);
+                            //modal.querySelector('h2').innerHTML = window.ControlAccess[m].Action2;
+                            //modal.querySelector('.Action_Action').value = window.ControlAccess[m].Action;
+                            //modal.querySelector('.Action_Tittle').value = window.ControlAccess[m].controlAccessDisplayTitle;
+                           // modal.querySelector('.Action_Des').value = window.ControlAccess[m].controlAccessDescription;
+                           // modal.querySelector('.Action_CustomEl').value = window.ControlAccess[m].customElement;
+                          //  modal.querySelector('.CheckDisable').value = window.ControlAccess[m].isHideifDisabled;
                             /*$(modal).find('.control-modal-display-description').val(window.ActionList[i].description);*/
-                        }
-                    }
-                }
-            }
-        }
+                       // }
+                   //}
+               // }
+           // }
+       // }
 
 
-
-    };
 
     // When the user clicks on <span> (x), close the modal
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close");
+    //var span = document.getElementsByClassName("close")[0];
 
-    for (var i = 0; i < span.length; i++) {
-        span[i].onclick = function () {
-            window.modal.style.display = "none";
-        }
-    }
+    //for (var i = 0; i < span.length; i++) {
+       // span[i].onclick = function () {
+          //  window.modal.style.display = "none";
+        //}
+    //}
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == window.modal) {
-            window.modal.style.display = "none";
-        }
-    }
+    //window.onclick = function (event) {
+      //  if (event.target == window.modal) {
+      //      window.modal.style.display = "none";
+       // }
+
+   // }
 
 }
 function modalClose() {
