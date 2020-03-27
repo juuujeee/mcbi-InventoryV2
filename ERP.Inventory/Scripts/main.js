@@ -85,7 +85,7 @@ function JsonRequest(url, method, data, fn, isJson = true, isExternal = false) {
     
 
 
-    xmlh.open(method, url);
+    xmlh.open(method, url, false);
     if (isJson)
         xmlh.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
 
