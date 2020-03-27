@@ -35,27 +35,27 @@
                     <td></td>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="userlistclone">
-                    <td>1</td>
-                    <td>admin</td>
-                    <td>Jose de Eagle</td>
-                    <td>Admin</td>
-                    <td>Default Level (Level 0)</td>
+            <tbody class="usertablebody">
+                <tr class="userlistclone" style="display:none;">
+                    <td class="row_no">1</td>
+                    <td class="row_username">admin</td>
+                    <td class="row_fullname">Jose de Eagle</td>
+                    <td class="row_rolename">Admin</td>
+                    <td class="row_level">Default Level (Level 0)</td>
                     <td>
-                        <select>
+                        <select class="row_isActive">
                             <option>YES</option>
                             <option>NO</option>
                         </select>
                     </td>
-                    <td><button onclick="ViewEditUser()">/...</button></td>
+                    <td><button onclick="ViewEditUser(event)" class="row_UserID">/...</button></td>
                 </tr>
 
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="7">
-                        <button>SAVE (ACTIVES ONLY)</button>
+                        <button onclick="SaveUserToggleActives()">SAVE (ACTIVES ONLY)</button>
                     </td>
                 </tr>
             </tfoot>
@@ -81,7 +81,7 @@
                         <thead>
                             <tr>
                                 <th colspan="2">
-                                    <h1>CREATE OR UPDATE USER</h1>
+                                    <h1 class="modal_title">CREATE OR UPDATE USER</h1>
                                 </th>
                             </tr>
                         </thead>
@@ -114,7 +114,7 @@
                                 </td>
                                 <td>
                                     <div class="autocomplete">
-                                        <input class="user_info" />
+                                        <input class="user_info" data-id="0" />
                                     </div>
                                 </td>
                             </tr>
@@ -124,7 +124,7 @@
                                 </td>
                                 <td>
                                     <div class="autocomplete">
-                                        <input class="user_role" />
+                                        <input class="user_role" data-id="0" />
                                     </div>
                                 </td>
                             </tr>
@@ -134,7 +134,7 @@
                                 </td>
                                 <td>
                                     <div class="autocomplete">
-                                        <input class="user_level" />
+                                        <input class="user_level" data-id="0" />
                                     </div>
                                 </td>
                             </tr>
@@ -154,7 +154,7 @@
                                     <label>isCustom : </label>
                                 </td>
                                 <td>
-                                    <select class="user_active" onchange="Toggle(event)" onclick="event.stopPropagation();">
+                                    <select class="user_custom" onchange="ToggleActive(event)" onclick="event.stopPropagation();">
                                         <option value="YES" > YES </option>
                                         <option value="NO" selected>NO</option>
                                     </select>
@@ -185,11 +185,6 @@
                         </tbody>
                     </table>
                     <button onclick="SavingUser()">SAVE</button>
-                    <script>
-                        
-
-
-                    </script>
                 </div>
             </div>
         </div>
@@ -201,14 +196,56 @@
 
 <script>
 
+    function SaveUserToggleActives() {
+
+        let sat = '';
+        var row_isActive = document.getElementsByClassName('row_isActive');
+        for (var i = 0; i < row_isActive.length; i++) {
+            if (row_isActive[i].value == 'YES') {
+                if (row_isActive[i].getAttribute('data-id') != null) {
+                    if (sat != '')
+                        sat += ',';
+                    sat += row_isActive[i].getAttribute('data-id');
+                }
+            }
+        }
+
+        JsonRequest('http://192.168.1.100:98/api/User/ToggleActives', 'POST', sat, data => {
+
+
+            console.log(data);
+            alert(data.Message);
+        }, true, true);
+    }
+
+    /*USER LEVEL*/
+    JsonRequest('http://192.168.1.100:98/api/RefLevel', 'GET', null, data => {
+        autocomplete(document.getElementsByClassName('user_level')[0], data, true, 'ID', 'Level');
+    }, true, true);
+
+    /*USER ROLE */
+    JsonRequest('http://192.168.1.100:98/api/RefRolesList', 'GET', null, data => {
+        console.log(data);
+        autocomplete(document.getElementsByClassName('user_role')[0], data, true, 'ID', 'RoleName');
+    }, true, true);
+    /*Employee Info */
+    JsonRequest('http://192.168.1.100:92/api/PersonInformation', 'GET', null, data => {
+        for (var i = 0; i < data.length; i++) {
+
+            data[i].FullName = data[i].FirstName + ' ' + data[i].MiddleName + ' ' + data[i].LastName;
+
+        }
+        autocomplete(document.getElementsByClassName('user_info')[0], data, true, 'ID', 'FullName');
+    }, true, true);
+
+
+
     var userModal = document.getElementById('userModal');
-
     var addBtn = document.getElementsByClassName('open__modal')[0];
-
     addBtn.onclick = function () {
+        userModal.querySelector('.modal_title').innerHTML = "Add User";
         userModal.style.display = "block";
         document.getElementsByClassName('user_table')[0].setAttribute('data-id', 0);
-
     }
 
     document.getElementById('closeModal').onclick = function () {
@@ -220,9 +257,32 @@
     }
 
 
-    function ViewEditUser() {
+    function ViewEditUser(event) {
+
+        userModal.querySelector('.modal_title').innerHTML = "Edit User";
+        var data = event.target.data;
+
         userModal.style.display = "block";
-        document.getElementsByClassName('user_table')[0].setAttribute('data-id', 1);
+        document.getElementsByClassName('user_table')[0].setAttribute('data-id', data.ID);
+
+        console.log(JSON.stringify(data));
+        //FILL DATA
+        userModal.querySelector('.user_username').value = data.Username;
+        userModal.querySelector('.user_password').value = "";
+        userModal.querySelector('.user_mobileno').value = data.mobileNo;
+
+        userModal.querySelector('.user_info').value = data.TokenInfo.FullName;
+        userModal.querySelector('.user_info').setAttribute('data-id', data.TokenInfo.EmpID);
+
+        userModal.querySelector('.user_role').value = data.TokenInfo.RoleInfo;
+        userModal.querySelector('.user_role').setAttribute('data-id', data.TokenInfo.RoleID);
+
+        userModal.querySelector('.user_level').value = data.TokenInfo.LevelInfo;
+        userModal.querySelector('.user_level').setAttribute('data-id', data.TokenInfo.LevelID);
+
+        userModal.querySelector('.user_active').value = data.TokenInfo.isActive ? "YES" : "NO";
+        
+        userModal.querySelector('.user_custom').value = data.TokenInfo.isCustom ? "YES" : "NO";
     }
 
 
@@ -236,13 +296,41 @@
         var userinfo = document.getElementsByClassName('user_info')[0].getAttribute('data-id');
         var userrole = document.getElementsByClassName('user_role')[0].getAttribute('data-id');
         var userlevel = document.getElementsByClassName('user_level')[0].getAttribute('data-id');
-        var useractive = document.getElementsByClassName('user_active').value;
+        var useractive = document.getElementsByClassName('user_active')[0].value == 'YES' ? true : false;
+        var iscustom = document.getElementsByClassName('user_custom')[0].value == 'YES' ? true : false;
 
-        
+        var jsonData = {
+            ID: getID,
+            Username: username,
+            Password: userpass,
+            MobileNo: mobileno,
+            TokenInfo: {
+                EmpID: userinfo,
+                RoleID: userrole,
+                LevelID: userlevel,
+                isActive: useractive,
+                isCustom: iscustom,
+                Customized: ""
+            }
+        };
 
+        console.log(JSON.stringify(jsonData));
+
+
+        var method = (getID == 0 ? 'POST' : 'PUT');
+
+        var url = 'http://192.168.1.100:98/api/user';
+        if (method == 'PUT') {
+            url += ('/' + getID);
+        }
+        /*REQUESTING HERE*/
+        JsonRequest(url, method, jsonData, res => {
+            console.log(res);
+            alert(res.Message);
+        }, true, true);
     }
 
-    function Toggle(event) {
+    function ToggleActive(event) {
 
         var b = event.target.value;
         //if (b == 'YES') {}
@@ -252,6 +340,31 @@
         //user_roleaccess.style.display = (b == 'YES' ? '' : 'none');
     }
 
+    //*Making a userlist*/
+    JsonRequest('http://124.105.198.3:98/api/user', 'GET', null, data => {
+        //console.log(data);
+        var userlistclone = document.getElementsByClassName('userlistclone')[0];
+        for (var i = 0; i < data.length; i++) {
+
+            var el = document.createElement('TR');
+            el.className = "userlist_row";
+            el.innerHTML = userlistclone.innerHTML;
+            el.querySelector('.row_username').innerHTML = data[i].Username;
+            el.querySelector('.row_isActive').value = data[i].TokenInfo.isActive ? 'YES' : 'NO';
+            el.querySelector('.row_no').innerHTML = (i + 1);
+            el.querySelector('.row_UserID').setAttribute('data-id', data[i].ID);
+            el.querySelector('.row_UserID').data = data[i];
+            el.querySelector('.row_isActive').setAttribute('data-id', data[i].ID);
+            el.querySelector('.row_fullname').innerHTML = data[i].TokenInfo.FullName;
+            el.querySelector('.row_rolename').innerHTML = data[i].TokenInfo.RoleInfo;
+
+            //row_level
+            el.querySelector('.row_level').innerHTML = data[i].TokenInfo.LevelInfo;
+            document.getElementsByClassName('usertablebody')[0].append(el);
+        }
+
+
+    }, true, true);
 
 </script>    
     
